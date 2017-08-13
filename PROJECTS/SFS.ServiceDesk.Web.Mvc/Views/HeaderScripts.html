@@ -1,0 +1,364 @@
+﻿<style>
+   
+    .start .wrapper-content{
+        background-image: url('{APP_PATH}SFSServiceDesk/Content/img/u1.jpg');
+        background-size:     cover;                      /* <------ */
+    background-repeat:   no-repeat;
+    background-position: center center;              /* optional, center the image */
+
+    }
+    .start .wrapper-content .nav-tabs-custom{
+        background-color:none;
+        background:none;
+    }
+
+    .box{
+        border:none;
+    }
+    .cme .main-header .logo {
+        width:400px;
+        background-color:#fa7100;
+    }
+    .cme .main-header .navbar{
+        background-color:white;
+        color:#797979;
+    }
+
+
+.cme .main-header .navbar .nav > li > a:hover, .skin-blue .main-header .navbar .nav > li > a:active, .skin-blue .main-header .navbar .nav > li > a:focus, .skin-blue .main-header .navbar .nav .open > a, .skin-blue .main-header .navbar .nav .open > a:hover, .skin-blue .main-header .navbar .nav .open > a:focus, .skin-blue .main-header .navbar .nav > .active > a {
+	background: rgba(0,0,0,0.1);
+	color: #797979;
+}
+.cme .main-header .navbar .nav > li > a{
+    color: #797979;
+}
+.cme .main-header .navbar .sidebar-toggle{
+    color:#fa7100;
+}
+.cme .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side{
+    background-color:white;
+}
+.main-sidebar, .left-side{
+     width:400px;
+}
+.main-header > .navbar{
+    margin-left: 400px;
+}
+.cme .main-header .navbar .sidebar-toggle:hover{
+    background-color:#fa7100;
+}
+.cme .main-header .logo:hover{
+     background-color:#fa7100;
+}
+.cme .content-wrapper, .right-side, .main-footer{
+   
+}
+.cme .start-box{
+    background-color:white;
+    min-height:100px;
+}
+.cme .time-now{
+    font-size:60px;
+    color:#CCCCCC;
+    font-weight:700;
+}
+.cme .welcome{
+    color:#FCB503;
+    font-size:28px;
+    font-weight:700;
+
+}
+.cme.start .btn-primary.create-meeting {
+    font-size:16px;
+    font-weight:700;
+}
+.cme .logo-h .navbar-nav > li > a{
+    padding:8px;
+}
+.cme .main-header .logo-h{
+    background-color:white;
+}
+.skin-custom .wrapper, .skin-custom .main-sidebar, .skin-custom .left-side{
+    background-color:white;
+}
+.cme .meeting-preview .title h4
+{
+    font-size:14px;
+    font-weight:700;
+
+}
+.cme .meeting-preview .title .subtitle
+{
+
+}
+
+ .control-sidebar-bg,
+.control-sidebar{
+    right: -400px;
+    width: 400px;
+}
+/*#new-meeting{
+    top:10px;
+    left:10px;
+}*/
+@media (max-width: 767px) {
+  .main-sidebar,
+  .left-side {
+    -webkit-transform: translate(-400px, 0);
+    -ms-transform: translate(-400px, 0);
+    -o-transform: translate(-400px, 0);
+    transform: translate(-400px, 0);
+  }
+}
+@media (min-width: 768px) {
+  .sidebar-collapse .main-sidebar,
+  .sidebar-collapse .left-side {
+    -webkit-transform: translate(-400px, 0);
+    -ms-transform: translate(-400px, 0);
+    -o-transform: translate(-400px, 0);
+    transform: translate(-400px, 0);
+  }
+}
+
+@media (min-width: 768px) {
+  .control-sidebar-open .content-wrapper,
+  .control-sidebar-open .right-side,
+  .control-sidebar-open .main-footer {
+    margin-right: 400px;
+  }
+}
+.content-wrapper,
+.right-side,
+.main-footer {
+  /*-webkit-transition: -webkit-transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+  -moz-transition: -moz-transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+  -o-transition: -o-transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, margin 0.3s ease-in-out;*/
+  margin-left: 400px;
+  z-index: 820;
+}
+@media (max-width: 767px) {
+  .sidebar-open .content-wrapper,
+  .sidebar-open .right-side,
+  .sidebar-open .main-footer {
+    -webkit-transform: translate(400px, 0);
+    -ms-transform: translate(400px, 0);
+    -o-transform: translate(400px, 0);
+    transform: translate(400px, 0);
+  }
+}
+.modal {
+    border-radius:0px 0px 0px 0px;
+}
+.sidebar .timeline-item table.meeting-preview{
+    width:360px;
+}
+.sidebar .timeline-item table.meeting-preview td.td-row-table{
+    width:360px;
+}
+.sidebar .timeline-item table.meeting-preview td.td-row-table{
+    width:360px;
+}
+.sidebar .timeline-item table.meeting-preview td.icon 
+{
+    width:20px;
+}
+.nav-tabs > li > a{
+    color:#666666;
+      font-size:14px;
+      background-color:#f4f4f4;
+    font-weight:400;
+}
+
+.modal-header .nav-tabs > li.active > a, .modal-header  .nav-tabs > li.active > a:focus, .modal-header  .nav-tabs > li.active > a:hover {
+    color: white;
+    cursor: default;
+    background-color: #fa7100;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+    /*font-size:14px;
+    font-weight:400;*/
+
+}
+.select2-choice{
+    min-height:34px;
+}
+a.primary-btn-icon i{
+    color:#fa7100;
+    font-size:40px;
+    margin-top:-10px;
+}
+.select2-container .select2-choice{
+    border-radius:0px;
+    border-color:#ccc;
+}
+.sidebar-mini.sidebar-collapse .content-wrapper, .sidebar-mini.sidebar-collapse .right-side, .sidebar-mini.sidebar-collapse .main-footer{
+    margin-left:0px!important;
+}
+.sidebar-mini.sidebar-collapse .main-sidebar{
+width:0px!important;
+}
+
+.timeline > li > .time-line-ball {
+    width: 45px;
+    height: 45px;
+    font-size: 14px;
+    line-height: 36px;
+    position: absolute;
+    color: white;
+    background: #797979;
+    border-radius: 50%;
+    text-align: center;
+    left: 10px;
+    top: 0px;
+}
+.sidebar .nav-tabs li a {
+    background-color: transparent;
+}
+
+.sidebar .tab-content, .sidebar .nav-tabs li.active a {
+    background-color: #e4e4e4;
+}
+.timeline > .time-label > span{
+    padding-left:65px;
+    background-color:transparent;
+}
+.divTableRow{
+    display:table-row;
+
+}
+.divTableCell {
+    display:table-cell;
+}
+.divTable{
+    display:table;
+}
+.sidebar .tab-content .timeline-item .header{
+    font-size:16px;
+}
+.sidebar .tab-content .timeline-item .header .divTable {
+    width:360px;
+}
+.sidebar .tab-content .timeline-item .header .iconcor {
+    width:25px;
+}
+.sidebar .tab-content .timeline-item .header .title {
+    width:245px;
+    font-weight:bold;
+}
+.badge.total-time{
+    background-color:#ccc;
+}
+.elastislide-wrapper {
+    box-shadow:none;
+}
+#full-div{
+    bottom: 0px;
+    width: 100%;
+    background-color: white;
+    left: 400px;
+    top: 50px;
+    position: absolute;
+}
+.timeline > li > .timeline-item.unselected, .timeline > li > .timeline-item.unselected .elastislide-wrapper{
+    background-color:#f1f1f1;
+}
+.timeline > li > .timeline-item.selected,.timeline > li > .timeline-item.selected .elastislide-wrapper{
+    background-color:white;
+}
+.meeting-preview .cme-header{
+    padding:30px;
+    font-size:30px;
+        border-width: 1px;
+    border-style: solid;
+    border-color: #e4e4e4;
+
+   
+}
+.meeting-preview .cme-agenda{
+    padding:30px;
+}
+.cme .input-group-addon{
+    color:#fa7100;
+}
+.cme .datepicker .activeClass {
+    background-color: #fa7100;
+    color:white;
+}
+.datepicker.dropdown-menu{
+    box-shadow:0px 6px 12px rgba(0,0,0,0.175);
+    padding-left:5px;
+    padding-right:5px;
+    min-width:200px;
+    margin-left:2px;
+    margin-left:2px;
+}
+.sidebar .elastislide-horizontal{
+    padding-left:10px;
+
+    padding-right:10px;
+}
+.sidebar .elastislide-carousel ul li{
+    margin-right:12px;
+}
+.row-meeting-preview.header a{
+    color:#333333;
+}
+.row-meeting-preview.header a i{
+    color:#797979;
+}
+.meeting-preview-time{
+    padding-top:15px;
+}
+.meeting-preview-location{
+    padding-bottom:15px;
+}
+
+ .table-status thead tr.headers {
+        font-size: 13px;
+        min-height: 40px;
+    font-weight:normal;
+    background-color:#e4e4e4;
+}
+ .table-status thead tr.headers th span {
+        font-size: 13px;
+       
+    font-weight:normal;
+}
+.table-status thead tr.headers th{
+    vertical-align:middle;
+}
+.table-status .tags-buttons .tags{
+    float:left;
+}
+.table-status .tags-buttons .buttons{
+    float:right;
+}
+a.icon-touch{
+    font-size:30px;
+    padding:0px;
+    border:none;
+    background-color:transparent;
+}
+.elastislide-wrapper{
+    background-color:transparent;
+}
+.h1, h1{
+    font-size:28px;
+}
+.row-meeting-preview{
+    font-size:12px;
+}
+.row-meeting-preview .title{
+    font-weight:bold;
+      font-size:14px;
+}
+#users-attendantsOpenedMeeting{
+    margin-top:10px;
+}
+.user-name-cropped { overflow:hidden; white-space:nowrap; text-overflow:ellipsis; width:70px;  }
+#users-attendantsOpenedMeeting ul.thumbs li{
+    margin-left:20px;
+    margin-right:20px;
+}
+</style>

@@ -1,0 +1,903 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SFSServiceDeskModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="SDArea">
+          <Key>
+            <PropertyRef Name="GuidArea" />
+          </Key>
+          <Property Name="GuidArea" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="255" />
+          <Property Name="GuidAreaParent" Type="uniqueidentifier" />
+          <Property Name="GuidOrganization" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="SDAreaPerson">
+          <Key>
+            <PropertyRef Name="GuidAreaPerson" />
+          </Key>
+          <Property Name="GuidAreaPerson" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="GuidArea" Type="uniqueidentifier" />
+          <Property Name="GuidPerson" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="SDCase">
+          <Key>
+            <PropertyRef Name="GuidCase" />
+          </Key>
+          <Property Name="GuidCase" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="GuidCaseStatus" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="GuidPersonClient" Type="uniqueidentifier" />
+          <Property Name="ClosedDateTime" Type="datetime" />
+          <Property Name="BodyContent" Type="varchar(max)" />
+          <Property Name="PreviewContent" Type="varchar" MaxLength="3000" />
+          <Property Name="GuidCasePriority" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SDCaseFile">
+          <Key>
+            <PropertyRef Name="GuidCasefile" />
+          </Key>
+          <Property Name="GuidCasefile" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="GuidCase" Type="uniqueidentifier" />
+          <Property Name="GuidFile" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="SDCaseHistory">
+          <Key>
+            <PropertyRef Name="GuidCaseHistory" />
+          </Key>
+          <Property Name="GuidCaseHistory" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="GuidCase" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="GuidCaseStatus" Type="uniqueidentifier" />
+          <Property Name="BodyContent" Type="varchar" MaxLength="255" />
+          <Property Name="PreviewContent" Type="varchar" MaxLength="3000" />
+        </EntityType>
+        <EntityType Name="SDCaseHistoryFile">
+          <Key>
+            <PropertyRef Name="GuidCasehistoryFile" />
+          </Key>
+          <Property Name="GuidCasehistoryFile" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="GuidFile" Type="uniqueidentifier" />
+          <Property Name="GuidCaseHistory" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="SDCasePriority">
+          <Key>
+            <PropertyRef Name="GuidCasePriority" />
+          </Key>
+          <Property Name="GuidCasePriority" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SDCaseStatus">
+          <Key>
+            <PropertyRef Name="GuidCaseStatus" />
+          </Key>
+          <Property Name="GuidCaseStatus" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SDFile">
+          <Key>
+            <PropertyRef Name="GuidFile" />
+          </Key>
+          <Property Name="GuidFile" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FileName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="FileType" Type="varchar" MaxLength="255" />
+          <Property Name="FileSize" Type="bigint" />
+          <Property Name="FileData" Type="varbinary(max)" />
+          <Property Name="StorageLocation" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="SDOrganization">
+          <Key>
+            <PropertyRef Name="GuidOrganization" />
+          </Key>
+          <Property Name="GuidOrganization" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SDPerson">
+          <Key>
+            <PropertyRef Name="GuidPerson" />
+          </Key>
+          <Property Name="GuidPerson" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DisplayName" Type="varchar" MaxLength="255" />
+          <Property Name="GuidUser" Type="uniqueidentifier" />
+          <Property Name="GuidOrganization" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="SDProxyUser">
+          <Key>
+            <PropertyRef Name="GuidUser" />
+          </Key>
+          <Property Name="GuidUser" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="255" />
+          <Property Name="DisplayName" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="fk_Area_Parent">
+          <End Role="SDArea" Type="Self.SDArea" Multiplicity="0..1" />
+          <End Role="SDArea1" Type="Self.SDArea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDArea">
+              <PropertyRef Name="GuidArea" />
+            </Principal>
+            <Dependent Role="SDArea1">
+              <PropertyRef Name="GuidAreaParent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Case_Person_Client">
+          <End Role="SDPerson" Type="Self.SDPerson" Multiplicity="0..1" />
+          <End Role="SDCase" Type="Self.SDCase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDPerson">
+              <PropertyRef Name="GuidPerson" />
+            </Principal>
+            <Dependent Role="SDCase">
+              <PropertyRef Name="GuidPersonClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SdArea_SdOrganization">
+          <End Role="SDOrganization" Type="Self.SDOrganization" Multiplicity="0..1" />
+          <End Role="SDArea" Type="Self.SDArea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDOrganization">
+              <PropertyRef Name="GuidOrganization" />
+            </Principal>
+            <Dependent Role="SDArea">
+              <PropertyRef Name="GuidOrganization" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SdAreaPerson_SdArea">
+          <End Role="SDArea" Type="Self.SDArea" Multiplicity="0..1" />
+          <End Role="SDAreaPerson" Type="Self.SDAreaPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDArea">
+              <PropertyRef Name="GuidArea" />
+            </Principal>
+            <Dependent Role="SDAreaPerson">
+              <PropertyRef Name="GuidArea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SdAreaPerson_SdPerson">
+          <End Role="SDPerson" Type="Self.SDPerson" Multiplicity="0..1" />
+          <End Role="SDAreaPerson" Type="Self.SDAreaPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDPerson">
+              <PropertyRef Name="GuidPerson" />
+            </Principal>
+            <Dependent Role="SDAreaPerson">
+              <PropertyRef Name="GuidPerson" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SdCase_SdCasePriority">
+          <End Role="SDCasePriority" Type="Self.SDCasePriority" Multiplicity="1" />
+          <End Role="SDCase" Type="Self.SDCase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDCasePriority">
+              <PropertyRef Name="GuidCasePriority" />
+            </Principal>
+            <Dependent Role="SDCase">
+              <PropertyRef Name="GuidCasePriority" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SdCase_SdCaseStatus">
+          <End Role="SDCaseStatus" Type="Self.SDCaseStatus" Multiplicity="1" />
+          <End Role="SDCase" Type="Self.SDCase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDCaseStatus">
+              <PropertyRef Name="GuidCaseStatus" />
+            </Principal>
+            <Dependent Role="SDCase">
+              <PropertyRef Name="GuidCaseStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SdCaseFile_SdCase">
+          <End Role="SDCase" Type="Self.SDCase" Multiplicity="0..1" />
+          <End Role="SDCaseFile" Type="Self.SDCaseFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDCase">
+              <PropertyRef Name="GuidCase" />
+            </Principal>
+            <Dependent Role="SDCaseFile">
+              <PropertyRef Name="GuidCase" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SdCaseFile_SdFile">
+          <End Role="SDFile" Type="Self.SDFile" Multiplicity="0..1" />
+          <End Role="SDCaseFile" Type="Self.SDCaseFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDFile">
+              <PropertyRef Name="GuidFile" />
+            </Principal>
+            <Dependent Role="SDCaseFile">
+              <PropertyRef Name="GuidFile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SdCaseHistory_SdCase">
+          <End Role="SDCase" Type="Self.SDCase" Multiplicity="1" />
+          <End Role="SDCaseHistory" Type="Self.SDCaseHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDCase">
+              <PropertyRef Name="GuidCase" />
+            </Principal>
+            <Dependent Role="SDCaseHistory">
+              <PropertyRef Name="GuidCase" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SdCaseHistory_SdCaseStatus">
+          <End Role="SDCaseStatus" Type="Self.SDCaseStatus" Multiplicity="0..1" />
+          <End Role="SDCaseHistory" Type="Self.SDCaseHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDCaseStatus">
+              <PropertyRef Name="GuidCaseStatus" />
+            </Principal>
+            <Dependent Role="SDCaseHistory">
+              <PropertyRef Name="GuidCaseStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SdCaseHistoryFile_SdCaseHistory">
+          <End Role="SDCaseHistory" Type="Self.SDCaseHistory" Multiplicity="0..1" />
+          <End Role="SDCaseHistoryFile" Type="Self.SDCaseHistoryFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDCaseHistory">
+              <PropertyRef Name="GuidCaseHistory" />
+            </Principal>
+            <Dependent Role="SDCaseHistoryFile">
+              <PropertyRef Name="GuidCaseHistory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SdCaseHistoryFile_SdFile">
+          <End Role="SDFile" Type="Self.SDFile" Multiplicity="0..1" />
+          <End Role="SDCaseHistoryFile" Type="Self.SDCaseHistoryFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDFile">
+              <PropertyRef Name="GuidFile" />
+            </Principal>
+            <Dependent Role="SDCaseHistoryFile">
+              <PropertyRef Name="GuidFile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SdPerson_SdOrganization">
+          <End Role="SDOrganization" Type="Self.SDOrganization" Multiplicity="0..1" />
+          <End Role="SDPerson" Type="Self.SDPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDOrganization">
+              <PropertyRef Name="GuidOrganization" />
+            </Principal>
+            <Dependent Role="SDPerson">
+              <PropertyRef Name="GuidOrganization" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SdPerson_SdProxyUser">
+          <End Role="SDProxyUser" Type="Self.SDProxyUser" Multiplicity="0..1" />
+          <End Role="SDPerson" Type="Self.SDPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDProxyUser">
+              <PropertyRef Name="GuidUser" />
+            </Principal>
+            <Dependent Role="SDPerson">
+              <PropertyRef Name="GuidUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SFSServiceDeskModelStoreContainer">
+          <EntitySet Name="SDArea" EntityType="Self.SDArea" Schema="SD" store:Type="Tables" />
+          <EntitySet Name="SDAreaPerson" EntityType="Self.SDAreaPerson" Schema="SD" store:Type="Tables" />
+          <EntitySet Name="SDCase" EntityType="Self.SDCase" Schema="SD" store:Type="Tables" />
+          <EntitySet Name="SDCaseFile" EntityType="Self.SDCaseFile" Schema="SD" store:Type="Tables" />
+          <EntitySet Name="SDCaseHistory" EntityType="Self.SDCaseHistory" Schema="SD" store:Type="Tables" />
+          <EntitySet Name="SDCaseHistoryFile" EntityType="Self.SDCaseHistoryFile" Schema="SD" store:Type="Tables" />
+          <EntitySet Name="SDCasePriority" EntityType="Self.SDCasePriority" Schema="SD" store:Type="Tables" />
+          <EntitySet Name="SDCaseStatus" EntityType="Self.SDCaseStatus" Schema="SD" store:Type="Tables" />
+          <EntitySet Name="SDFile" EntityType="Self.SDFile" Schema="SD" store:Type="Tables" />
+          <EntitySet Name="SDOrganization" EntityType="Self.SDOrganization" Schema="SD" store:Type="Tables" />
+          <EntitySet Name="SDPerson" EntityType="Self.SDPerson" Schema="SD" store:Type="Tables" />
+          <EntitySet Name="SDProxyUser" EntityType="Self.SDProxyUser" Schema="SD" store:Type="Tables" />
+          <AssociationSet Name="fk_Area_Parent" Association="Self.fk_Area_Parent">
+            <End Role="SDArea" EntitySet="SDArea" />
+            <End Role="SDArea1" EntitySet="SDArea" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Case_Person_Client" Association="Self.fk_Case_Person_Client">
+            <End Role="SDPerson" EntitySet="SDPerson" />
+            <End Role="SDCase" EntitySet="SDCase" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SdArea_SdOrganization" Association="Self.fk_SdArea_SdOrganization">
+            <End Role="SDOrganization" EntitySet="SDOrganization" />
+            <End Role="SDArea" EntitySet="SDArea" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SdAreaPerson_SdArea" Association="Self.fk_SdAreaPerson_SdArea">
+            <End Role="SDArea" EntitySet="SDArea" />
+            <End Role="SDAreaPerson" EntitySet="SDAreaPerson" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SdAreaPerson_SdPerson" Association="Self.fk_SdAreaPerson_SdPerson">
+            <End Role="SDPerson" EntitySet="SDPerson" />
+            <End Role="SDAreaPerson" EntitySet="SDAreaPerson" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SdCase_SdCasePriority" Association="Self.fk_SdCase_SdCasePriority">
+            <End Role="SDCasePriority" EntitySet="SDCasePriority" />
+            <End Role="SDCase" EntitySet="SDCase" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SdCase_SdCaseStatus" Association="Self.fk_SdCase_SdCaseStatus">
+            <End Role="SDCaseStatus" EntitySet="SDCaseStatus" />
+            <End Role="SDCase" EntitySet="SDCase" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SdCaseFile_SdCase" Association="Self.fk_SdCaseFile_SdCase">
+            <End Role="SDCase" EntitySet="SDCase" />
+            <End Role="SDCaseFile" EntitySet="SDCaseFile" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SdCaseFile_SdFile" Association="Self.fk_SdCaseFile_SdFile">
+            <End Role="SDFile" EntitySet="SDFile" />
+            <End Role="SDCaseFile" EntitySet="SDCaseFile" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SdCaseHistory_SdCase" Association="Self.fk_SdCaseHistory_SdCase">
+            <End Role="SDCase" EntitySet="SDCase" />
+            <End Role="SDCaseHistory" EntitySet="SDCaseHistory" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SdCaseHistory_SdCaseStatus" Association="Self.fk_SdCaseHistory_SdCaseStatus">
+            <End Role="SDCaseStatus" EntitySet="SDCaseStatus" />
+            <End Role="SDCaseHistory" EntitySet="SDCaseHistory" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SdCaseHistoryFile_SdCaseHistory" Association="Self.fk_SdCaseHistoryFile_SdCaseHistory">
+            <End Role="SDCaseHistory" EntitySet="SDCaseHistory" />
+            <End Role="SDCaseHistoryFile" EntitySet="SDCaseHistoryFile" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SdCaseHistoryFile_SdFile" Association="Self.fk_SdCaseHistoryFile_SdFile">
+            <End Role="SDFile" EntitySet="SDFile" />
+            <End Role="SDCaseHistoryFile" EntitySet="SDCaseHistoryFile" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SdPerson_SdOrganization" Association="Self.fk_SdPerson_SdOrganization">
+            <End Role="SDOrganization" EntitySet="SDOrganization" />
+            <End Role="SDPerson" EntitySet="SDPerson" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SdPerson_SdProxyUser" Association="Self.fk_SdPerson_SdProxyUser">
+            <End Role="SDProxyUser" EntitySet="SDProxyUser" />
+            <End Role="SDPerson" EntitySet="SDPerson" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SFSServiceDeskModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SFSServiceDeskContext" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+          <EntitySet Name="SDAreas" EntityType="SFSServiceDeskModel.SDArea" />
+          <EntitySet Name="SDAreaPersons" EntityType="SFSServiceDeskModel.SDAreaPerson" />
+          <EntitySet Name="SDCases" EntityType="SFSServiceDeskModel.SDCase" />
+          <EntitySet Name="SDCaseFiles" EntityType="SFSServiceDeskModel.SDCaseFile" />
+          <EntitySet Name="SDCaseHistories" EntityType="SFSServiceDeskModel.SDCaseHistory" />
+          <EntitySet Name="SDCaseHistoryFiles" EntityType="SFSServiceDeskModel.SDCaseHistoryFile" />
+          <EntitySet Name="SDCasePriorities" EntityType="SFSServiceDeskModel.SDCasePriority" />
+          <EntitySet Name="SDCaseStatus" EntityType="SFSServiceDeskModel.SDCaseStatu" />
+          <EntitySet Name="SDFiles" EntityType="SFSServiceDeskModel.SDFile" />
+          <EntitySet Name="SDOrganizations" EntityType="SFSServiceDeskModel.SDOrganization" />
+          <EntitySet Name="SDPersons" EntityType="SFSServiceDeskModel.SDPerson" />
+          <EntitySet Name="SDProxyUsers" EntityType="SFSServiceDeskModel.SDProxyUser" />
+          <AssociationSet Name="fk_Area_Parent" Association="SFSServiceDeskModel.fk_Area_Parent">
+            <End Role="SDArea" EntitySet="SDAreas" />
+            <End Role="SDArea1" EntitySet="SDAreas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SdArea_SdOrganization" Association="SFSServiceDeskModel.fk_SdArea_SdOrganization">
+            <End Role="SDOrganization" EntitySet="SDOrganizations" />
+            <End Role="SDArea" EntitySet="SDAreas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SdAreaPerson_SdArea" Association="SFSServiceDeskModel.fk_SdAreaPerson_SdArea">
+            <End Role="SDArea" EntitySet="SDAreas" />
+            <End Role="SDAreaPerson" EntitySet="SDAreaPersons" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SdAreaPerson_SdPerson" Association="SFSServiceDeskModel.fk_SdAreaPerson_SdPerson">
+            <End Role="SDPerson" EntitySet="SDPersons" />
+            <End Role="SDAreaPerson" EntitySet="SDAreaPersons" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Case_Person_Client" Association="SFSServiceDeskModel.fk_Case_Person_Client">
+            <End Role="SDPerson" EntitySet="SDPersons" />
+            <End Role="SDCase" EntitySet="SDCases" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SdCase_SdCasePriority" Association="SFSServiceDeskModel.fk_SdCase_SdCasePriority">
+            <End Role="SDCasePriority" EntitySet="SDCasePriorities" />
+            <End Role="SDCase" EntitySet="SDCases" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SdCase_SdCaseStatus" Association="SFSServiceDeskModel.fk_SdCase_SdCaseStatus">
+            <End Role="SDCaseStatu" EntitySet="SDCaseStatus" />
+            <End Role="SDCase" EntitySet="SDCases" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SdCaseFile_SdCase" Association="SFSServiceDeskModel.fk_SdCaseFile_SdCase">
+            <End Role="SDCase" EntitySet="SDCases" />
+            <End Role="SDCaseFile" EntitySet="SDCaseFiles" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SdCaseHistory_SdCase" Association="SFSServiceDeskModel.fk_SdCaseHistory_SdCase">
+            <End Role="SDCase" EntitySet="SDCases" />
+            <End Role="SDCaseHistory" EntitySet="SDCaseHistories" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SdCaseFile_SdFile" Association="SFSServiceDeskModel.fk_SdCaseFile_SdFile">
+            <End Role="SDFile" EntitySet="SDFiles" />
+            <End Role="SDCaseFile" EntitySet="SDCaseFiles" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SdCaseHistory_SdCaseStatus" Association="SFSServiceDeskModel.fk_SdCaseHistory_SdCaseStatus">
+            <End Role="SDCaseStatu" EntitySet="SDCaseStatus" />
+            <End Role="SDCaseHistory" EntitySet="SDCaseHistories" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SdCaseHistoryFile_SdCaseHistory" Association="SFSServiceDeskModel.fk_SdCaseHistoryFile_SdCaseHistory">
+            <End Role="SDCaseHistory" EntitySet="SDCaseHistories" />
+            <End Role="SDCaseHistoryFile" EntitySet="SDCaseHistoryFiles" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SdCaseHistoryFile_SdFile" Association="SFSServiceDeskModel.fk_SdCaseHistoryFile_SdFile">
+            <End Role="SDFile" EntitySet="SDFiles" />
+            <End Role="SDCaseHistoryFile" EntitySet="SDCaseHistoryFiles" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SdPerson_SdOrganization" Association="SFSServiceDeskModel.fk_SdPerson_SdOrganization">
+            <End Role="SDOrganization" EntitySet="SDOrganizations" />
+            <End Role="SDPerson" EntitySet="SDPersons" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SdPerson_SdProxyUser" Association="SFSServiceDeskModel.fk_SdPerson_SdProxyUser">
+            <End Role="SDProxyUser" EntitySet="SDProxyUsers" />
+            <End Role="SDPerson" EntitySet="SDPersons" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="SDArea">
+          <Key>
+            <PropertyRef Name="GuidArea" />
+          </Key>
+          <Property Name="GuidArea" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="GuidAreaParent" Type="Guid" />
+          <Property Name="GuidOrganization" Type="Guid" />
+          <NavigationProperty Name="SDArea1" Relationship="SFSServiceDeskModel.fk_Area_Parent" FromRole="SDArea" ToRole="SDArea1" />
+          <NavigationProperty Name="SDArea2" Relationship="SFSServiceDeskModel.fk_Area_Parent" FromRole="SDArea1" ToRole="SDArea" />
+          <NavigationProperty Name="SDOrganization" Relationship="SFSServiceDeskModel.fk_SdArea_SdOrganization" FromRole="SDArea" ToRole="SDOrganization" />
+          <NavigationProperty Name="SDAreaPersons" Relationship="SFSServiceDeskModel.fk_SdAreaPerson_SdArea" FromRole="SDArea" ToRole="SDAreaPerson" />
+        </EntityType>
+        <EntityType Name="SDAreaPerson">
+          <Key>
+            <PropertyRef Name="GuidAreaPerson" />
+          </Key>
+          <Property Name="GuidAreaPerson" Type="Guid" Nullable="false" />
+          <Property Name="GuidArea" Type="Guid" />
+          <Property Name="GuidPerson" Type="Guid" />
+          <NavigationProperty Name="SDArea" Relationship="SFSServiceDeskModel.fk_SdAreaPerson_SdArea" FromRole="SDAreaPerson" ToRole="SDArea" />
+          <NavigationProperty Name="SDPerson" Relationship="SFSServiceDeskModel.fk_SdAreaPerson_SdPerson" FromRole="SDAreaPerson" ToRole="SDPerson" />
+        </EntityType>
+        <EntityType Name="SDCase">
+          <Key>
+            <PropertyRef Name="GuidCase" />
+          </Key>
+          <Property Name="GuidCase" Type="Guid" Nullable="false" />
+          <Property Name="GuidCaseStatus" Type="Guid" Nullable="false" />
+          <Property Name="GuidPersonClient" Type="Guid" />
+          <Property Name="ClosedDateTime" Type="DateTime" Precision="3" />
+          <Property Name="BodyContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PreviewContent" Type="String" MaxLength="3000" FixedLength="false" Unicode="false" />
+          <Property Name="GuidCasePriority" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="SDPerson" Relationship="SFSServiceDeskModel.fk_Case_Person_Client" FromRole="SDCase" ToRole="SDPerson" />
+          <NavigationProperty Name="SDCasePriority" Relationship="SFSServiceDeskModel.fk_SdCase_SdCasePriority" FromRole="SDCase" ToRole="SDCasePriority" />
+          <NavigationProperty Name="SDCaseStatu" Relationship="SFSServiceDeskModel.fk_SdCase_SdCaseStatus" FromRole="SDCase" ToRole="SDCaseStatu" />
+          <NavigationProperty Name="SDCaseFiles" Relationship="SFSServiceDeskModel.fk_SdCaseFile_SdCase" FromRole="SDCase" ToRole="SDCaseFile" />
+          <NavigationProperty Name="SDCaseHistories" Relationship="SFSServiceDeskModel.fk_SdCaseHistory_SdCase" FromRole="SDCase" ToRole="SDCaseHistory" />
+        </EntityType>
+        <EntityType Name="SDCaseFile">
+          <Key>
+            <PropertyRef Name="GuidCasefile" />
+          </Key>
+          <Property Name="GuidCasefile" Type="Guid" Nullable="false" />
+          <Property Name="GuidCase" Type="Guid" />
+          <Property Name="GuidFile" Type="Guid" />
+          <NavigationProperty Name="SDCase" Relationship="SFSServiceDeskModel.fk_SdCaseFile_SdCase" FromRole="SDCaseFile" ToRole="SDCase" />
+          <NavigationProperty Name="SDFile" Relationship="SFSServiceDeskModel.fk_SdCaseFile_SdFile" FromRole="SDCaseFile" ToRole="SDFile" />
+        </EntityType>
+        <EntityType Name="SDCaseHistory">
+          <Key>
+            <PropertyRef Name="GuidCaseHistory" />
+          </Key>
+          <Property Name="GuidCaseHistory" Type="Guid" Nullable="false" />
+          <Property Name="GuidCase" Type="Guid" Nullable="false" />
+          <Property Name="GuidCaseStatus" Type="Guid" />
+          <Property Name="BodyContent" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PreviewContent" Type="String" MaxLength="3000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SDCase" Relationship="SFSServiceDeskModel.fk_SdCaseHistory_SdCase" FromRole="SDCaseHistory" ToRole="SDCase" />
+          <NavigationProperty Name="SDCaseStatu" Relationship="SFSServiceDeskModel.fk_SdCaseHistory_SdCaseStatus" FromRole="SDCaseHistory" ToRole="SDCaseStatu" />
+          <NavigationProperty Name="SDCaseHistoryFiles" Relationship="SFSServiceDeskModel.fk_SdCaseHistoryFile_SdCaseHistory" FromRole="SDCaseHistory" ToRole="SDCaseHistoryFile" />
+        </EntityType>
+        <EntityType Name="SDCaseHistoryFile">
+          <Key>
+            <PropertyRef Name="GuidCasehistoryFile" />
+          </Key>
+          <Property Name="GuidCasehistoryFile" Type="Guid" Nullable="false" />
+          <Property Name="GuidFile" Type="Guid" />
+          <Property Name="GuidCaseHistory" Type="Guid" />
+          <NavigationProperty Name="SDCaseHistory" Relationship="SFSServiceDeskModel.fk_SdCaseHistoryFile_SdCaseHistory" FromRole="SDCaseHistoryFile" ToRole="SDCaseHistory" />
+          <NavigationProperty Name="SDFile" Relationship="SFSServiceDeskModel.fk_SdCaseHistoryFile_SdFile" FromRole="SDCaseHistoryFile" ToRole="SDFile" />
+        </EntityType>
+        <EntityType Name="SDCasePriority">
+          <Key>
+            <PropertyRef Name="GuidCasePriority" />
+          </Key>
+          <Property Name="GuidCasePriority" Type="Guid" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SDCases" Relationship="SFSServiceDeskModel.fk_SdCase_SdCasePriority" FromRole="SDCasePriority" ToRole="SDCase" />
+        </EntityType>
+        <EntityType Name="SDCaseStatu">
+          <Key>
+            <PropertyRef Name="GuidCaseStatus" />
+          </Key>
+          <Property Name="GuidCaseStatus" Type="Guid" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SDCases" Relationship="SFSServiceDeskModel.fk_SdCase_SdCaseStatus" FromRole="SDCaseStatu" ToRole="SDCase" />
+          <NavigationProperty Name="SDCaseHistories" Relationship="SFSServiceDeskModel.fk_SdCaseHistory_SdCaseStatus" FromRole="SDCaseStatu" ToRole="SDCaseHistory" />
+        </EntityType>
+        <EntityType Name="SDFile">
+          <Key>
+            <PropertyRef Name="GuidFile" />
+          </Key>
+          <Property Name="GuidFile" Type="Guid" Nullable="false" />
+          <Property Name="FileName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FileType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FileSize" Type="Int64" />
+          <Property Name="FileData" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="StorageLocation" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SDCaseFiles" Relationship="SFSServiceDeskModel.fk_SdCaseFile_SdFile" FromRole="SDFile" ToRole="SDCaseFile" />
+          <NavigationProperty Name="SDCaseHistoryFiles" Relationship="SFSServiceDeskModel.fk_SdCaseHistoryFile_SdFile" FromRole="SDFile" ToRole="SDCaseHistoryFile" />
+        </EntityType>
+        <EntityType Name="SDOrganization">
+          <Key>
+            <PropertyRef Name="GuidOrganization" />
+          </Key>
+          <Property Name="GuidOrganization" Type="Guid" Nullable="false" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SDAreas" Relationship="SFSServiceDeskModel.fk_SdArea_SdOrganization" FromRole="SDOrganization" ToRole="SDArea" />
+          <NavigationProperty Name="SDPersons" Relationship="SFSServiceDeskModel.fk_SdPerson_SdOrganization" FromRole="SDOrganization" ToRole="SDPerson" />
+        </EntityType>
+        <EntityType Name="SDPerson">
+          <Key>
+            <PropertyRef Name="GuidPerson" />
+          </Key>
+          <Property Name="GuidPerson" Type="Guid" Nullable="false" />
+          <Property Name="DisplayName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="GuidUser" Type="Guid" />
+          <Property Name="GuidOrganization" Type="Guid" />
+          <NavigationProperty Name="SDAreaPersons" Relationship="SFSServiceDeskModel.fk_SdAreaPerson_SdPerson" FromRole="SDPerson" ToRole="SDAreaPerson" />
+          <NavigationProperty Name="SDCases" Relationship="SFSServiceDeskModel.fk_Case_Person_Client" FromRole="SDPerson" ToRole="SDCase" />
+          <NavigationProperty Name="SDOrganization" Relationship="SFSServiceDeskModel.fk_SdPerson_SdOrganization" FromRole="SDPerson" ToRole="SDOrganization" />
+          <NavigationProperty Name="SDProxyUser" Relationship="SFSServiceDeskModel.fk_SdPerson_SdProxyUser" FromRole="SDPerson" ToRole="SDProxyUser" />
+        </EntityType>
+        <EntityType Name="SDProxyUser">
+          <Key>
+            <PropertyRef Name="GuidUser" />
+          </Key>
+          <Property Name="GuidUser" Type="Guid" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DisplayName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SDPersons" Relationship="SFSServiceDeskModel.fk_SdPerson_SdProxyUser" FromRole="SDProxyUser" ToRole="SDPerson" />
+        </EntityType>
+        <Association Name="fk_Area_Parent">
+          <End Type="SFSServiceDeskModel.SDArea" Role="SDArea" Multiplicity="0..1" />
+          <End Type="SFSServiceDeskModel.SDArea" Role="SDArea1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDArea">
+              <PropertyRef Name="GuidArea" />
+            </Principal>
+            <Dependent Role="SDArea1">
+              <PropertyRef Name="GuidAreaParent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SdArea_SdOrganization">
+          <End Type="SFSServiceDeskModel.SDOrganization" Role="SDOrganization" Multiplicity="0..1" />
+          <End Type="SFSServiceDeskModel.SDArea" Role="SDArea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDOrganization">
+              <PropertyRef Name="GuidOrganization" />
+            </Principal>
+            <Dependent Role="SDArea">
+              <PropertyRef Name="GuidOrganization" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SdAreaPerson_SdArea">
+          <End Type="SFSServiceDeskModel.SDArea" Role="SDArea" Multiplicity="0..1" />
+          <End Type="SFSServiceDeskModel.SDAreaPerson" Role="SDAreaPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDArea">
+              <PropertyRef Name="GuidArea" />
+            </Principal>
+            <Dependent Role="SDAreaPerson">
+              <PropertyRef Name="GuidArea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SdAreaPerson_SdPerson">
+          <End Type="SFSServiceDeskModel.SDPerson" Role="SDPerson" Multiplicity="0..1" />
+          <End Type="SFSServiceDeskModel.SDAreaPerson" Role="SDAreaPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDPerson">
+              <PropertyRef Name="GuidPerson" />
+            </Principal>
+            <Dependent Role="SDAreaPerson">
+              <PropertyRef Name="GuidPerson" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Case_Person_Client">
+          <End Type="SFSServiceDeskModel.SDPerson" Role="SDPerson" Multiplicity="0..1" />
+          <End Type="SFSServiceDeskModel.SDCase" Role="SDCase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDPerson">
+              <PropertyRef Name="GuidPerson" />
+            </Principal>
+            <Dependent Role="SDCase">
+              <PropertyRef Name="GuidPersonClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SdCase_SdCasePriority">
+          <End Type="SFSServiceDeskModel.SDCasePriority" Role="SDCasePriority" Multiplicity="1" />
+          <End Type="SFSServiceDeskModel.SDCase" Role="SDCase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDCasePriority">
+              <PropertyRef Name="GuidCasePriority" />
+            </Principal>
+            <Dependent Role="SDCase">
+              <PropertyRef Name="GuidCasePriority" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SdCase_SdCaseStatus">
+          <End Type="SFSServiceDeskModel.SDCaseStatu" Role="SDCaseStatu" Multiplicity="1" />
+          <End Type="SFSServiceDeskModel.SDCase" Role="SDCase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDCaseStatu">
+              <PropertyRef Name="GuidCaseStatus" />
+            </Principal>
+            <Dependent Role="SDCase">
+              <PropertyRef Name="GuidCaseStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SdCaseFile_SdCase">
+          <End Type="SFSServiceDeskModel.SDCase" Role="SDCase" Multiplicity="0..1" />
+          <End Type="SFSServiceDeskModel.SDCaseFile" Role="SDCaseFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDCase">
+              <PropertyRef Name="GuidCase" />
+            </Principal>
+            <Dependent Role="SDCaseFile">
+              <PropertyRef Name="GuidCase" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SdCaseHistory_SdCase">
+          <End Type="SFSServiceDeskModel.SDCase" Role="SDCase" Multiplicity="1" />
+          <End Type="SFSServiceDeskModel.SDCaseHistory" Role="SDCaseHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDCase">
+              <PropertyRef Name="GuidCase" />
+            </Principal>
+            <Dependent Role="SDCaseHistory">
+              <PropertyRef Name="GuidCase" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SdCaseFile_SdFile">
+          <End Type="SFSServiceDeskModel.SDFile" Role="SDFile" Multiplicity="0..1" />
+          <End Type="SFSServiceDeskModel.SDCaseFile" Role="SDCaseFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDFile">
+              <PropertyRef Name="GuidFile" />
+            </Principal>
+            <Dependent Role="SDCaseFile">
+              <PropertyRef Name="GuidFile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SdCaseHistory_SdCaseStatus">
+          <End Type="SFSServiceDeskModel.SDCaseStatu" Role="SDCaseStatu" Multiplicity="0..1" />
+          <End Type="SFSServiceDeskModel.SDCaseHistory" Role="SDCaseHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDCaseStatu">
+              <PropertyRef Name="GuidCaseStatus" />
+            </Principal>
+            <Dependent Role="SDCaseHistory">
+              <PropertyRef Name="GuidCaseStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SdCaseHistoryFile_SdCaseHistory">
+          <End Type="SFSServiceDeskModel.SDCaseHistory" Role="SDCaseHistory" Multiplicity="0..1" />
+          <End Type="SFSServiceDeskModel.SDCaseHistoryFile" Role="SDCaseHistoryFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDCaseHistory">
+              <PropertyRef Name="GuidCaseHistory" />
+            </Principal>
+            <Dependent Role="SDCaseHistoryFile">
+              <PropertyRef Name="GuidCaseHistory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SdCaseHistoryFile_SdFile">
+          <End Type="SFSServiceDeskModel.SDFile" Role="SDFile" Multiplicity="0..1" />
+          <End Type="SFSServiceDeskModel.SDCaseHistoryFile" Role="SDCaseHistoryFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDFile">
+              <PropertyRef Name="GuidFile" />
+            </Principal>
+            <Dependent Role="SDCaseHistoryFile">
+              <PropertyRef Name="GuidFile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SdPerson_SdOrganization">
+          <End Type="SFSServiceDeskModel.SDOrganization" Role="SDOrganization" Multiplicity="0..1" />
+          <End Type="SFSServiceDeskModel.SDPerson" Role="SDPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDOrganization">
+              <PropertyRef Name="GuidOrganization" />
+            </Principal>
+            <Dependent Role="SDPerson">
+              <PropertyRef Name="GuidOrganization" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SdPerson_SdProxyUser">
+          <End Type="SFSServiceDeskModel.SDProxyUser" Role="SDProxyUser" Multiplicity="0..1" />
+          <End Type="SFSServiceDeskModel.SDPerson" Role="SDPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDProxyUser">
+              <PropertyRef Name="GuidUser" />
+            </Principal>
+            <Dependent Role="SDPerson">
+              <PropertyRef Name="GuidUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SFSServiceDeskModelStoreContainer" CdmEntityContainer="SFSServiceDeskContext">
+          <EntitySetMapping Name="SDAreas">
+            <EntityTypeMapping TypeName="SFSServiceDeskModel.SDArea">
+              <MappingFragment StoreEntitySet="SDArea">
+                <ScalarProperty Name="GuidOrganization" ColumnName="GuidOrganization" />
+                <ScalarProperty Name="GuidAreaParent" ColumnName="GuidAreaParent" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="GuidArea" ColumnName="GuidArea" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SDAreaPersons">
+            <EntityTypeMapping TypeName="SFSServiceDeskModel.SDAreaPerson">
+              <MappingFragment StoreEntitySet="SDAreaPerson">
+                <ScalarProperty Name="GuidPerson" ColumnName="GuidPerson" />
+                <ScalarProperty Name="GuidArea" ColumnName="GuidArea" />
+                <ScalarProperty Name="GuidAreaPerson" ColumnName="GuidAreaPerson" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SDCases">
+            <EntityTypeMapping TypeName="SFSServiceDeskModel.SDCase">
+              <MappingFragment StoreEntitySet="SDCase">
+                <ScalarProperty Name="GuidCasePriority" ColumnName="GuidCasePriority" />
+                <ScalarProperty Name="PreviewContent" ColumnName="PreviewContent" />
+                <ScalarProperty Name="BodyContent" ColumnName="BodyContent" />
+                <ScalarProperty Name="ClosedDateTime" ColumnName="ClosedDateTime" />
+                <ScalarProperty Name="GuidPersonClient" ColumnName="GuidPersonClient" />
+                <ScalarProperty Name="GuidCaseStatus" ColumnName="GuidCaseStatus" />
+                <ScalarProperty Name="GuidCase" ColumnName="GuidCase" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SDCaseFiles">
+            <EntityTypeMapping TypeName="SFSServiceDeskModel.SDCaseFile">
+              <MappingFragment StoreEntitySet="SDCaseFile">
+                <ScalarProperty Name="GuidFile" ColumnName="GuidFile" />
+                <ScalarProperty Name="GuidCase" ColumnName="GuidCase" />
+                <ScalarProperty Name="GuidCasefile" ColumnName="GuidCasefile" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SDCaseHistories">
+            <EntityTypeMapping TypeName="SFSServiceDeskModel.SDCaseHistory">
+              <MappingFragment StoreEntitySet="SDCaseHistory">
+                <ScalarProperty Name="PreviewContent" ColumnName="PreviewContent" />
+                <ScalarProperty Name="BodyContent" ColumnName="BodyContent" />
+                <ScalarProperty Name="GuidCaseStatus" ColumnName="GuidCaseStatus" />
+                <ScalarProperty Name="GuidCase" ColumnName="GuidCase" />
+                <ScalarProperty Name="GuidCaseHistory" ColumnName="GuidCaseHistory" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SDCaseHistoryFiles">
+            <EntityTypeMapping TypeName="SFSServiceDeskModel.SDCaseHistoryFile">
+              <MappingFragment StoreEntitySet="SDCaseHistoryFile">
+                <ScalarProperty Name="GuidCaseHistory" ColumnName="GuidCaseHistory" />
+                <ScalarProperty Name="GuidFile" ColumnName="GuidFile" />
+                <ScalarProperty Name="GuidCasehistoryFile" ColumnName="GuidCasehistoryFile" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SDCasePriorities">
+            <EntityTypeMapping TypeName="SFSServiceDeskModel.SDCasePriority">
+              <MappingFragment StoreEntitySet="SDCasePriority">
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="GuidCasePriority" ColumnName="GuidCasePriority" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SDCaseStatus">
+            <EntityTypeMapping TypeName="SFSServiceDeskModel.SDCaseStatu">
+              <MappingFragment StoreEntitySet="SDCaseStatus">
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="GuidCaseStatus" ColumnName="GuidCaseStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SDFiles">
+            <EntityTypeMapping TypeName="SFSServiceDeskModel.SDFile">
+              <MappingFragment StoreEntitySet="SDFile">
+                <ScalarProperty Name="StorageLocation" ColumnName="StorageLocation" />
+                <ScalarProperty Name="FileData" ColumnName="FileData" />
+                <ScalarProperty Name="FileSize" ColumnName="FileSize" />
+                <ScalarProperty Name="FileType" ColumnName="FileType" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="GuidFile" ColumnName="GuidFile" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SDOrganizations">
+            <EntityTypeMapping TypeName="SFSServiceDeskModel.SDOrganization">
+              <MappingFragment StoreEntitySet="SDOrganization">
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="GuidOrganization" ColumnName="GuidOrganization" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SDPersons">
+            <EntityTypeMapping TypeName="SFSServiceDeskModel.SDPerson">
+              <MappingFragment StoreEntitySet="SDPerson">
+                <ScalarProperty Name="GuidOrganization" ColumnName="GuidOrganization" />
+                <ScalarProperty Name="GuidUser" ColumnName="GuidUser" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="GuidPerson" ColumnName="GuidPerson" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SDProxyUsers">
+            <EntityTypeMapping TypeName="SFSServiceDeskModel.SDProxyUser">
+              <MappingFragment StoreEntitySet="SDProxyUser">
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="GuidUser" ColumnName="GuidUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet >
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet >
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="DefaultDatabaseSchema" Value="dbo" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

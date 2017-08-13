@@ -1,0 +1,390 @@
+<#@ template debug="True" language="C#V3.5" #>
+<#@ output extension=".cs" #>
+<#@ assembly name="System.Core.dll" #>
+
+<#@ import namespace="SFSdotNet.VSAddin2015.Model" #> 
+<#@ import namespace="SFSdotNet.VSAddin2015.Model.Utils" #> 
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Linq" #>
+<#@ dom processor="SFSEdmxProcessor"  
+requires="EntityModel='SFSServiceDeskModel.edmx'"  #>
+<#@ include file="Entity.MVC.tt"  #>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using MvcSiteMapProvider;
+using <#= Model.Namespace #>.Web.Mvc.Resources;
+using SFSdotNet.Framework.Web.Mvc.Resources;
+
+
+namespace <#= Model.Namespace #>.Web.Mvc
+{
+    public partial class DynamicNodeProvider : DynamicNodeProviderBase
+    {
+        partial void OnCreatingNodes(object sender, ref List<DynamicNode> nodes);
+        partial void OnCreatedNodes(object sender, ref List<DynamicNode> nodes);
+   
+       public override IEnumerable<DynamicNode> GetDynamicNodeCollection(ISiteMapNode startNode)
+        {
+            List<DynamicNode> nodes = new List<DynamicNode>();
+            DynamicNode node = null;
+             SFSdotNet.Framework.Globalization.TextUI textUI = new SFSdotNet.Framework.Globalization.TextUI("<#= Model.SafeNamespace #>", null);
+
+			node = new DynamicNode();
+            node.Title = ModuleResources.MODULE_NAME;
+			
+            node.Controller = "Navigation";
+            node.Area = "";
+            node.Action = "Index";
+            node.Key = "<#= Model.SafeNamespace #>";
+			node.RouteValues.Add("id", node.Key);
+<#  if (!Model.SafeNamespace.Contains("SFSdotNet")) { #>
+			node.RouteValues.Add("overrideModule", "<#= Model.SafeNamespace #>");
+
+<#  } #>
+ 			node.Attributes.Add("moduleKey", "<#= Model.SafeNamespace #>");
+            node.Attributes.Add("permissionKey", "r");    
+ 
+ 
+			textUI.SetTextTo(node, "Title", typeof(ModuleResources), "MODULE_NAME");
+                   
+            nodes.Add(node);
+
+			
+            node = new DynamicNode();
+            node.Title = ModuleResources.CATALOGS;
+			  
+            node.Controller = "Navigation";
+            node.Area = "";
+            node.Action = "Index";
+            node.Key = "<#= Model.SafeNamespace #>_Catalogs";
+			node.RouteValues.Add("id", node.Key);
+<#  if (!Model.SafeNamespace.Contains("SFSdotNet")) { #>
+			node.RouteValues.Add("overrideModule", "<#= Model.SafeNamespace #>");
+
+<#  } #>
+			node.Attributes.Add("moduleKey", "<#= Model.SafeNamespace #>");
+			node.ParentKey = "<#= Model.SafeNamespace #>";
+			 textUI.SetTextTo(node, "Title", typeof(ModuleResources), "CATALOGS");
+         
+            nodes.Add(node);
+			
+			
+          /*  node = new DynamicNode();
+            node.Title = ModuleResources.all_catalogs;
+			 
+            node.Controller = "Navigation";
+            node.Area = "";
+            node.Action = "Index";
+            node.Key = "<#= Model.SafeNamespace #>_all_catalogs";
+			node.RouteValues.Add("id", node.Key);
+			node.Attributes.Add("moduleKey", "<#= Model.SafeNamespace #>");
+<#  if (!Model.SafeNamespace.Contains("SFSdotNet")) { #>
+			node.RouteValues.Add("overrideModule", "<#= Model.SafeNamespace #>");
+
+<#  } #>
+			node.ParentKey = "<#= Model.SafeNamespace #>_Catalogs";
+			 textUI.SetTextTo(node, "Title", typeof(ModuleResources), "all_catalogs");
+          
+            nodes.Add(node);*/
+
+
+            node = new DynamicNode();
+            //node.Title = SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.USERS_AND_ROLES ;
+            node.Controller = "secBusinessObjects";
+            node.Area = "SFSdotNetFrameworkSecurity";
+            node.Action = "Index";
+            node.Key = "<#= Model.SafeNamespace #>_all_catalogs";
+            node.ParentKey = "<#= Model.SafeNamespace #>_Catalogs";
+            node.Attributes.Add("moduleKey", "SFSdotNetFrameworkSecurity");
+            node.RouteValues.Add("overrideModule", "<#= Model.SafeNamespace #>");
+            node.RouteValues.Add("usemode", "all-catalogs");
+
+            //node.Attributes.Add("permissionKey", "admin");
+            textUI.SetTextTo(node, "Title", typeof(SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages), "ALL_CATALOGS");
+
+            nodes.Add(node);
+
+            
+			//node for contents
+			node = new DynamicNode();
+            node.Title = ModuleResources.MODULE_NAME;
+		  
+            node.Controller = "Home";
+            node.Area = "";
+            node.Action = "App";
+            node.Key = "<#= Model.SafeNamespace #>_home_app_c";
+            node.RouteValues.Add("id", "<#= Model.SafeNamespace #>");
+			node.Attributes.Add("moduleKey", "<#= Model.SafeNamespace #>");
+<#  if (!Model.SafeNamespace.Contains("SFSdotNet")) { #>
+			node.RouteValues.Add("overrideModule", "<#= Model.SafeNamespace #>");
+
+<#  } #>
+            node.ParentKey = "allapps";
+				 textUI.SetTextTo(node, "Title", typeof(ModuleResources), "MODULE_NAME");
+         
+            nodes.Add(node);
+
+			
+		    OnCreatingNodes(this, ref nodes);
+
+           List<SFSdotNet.Framework.Globalization.UITexts> entityTexts =   textUI.GetItems("en");
+           string single = "";
+           string plural = "";
+           SFSdotNet.Framework.Globalization.UITexts entityText = null ;
+	
+
+<# 	string excludeFromSiteMap = (string)GetCustomProperty(Model, "UIExcludeFromSiteMap", "string");
+	List<string> excludes = new List<string>();
+
+	bool excludeAll = false;
+	if(!string.IsNullOrEmpty(excludeFromSiteMap)){
+		if (excludeFromSiteMap == "*"){
+			excludeAll = true;
+		}else{
+			foreach (var ex in excludeFromSiteMap.Split(char.Parse("|"))){
+				excludes.Add(ex);
+			}
+		}
+	}			
+	List<EntityInfo> entitiesForSiteMap = new List<EntityInfo>();
+	if (excludeAll ){
+		foreach (var entity in Model.Entities.Where(p=>(bool)GetCustomProperty(p,"UIIncludeInSiteMap", "Boolean")))
+			{
+				 entitiesForSiteMap.Add(entity);
+			}
+	}else{
+		foreach (var entity in Model.Entities)
+			{
+				if (!excludes.Contains(entity.Name))
+				 	entitiesForSiteMap.Add(entity);
+			}
+	}
+	foreach( var entity in entitiesForSiteMap) { 
+		bool include = true;
+		if (!string.IsNullOrEmpty((string)GetCustomProperty(entity,"UIIncludeInSiteMap", "string")))
+			include = (bool)GetCustomProperty(entity,"UIIncludeInSiteMap", "Boolean");
+		if (include){
+			
+	#>
+			#region <#= entity.Name #>
+			  plural = "";
+            single = "";
+            entityText = entityTexts.FirstOrDefault(p => p.EntityKey == "<#= entity.Name #>");
+            if (entityText != null)
+            {
+                plural = entityText.PluralName;
+                single = entityText.Name;
+            }
+
+            node = new DynamicNode();
+            node.Title = !string.IsNullOrEmpty(plural) ? plural : "<#= entity.SetName #>";
+		
+		       node.Controller = "<#= entity.SetName #>";
+            node.Area = "<#= entity.Model.SafeNamespace #>";
+            node.Action = "Index";
+            node.Key = "<#= Model.SafeNamespace #>_<#= entity.Name #>_List";
+			//node.CacheResolvedUrl = true;
+			node.ParentKey = "<#= Model.SafeNamespace #>_all_catalogs";
+ 			node.Attributes.Add("moduleKey", "<#= entity.Model.SafeNamespace #>");
+            node.Attributes.Add("businessObjectKey", "<#= entity.Name #>");
+            node.Attributes.Add("permissionKey", "r");            
+			nodes.Add(node);
+
+			
+			// Create
+			node = new DynamicNode();
+            node.Title =GlobalMessages.ADD_NEW;
+            node.Controller = "<#= entity.SetName #>";
+            node.Area = "<#= entity.Model.SafeNamespace #>";
+            node.Action = "CreateGen";
+            node.Key = "<#= Model.SafeNamespace #>_<#= entity.Name #>_Create";
+			node.ParentKey = "<#= Model.SafeNamespace #>_<#= entity.Name #>_List";
+			node.Attributes.Add("moduleKey", "<#= entity.Model.SafeNamespace #>");
+            node.Attributes.Add("businessObjectKey", "<#= entity.Name #>");
+			node.Attributes.Add("visiblemenu", "false");
+			
+			
+            nodes.Add(node);
+
+			// Edit
+			//node = new DynamicNode();
+            //node.Title = <#= entity.Name #>Resources.<#= entity.SetName.ToUpper() #>_EDIT;
+            //node.Controller = "<#= entity.SetName #>";
+            //node.Area = "<#= entity.Model.SafeNamespace #>";
+            //node.Action = "EditGen";
+            //node.Key = "<#= Model.SafeNamespace #>_<#= entity.Name #>_Edit";
+			//node.ParentKey = "<#= Model.SafeNamespace #>_<#= entity.Name #>_List";
+			//node.Attributes.Add("visible", "false");
+			//node.Attributes.Add("dynamicParameters", "id");
+			//node.Attributes.Add("isDynamic", "true");
+            //nodes.Add(node);
+
+			// Details
+			node = new DynamicNode();
+           //node.Title = !string.IsNullOrEmpty(single) ? single : "<#= entity.Name #>";
+            node.Controller = "<#= entity.SetName #>";
+            node.Area = "<#= entity.Model.SafeNamespace #>";
+            node.Action = "DetailsGen";
+            node.Key = "<#= Model.SafeNamespace #>_<#= entity.Name #>_Details";
+			node.ParentKey = "<#= Model.SafeNamespace #>_<#= entity.Name #>_List";
+			node.Attributes.Add("visible", "false");
+			node.Attributes.Add("dynamicParameters", "id");
+			node.Attributes.Add("isDynamic", "true");
+			node.Attributes.Add("moduleKey", "<#= entity.Model.SafeNamespace #>");
+            node.Attributes.Add("businessObjectKey", "<#= entity.Name #>");
+			node.PreservedRouteParameters.Add("id");
+            nodes.Add(node); 
+
+			#endregion
+<# 			}
+		} #>
+
+ 			OnCreatedNodes(this, ref nodes);
+			
+			node = new DynamicNode();
+            //node.Title = SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.SYSTEM;
+            node.Controller = "Navigation";
+            node.Area = "";
+            node.Action = "Index";
+            node.Key = "<#= Model.SafeNamespace #>_System_override";
+            node.RouteValues.Add("id", node.Key);
+<# if (Model.SafeNamespace != "SFSdotNetFrameworkSecurity") { #>
+            node.RouteValues.Add("overrideModule", "<#= Model.SafeNamespace #>");
+<# } #>            
+			node.ParentKey = "<#= Model.SafeNamespace #>";
+			node.Attributes.Add("moduleKey", "<#= Model.SafeNamespace #>");
+			 node.Attributes.Add("permissionKey", "admin");
+			 textUI.SetTextTo(node, "Title", typeof(SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages), "SYSTEM");
+
+            nodes.Add(node);
+
+
+
+			  node = new DynamicNode();
+            //node.Title = SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.USERS_AND_ROLES ;
+            node.Controller = "secRoles";
+            node.Area = "SFSdotNetFrameworkSecurity";
+            node.Action = "Index";
+            node.Key = "SFSdotNetFrameworkSecurity_<#= Model.SafeNamespace #>_roles";
+            node.ParentKey = "<#= Model.SafeNamespace #>_System_override";
+            node.Attributes.Add("moduleKey", "<#= Model.SafeNamespace #>");
+          <# if (Model.SafeNamespace != "SFSdotNetFrameworkSecurity") { #>
+            node.RouteValues.Add("overrideModule", "<#= Model.SafeNamespace #>");
+<# } #>
+            node.Attributes.Add("permissionKey", "admin");
+            textUI.SetTextTo(node, "Title", typeof(SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages), "ROLES");
+
+            nodes.Add(node);
+
+
+
+
+			 node = new DynamicNode();
+            //node.Title = SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.USERS_AND_ROLES ;
+            node.Controller = "secUserCompanies";
+            node.Area = "SFSdotNetFrameworkSecurity";
+            node.Action = "Index";
+            node.Key = "SFSdotNetFrameworkSecurity_<#= Model.SafeNamespace #>_user_companies";
+            node.ParentKey = "<#= Model.SafeNamespace #>_System_override";
+            node.Attributes.Add("moduleKey", "<#= Model.SafeNamespace #>");
+<# if (Model.SafeNamespace != "SFSdotNetFrameworkSecurity") { #>
+            node.RouteValues.Add("overrideModule", "<#= Model.SafeNamespace #>");
+<# } #>
+            node.Attributes.Add("permissionKey", "admin");
+			textUI.SetTextTo(node, "Title", typeof(SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages), "USERS_AND_ROLES");
+
+            nodes.Add(node);
+
+			
+			 node = new DynamicNode();
+            node.Controller = "secCompanies";
+            node.Area = "SFSdotNetFrameworkSecurity";
+            node.Action = "Index";
+            node.Key = "SFSdotNetFrameworkSecurity_<#= Model.SafeNamespace #>_child_companies";
+            node.ParentKey = "<#= Model.SafeNamespace #>_System_override";
+            node.Attributes.Add("moduleKey", "<#= Model.SafeNamespace #>");
+<# if (Model.SafeNamespace != "SFSdotNetFrameworkSecurity") { #>
+            node.RouteValues.Add("overrideModule", "<#= Model.SafeNamespace #>");
+<# } #>
+			node.RouteValues.Add("usemode", "children");
+            node.Attributes.Add("permissionKey", "admin");
+			textUI.SetTextTo(node, "Title", typeof(SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages), "COMPANIES_CHILDS");
+
+            nodes.Add(node);
+<# if (Model.SafeNamespace == "SFSdotNetFrameworkSecurity") { #>
+            node = new DynamicNode();
+            //node.Title = SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.USERS_AND_ROLES + "(Ecosistema)";
+            node.Controller = "secUserCompanies";
+            node.Area = "SFSdotNetFrameworkSecurity";
+            node.Action = "Index";
+            node.Key = "SFSdotNetFrameworkSecurity_<#= Model.SafeNamespace #>_user_companies_admin";
+            node.ParentKey = "<#= Model.SafeNamespace #>_System_override";
+            node.Attributes.Add("moduleKey", "<#= Model.SafeNamespace #>");
+            node.RouteValues.Add("overrideModule", "<#= Model.SafeNamespace #>");
+            node.Attributes.Add("permissionKey", "admin");
+			 textUI.SetTextTo(node, "Title", typeof(SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages), "USERS_AND_ROLES_ECOSYSTEM");
+
+            nodes.Add(node);
+<# } #>
+			 node = new DynamicNode();
+            //node.Title = SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.EVENT_LOG;
+            node.Controller = "secEventLogs";
+            node.Area = "SFSdotNetFrameworkSecurity";
+            node.Action = "Index";
+            node.Key = "SFSdotNetFrameworkSecurity_<#= Model.SafeNamespace #>_EventLogs";
+            node.ParentKey = "<#= Model.SafeNamespace #>_System_override";
+            node.Attributes.Add("moduleKey", "<#= Model.SafeNamespace #>");
+<# if (Model.SafeNamespace != "SFSdotNetFrameworkSecurity") { #>
+
+            node.RouteValues.Add("overrideModule", "<#= Model.SafeNamespace #>");
+
+			
+<# } #>
+            node.Attributes.Add("permissionKey", "admin");
+			textUI.SetTextTo(node, "Title", typeof(SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages), "EVENT_LOG");
+
+            nodes.Add(node);
+<# if (Model.SafeNamespace != "SFSdotNetFrameworkSecurity") { #>
+			 node = new DynamicNode();
+            //node.Title = SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.EVENT_LOG;
+            node.Controller = "Dashboard";
+            node.Area = "SFSdotNetFrameworkSecurity";
+            node.Action = "Statics";
+            node.Key = "SFSdotNetFrameworkSecurity_<#= Model.SafeNamespace #>_Statics";
+            node.ParentKey = "<#= Model.SafeNamespace #>_System_override";
+            node.Attributes.Add("moduleKey", "<#= Model.SafeNamespace #>");
+
+            node.RouteValues.Add("overrideModule", "<#= Model.SafeNamespace #>");
+            node.Attributes.Add("permissionKey", "admin");
+            textUI.SetTextTo(node, "Title", typeof(SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages), "SERVICE_USE_STATICS");
+
+            nodes.Add(node);
+
+<# } #>
+
+			 node = new DynamicNode();
+           // node.Title = SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.CHANGE_AUDITING;
+            node.Controller = "secAudits";
+            node.Area = "SFSdotNetFrameworkSecurity";
+            node.Action = "Index";
+            node.Key = "SFSdotNetFrameworkSecurity_<#= Model.SafeNamespace #>_ChangeAutiting";
+            node.ParentKey = "<#= Model.SafeNamespace #>_System_override";
+            node.Attributes.Add("moduleKey", "<#= Model.SafeNamespace #>");
+<# if (Model.SafeNamespace != "SFSdotNetFrameworkSecurity") { #>
+            node.RouteValues.Add("overrideModule", "<#= Model.SafeNamespace #>");
+<# } #>
+            node.Attributes.Add("permissionKey", "admin");
+			 textUI.SetTextTo(node, "Title", typeof(SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages), "CHANGE_AUDITING");
+
+            nodes.Add(node);
+
+
+
+
+            return nodes;
+        }
+    }
+}

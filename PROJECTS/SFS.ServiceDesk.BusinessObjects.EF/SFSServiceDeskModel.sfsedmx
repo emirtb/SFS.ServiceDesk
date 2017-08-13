@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SfsModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Entities>
+    <Entity Name="SDArea" SetName="SDAreas" IsUIVisible="false" GenerateCRUD="true" IsForLocalization="false" IsCustom="false" IsView="false" DefaultProperty="Name">
+      <EntityKeys>
+        <EntityKey PropertyName="GuidArea" IsCustom="false" />
+      </EntityKeys>
+      <Properties>
+        <Property Name="GuidArea" Nullable="false" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Guid" MaxLength="0" IsPrimaryKey="true" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="Name" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="String" MaxLength="255" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="GuidAreaParent" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Guid" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="GuidOrganization" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Guid" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDArea1" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDArea" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDArea2" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDArea" MaxLength="0" IsPrimaryKey="false" IsForeignKey="true" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDOrganization" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDOrganization" MaxLength="0" IsPrimaryKey="false" IsForeignKey="true" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDAreaPersons" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDAreaPerson" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+      </Properties>
+      <NavigationProperties>
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" RelationshipName="fk_Area_Parent" FromRole="SDArea" ToRole="SDArea1" PropertyName="SDArea1" Multiplicity="*" EntityType="SFSServiceDeskModel.SDArea" />
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" PropertyRefName="GuidAreaParent" RelationshipName="fk_Area_Parent" FromRole="SDArea1" ToRole="SDArea" PropertyName="SDArea2" Multiplicity="0..1" EntityType="SFSServiceDeskModel.SDArea" />
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" PropertyRefName="GuidOrganization" RelationshipName="fk_SdArea_SdOrganization" FromRole="SDArea" ToRole="SDOrganization" PropertyName="SDOrganization" Multiplicity="0..1" EntityType="SFSServiceDeskModel.SDOrganization" />
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" RelationshipName="fk_SdAreaPerson_SdArea" FromRole="SDArea" ToRole="SDAreaPerson" PropertyName="SDAreaPersons" Multiplicity="*" EntityType="SFSServiceDeskModel.SDAreaPerson" />
+      </NavigationProperties>
+    </Entity>
+    <Entity Name="SDAreaPerson" SetName="SDAreaPersons" IsUIVisible="false" GenerateCRUD="true" IsForLocalization="false" IsCustom="false" IsView="false">
+      <EntityKeys>
+        <EntityKey PropertyName="GuidAreaPerson" IsCustom="false" />
+      </EntityKeys>
+      <Properties>
+        <Property Name="GuidAreaPerson" Nullable="false" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Guid" MaxLength="0" IsPrimaryKey="true" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="GuidArea" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Guid" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="GuidPerson" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Guid" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDArea" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDArea" MaxLength="0" IsPrimaryKey="false" IsForeignKey="true" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDPerson" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDPerson" MaxLength="0" IsPrimaryKey="false" IsForeignKey="true" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+      </Properties>
+      <NavigationProperties>
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" PropertyRefName="GuidArea" RelationshipName="fk_SdAreaPerson_SdArea" FromRole="SDAreaPerson" ToRole="SDArea" PropertyName="SDArea" Multiplicity="0..1" EntityType="SFSServiceDeskModel.SDArea" />
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" PropertyRefName="GuidPerson" RelationshipName="fk_SdAreaPerson_SdPerson" FromRole="SDAreaPerson" ToRole="SDPerson" PropertyName="SDPerson" Multiplicity="0..1" EntityType="SFSServiceDeskModel.SDPerson" />
+      </NavigationProperties>
+    </Entity>
+    <Entity Name="SDCase" SetName="SDCases" IsUIVisible="false" GenerateCRUD="true" IsForLocalization="false" IsCustom="false" IsView="false" DefaultProperty="BodyContent">
+      <EntityKeys>
+        <EntityKey PropertyName="GuidCase" IsCustom="false" />
+      </EntityKeys>
+      <Properties>
+        <Property Name="GuidCase" Nullable="false" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Guid" MaxLength="0" IsPrimaryKey="true" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="GuidCaseStatus" Nullable="false" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Guid" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="GuidPersonClient" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Guid" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="ClosedDateTime" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="DateTime" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="BodyContent" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="String" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="PreviewContent" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="String" MaxLength="3000" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="GuidCasePriority" Nullable="false" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Guid" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDPerson" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDPerson" MaxLength="0" IsPrimaryKey="false" IsForeignKey="true" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDCasePriority" Nullable="false" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDCasePriority" MaxLength="0" IsPrimaryKey="false" IsForeignKey="true" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDCaseStatu" Nullable="false" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDCaseStatu" MaxLength="0" IsPrimaryKey="false" IsForeignKey="true" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDCaseFiles" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDCaseFile" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDCaseHistories" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDCaseHistory" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+      </Properties>
+      <NavigationProperties>
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" PropertyRefName="GuidPersonClient" RelationshipName="fk_Case_Person_Client" FromRole="SDCase" ToRole="SDPerson" PropertyName="SDPerson" Multiplicity="0..1" EntityType="SFSServiceDeskModel.SDPerson" />
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" PropertyRefName="GuidCasePriority" RelationshipName="fk_SdCase_SdCasePriority" FromRole="SDCase" ToRole="SDCasePriority" PropertyName="SDCasePriority" Multiplicity="1" EntityType="SFSServiceDeskModel.SDCasePriority" />
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" PropertyRefName="GuidCaseStatus" RelationshipName="fk_SdCase_SdCaseStatus" FromRole="SDCase" ToRole="SDCaseStatu" PropertyName="SDCaseStatu" Multiplicity="1" EntityType="SFSServiceDeskModel.SDCaseStatu" />
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" RelationshipName="fk_SdCaseFile_SdCase" FromRole="SDCase" ToRole="SDCaseFile" PropertyName="SDCaseFiles" Multiplicity="*" EntityType="SFSServiceDeskModel.SDCaseFile" />
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" RelationshipName="fk_SdCaseHistory_SdCase" FromRole="SDCase" ToRole="SDCaseHistory" PropertyName="SDCaseHistories" Multiplicity="*" EntityType="SFSServiceDeskModel.SDCaseHistory" />
+      </NavigationProperties>
+    </Entity>
+    <Entity Name="SDCaseFile" SetName="SDCaseFiles" IsUIVisible="false" GenerateCRUD="true" IsForLocalization="false" IsCustom="false" IsView="false">
+      <EntityKeys>
+        <EntityKey PropertyName="GuidCasefile" IsCustom="false" />
+      </EntityKeys>
+      <Properties>
+        <Property Name="GuidCasefile" Nullable="false" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Guid" MaxLength="0" IsPrimaryKey="true" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="GuidCase" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Guid" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="GuidFile" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Guid" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDCase" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDCase" MaxLength="0" IsPrimaryKey="false" IsForeignKey="true" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDFile" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDFile" MaxLength="0" IsPrimaryKey="false" IsForeignKey="true" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+      </Properties>
+      <NavigationProperties>
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" PropertyRefName="GuidCase" RelationshipName="fk_SdCaseFile_SdCase" FromRole="SDCaseFile" ToRole="SDCase" PropertyName="SDCase" Multiplicity="0..1" EntityType="SFSServiceDeskModel.SDCase" />
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" PropertyRefName="GuidFile" RelationshipName="fk_SdCaseFile_SdFile" FromRole="SDCaseFile" ToRole="SDFile" PropertyName="SDFile" Multiplicity="0..1" EntityType="SFSServiceDeskModel.SDFile" />
+      </NavigationProperties>
+    </Entity>
+    <Entity Name="SDCaseHistory" SetName="SDCaseHistories" IsUIVisible="false" GenerateCRUD="true" IsForLocalization="false" IsCustom="false" IsView="false" DefaultProperty="BodyContent">
+      <EntityKeys>
+        <EntityKey PropertyName="GuidCaseHistory" IsCustom="false" />
+      </EntityKeys>
+      <Properties>
+        <Property Name="GuidCaseHistory" Nullable="false" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Guid" MaxLength="0" IsPrimaryKey="true" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="GuidCase" Nullable="false" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Guid" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="GuidCaseStatus" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Guid" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="BodyContent" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="String" MaxLength="255" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="PreviewContent" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="String" MaxLength="3000" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDCase" Nullable="false" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDCase" MaxLength="0" IsPrimaryKey="false" IsForeignKey="true" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDCaseStatu" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDCaseStatu" MaxLength="0" IsPrimaryKey="false" IsForeignKey="true" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDCaseHistoryFiles" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDCaseHistoryFile" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+      </Properties>
+      <NavigationProperties>
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" PropertyRefName="GuidCase" RelationshipName="fk_SdCaseHistory_SdCase" FromRole="SDCaseHistory" ToRole="SDCase" PropertyName="SDCase" Multiplicity="1" EntityType="SFSServiceDeskModel.SDCase" />
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" PropertyRefName="GuidCaseStatus" RelationshipName="fk_SdCaseHistory_SdCaseStatus" FromRole="SDCaseHistory" ToRole="SDCaseStatu" PropertyName="SDCaseStatu" Multiplicity="0..1" EntityType="SFSServiceDeskModel.SDCaseStatu" />
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" RelationshipName="fk_SdCaseHistoryFile_SdCaseHistory" FromRole="SDCaseHistory" ToRole="SDCaseHistoryFile" PropertyName="SDCaseHistoryFiles" Multiplicity="*" EntityType="SFSServiceDeskModel.SDCaseHistoryFile" />
+      </NavigationProperties>
+    </Entity>
+    <Entity Name="SDCaseHistoryFile" SetName="SDCaseHistoryFiles" IsUIVisible="false" GenerateCRUD="true" IsForLocalization="false" IsCustom="false" IsView="false">
+      <EntityKeys>
+        <EntityKey PropertyName="GuidCasehistoryFile" IsCustom="false" />
+      </EntityKeys>
+      <Properties>
+        <Property Name="GuidCasehistoryFile" Nullable="false" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Guid" MaxLength="0" IsPrimaryKey="true" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="GuidFile" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Guid" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="GuidCaseHistory" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Guid" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDCaseHistory" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDCaseHistory" MaxLength="0" IsPrimaryKey="false" IsForeignKey="true" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDFile" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDFile" MaxLength="0" IsPrimaryKey="false" IsForeignKey="true" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+      </Properties>
+      <NavigationProperties>
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" PropertyRefName="GuidCaseHistory" RelationshipName="fk_SdCaseHistoryFile_SdCaseHistory" FromRole="SDCaseHistoryFile" ToRole="SDCaseHistory" PropertyName="SDCaseHistory" Multiplicity="0..1" EntityType="SFSServiceDeskModel.SDCaseHistory" />
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" PropertyRefName="GuidFile" RelationshipName="fk_SdCaseHistoryFile_SdFile" FromRole="SDCaseHistoryFile" ToRole="SDFile" PropertyName="SDFile" Multiplicity="0..1" EntityType="SFSServiceDeskModel.SDFile" />
+      </NavigationProperties>
+    </Entity>
+    <Entity Name="SDCasePriority" SetName="SDCasePriorities" IsUIVisible="false" GenerateCRUD="true" IsForLocalization="false" IsCustom="false" IsView="false" DefaultProperty="Title">
+      <EntityKeys>
+        <EntityKey PropertyName="GuidCasePriority" IsCustom="false" />
+      </EntityKeys>
+      <Properties>
+        <Property Name="GuidCasePriority" Nullable="false" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Guid" MaxLength="0" IsPrimaryKey="true" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="Title" Nullable="false" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="String" MaxLength="255" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDCases" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDCase" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+      </Properties>
+      <NavigationProperties>
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" RelationshipName="fk_SdCase_SdCasePriority" FromRole="SDCasePriority" ToRole="SDCase" PropertyName="SDCases" Multiplicity="*" EntityType="SFSServiceDeskModel.SDCase" />
+      </NavigationProperties>
+    </Entity>
+    <Entity Name="SDCaseStatu" SetName="SDCaseStatus" IsUIVisible="false" GenerateCRUD="true" IsForLocalization="false" IsCustom="false" IsView="false" DefaultProperty="Title">
+      <EntityKeys>
+        <EntityKey PropertyName="GuidCaseStatus" IsCustom="false" />
+      </EntityKeys>
+      <Properties>
+        <Property Name="GuidCaseStatus" Nullable="false" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Guid" MaxLength="0" IsPrimaryKey="true" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="Title" Nullable="false" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="String" MaxLength="255" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDCases" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDCase" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDCaseHistories" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDCaseHistory" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+      </Properties>
+      <NavigationProperties>
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" RelationshipName="fk_SdCase_SdCaseStatus" FromRole="SDCaseStatu" ToRole="SDCase" PropertyName="SDCases" Multiplicity="*" EntityType="SFSServiceDeskModel.SDCase" />
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" RelationshipName="fk_SdCaseHistory_SdCaseStatus" FromRole="SDCaseStatu" ToRole="SDCaseHistory" PropertyName="SDCaseHistories" Multiplicity="*" EntityType="SFSServiceDeskModel.SDCaseHistory" />
+      </NavigationProperties>
+    </Entity>
+    <Entity Name="SDFile" SetName="SDFiles" IsUIVisible="false" GenerateCRUD="true" IsForLocalization="false" IsCustom="false" IsView="false" DefaultProperty="FileName">
+      <EntityKeys>
+        <EntityKey PropertyName="GuidFile" IsCustom="false" />
+      </EntityKeys>
+      <Properties>
+        <Property Name="GuidFile" Nullable="false" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Guid" MaxLength="0" IsPrimaryKey="true" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="FileName" Nullable="false" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="String" MaxLength="255" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="FileType" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="String" MaxLength="255" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="FileSize" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Int64" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="FileData" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Binary" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="StorageLocation" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="String" MaxLength="255" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDCaseFiles" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDCaseFile" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDCaseHistoryFiles" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDCaseHistoryFile" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+      </Properties>
+      <NavigationProperties>
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" RelationshipName="fk_SdCaseFile_SdFile" FromRole="SDFile" ToRole="SDCaseFile" PropertyName="SDCaseFiles" Multiplicity="*" EntityType="SFSServiceDeskModel.SDCaseFile" />
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" RelationshipName="fk_SdCaseHistoryFile_SdFile" FromRole="SDFile" ToRole="SDCaseHistoryFile" PropertyName="SDCaseHistoryFiles" Multiplicity="*" EntityType="SFSServiceDeskModel.SDCaseHistoryFile" />
+      </NavigationProperties>
+    </Entity>
+    <Entity Name="SDOrganization" SetName="SDOrganizations" IsUIVisible="false" GenerateCRUD="true" IsForLocalization="false" IsCustom="false" IsView="false" DefaultProperty="FullName">
+      <EntityKeys>
+        <EntityKey PropertyName="GuidOrganization" IsCustom="false" />
+      </EntityKeys>
+      <Properties>
+        <Property Name="GuidOrganization" Nullable="false" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Guid" MaxLength="0" IsPrimaryKey="true" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="FullName" Nullable="false" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="String" MaxLength="255" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDAreas" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDArea" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDPersons" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDPerson" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+      </Properties>
+      <NavigationProperties>
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" RelationshipName="fk_SdArea_SdOrganization" FromRole="SDOrganization" ToRole="SDArea" PropertyName="SDAreas" Multiplicity="*" EntityType="SFSServiceDeskModel.SDArea" />
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" RelationshipName="fk_SdPerson_SdOrganization" FromRole="SDOrganization" ToRole="SDPerson" PropertyName="SDPersons" Multiplicity="*" EntityType="SFSServiceDeskModel.SDPerson" />
+      </NavigationProperties>
+    </Entity>
+    <Entity Name="SDPerson" SetName="SDPersons" IsUIVisible="false" GenerateCRUD="true" IsForLocalization="false" IsCustom="false" IsView="false" DefaultProperty="DisplayName">
+      <EntityKeys>
+        <EntityKey PropertyName="GuidPerson" IsCustom="false" />
+      </EntityKeys>
+      <Properties>
+        <Property Name="GuidPerson" Nullable="false" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Guid" MaxLength="0" IsPrimaryKey="true" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="DisplayName" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="String" MaxLength="255" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="GuidUser" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Guid" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="GuidOrganization" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Guid" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDAreaPersons" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDAreaPerson" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDCases" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDCase" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDOrganization" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDOrganization" MaxLength="0" IsPrimaryKey="false" IsForeignKey="true" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDProxyUser" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDProxyUser" MaxLength="0" IsPrimaryKey="false" IsForeignKey="true" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+      </Properties>
+      <NavigationProperties>
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" RelationshipName="fk_SdAreaPerson_SdPerson" FromRole="SDPerson" ToRole="SDAreaPerson" PropertyName="SDAreaPersons" Multiplicity="*" EntityType="SFSServiceDeskModel.SDAreaPerson" />
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" RelationshipName="fk_Case_Person_Client" FromRole="SDPerson" ToRole="SDCase" PropertyName="SDCases" Multiplicity="*" EntityType="SFSServiceDeskModel.SDCase" />
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" PropertyRefName="GuidOrganization" RelationshipName="fk_SdPerson_SdOrganization" FromRole="SDPerson" ToRole="SDOrganization" PropertyName="SDOrganization" Multiplicity="0..1" EntityType="SFSServiceDeskModel.SDOrganization" />
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" PropertyRefName="GuidUser" RelationshipName="fk_SdPerson_SdProxyUser" FromRole="SDPerson" ToRole="SDProxyUser" PropertyName="SDProxyUser" Multiplicity="0..1" EntityType="SFSServiceDeskModel.SDProxyUser" />
+      </NavigationProperties>
+    </Entity>
+    <Entity Name="SDProxyUser" SetName="SDProxyUsers" IsUIVisible="false" GenerateCRUD="true" IsForLocalization="false" IsCustom="false" IsView="false" DefaultProperty="Email">
+      <EntityKeys>
+        <EntityKey PropertyName="GuidUser" IsCustom="false" />
+      </EntityKeys>
+      <Properties>
+        <Property Name="GuidUser" Nullable="false" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Guid" MaxLength="0" IsPrimaryKey="true" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="Email" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="String" MaxLength="255" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="DisplayName" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="String" MaxLength="255" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDPersons" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDPerson" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+      </Properties>
+      <NavigationProperties>
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" RelationshipName="fk_SdPerson_SdProxyUser" FromRole="SDProxyUser" ToRole="SDPerson" PropertyName="SDPersons" Multiplicity="*" EntityType="SFSServiceDeskModel.SDPerson" />
+      </NavigationProperties>
+    </Entity>
+  </Entities>
+</SfsModel>

@@ -1,0 +1,124 @@
+﻿@using SFSdotNet.Framework.Web.Mvc.Models
+@model DashboardModel
+
+
+@section CustomScript{
+	
+     @Html.Raw(SFSdotNet.Framework.My.Context.SystemApplication.GetAllScriptsAndCssForDashboard())
+            
+     @Html.Raw(Html.HeaderResources("datepicker"))
+    
+}
+<div class="dashboard">
+
+<div class="row-fluid">
+    <div class="span12 text-center">
+      @{ 
+          Html.RenderPartial("DashboardFilter");   
+      }
+    </div>
+</div>
+<div class="row-fluid">
+
+    <div class="span3 total" style="background-color:#46BFBD; color:white; padding-left:10px;padding-right:10px;border:none;">
+    <table style="border:none; width:100%;margin-top:10px;margin-bottom:10px; ">
+        <tr>
+            <td style="font-size:13px;vertical-align:middle;">@(ViewBag.TotalCountApproved.Title)</td>
+            <td style="font-size:20px;text-align:right;">@(ViewBag.TotalCountApproved.Total)</td>
+        </tr>
+    </table>
+    </div>
+    
+    <div class="span3 total" style="background-color:#FDB45C; color:white;padding-left:10px;padding-right:10px;border:none;">
+        <table style="border:none; width:100%;margin-top:10px;margin-bottom:10px;">
+            <tr>
+                <td style="font-size:13px;vertical-align:middle;">@(ViewBag.TotalInProcess.Title)</td>
+                <td style="font-size:20px;text-align:right;">@(ViewBag.TotalInProcess.Total)</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="span3 total" style="background-color:#F7464A; color:white;padding-left:10px;padding-right:10px;border:none;">
+        <table style="border:none; width:100%;margin-top:10px;margin-bottom:10px;">
+            <tr>
+                <td style="font-size:13px;vertical-align:middle;">@(ViewBag.TotalRejected.Title)</td>
+                <td style="font-size:20px;text-align:right;">@(ViewBag.TotalRejected.Total)</td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div class="span3 total" style="background-color:#949FB1; color:white;padding-left:10px;padding-right:10px;border:none;">
+        <table style="border:none; width:100%;margin-top:10px;margin-bottom:10px;">
+            <tr>
+                <td style="font-size:13px;vertical-align:middle;">@(ViewBag.TotalPayment.Title)</td>
+                <td style="font-size:20px;text-align:right;">@(ViewBag.TotalPayment.Total)</td>
+            </tr>
+        </table>
+    </div>
+
+
+        @*<div class="span3 total">@(ViewBag.TotalUsers.Title): @ViewBag.TotalUsers.Total</div>
+
+        <div class="span3 total">@(ViewBag.TotalUsers.Title): @ViewBag.TotalUsers.Total</div>
+
+     <div class="span3 total">@(ViewBag.TotalUsers.Title): @ViewBag.TotalUsers.Total</div>*@
+</div>
+
+<div class="row-fluid">
+   @{
+       Html.RenderPartial("DashboardItemView", DashboardItem.CreateForChart(ViewBag.HistoryChart as SFSdotNet.Framework.Graph.DataGraph, 300, ""));
+    }
+
+</div>
+<div class="row-fluid">
+
+<div class="span12">
+     @{
+         //((DashboardItem)ViewBag.MyPendings).CssClass = "span12";
+         Html.RenderPartial("DashboardItemView", ((DashboardItem)ViewBag.MyPendings));
+       
+    }
+
+</div>
+
+   @* <div class="span4">
+     @{
+         //((DashboardItem)ViewBag.MyPendings).CssClass = "span12";
+         Html.RenderPartial("DashboardItemView", DashboardItem.CreateForChart( ((SFSdotNet.Framework.Graph.DataGraph)ViewBag.DemoDonut),300, "" ));
+       
+    }
+
+</div>*@
+
+
+</div>
+
+    <div class="row-flow">
+        <div class="span4" >
+            @{
+                Html.RenderPartial("DashboardItemView", DashboardItem.CreateForChart(ViewBag.SpaceUsed as SFSdotNet.Framework.Graph.DataGraph, 250, ""));
+            }
+
+        </div>
+        <div class="span4">
+
+           
+
+        </div>
+
+        <div class="span4">
+
+            @{
+                Html.RenderPartial("DashboardItemView", DashboardItem.CreateForChart(ViewBag.SpaceUsed as SFSdotNet.Framework.Graph.DataGraph, 250, ""));
+            }
+
+        </div>
+    </div>
+
+</div>
+<script>
+    $(document).ready(function () {
+        EventManager.Publish('dashboardRefresh');
+    });
+</script>

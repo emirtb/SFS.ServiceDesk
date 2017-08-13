@@ -1,0 +1,5 @@
+﻿// <Template>
+//   <SolutionTemplate></SolutionTemplate>
+//   <Version>20110104.1</Version>
+//   <Update></Update>
+// </Template>

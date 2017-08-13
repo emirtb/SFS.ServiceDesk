@@ -1,0 +1,24 @@
+﻿
+
+@{
+    bool clean = false;
+
+    if (ViewContext.ViewData["uiModel"] != null)
+    {
+        if (((SFSdotNet.Framework.Web.Mvc.Models.UIModel)ViewContext.ViewData["uiModel"]).CleanLayout)
+        {
+            clean = true;
+        }
+    }
+    if (ViewContext.ViewData["uilayout"] != null)
+    {
+        Layout = ViewContext.ViewData["uilayout"].ToString();
+
+    }
+    else
+    {
+        Layout = SFSdotNet.Framework.My.Context.OverrideApplication.GetLayout(clean);
+
+    }
+    //Layout = SFSdotNet.Framework.My.Context.OverrideApplication.GetLayout(clean);
+}
