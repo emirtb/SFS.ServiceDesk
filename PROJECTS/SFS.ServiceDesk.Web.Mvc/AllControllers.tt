@@ -1092,7 +1092,15 @@ if ((bool)GetCustomProperty(item, "UIReadOnly", "Boolean")) {
 		[MyAuthorize("r", "<#= entity.Name #>", "<#=entity.Model.SafeNamespace#>", typeof(<#= controllerName #>Controller))]
         public ActionResult GetByKeyJson(string id, ContextRequest contextRequest,  bool dec = false)
         {
-            return Json(GetByKey(id, null, contextRequest, dec), JsonRequestBehavior.AllowGet);
+             if (this.IsRESTRequest == true && Request.QueryString["v"] == "2")
+            {
+                var result =  GetByKey(id, null, contextRequest, dec);
+                return ResolveApiResponse("success", null, null, result);
+            }
+            else
+            {
+               return  Json(GetByKey(id, null, contextRequest, dec), JsonRequestBehavior.AllowGet);
+            }
         }
 		public <#= entity.Name #>Model GetByKey(string id) {
 			return GetByKey(id, null,null, false);

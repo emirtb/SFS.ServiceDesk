@@ -14031,16 +14031,7 @@ if (visibleProperty || specificProperties.Contains("SDCases"))
 		[MyAuthorize("r", "SDCasePriority", "SFSServiceDesk", typeof(SDCasePrioritiesController))]
         public ActionResult GetByKeyJson(string id, ContextRequest contextRequest,  bool dec = false)
         {
-
-            if (this.IsRESTRequest == true && Request.QueryString["v"] == "2")
-            {
-                var result =  GetByKey(id, null, contextRequest, dec);
-                return ResolveApiResponse("success", null, null, result);
-            }
-            else
-            {
-               return  Json(GetByKey(id, null, contextRequest, dec), JsonRequestBehavior.AllowGet);
-            }
+            return Json(GetByKey(id, null, contextRequest, dec), JsonRequestBehavior.AllowGet);
         }
 		public SDCasePriorityModel GetByKey(string id) {
 			return GetByKey(id, null,null, false);
