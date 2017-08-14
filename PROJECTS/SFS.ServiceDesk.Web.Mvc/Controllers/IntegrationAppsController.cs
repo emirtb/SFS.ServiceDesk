@@ -72,7 +72,7 @@ namespace SFS.ServiceDesk.Web.Mvc.Controllers
                     ViewData["uiModel"] = uiModel;
 
                     string loginScripts = SFSdotNet.Framework.Resources.Content.GetContent("SFSServiceDesk", "Views/LoginScripts.cshtml", GetContextRequest(requestContext.HttpContext.ApplicationInstance.Context));
-                    //loginScripts = loginScripts.Replace("{APP_PATH}", VirtualPathUtility.ToAbsolute("~/"));
+                    loginScripts = loginScripts.Replace("{APP_PATH}", VirtualPathUtility.ToAbsolute("~/"));
 
                     //ViewData["HeaderScript"] = "";
                     ViewData["FooterScript"] = loginScripts;
