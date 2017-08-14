@@ -50,13 +50,9 @@ namespace SFS.ServiceDesk.Tests
 
             ApiWrapper dataRequest = new ApiWrapper();
 
-            var dataRequestTyped = new ApiWrapper<PageType>();
-            dataRequestTyped.Item = new Client.Models.PageType() { ProfileType = 0, Name = Utils.GetString(10) };
-            //dataRequestTyped.Items = new List<ProfileEvent>();
-
-            //dataRequestTyped.Items.Add(new ProfileEvent() { EventDate = DateTime.Now, Description = Utils.GetString(10),  GuidProject = Guid.Empty,  GuidProfile = Guid.Parse(resultRegisterWithApp.data.IdUser) });
-            //dataRequestTyped.Items.Add(new ProfileEvent() { EventDate = DateTime.Now, Description = Utils.GetString(10), GuidProject = Guid.Empty, GuidProfile = Guid.Parse(resultRegisterWithApp.data.IdUser) });
-            //// dataRequest.QueryFilter = "it.UserProfile.GuidUser ";
+            //var dataRequestTyped = new ApiWrapper<PageType>();
+            //dataRequestTyped.Item = new Client.Models.PageType() { ProfileType = 0, Name = Utils.GetString(10) };
+            
             dataRequestTyped.Token = resultLogin.data.Token;
             dataRequestTyped.CompanyId = resultRegisterWithApp.data.IdCompany;
             var result = Services.CallApi(urlApp + "/" + appKey + "/SdCase/Create?rok=1", "POST", (object)dataRequestTyped);

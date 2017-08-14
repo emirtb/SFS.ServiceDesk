@@ -610,10 +610,10 @@ namespace SFS.ServiceDesk.Web.Mvc
             nodes.Add(node); 
 
 			#endregion
-			#region SDCaseStatu
+			#region SDCaseState
 			  plural = "";
             single = "";
-            entityText = entityTexts.FirstOrDefault(p => p.EntityKey == "SDCaseStatu");
+            entityText = entityTexts.FirstOrDefault(p => p.EntityKey == "SDCaseState");
             if (entityText != null)
             {
                 plural = entityText.PluralName;
@@ -621,16 +621,16 @@ namespace SFS.ServiceDesk.Web.Mvc
             }
 
             node = new DynamicNode();
-            node.Title = !string.IsNullOrEmpty(plural) ? plural : "SDCaseStatus";
+            node.Title = !string.IsNullOrEmpty(plural) ? plural : "SDCaseStates";
 		
-		       node.Controller = "SDCaseStatus";
+		       node.Controller = "SDCaseStates";
             node.Area = "SFSServiceDesk";
             node.Action = "Index";
-            node.Key = "SFSServiceDesk_SDCaseStatu_List";
+            node.Key = "SFSServiceDesk_SDCaseState_List";
 			//node.CacheResolvedUrl = true;
 			node.ParentKey = "SFSServiceDesk_all_catalogs";
  			node.Attributes.Add("moduleKey", "SFSServiceDesk");
-            node.Attributes.Add("businessObjectKey", "SDCaseStatu");
+            node.Attributes.Add("businessObjectKey", "SDCaseState");
             node.Attributes.Add("permissionKey", "r");            
 			nodes.Add(node);
 
@@ -638,13 +638,13 @@ namespace SFS.ServiceDesk.Web.Mvc
 			// Create
 			node = new DynamicNode();
             node.Title =GlobalMessages.ADD_NEW;
-            node.Controller = "SDCaseStatus";
+            node.Controller = "SDCaseStates";
             node.Area = "SFSServiceDesk";
             node.Action = "CreateGen";
-            node.Key = "SFSServiceDesk_SDCaseStatu_Create";
-			node.ParentKey = "SFSServiceDesk_SDCaseStatu_List";
+            node.Key = "SFSServiceDesk_SDCaseState_Create";
+			node.ParentKey = "SFSServiceDesk_SDCaseState_List";
 			node.Attributes.Add("moduleKey", "SFSServiceDesk");
-            node.Attributes.Add("businessObjectKey", "SDCaseStatu");
+            node.Attributes.Add("businessObjectKey", "SDCaseState");
 			node.Attributes.Add("visiblemenu", "false");
 			
 			
@@ -652,12 +652,12 @@ namespace SFS.ServiceDesk.Web.Mvc
 
 			// Edit
 			//node = new DynamicNode();
-            //node.Title = SDCaseStatuResources.SDCASESTATUS_EDIT;
-            //node.Controller = "SDCaseStatus";
+            //node.Title = SDCaseStateResources.SDCASESTATES_EDIT;
+            //node.Controller = "SDCaseStates";
             //node.Area = "SFSServiceDesk";
             //node.Action = "EditGen";
-            //node.Key = "SFSServiceDesk_SDCaseStatu_Edit";
-			//node.ParentKey = "SFSServiceDesk_SDCaseStatu_List";
+            //node.Key = "SFSServiceDesk_SDCaseState_Edit";
+			//node.ParentKey = "SFSServiceDesk_SDCaseState_List";
 			//node.Attributes.Add("visible", "false");
 			//node.Attributes.Add("dynamicParameters", "id");
 			//node.Attributes.Add("isDynamic", "true");
@@ -665,17 +665,17 @@ namespace SFS.ServiceDesk.Web.Mvc
 
 			// Details
 			node = new DynamicNode();
-           //node.Title = !string.IsNullOrEmpty(single) ? single : "SDCaseStatu";
-            node.Controller = "SDCaseStatus";
+           //node.Title = !string.IsNullOrEmpty(single) ? single : "SDCaseState";
+            node.Controller = "SDCaseStates";
             node.Area = "SFSServiceDesk";
             node.Action = "DetailsGen";
-            node.Key = "SFSServiceDesk_SDCaseStatu_Details";
-			node.ParentKey = "SFSServiceDesk_SDCaseStatu_List";
+            node.Key = "SFSServiceDesk_SDCaseState_Details";
+			node.ParentKey = "SFSServiceDesk_SDCaseState_List";
 			node.Attributes.Add("visible", "false");
 			node.Attributes.Add("dynamicParameters", "id");
 			node.Attributes.Add("isDynamic", "true");
 			node.Attributes.Add("moduleKey", "SFSServiceDesk");
-            node.Attributes.Add("businessObjectKey", "SDCaseStatu");
+            node.Attributes.Add("businessObjectKey", "SDCaseState");
 			node.PreservedRouteParameters.Add("id");
             nodes.Add(node); 
 

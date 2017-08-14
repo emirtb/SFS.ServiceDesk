@@ -363,7 +363,7 @@ if (visibleProperty || specificProperties.Contains("Name"))
                     PropertyName = "Name",
 
 					 MaxLength = 255,
-					 Nullable = true,
+					IsRequired = true ,
 					IsDefaultProperty = true,
                     SortBy = "Name",
 					
@@ -448,6 +448,179 @@ if (visibleProperty || specificProperties.Contains("GuidOrganization"))
 	
 	}
 visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("CreatedDate"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "CreatedDate")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 104,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "CreatedDate",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "CreatedDate",
+					
+	
+				SystemProperty = SystemProperties.CreatedDate ,
+                    TypeName = "DateTime",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDAreaResources.CREATEDDATE*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("UpdatedDate"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "UpdatedDate")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 120,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "UpdatedDate",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "UpdatedDate",
+					
+	
+					IsUpdatedDate = true,
+					SystemProperty = SystemProperties.UpdatedDate ,
+	
+                    TypeName = "DateTime",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    ,PropertyDisplayName = SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.UPDATED
+
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("CreatedBy"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "CreatedBy")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 106,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "CreatedBy",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "CreatedBy",
+					
+	
+				SystemProperty = SystemProperties.CreatedUser,
+                    TypeName = "Guid",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDAreaResources.CREATEDBY*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("UpdatedBy"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "UpdatedBy")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 107,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "UpdatedBy",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "UpdatedBy",
+					
+	
+				SystemProperty = SystemProperties.UpdatedUser,
+                    TypeName = "Guid",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDAreaResources.UPDATEDBY*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("Bytes"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "Bytes")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 108,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "Bytes",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "Bytes",
+					
+	
+				SystemProperty = SystemProperties.SizeBytes,
+                    TypeName = "Int32",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDAreaResources.BYTES*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
 if (visibleProperty || specificProperties.Contains("SDArea1"))
 {				
     customProperties = new List<CustomProperty>();
@@ -464,7 +637,7 @@ if (visibleProperty || specificProperties.Contains("SDArea1"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 104,
+					Order = 109,
 																
 					Link = VirtualPathUtility.ToAbsolute("~/") + "SFSServiceDesk/SDAreas/ListViewGen?overrideModule=" + GetOverrideApp()  + "&pal=False&es=False&pag=10&filterlinks=1&idTab=SDArea1&fk=SDArea2&startFilter="+ (new UrlHelper(System.Web.HttpContext.Current.Request.RequestContext)).Encode("it.SDArea2.GuidArea = Guid(\"" + idSDArea +"\")")+ "&fkValue=" + idSDArea,
 					ModuleKey = "SFSServiceDesk",
@@ -506,7 +679,7 @@ if (visibleProperty || specificProperties.Contains("SDArea2"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 105,
+					Order = 110,
 																
 					
 					ModuleKey = "SFSServiceDesk",
@@ -555,7 +728,7 @@ if (visibleProperty || specificProperties.Contains("SDOrganization"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 106,
+					Order = 111,
 																
 					
 					ModuleKey = "SFSServiceDesk",
@@ -604,7 +777,7 @@ if (visibleProperty || specificProperties.Contains("SDAreaPersons"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 107,
+					Order = 112,
 																
 					Link = VirtualPathUtility.ToAbsolute("~/") + "SFSServiceDesk/SDAreaPersons/ListViewGen?overrideModule=" + GetOverrideApp()  + "&pal=False&es=False&pag=10&filterlinks=1&idTab=SDAreaPersons&fk=SDArea&startFilter="+ (new UrlHelper(System.Web.HttpContext.Current.Request.RequestContext)).Encode("it.SDArea.GuidArea = Guid(\"" + idSDArea +"\")")+ "&fkValue=" + idSDArea,
 					ModuleKey = "SFSServiceDesk",
@@ -617,7 +790,7 @@ if (visibleProperty || specificProperties.Contains("SDAreaPersons"))
 					 MaxLength = 0,
 					 Nullable = true,
 					IsDefaultProperty = false,
-                    SortBy = "SDAreaPersons.GuidAreaPerson",
+                    SortBy = "SDAreaPersons.Bytes",
 					
 	
                     TypeName = "SFSServiceDeskModel.SDAreaPerson",
@@ -1048,6 +1221,10 @@ if (visibleProperty || specificProperties.Contains("SDAreaPersons"))
             me.PropertyKeyName = "GuidArea";
 
             me.Properties = GetProperties(me, decript, id);
+
+			me.SortBy = "UpdatedDate";
+			me.SortDirection = UIModelSortDirection.DESC;
+
  			
 			if (Request != null)
             {
@@ -1122,6 +1299,12 @@ if (visibleProperty || specificProperties.Contains("SDAreaPersons"))
 					 
                     
 					
+					 if (me.Properties.Find(p => p.PropertyName == "UpdatedDate") != null){
+						me.Properties.Find(p => p.PropertyName == "UpdatedDate").IsHidden = false;
+					 }
+					 
+                    
+					
 
 						 if (me.Properties.Find(p => p.PropertyName == "GuidArea") != null){
 						me.Properties.Find(p => p.PropertyName == "GuidArea").IsHidden = false;
@@ -1141,6 +1324,10 @@ if (visibleProperty || specificProperties.Contains("SDAreaPersons"))
 					//if (Request.QueryString["allFields"] != "1"){
 					 if (me.Properties.Find(p => p.PropertyName == "Name") != null){
 						me.Properties.Find(p => p.PropertyName == "Name").IsHidden = false;
+					 }
+					
+					 if (me.Properties.Find(p => p.PropertyName == "UpdatedDate") != null){
+						me.Properties.Find(p => p.PropertyName == "UpdatedDate").IsHidden = false;
 					 }
 					
 					me.PrincipalActionName = "GetByJson";
@@ -1977,6 +2164,10 @@ if (visibleProperty || specificProperties.Contains("SDAreaPersons"))
 
             }
 	
+			else if (model.ActionKey == "restore") {
+                    BR.SDAreasBR.Instance.UnDelete(model.Query, dataAction.SelectedGuids.ToArray(), GetContextRequest());
+
+                }
             else if (model.ActionKey == "updateRel" || model.ActionKey == "delete-relation-fk" || model.ActionKey == "updateRel-proxyMany")
             {
                try {
@@ -2235,7 +2426,7 @@ namespace SFS.ServiceDesk.Web.Mvc.Controllers
 					{
 						CustomQuery = new SFSdotNet.Framework.My.CustomQuery()
 						{
-							OrderBy = "GuidAreaPerson",
+							OrderBy = "Bytes",
 							SortDirection = SFSdotNet.Framework.Data.SortDirection.Ascending
 						}
 					});
@@ -2378,7 +2569,7 @@ if (visibleProperty || specificProperties.Contains("GuidAreaPerson"))
 					IsRequired = true ,
 					IsHidden = true,
                     SystemProperty =  SystemProperties.Identifier ,
-					IsDefaultProperty = true,
+					IsDefaultProperty = false,
                     SortBy = "GuidAreaPerson",
 					
 	
@@ -2462,6 +2653,179 @@ if (visibleProperty || specificProperties.Contains("GuidPerson"))
 	
 	}
 visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("CreatedDate"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "CreatedDate")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 103,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "CreatedDate",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "CreatedDate",
+					
+	
+				SystemProperty = SystemProperties.CreatedDate ,
+                    TypeName = "DateTime",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDAreaPersonResources.CREATEDDATE*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("UpdatedDate"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "UpdatedDate")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 116,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "UpdatedDate",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "UpdatedDate",
+					
+	
+					IsUpdatedDate = true,
+					SystemProperty = SystemProperties.UpdatedDate ,
+	
+                    TypeName = "DateTime",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    ,PropertyDisplayName = SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.UPDATED
+
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("CreatedBy"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "CreatedBy")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 105,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "CreatedBy",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "CreatedBy",
+					
+	
+				SystemProperty = SystemProperties.CreatedUser,
+                    TypeName = "Guid",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDAreaPersonResources.CREATEDBY*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("UpdatedBy"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "UpdatedBy")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 106,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "UpdatedBy",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "UpdatedBy",
+					
+	
+				SystemProperty = SystemProperties.UpdatedUser,
+                    TypeName = "Guid",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDAreaPersonResources.UPDATEDBY*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("Bytes"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "Bytes")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 107,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "Bytes",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = true,
+                    SortBy = "Bytes",
+					
+	
+				SystemProperty = SystemProperties.SizeBytes,
+                    TypeName = "Int32",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDAreaPersonResources.BYTES*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
 if (visibleProperty || specificProperties.Contains("SDArea"))
 {				
     customProperties = new List<CustomProperty>();
@@ -2478,7 +2842,7 @@ if (visibleProperty || specificProperties.Contains("SDArea"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 103,
+					Order = 108,
 																
 					
 					ModuleKey = "SFSServiceDesk",
@@ -2527,7 +2891,7 @@ if (visibleProperty || specificProperties.Contains("SDPerson"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 104,
+					Order = 109,
 																
 					
 					ModuleKey = "SFSServiceDesk",
@@ -2978,6 +3342,10 @@ if (visibleProperty || specificProperties.Contains("SDPerson"))
             me.PropertyKeyName = "GuidAreaPerson";
 
             me.Properties = GetProperties(me, decript, id);
+
+			me.SortBy = "UpdatedDate";
+			me.SortDirection = UIModelSortDirection.DESC;
+
  			
 			if (Request != null)
             {
@@ -3046,8 +3414,14 @@ if (visibleProperty || specificProperties.Contains("SDPerson"))
                     break;
                 case UIModelContextTypes.Items:
 				//if (Request.QueryString["allFields"] != "1"){
-					 if (me.Properties.Find(p => p.PropertyName == "GuidAreaPerson") != null){
-						me.Properties.Find(p => p.PropertyName == "GuidAreaPerson").IsHidden = false;
+					 if (me.Properties.Find(p => p.PropertyName == "UpdatedDate") != null){
+						me.Properties.Find(p => p.PropertyName == "UpdatedDate").IsHidden = false;
+					 }
+					 
+                    
+					
+					 if (me.Properties.Find(p => p.PropertyName == "Bytes") != null){
+						me.Properties.Find(p => p.PropertyName == "Bytes").IsHidden = false;
 					 }
 					 
                     
@@ -3069,8 +3443,12 @@ if (visibleProperty || specificProperties.Contains("SDPerson"))
                 case UIModelContextTypes.ListForm:
 					PropertyDefinition propFinded = null;
 					//if (Request.QueryString["allFields"] != "1"){
-					 if (me.Properties.Find(p => p.PropertyName == "GuidAreaPerson") != null){
-						me.Properties.Find(p => p.PropertyName == "GuidAreaPerson").IsHidden = false;
+					 if (me.Properties.Find(p => p.PropertyName == "UpdatedDate") != null){
+						me.Properties.Find(p => p.PropertyName == "UpdatedDate").IsHidden = false;
+					 }
+					
+					 if (me.Properties.Find(p => p.PropertyName == "Bytes") != null){
+						me.Properties.Find(p => p.PropertyName == "Bytes").IsHidden = false;
 					 }
 					
 					me.PrincipalActionName = "GetByJson";
@@ -3907,6 +4285,10 @@ if (visibleProperty || specificProperties.Contains("SDPerson"))
 
             }
 	
+			else if (model.ActionKey == "restore") {
+                    BR.SDAreaPersonsBR.Instance.UnDelete(model.Query, dataAction.SelectedGuids.ToArray(), GetContextRequest());
+
+                }
             else if (model.ActionKey == "updateRel" || model.ActionKey == "delete-relation-fk" || model.ActionKey == "updateRel-proxyMany")
             {
                try {
@@ -4322,14 +4704,14 @@ if (visibleProperty || specificProperties.Contains("GuidCase"))
 	
 	}
 visibleProperty =allProperties;
-if (visibleProperty || specificProperties.Contains("GuidCaseStatus"))
+if (visibleProperty || specificProperties.Contains("GuidCaseState"))
 {				
     customProperties = new List<CustomProperty>();
 
         
 	
 	//Null
-		//if (this.Request.QueryString["fk"] != "GuidCaseStatus")
+		//if (this.Request.QueryString["fk"] != "GuidCaseState")
         //	{
 				results.Add(new PropertyDefinition()
                 {
@@ -4339,19 +4721,19 @@ if (visibleProperty || specificProperties.Contains("GuidCaseStatus"))
 									
 					CustomProperties = customProperties,
 
-                    PropertyName = "GuidCaseStatus",
+                    PropertyName = "GuidCaseState",
 
 					 MaxLength = 0,
 					IsRequired = true ,
 					IsDefaultProperty = false,
-                    SortBy = "GuidCaseStatus",
+                    SortBy = "GuidCaseState",
 					
 	
                     TypeName = "Guid",
                     IsNavigationProperty = false,
 					IsNavigationPropertyMany = false,
                     PathName = "SFSServiceDesk/"
-                    /*,PropertyDisplayName = Resources.SDCaseResources.GUIDCASESTATUS*/
+                    /*,PropertyDisplayName = Resources.SDCaseResources.GUIDCASESTATE*/
                 });
 		//	}
 	
@@ -4526,6 +4908,212 @@ if (visibleProperty || specificProperties.Contains("GuidCasePriority"))
 	
 	}
 visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("Title"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "Title")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 107,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "Title",
+
+					 MaxLength = 255,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "Title",
+					
+	
+                    TypeName = "String",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDCaseResources.TITLE*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("CreatedDate"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "CreatedDate")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 108,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "CreatedDate",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "CreatedDate",
+					
+	
+				SystemProperty = SystemProperties.CreatedDate ,
+                    TypeName = "DateTime",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDCaseResources.CREATEDDATE*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("UpdatedDate"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "UpdatedDate")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 129,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "UpdatedDate",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "UpdatedDate",
+					
+	
+					IsUpdatedDate = true,
+					SystemProperty = SystemProperties.UpdatedDate ,
+	
+                    TypeName = "DateTime",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    ,PropertyDisplayName = SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.UPDATED
+
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("CreatedBy"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "CreatedBy")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 110,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "CreatedBy",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "CreatedBy",
+					
+	
+				SystemProperty = SystemProperties.CreatedUser,
+                    TypeName = "Guid",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDCaseResources.CREATEDBY*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("UpdatedBy"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "UpdatedBy")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 111,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "UpdatedBy",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "UpdatedBy",
+					
+	
+				SystemProperty = SystemProperties.UpdatedUser,
+                    TypeName = "Guid",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDCaseResources.UPDATEDBY*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("Bytes"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "Bytes")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 112,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "Bytes",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "Bytes",
+					
+	
+				SystemProperty = SystemProperties.SizeBytes,
+                    TypeName = "Int32",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDCaseResources.BYTES*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
 if (visibleProperty || specificProperties.Contains("SDPerson"))
 {				
     customProperties = new List<CustomProperty>();
@@ -4542,7 +5130,7 @@ if (visibleProperty || specificProperties.Contains("SDPerson"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 107,
+					Order = 113,
 																
 					
 					ModuleKey = "SFSServiceDesk",
@@ -4591,7 +5179,7 @@ if (visibleProperty || specificProperties.Contains("SDCasePriority"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 108,
+					Order = 114,
 																
 					
 					ModuleKey = "SFSServiceDesk",
@@ -4624,50 +5212,50 @@ if (visibleProperty || specificProperties.Contains("SDCasePriority"))
 	
 	}
 visibleProperty =allProperties;
-if (visibleProperty || specificProperties.Contains("SDCaseStatu"))
+if (visibleProperty || specificProperties.Contains("SDCaseState"))
 {				
     customProperties = new List<CustomProperty>();
 
         			customProperties.Add(new CustomProperty() { Name="Fk", Value=@"SDCases" });
-			//[RelationFilterable(DisableFilterableInSubfilter=true, FiltrablePropertyPathName="SDCaseStatu.GuidCaseStatus")]		
-			customProperties.Add(new CustomProperty() { Name="FiltrablePropertyPathName", Value=@"SDCaseStatu.GuidCaseStatus" });
-			customProperties.Add(new CustomProperty() { Name = "BusinessObjectSetName", Value = @"SDCaseStatus" });
+			//[RelationFilterable(DisableFilterableInSubfilter=true, FiltrablePropertyPathName="SDCaseState.GuidCaseState")]		
+			customProperties.Add(new CustomProperty() { Name="FiltrablePropertyPathName", Value=@"SDCaseState.GuidCaseState" });
+			customProperties.Add(new CustomProperty() { Name = "BusinessObjectSetName", Value = @"SDCaseStates" });
 			
 
 	
-	//fk_SdCase_SdCaseStatus
-		//if (this.Request.QueryString["fk"] != "SDCaseStatu")
+	//fk_SdCase_SdCaseState
+		//if (this.Request.QueryString["fk"] != "SDCaseState")
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 109,
+					Order = 115,
 																
 					
 					ModuleKey = "SFSServiceDesk",
-					BusinessObjectKey = "SDCaseStatu",
-					PropertyNavigationKey = "GuidCaseStatus",
+					BusinessObjectKey = "SDCaseState",
+					PropertyNavigationKey = "GuidCaseState",
 					PropertyNavigationText = "Title",
 					NavigationPropertyType = NavigationPropertyTypes.SimpleDropDown,
 					GetMethodName = "GetAll",
 					GetMethodParameters = "",
 					GetMethodDisplayText ="Title",
-					GetMethodDisplayValue = "GuidCaseStatus",
+					GetMethodDisplayValue = "GuidCaseState",
 					
 					CustomProperties = customProperties,
 
-                    PropertyName = "SDCaseStatu",
+                    PropertyName = "SDCaseState",
 
 					 MaxLength = 0,
 					IsRequired = true ,
 					IsDefaultProperty = false,
-                    SortBy = "SDCaseStatu.Title",
+                    SortBy = "SDCaseState.Title",
 					
 	
-                    TypeName = "SFSServiceDeskModel.SDCaseStatu",
+                    TypeName = "SFSServiceDeskModel.SDCaseState",
                     IsNavigationProperty = true,
 					IsNavigationPropertyMany = false,
-                    PathName = "SFSServiceDesk/SDCaseStatus"
-                    /*,PropertyDisplayName = Resources.SDCaseResources.SDCASESTATU*/
+                    PathName = "SFSServiceDesk/SDCaseStates"
+                    /*,PropertyDisplayName = Resources.SDCaseResources.SDCASESTATE*/
                 });
 		//	}
 	
@@ -4689,7 +5277,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseFiles"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 110,
+					Order = 116,
 																
 					Link = VirtualPathUtility.ToAbsolute("~/") + "SFSServiceDesk/SDCaseFiles/ListViewGen?overrideModule=" + GetOverrideApp()  + "&pal=False&es=False&pag=10&filterlinks=1&idTab=SDCaseFiles&fk=SDCase&startFilter="+ (new UrlHelper(System.Web.HttpContext.Current.Request.RequestContext)).Encode("it.SDCase.GuidCase = Guid(\"" + idSDCase +"\")")+ "&fkValue=" + idSDCase,
 					ModuleKey = "SFSServiceDesk",
@@ -4702,7 +5290,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseFiles"))
 					 MaxLength = 0,
 					 Nullable = true,
 					IsDefaultProperty = false,
-                    SortBy = "SDCaseFiles.GuidCasefile",
+                    SortBy = "SDCaseFiles.Bytes",
 					
 	
                     TypeName = "SFSServiceDeskModel.SDCaseFile",
@@ -4731,7 +5319,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 111,
+					Order = 117,
 																
 					Link = VirtualPathUtility.ToAbsolute("~/") + "SFSServiceDesk/SDCaseHistories/ListViewGen?overrideModule=" + GetOverrideApp()  + "&pal=False&es=False&pag=10&filterlinks=1&idTab=SDCaseHistories&fk=SDCase&startFilter="+ (new UrlHelper(System.Web.HttpContext.Current.Request.RequestContext)).Encode("it.SDCase.GuidCase = Guid(\"" + idSDCase +"\")")+ "&fkValue=" + idSDCase,
 					ModuleKey = "SFSServiceDesk",
@@ -5175,6 +5763,10 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
             me.PropertyKeyName = "GuidCase";
 
             me.Properties = GetProperties(me, decript, id);
+
+			me.SortBy = "UpdatedDate";
+			me.SortDirection = UIModelSortDirection.DESC;
+
  			
 			if (Request != null)
             {
@@ -5249,6 +5841,12 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
 					 
                     
 					
+					 if (me.Properties.Find(p => p.PropertyName == "UpdatedDate") != null){
+						me.Properties.Find(p => p.PropertyName == "UpdatedDate").IsHidden = false;
+					 }
+					 
+                    
+					
 
 						 if (me.Properties.Find(p => p.PropertyName == "GuidCase") != null){
 						me.Properties.Find(p => p.PropertyName == "GuidCase").IsHidden = false;
@@ -5268,6 +5866,10 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
 					//if (Request.QueryString["allFields"] != "1"){
 					 if (me.Properties.Find(p => p.PropertyName == "BodyContent") != null){
 						me.Properties.Find(p => p.PropertyName == "BodyContent").IsHidden = false;
+					 }
+					
+					 if (me.Properties.Find(p => p.PropertyName == "UpdatedDate") != null){
+						me.Properties.Find(p => p.PropertyName == "UpdatedDate").IsHidden = false;
 					 }
 					
 					me.PrincipalActionName = "GetByJson";
@@ -5446,7 +6048,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
 			canFill = false;
 			 query = "";
             isFK =false;
-			prop = uiModel.Properties.FirstOrDefault(p => p.PropertyName == "SDCaseStatu");
+			prop = uiModel.Properties.FirstOrDefault(p => p.PropertyName == "SDCaseState");
 			if (prop != null)
 				if (prop.IsHidden == false && (prop.ContextType == UIModelContextTypes.EditForm || prop.ContextType == UIModelContextTypes.FilterFields  || (prop.ContextType == null && uiModel.ContextType == UIModelContextTypes.EditForm)))
 				{
@@ -5457,8 +6059,8 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
                 {
                     isFK = true;
                     // es prop FK y se ve
-                    //query = "GuidCaseStatus = Guid(\"" + Request.QueryString["fkValue"] + "\")";
-                    query = "GuidCaseStatus = @GuidCaseStatus";
+                    //query = "GuidCaseState = Guid(\"" + Request.QueryString["fkValue"] + "\")";
+                    query = "GuidCaseState = @GuidCaseState";
 					
 					canFill = true;
                 }
@@ -5466,32 +6068,32 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
                 {
                     isFK = true;
                     // es prop FK y se ve
-                    //query = "GuidCaseStatus = Guid(\"" + Request.QueryString["fkValue"] + "\")";
-                    query = "GuidCaseStatus = @GuidCaseStatus";
+                    //query = "GuidCaseState = Guid(\"" + Request.QueryString["fkValue"] + "\")";
+                    query = "GuidCaseState = @GuidCaseState";
 					canFill = true;
                 }
 			if (canFill){
 			                contextRequest.CustomQuery = new CustomQuery();
 
-				if (!uiModel.ExtraData.Exists(p => p.PropertyName == "SDCaseStatu")) {
+				if (!uiModel.ExtraData.Exists(p => p.PropertyName == "SDCaseState")) {
 					if (!string.IsNullOrEmpty(query) && !string.IsNullOrEmpty(Request.QueryString["fkValue"]))				  
-						contextRequest.CustomQuery.SetParam("GuidCaseStatus", Guid.Parse( Request.QueryString["fkValue"]));
+						contextRequest.CustomQuery.SetParam("GuidCaseState", Guid.Parse( Request.QueryString["fkValue"]));
 
 					 if (isFK == true)
                     {
-						uiModel.ExtraData.Add(new ExtraData() { Data = new SelectList((IEnumerable)(new SFS.ServiceDesk.BR.SDCaseStatusBR()).GetBy(query, contextRequest), "GuidCaseStatus", "Title", Request.QueryString["fkValue"]), PropertyName = "SDCaseStatu" });    
+						uiModel.ExtraData.Add(new ExtraData() { Data = new SelectList((IEnumerable)(new SFS.ServiceDesk.BR.SDCaseStatesBR()).GetBy(query, contextRequest), "GuidCaseState", "Title", Request.QueryString["fkValue"]), PropertyName = "SDCaseState" });    
                     }
                     else
                     {
 
-						uiModel.ExtraData.Add(new ExtraData() { Data = new SelectList((IEnumerable)(new SFS.ServiceDesk.BR.SDCaseStatusBR()).GetBy(query, contextRequest), "GuidCaseStatus", "Title"), PropertyName = "SDCaseStatu" });    
+						uiModel.ExtraData.Add(new ExtraData() { Data = new SelectList((IEnumerable)(new SFS.ServiceDesk.BR.SDCaseStatesBR()).GetBy(query, contextRequest), "GuidCaseState", "Title"), PropertyName = "SDCaseState" });    
 
 					}
     if (isFK)
                     {    
-						var FkSDCaseStatu = ((SelectList)uiModel.ExtraData.First(p => p.PropertyName == "SDCaseStatu").Data).First();
-						uiModel.Items[0].GetType().GetProperty("FkSDCaseStatuText").SetValue(uiModel.Items[0], FkSDCaseStatu.Text);
-						uiModel.Items[0].GetType().GetProperty("FkSDCaseStatu").SetValue(uiModel.Items[0], Guid.Parse(FkSDCaseStatu.Value));
+						var FkSDCaseState = ((SelectList)uiModel.ExtraData.First(p => p.PropertyName == "SDCaseState").Data).First();
+						uiModel.Items[0].GetType().GetProperty("FkSDCaseStateText").SetValue(uiModel.Items[0], FkSDCaseState.Text);
+						uiModel.Items[0].GetType().GetProperty("FkSDCaseState").SetValue(uiModel.Items[0], Guid.Parse(FkSDCaseState.Value));
                     
 					}    
 				}
@@ -6158,6 +6760,10 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
 
             }
 	
+			else if (model.ActionKey == "restore") {
+                    BR.SDCasesBR.Instance.UnDelete(model.Query, dataAction.SelectedGuids.ToArray(), GetContextRequest());
+
+                }
             else if (model.ActionKey == "updateRel" || model.ActionKey == "delete-relation-fk" || model.ActionKey == "updateRel-proxyMany")
             {
                try {
@@ -6416,7 +7022,7 @@ namespace SFS.ServiceDesk.Web.Mvc.Controllers
 					{
 						CustomQuery = new SFSdotNet.Framework.My.CustomQuery()
 						{
-							OrderBy = "GuidCasefile",
+							OrderBy = "Bytes",
 							SortDirection = SFSdotNet.Framework.Data.SortDirection.Ascending
 						}
 					});
@@ -6559,7 +7165,7 @@ if (visibleProperty || specificProperties.Contains("GuidCasefile"))
 					IsRequired = true ,
 					IsHidden = true,
                     SystemProperty =  SystemProperties.Identifier ,
-					IsDefaultProperty = true,
+					IsDefaultProperty = false,
                     SortBy = "GuidCasefile",
 					
 	
@@ -6643,6 +7249,179 @@ if (visibleProperty || specificProperties.Contains("GuidFile"))
 	
 	}
 visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("CreatedDate"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "CreatedDate")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 103,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "CreatedDate",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "CreatedDate",
+					
+	
+				SystemProperty = SystemProperties.CreatedDate ,
+                    TypeName = "DateTime",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDCaseFileResources.CREATEDDATE*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("UpdatedDate"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "UpdatedDate")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 116,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "UpdatedDate",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "UpdatedDate",
+					
+	
+					IsUpdatedDate = true,
+					SystemProperty = SystemProperties.UpdatedDate ,
+	
+                    TypeName = "DateTime",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    ,PropertyDisplayName = SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.UPDATED
+
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("CreatedBy"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "CreatedBy")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 105,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "CreatedBy",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "CreatedBy",
+					
+	
+				SystemProperty = SystemProperties.CreatedUser,
+                    TypeName = "Guid",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDCaseFileResources.CREATEDBY*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("UpdatedBy"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "UpdatedBy")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 106,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "UpdatedBy",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "UpdatedBy",
+					
+	
+				SystemProperty = SystemProperties.UpdatedUser,
+                    TypeName = "Guid",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDCaseFileResources.UPDATEDBY*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("Bytes"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "Bytes")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 107,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "Bytes",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = true,
+                    SortBy = "Bytes",
+					
+	
+				SystemProperty = SystemProperties.SizeBytes,
+                    TypeName = "Int32",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDCaseFileResources.BYTES*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
 if (visibleProperty || specificProperties.Contains("SDCase"))
 {				
     customProperties = new List<CustomProperty>();
@@ -6659,7 +7438,7 @@ if (visibleProperty || specificProperties.Contains("SDCase"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 103,
+					Order = 108,
 																
 					
 					ModuleKey = "SFSServiceDesk",
@@ -6708,7 +7487,7 @@ if (visibleProperty || specificProperties.Contains("SDFile"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 104,
+					Order = 109,
 																
 					
 					ModuleKey = "SFSServiceDesk",
@@ -7159,6 +7938,10 @@ if (visibleProperty || specificProperties.Contains("SDFile"))
             me.PropertyKeyName = "GuidCasefile";
 
             me.Properties = GetProperties(me, decript, id);
+
+			me.SortBy = "UpdatedDate";
+			me.SortDirection = UIModelSortDirection.DESC;
+
  			
 			if (Request != null)
             {
@@ -7227,8 +8010,14 @@ if (visibleProperty || specificProperties.Contains("SDFile"))
                     break;
                 case UIModelContextTypes.Items:
 				//if (Request.QueryString["allFields"] != "1"){
-					 if (me.Properties.Find(p => p.PropertyName == "GuidCasefile") != null){
-						me.Properties.Find(p => p.PropertyName == "GuidCasefile").IsHidden = false;
+					 if (me.Properties.Find(p => p.PropertyName == "UpdatedDate") != null){
+						me.Properties.Find(p => p.PropertyName == "UpdatedDate").IsHidden = false;
+					 }
+					 
+                    
+					
+					 if (me.Properties.Find(p => p.PropertyName == "Bytes") != null){
+						me.Properties.Find(p => p.PropertyName == "Bytes").IsHidden = false;
 					 }
 					 
                     
@@ -7250,8 +8039,12 @@ if (visibleProperty || specificProperties.Contains("SDFile"))
                 case UIModelContextTypes.ListForm:
 					PropertyDefinition propFinded = null;
 					//if (Request.QueryString["allFields"] != "1"){
-					 if (me.Properties.Find(p => p.PropertyName == "GuidCasefile") != null){
-						me.Properties.Find(p => p.PropertyName == "GuidCasefile").IsHidden = false;
+					 if (me.Properties.Find(p => p.PropertyName == "UpdatedDate") != null){
+						me.Properties.Find(p => p.PropertyName == "UpdatedDate").IsHidden = false;
+					 }
+					
+					 if (me.Properties.Find(p => p.PropertyName == "Bytes") != null){
+						me.Properties.Find(p => p.PropertyName == "Bytes").IsHidden = false;
 					 }
 					
 					me.PrincipalActionName = "GetByJson";
@@ -8088,6 +8881,10 @@ if (visibleProperty || specificProperties.Contains("SDFile"))
 
             }
 	
+			else if (model.ActionKey == "restore") {
+                    BR.SDCaseFilesBR.Instance.UnDelete(model.Query, dataAction.SelectedGuids.ToArray(), GetContextRequest());
+
+                }
             else if (model.ActionKey == "updateRel" || model.ActionKey == "delete-relation-fk" || model.ActionKey == "updateRel-proxyMany")
             {
                try {
@@ -8591,7 +9388,7 @@ if (visibleProperty || specificProperties.Contains("BodyContent"))
                     PropertyName = "BodyContent",
 
 					 MaxLength = 255,
-					 Nullable = true,
+					IsRequired = true ,
 					IsDefaultProperty = true,
                     SortBy = "BodyContent",
 					
@@ -8639,6 +9436,179 @@ if (visibleProperty || specificProperties.Contains("PreviewContent"))
 	
 	}
 visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("CreatedDate"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "CreatedDate")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 105,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "CreatedDate",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "CreatedDate",
+					
+	
+				SystemProperty = SystemProperties.CreatedDate ,
+                    TypeName = "DateTime",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDCaseHistoryResources.CREATEDDATE*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("UpdatedDate"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "UpdatedDate")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 121,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "UpdatedDate",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "UpdatedDate",
+					
+	
+					IsUpdatedDate = true,
+					SystemProperty = SystemProperties.UpdatedDate ,
+	
+                    TypeName = "DateTime",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    ,PropertyDisplayName = SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.UPDATED
+
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("CreatedBy"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "CreatedBy")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 107,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "CreatedBy",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "CreatedBy",
+					
+	
+				SystemProperty = SystemProperties.CreatedUser,
+                    TypeName = "Guid",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDCaseHistoryResources.CREATEDBY*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("UpdatedBy"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "UpdatedBy")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 108,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "UpdatedBy",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "UpdatedBy",
+					
+	
+				SystemProperty = SystemProperties.UpdatedUser,
+                    TypeName = "Guid",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDCaseHistoryResources.UPDATEDBY*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("Bytes"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "Bytes")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 109,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "Bytes",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "Bytes",
+					
+	
+				SystemProperty = SystemProperties.SizeBytes,
+                    TypeName = "Int32",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDCaseHistoryResources.BYTES*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
 if (visibleProperty || specificProperties.Contains("SDCase"))
 {				
     customProperties = new List<CustomProperty>();
@@ -8655,7 +9625,7 @@ if (visibleProperty || specificProperties.Contains("SDCase"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 105,
+					Order = 110,
 																
 					
 					ModuleKey = "SFSServiceDesk",
@@ -8688,50 +9658,50 @@ if (visibleProperty || specificProperties.Contains("SDCase"))
 	
 	}
 visibleProperty =allProperties;
-if (visibleProperty || specificProperties.Contains("SDCaseStatu"))
+if (visibleProperty || specificProperties.Contains("SDCaseState"))
 {				
     customProperties = new List<CustomProperty>();
 
         			customProperties.Add(new CustomProperty() { Name="Fk", Value=@"SDCaseHistories" });
-			//[RelationFilterable(DisableFilterableInSubfilter=true, FiltrablePropertyPathName="SDCaseStatu.GuidCaseStatus")]		
-			customProperties.Add(new CustomProperty() { Name="FiltrablePropertyPathName", Value=@"SDCaseStatu.GuidCaseStatus" });
-			customProperties.Add(new CustomProperty() { Name = "BusinessObjectSetName", Value = @"SDCaseStatus" });
+			//[RelationFilterable(DisableFilterableInSubfilter=true, FiltrablePropertyPathName="SDCaseState.GuidCaseState")]		
+			customProperties.Add(new CustomProperty() { Name="FiltrablePropertyPathName", Value=@"SDCaseState.GuidCaseState" });
+			customProperties.Add(new CustomProperty() { Name = "BusinessObjectSetName", Value = @"SDCaseStates" });
 			
 
 	
 	//fk_SdCaseHistory_SdCaseStatus
-		//if (this.Request.QueryString["fk"] != "SDCaseStatu")
+		//if (this.Request.QueryString["fk"] != "SDCaseState")
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 106,
+					Order = 111,
 																
 					
 					ModuleKey = "SFSServiceDesk",
-					BusinessObjectKey = "SDCaseStatu",
-					PropertyNavigationKey = "GuidCaseStatus",
+					BusinessObjectKey = "SDCaseState",
+					PropertyNavigationKey = "GuidCaseState",
 					PropertyNavigationText = "Title",
 					NavigationPropertyType = NavigationPropertyTypes.SimpleDropDown,
 					GetMethodName = "GetAll",
 					GetMethodParameters = "",
 					GetMethodDisplayText ="Title",
-					GetMethodDisplayValue = "GuidCaseStatus",
+					GetMethodDisplayValue = "GuidCaseState",
 					
 					CustomProperties = customProperties,
 
-                    PropertyName = "SDCaseStatu",
+                    PropertyName = "SDCaseState",
 
 					 MaxLength = 0,
 					 Nullable = true,
 					IsDefaultProperty = false,
-                    SortBy = "SDCaseStatu.Title",
+                    SortBy = "SDCaseState.Title",
 					
 	
-                    TypeName = "SFSServiceDeskModel.SDCaseStatu",
+                    TypeName = "SFSServiceDeskModel.SDCaseState",
                     IsNavigationProperty = true,
 					IsNavigationPropertyMany = false,
-                    PathName = "SFSServiceDesk/SDCaseStatus"
-                    /*,PropertyDisplayName = Resources.SDCaseHistoryResources.SDCASESTATU*/
+                    PathName = "SFSServiceDesk/SDCaseStates"
+                    /*,PropertyDisplayName = Resources.SDCaseHistoryResources.SDCASESTATE*/
                 });
 		//	}
 	
@@ -8753,7 +9723,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistoryFiles"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 107,
+					Order = 112,
 																
 					Link = VirtualPathUtility.ToAbsolute("~/") + "SFSServiceDesk/SDCaseHistoryFiles/ListViewGen?overrideModule=" + GetOverrideApp()  + "&pal=False&es=False&pag=10&filterlinks=1&idTab=SDCaseHistoryFiles&fk=SDCaseHistory&startFilter="+ (new UrlHelper(System.Web.HttpContext.Current.Request.RequestContext)).Encode("it.SDCaseHistory.GuidCaseHistory = Guid(\"" + idSDCaseHistory +"\")")+ "&fkValue=" + idSDCaseHistory,
 					ModuleKey = "SFSServiceDesk",
@@ -8766,7 +9736,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistoryFiles"))
 					 MaxLength = 0,
 					 Nullable = true,
 					IsDefaultProperty = false,
-                    SortBy = "SDCaseHistoryFiles.GuidCasehistoryFile",
+                    SortBy = "SDCaseHistoryFiles.Bytes",
 					
 	
                     TypeName = "SFSServiceDeskModel.SDCaseHistoryFile",
@@ -9197,6 +10167,10 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistoryFiles"))
             me.PropertyKeyName = "GuidCaseHistory";
 
             me.Properties = GetProperties(me, decript, id);
+
+			me.SortBy = "UpdatedDate";
+			me.SortDirection = UIModelSortDirection.DESC;
+
  			
 			if (Request != null)
             {
@@ -9271,6 +10245,12 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistoryFiles"))
 					 
                     
 					
+					 if (me.Properties.Find(p => p.PropertyName == "UpdatedDate") != null){
+						me.Properties.Find(p => p.PropertyName == "UpdatedDate").IsHidden = false;
+					 }
+					 
+                    
+					
 
 						 if (me.Properties.Find(p => p.PropertyName == "GuidCaseHistory") != null){
 						me.Properties.Find(p => p.PropertyName == "GuidCaseHistory").IsHidden = false;
@@ -9290,6 +10270,10 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistoryFiles"))
 					//if (Request.QueryString["allFields"] != "1"){
 					 if (me.Properties.Find(p => p.PropertyName == "BodyContent") != null){
 						me.Properties.Find(p => p.PropertyName == "BodyContent").IsHidden = false;
+					 }
+					
+					 if (me.Properties.Find(p => p.PropertyName == "UpdatedDate") != null){
+						me.Properties.Find(p => p.PropertyName == "UpdatedDate").IsHidden = false;
 					 }
 					
 					me.PrincipalActionName = "GetByJson";
@@ -9414,7 +10398,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistoryFiles"))
 			canFill = false;
 			 query = "";
             isFK =false;
-			prop = uiModel.Properties.FirstOrDefault(p => p.PropertyName == "SDCaseStatu");
+			prop = uiModel.Properties.FirstOrDefault(p => p.PropertyName == "SDCaseState");
 			if (prop != null)
 				if (prop.IsHidden == false && (prop.ContextType == UIModelContextTypes.EditForm || prop.ContextType == UIModelContextTypes.FilterFields  || (prop.ContextType == null && uiModel.ContextType == UIModelContextTypes.EditForm)))
 				{
@@ -9425,8 +10409,8 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistoryFiles"))
                 {
                     isFK = true;
                     // es prop FK y se ve
-                    //query = "GuidCaseStatus = Guid(\"" + Request.QueryString["fkValue"] + "\")";
-                    query = "GuidCaseStatus = @GuidCaseStatus";
+                    //query = "GuidCaseState = Guid(\"" + Request.QueryString["fkValue"] + "\")";
+                    query = "GuidCaseState = @GuidCaseState";
 					
 					canFill = true;
                 }
@@ -9434,32 +10418,32 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistoryFiles"))
                 {
                     isFK = true;
                     // es prop FK y se ve
-                    //query = "GuidCaseStatus = Guid(\"" + Request.QueryString["fkValue"] + "\")";
-                    query = "GuidCaseStatus = @GuidCaseStatus";
+                    //query = "GuidCaseState = Guid(\"" + Request.QueryString["fkValue"] + "\")";
+                    query = "GuidCaseState = @GuidCaseState";
 					canFill = true;
                 }
 			if (canFill){
 			                contextRequest.CustomQuery = new CustomQuery();
 
-				if (!uiModel.ExtraData.Exists(p => p.PropertyName == "SDCaseStatu")) {
+				if (!uiModel.ExtraData.Exists(p => p.PropertyName == "SDCaseState")) {
 					if (!string.IsNullOrEmpty(query) && !string.IsNullOrEmpty(Request.QueryString["fkValue"]))				  
-						contextRequest.CustomQuery.SetParam("GuidCaseStatus", new Nullable<Guid>(Guid.Parse( Request.QueryString["fkValue"])));
+						contextRequest.CustomQuery.SetParam("GuidCaseState", new Nullable<Guid>(Guid.Parse( Request.QueryString["fkValue"])));
 
 					 if (isFK == true)
                     {
-						uiModel.ExtraData.Add(new ExtraData() { Data = new SelectList((IEnumerable)(new SFS.ServiceDesk.BR.SDCaseStatusBR()).GetBy(query, contextRequest), "GuidCaseStatus", "Title", Request.QueryString["fkValue"]), PropertyName = "SDCaseStatu" });    
+						uiModel.ExtraData.Add(new ExtraData() { Data = new SelectList((IEnumerable)(new SFS.ServiceDesk.BR.SDCaseStatesBR()).GetBy(query, contextRequest), "GuidCaseState", "Title", Request.QueryString["fkValue"]), PropertyName = "SDCaseState" });    
                     }
                     else
                     {
 
-						uiModel.ExtraData.Add(new ExtraData() { Data = new SelectList((IEnumerable)(new SFS.ServiceDesk.BR.SDCaseStatusBR()).GetBy(query, contextRequest), "GuidCaseStatus", "Title"), PropertyName = "SDCaseStatu" });    
+						uiModel.ExtraData.Add(new ExtraData() { Data = new SelectList((IEnumerable)(new SFS.ServiceDesk.BR.SDCaseStatesBR()).GetBy(query, contextRequest), "GuidCaseState", "Title"), PropertyName = "SDCaseState" });    
 
 					}
     if (isFK)
                     {    
-						var FkSDCaseStatu = ((SelectList)uiModel.ExtraData.First(p => p.PropertyName == "SDCaseStatu").Data).First();
-						uiModel.Items[0].GetType().GetProperty("FkSDCaseStatuText").SetValue(uiModel.Items[0], FkSDCaseStatu.Text);
-						uiModel.Items[0].GetType().GetProperty("FkSDCaseStatu").SetValue(uiModel.Items[0], Guid.Parse(FkSDCaseStatu.Value));
+						var FkSDCaseState = ((SelectList)uiModel.ExtraData.First(p => p.PropertyName == "SDCaseState").Data).First();
+						uiModel.Items[0].GetType().GetProperty("FkSDCaseStateText").SetValue(uiModel.Items[0], FkSDCaseState.Text);
+						uiModel.Items[0].GetType().GetProperty("FkSDCaseState").SetValue(uiModel.Items[0], Guid.Parse(FkSDCaseState.Value));
                     
 					}    
 				}
@@ -10126,6 +11110,10 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistoryFiles"))
 
             }
 	
+			else if (model.ActionKey == "restore") {
+                    BR.SDCaseHistoriesBR.Instance.UnDelete(model.Query, dataAction.SelectedGuids.ToArray(), GetContextRequest());
+
+                }
             else if (model.ActionKey == "updateRel" || model.ActionKey == "delete-relation-fk" || model.ActionKey == "updateRel-proxyMany")
             {
                try {
@@ -10384,7 +11372,7 @@ namespace SFS.ServiceDesk.Web.Mvc.Controllers
 					{
 						CustomQuery = new SFSdotNet.Framework.My.CustomQuery()
 						{
-							OrderBy = "GuidCasehistoryFile",
+							OrderBy = "Bytes",
 							SortDirection = SFSdotNet.Framework.Data.SortDirection.Ascending
 						}
 					});
@@ -10527,7 +11515,7 @@ if (visibleProperty || specificProperties.Contains("GuidCasehistoryFile"))
 					IsRequired = true ,
 					IsHidden = true,
                     SystemProperty =  SystemProperties.Identifier ,
-					IsDefaultProperty = true,
+					IsDefaultProperty = false,
                     SortBy = "GuidCasehistoryFile",
 					
 	
@@ -10611,6 +11599,179 @@ if (visibleProperty || specificProperties.Contains("GuidCaseHistory"))
 	
 	}
 visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("CreatedDate"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "CreatedDate")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 103,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "CreatedDate",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "CreatedDate",
+					
+	
+				SystemProperty = SystemProperties.CreatedDate ,
+                    TypeName = "DateTime",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDCaseHistoryFileResources.CREATEDDATE*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("UpdatedDate"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "UpdatedDate")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 116,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "UpdatedDate",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "UpdatedDate",
+					
+	
+					IsUpdatedDate = true,
+					SystemProperty = SystemProperties.UpdatedDate ,
+	
+                    TypeName = "DateTime",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    ,PropertyDisplayName = SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.UPDATED
+
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("CreatedBy"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "CreatedBy")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 105,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "CreatedBy",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "CreatedBy",
+					
+	
+				SystemProperty = SystemProperties.CreatedUser,
+                    TypeName = "Guid",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDCaseHistoryFileResources.CREATEDBY*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("UpdatedBy"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "UpdatedBy")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 106,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "UpdatedBy",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "UpdatedBy",
+					
+	
+				SystemProperty = SystemProperties.UpdatedUser,
+                    TypeName = "Guid",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDCaseHistoryFileResources.UPDATEDBY*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("Bytes"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "Bytes")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 107,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "Bytes",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = true,
+                    SortBy = "Bytes",
+					
+	
+				SystemProperty = SystemProperties.SizeBytes,
+                    TypeName = "Int32",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDCaseHistoryFileResources.BYTES*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
 if (visibleProperty || specificProperties.Contains("SDCaseHistory"))
 {				
     customProperties = new List<CustomProperty>();
@@ -10627,7 +11788,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistory"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 103,
+					Order = 108,
 																
 					
 					ModuleKey = "SFSServiceDesk",
@@ -10676,7 +11837,7 @@ if (visibleProperty || specificProperties.Contains("SDFile"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 104,
+					Order = 109,
 																
 					
 					ModuleKey = "SFSServiceDesk",
@@ -11127,6 +12288,10 @@ if (visibleProperty || specificProperties.Contains("SDFile"))
             me.PropertyKeyName = "GuidCasehistoryFile";
 
             me.Properties = GetProperties(me, decript, id);
+
+			me.SortBy = "UpdatedDate";
+			me.SortDirection = UIModelSortDirection.DESC;
+
  			
 			if (Request != null)
             {
@@ -11195,8 +12360,14 @@ if (visibleProperty || specificProperties.Contains("SDFile"))
                     break;
                 case UIModelContextTypes.Items:
 				//if (Request.QueryString["allFields"] != "1"){
-					 if (me.Properties.Find(p => p.PropertyName == "GuidCasehistoryFile") != null){
-						me.Properties.Find(p => p.PropertyName == "GuidCasehistoryFile").IsHidden = false;
+					 if (me.Properties.Find(p => p.PropertyName == "UpdatedDate") != null){
+						me.Properties.Find(p => p.PropertyName == "UpdatedDate").IsHidden = false;
+					 }
+					 
+                    
+					
+					 if (me.Properties.Find(p => p.PropertyName == "Bytes") != null){
+						me.Properties.Find(p => p.PropertyName == "Bytes").IsHidden = false;
 					 }
 					 
                     
@@ -11218,8 +12389,12 @@ if (visibleProperty || specificProperties.Contains("SDFile"))
                 case UIModelContextTypes.ListForm:
 					PropertyDefinition propFinded = null;
 					//if (Request.QueryString["allFields"] != "1"){
-					 if (me.Properties.Find(p => p.PropertyName == "GuidCasehistoryFile") != null){
-						me.Properties.Find(p => p.PropertyName == "GuidCasehistoryFile").IsHidden = false;
+					 if (me.Properties.Find(p => p.PropertyName == "UpdatedDate") != null){
+						me.Properties.Find(p => p.PropertyName == "UpdatedDate").IsHidden = false;
+					 }
+					
+					 if (me.Properties.Find(p => p.PropertyName == "Bytes") != null){
+						me.Properties.Find(p => p.PropertyName == "Bytes").IsHidden = false;
 					 }
 					
 					me.PrincipalActionName = "GetByJson";
@@ -12056,6 +13231,10 @@ if (visibleProperty || specificProperties.Contains("SDFile"))
 
             }
 	
+			else if (model.ActionKey == "restore") {
+                    BR.SDCaseHistoryFilesBR.Instance.UnDelete(model.Query, dataAction.SelectedGuids.ToArray(), GetContextRequest());
+
+                }
             else if (model.ActionKey == "updateRel" || model.ActionKey == "delete-relation-fk" || model.ActionKey == "updateRel-proxyMany")
             {
                try {
@@ -12504,6 +13683,179 @@ if (visibleProperty || specificProperties.Contains("Title"))
 	
 	}
 visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("CreatedDate"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "CreatedDate")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 102,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "CreatedDate",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "CreatedDate",
+					
+	
+				SystemProperty = SystemProperties.CreatedDate ,
+                    TypeName = "DateTime",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDCasePriorityResources.CREATEDDATE*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("UpdatedDate"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "UpdatedDate")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 113,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "UpdatedDate",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "UpdatedDate",
+					
+	
+					IsUpdatedDate = true,
+					SystemProperty = SystemProperties.UpdatedDate ,
+	
+                    TypeName = "DateTime",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    ,PropertyDisplayName = SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.UPDATED
+
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("CreatedBy"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "CreatedBy")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 104,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "CreatedBy",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "CreatedBy",
+					
+	
+				SystemProperty = SystemProperties.CreatedUser,
+                    TypeName = "Guid",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDCasePriorityResources.CREATEDBY*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("UpdatedBy"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "UpdatedBy")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 105,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "UpdatedBy",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "UpdatedBy",
+					
+	
+				SystemProperty = SystemProperties.UpdatedUser,
+                    TypeName = "Guid",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDCasePriorityResources.UPDATEDBY*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("Bytes"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "Bytes")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 106,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "Bytes",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "Bytes",
+					
+	
+				SystemProperty = SystemProperties.SizeBytes,
+                    TypeName = "Int32",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDCasePriorityResources.BYTES*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
 if (visibleProperty || specificProperties.Contains("SDCases"))
 {				
     customProperties = new List<CustomProperty>();
@@ -12520,7 +13872,7 @@ if (visibleProperty || specificProperties.Contains("SDCases"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 102,
+					Order = 107,
 																
 					Link = VirtualPathUtility.ToAbsolute("~/") + "SFSServiceDesk/SDCases/ListViewGen?overrideModule=" + GetOverrideApp()  + "&pal=False&es=False&pag=10&filterlinks=1&idTab=SDCases&fk=SDCasePriority&startFilter="+ (new UrlHelper(System.Web.HttpContext.Current.Request.RequestContext)).Encode("it.SDCasePriority.GuidCasePriority = Guid(\"" + idSDCasePriority +"\")")+ "&fkValue=" + idSDCasePriority,
 					ModuleKey = "SFSServiceDesk",
@@ -12964,6 +14316,10 @@ if (visibleProperty || specificProperties.Contains("SDCases"))
             me.PropertyKeyName = "GuidCasePriority";
 
             me.Properties = GetProperties(me, decript, id);
+
+			me.SortBy = "UpdatedDate";
+			me.SortDirection = UIModelSortDirection.DESC;
+
  			
 			if (Request != null)
             {
@@ -13038,6 +14394,12 @@ if (visibleProperty || specificProperties.Contains("SDCases"))
 					 
                     
 					
+					 if (me.Properties.Find(p => p.PropertyName == "UpdatedDate") != null){
+						me.Properties.Find(p => p.PropertyName == "UpdatedDate").IsHidden = false;
+					 }
+					 
+                    
+					
 
 						 if (me.Properties.Find(p => p.PropertyName == "GuidCasePriority") != null){
 						me.Properties.Find(p => p.PropertyName == "GuidCasePriority").IsHidden = false;
@@ -13057,6 +14419,10 @@ if (visibleProperty || specificProperties.Contains("SDCases"))
 					//if (Request.QueryString["allFields"] != "1"){
 					 if (me.Properties.Find(p => p.PropertyName == "Title") != null){
 						me.Properties.Find(p => p.PropertyName == "Title").IsHidden = false;
+					 }
+					
+					 if (me.Properties.Find(p => p.PropertyName == "UpdatedDate") != null){
+						me.Properties.Find(p => p.PropertyName == "UpdatedDate").IsHidden = false;
 					 }
 					
 					me.PrincipalActionName = "GetByJson";
@@ -13785,6 +15151,10 @@ if (visibleProperty || specificProperties.Contains("SDCases"))
 
             }
 	
+			else if (model.ActionKey == "restore") {
+                    BR.SDCasePrioritiesBR.Instance.UnDelete(model.Query, dataAction.SelectedGuids.ToArray(), GetContextRequest());
+
+                }
             else if (model.ActionKey == "updateRel" || model.ActionKey == "delete-relation-fk" || model.ActionKey == "updateRel-proxyMany")
             {
                try {
@@ -13886,61 +15256,61 @@ if (visibleProperty || specificProperties.Contains("SDCases"))
 }
 namespace SFS.ServiceDesk.Web.Mvc.Controllers
 {
-	using SFS.ServiceDesk.Web.Mvc.Models.SDCaseStatus;
+	using SFS.ServiceDesk.Web.Mvc.Models.SDCaseStates;
 
-    public partial class SDCaseStatusController : SFS.ServiceDesk.Web.Mvc.ControllerBase<Models.SDCaseStatus.SDCaseStatuModel>
+    public partial class SDCaseStatesController : SFS.ServiceDesk.Web.Mvc.ControllerBase<Models.SDCaseStates.SDCaseStateModel>
     {
 
        
 
 
 	#region partial methods
-        ControllerEventArgs<Models.SDCaseStatus.SDCaseStatuModel> e = null;
-        partial void OnValidating(object sender, ControllerEventArgs<Models.SDCaseStatus.SDCaseStatuModel> e);
-        partial void OnGettingExtraData(object sender, MyEventArgs<UIModel<Models.SDCaseStatus.SDCaseStatuModel>> e);
-        partial void OnCreating(object sender, ControllerEventArgs<Models.SDCaseStatus.SDCaseStatuModel> e);
-        partial void OnCreated(object sender, ControllerEventArgs<Models.SDCaseStatus.SDCaseStatuModel> e);
-        partial void OnEditing(object sender, ControllerEventArgs<Models.SDCaseStatus.SDCaseStatuModel> e);
-        partial void OnEdited(object sender, ControllerEventArgs<Models.SDCaseStatus.SDCaseStatuModel> e);
-        partial void OnDeleting(object sender, ControllerEventArgs<Models.SDCaseStatus.SDCaseStatuModel> e);
-        partial void OnDeleted(object sender, ControllerEventArgs<Models.SDCaseStatus.SDCaseStatuModel> e);
-    	partial void OnShowing(object sender, MyEventArgs<UIModel<Models.SDCaseStatus.SDCaseStatuModel>> e);
-    	partial void OnGettingByKey(object sender, ControllerEventArgs<Models.SDCaseStatus.SDCaseStatuModel> e);
-        partial void OnTaken(object sender, ControllerEventArgs<Models.SDCaseStatus.SDCaseStatuModel> e);
-       	partial void OnCreateShowing(object sender, ControllerEventArgs<Models.SDCaseStatus.SDCaseStatuModel> e);
-		partial void OnEditShowing(object sender, ControllerEventArgs<Models.SDCaseStatus.SDCaseStatuModel> e);
-		partial void OnDetailsShowing(object sender, ControllerEventArgs<Models.SDCaseStatus.SDCaseStatuModel> e);
- 		partial void OnActionsCreated(object sender, MyEventArgs<UIModel<Models.SDCaseStatus.SDCaseStatuModel >> e);
-		partial void OnCustomActionExecuting(object sender, MyEventArgs<ContextActionModel<Models.SDCaseStatus.SDCaseStatuModel>> e);
-		partial void OnCustomActionExecutingBackground(object sender, MyEventArgs<ContextActionModel<Models.SDCaseStatus.SDCaseStatuModel>> e);
-        partial void OnDownloading(object sender, MyEventArgs<ContextActionModel<Models.SDCaseStatus.SDCaseStatuModel>> e);
+        ControllerEventArgs<Models.SDCaseStates.SDCaseStateModel> e = null;
+        partial void OnValidating(object sender, ControllerEventArgs<Models.SDCaseStates.SDCaseStateModel> e);
+        partial void OnGettingExtraData(object sender, MyEventArgs<UIModel<Models.SDCaseStates.SDCaseStateModel>> e);
+        partial void OnCreating(object sender, ControllerEventArgs<Models.SDCaseStates.SDCaseStateModel> e);
+        partial void OnCreated(object sender, ControllerEventArgs<Models.SDCaseStates.SDCaseStateModel> e);
+        partial void OnEditing(object sender, ControllerEventArgs<Models.SDCaseStates.SDCaseStateModel> e);
+        partial void OnEdited(object sender, ControllerEventArgs<Models.SDCaseStates.SDCaseStateModel> e);
+        partial void OnDeleting(object sender, ControllerEventArgs<Models.SDCaseStates.SDCaseStateModel> e);
+        partial void OnDeleted(object sender, ControllerEventArgs<Models.SDCaseStates.SDCaseStateModel> e);
+    	partial void OnShowing(object sender, MyEventArgs<UIModel<Models.SDCaseStates.SDCaseStateModel>> e);
+    	partial void OnGettingByKey(object sender, ControllerEventArgs<Models.SDCaseStates.SDCaseStateModel> e);
+        partial void OnTaken(object sender, ControllerEventArgs<Models.SDCaseStates.SDCaseStateModel> e);
+       	partial void OnCreateShowing(object sender, ControllerEventArgs<Models.SDCaseStates.SDCaseStateModel> e);
+		partial void OnEditShowing(object sender, ControllerEventArgs<Models.SDCaseStates.SDCaseStateModel> e);
+		partial void OnDetailsShowing(object sender, ControllerEventArgs<Models.SDCaseStates.SDCaseStateModel> e);
+ 		partial void OnActionsCreated(object sender, MyEventArgs<UIModel<Models.SDCaseStates.SDCaseStateModel >> e);
+		partial void OnCustomActionExecuting(object sender, MyEventArgs<ContextActionModel<Models.SDCaseStates.SDCaseStateModel>> e);
+		partial void OnCustomActionExecutingBackground(object sender, MyEventArgs<ContextActionModel<Models.SDCaseStates.SDCaseStateModel>> e);
+        partial void OnDownloading(object sender, MyEventArgs<ContextActionModel<Models.SDCaseStates.SDCaseStateModel>> e);
       	partial void OnAuthorization(object sender, AuthorizationContext context);
-		 partial void OnFilterShowing(object sender, MyEventArgs<UIModel<Models.SDCaseStatus.SDCaseStatuModel >> e);
-         partial void OnSummaryOperationShowing(object sender, MyEventArgs<UIModel<Models.SDCaseStatus.SDCaseStatuModel>> e);
+		 partial void OnFilterShowing(object sender, MyEventArgs<UIModel<Models.SDCaseStates.SDCaseStateModel >> e);
+         partial void OnSummaryOperationShowing(object sender, MyEventArgs<UIModel<Models.SDCaseStates.SDCaseStateModel>> e);
 
-        partial void OnExportActionsCreated(object sender, MyEventArgs<UIModel<Models.SDCaseStatus.SDCaseStatuModel>> e);
+        partial void OnExportActionsCreated(object sender, MyEventArgs<UIModel<Models.SDCaseStates.SDCaseStateModel>> e);
 
 
-		protected override void OnVirtualFilterShowing(object sender, MyEventArgs<UIModel<SDCaseStatuModel>> e)
+		protected override void OnVirtualFilterShowing(object sender, MyEventArgs<UIModel<SDCaseStateModel>> e)
         {
             OnFilterShowing(sender, e);
         }
-		 public override void OnVirtualExportActionsCreated(object sender, MyEventArgs<UIModel<SDCaseStatuModel>> e)
+		 public override void OnVirtualExportActionsCreated(object sender, MyEventArgs<UIModel<SDCaseStateModel>> e)
         {
             OnExportActionsCreated(sender, e);
         }
-        public override void OnVirtualDownloading(object sender, MyEventArgs<ContextActionModel<SDCaseStatuModel>> e)
+        public override void OnVirtualDownloading(object sender, MyEventArgs<ContextActionModel<SDCaseStateModel>> e)
         {
             OnDownloading(sender, e);
         }
-        public override void OnVirtualShowing(object sender, MyEventArgs<UIModel<SDCaseStatuModel>> e)
+        public override void OnVirtualShowing(object sender, MyEventArgs<UIModel<SDCaseStateModel>> e)
         {
             OnShowing(sender, e);
         }
 
 	#endregion
 	#region API
-	 public override ActionResult ApiCreateGen(SDCaseStatuModel model, ContextRequest contextRequest)
+	 public override ActionResult ApiCreateGen(SDCaseStateModel model, ContextRequest contextRequest)
         {
             return CreateGen(model, contextRequest);
         }
@@ -13962,16 +15332,16 @@ namespace SFS.ServiceDesk.Web.Mvc.Controllers
         {
             return GetByCount(filter, contextRequest);
         }
-         protected override ActionResult ApiDeleteGen(List<SDCaseStatuModel> models, ContextRequest contextRequest)
+         protected override ActionResult ApiDeleteGen(List<SDCaseStateModel> models, ContextRequest contextRequest)
         {
-            List<SDCaseStatu> objs = new List<SDCaseStatu>();
+            List<SDCaseState> objs = new List<SDCaseState>();
             foreach (var model in models)
             {
                 objs.Add(model.GetBusinessObject());
             }
             try
             {
-                BR.SDCaseStatusBR.Instance.DeleteBulk(objs, contextRequest);
+                BR.SDCaseStatesBR.Instance.DeleteBulk(objs, contextRequest);
                 if (this.IsRESTRequest == true)
                 {
                     //return Json(new { status = "success" }, JsonRequestBehavior.AllowGet);
@@ -13999,9 +15369,9 @@ namespace SFS.ServiceDesk.Web.Mvc.Controllers
                 }
             }
         }
-        protected override ActionResult ApiUpdateGen(List<SDCaseStatuModel> models, ContextRequest contextRequest)
+        protected override ActionResult ApiUpdateGen(List<SDCaseStateModel> models, ContextRequest contextRequest)
         {
-            List<SDCaseStatu> objs = new List<SDCaseStatu>();
+            List<SDCaseState> objs = new List<SDCaseState>();
             foreach (var model in models)
             {
                 objs.Add(model.GetBusinessObject());
@@ -14010,7 +15380,7 @@ namespace SFS.ServiceDesk.Web.Mvc.Controllers
             {
                 foreach (var obj in objs)
                 {
-                    BR.SDCaseStatusBR.Instance.Update(obj, contextRequest);
+                    BR.SDCaseStatesBR.Instance.Update(obj, contextRequest);
 
                 }
                 return Content("ok");
@@ -14024,7 +15394,7 @@ namespace SFS.ServiceDesk.Web.Mvc.Controllers
 
 	#endregion
 #region Validation methods	
-	    private void Validations(SDCaseStatuModel model) { 
+	    private void Validations(SDCaseStateModel model) { 
             #region Remote validations
 
             #endregion
@@ -14037,8 +15407,8 @@ namespace SFS.ServiceDesk.Web.Mvc.Controllers
             OnAuthorization(this,  context );
             return context ;
         }
-		public List<SDCaseStatuModel> GetAll() {
-            			var bos = BR.SDCaseStatusBR.Instance.GetBy("",
+		public List<SDCaseStateModel> GetAll() {
+            			var bos = BR.SDCaseStatesBR.Instance.GetBy("",
 					new SFSdotNet.Framework.My.ContextRequest()
 					{
 						CustomQuery = new SFSdotNet.Framework.My.CustomQuery()
@@ -14047,11 +15417,11 @@ namespace SFS.ServiceDesk.Web.Mvc.Controllers
 							SortDirection = SFSdotNet.Framework.Data.SortDirection.Ascending
 						}
 					});
-            			List<SDCaseStatuModel> results = new List<SDCaseStatuModel>();
-            SDCaseStatuModel model = null;
+            			List<SDCaseStateModel> results = new List<SDCaseStateModel>();
+            SDCaseStateModel model = null;
             foreach (var bo in bos)
             {
-                model = new SDCaseStatuModel();
+                model = new SDCaseStateModel();
                 model.Bind(bo);
                 results.Add(model);
             }
@@ -14059,25 +15429,25 @@ namespace SFS.ServiceDesk.Web.Mvc.Controllers
 
         }
         //
-        // GET: /SDCaseStatus/
-		[MyAuthorize("r", "SDCaseStatu", "SFSServiceDesk", typeof(SDCaseStatusController))]
+        // GET: /SDCaseStates/
+		[MyAuthorize("r", "SDCaseState", "SFSServiceDesk", typeof(SDCaseStatesController))]
 		public ActionResult Index()
         {
     		var uiModel = GetContextModel(UIModelContextTypes.ListForm, null);
 			ViewBag.UIModel = uiModel;
 			uiModel.FilterStart = (string)ViewData["startFilter"];
-                    MyEventArgs<UIModel<SDCaseStatuModel>> me = null;
+                    MyEventArgs<UIModel<SDCaseStateModel>> me = null;
 
-            OnActionsCreated(this, me = new MyEventArgs<UIModel<SDCaseStatuModel>>() { Object = uiModel });
+            OnActionsCreated(this, me = new MyEventArgs<UIModel<SDCaseStateModel>>() { Object = uiModel });
 
-			OnExportActionsCreated(this, (me != null ? me : me = new MyEventArgs<UIModel<SDCaseStatuModel>>() { Object = uiModel }));
+			OnExportActionsCreated(this, (me != null ? me : me = new MyEventArgs<UIModel<SDCaseStateModel>>() { Object = uiModel }));
 
             if (me != null)
             {
                 uiModel = me.Object;
             }
             if (me == null)
-                me = new MyEventArgs<UIModel<SDCaseStatuModel>>() { Object = uiModel };
+                me = new MyEventArgs<UIModel<SDCaseStateModel>>() { Object = uiModel };
            
             Showing(ref uiModel);
             ViewData["startFilter"] = uiModel.FilterStart;
@@ -14086,7 +15456,7 @@ namespace SFS.ServiceDesk.Web.Mvc.Controllers
             //return View("ListGen");
 			return ResolveView(uiModel);
         }
-		[MyAuthorize("r", "SDCaseStatu", "SFSServiceDesk", typeof(SDCaseStatusController))]
+		[MyAuthorize("r", "SDCaseState", "SFSServiceDesk", typeof(SDCaseStatesController))]
 		public ActionResult ListViewGen(string idTab, string fk , string fkValue, string startFilter, ListModes  listmode  = ListModes.SimpleList, PropertyDefinition parentRelationProperty = null, object parentRelationPropertyValue = null )
         {
 			ViewData["idTab"] = System.Web.HttpContext.Current.Request.QueryString["idTab"]; 
@@ -14103,13 +15473,13 @@ namespace SFS.ServiceDesk.Web.Mvc.Controllers
                 ViewData["startFilter"] = Request.QueryString["startFilter"];
             }
 			
-			UIModel<SDCaseStatuModel> uiModel = GetContextModel(UIModelContextTypes.ListForm, null);
+			UIModel<SDCaseStateModel> uiModel = GetContextModel(UIModelContextTypes.ListForm, null);
 
-            MyEventArgs<UIModel<SDCaseStatuModel>> me = null;
+            MyEventArgs<UIModel<SDCaseStateModel>> me = null;
 
-            OnActionsCreated(this, me = new MyEventArgs<UIModel<SDCaseStatuModel>>() { Object = uiModel });
+            OnActionsCreated(this, me = new MyEventArgs<UIModel<SDCaseStateModel>>() { Object = uiModel });
             if (me == null)
-                me = new MyEventArgs<UIModel<SDCaseStatuModel>>() { Object = uiModel };
+                me = new MyEventArgs<UIModel<SDCaseStateModel>>() { Object = uiModel };
             uiModel.Properties = GetProperties(uiModel);
             uiModel.ContextType = UIModelContextTypes.ListForm;
              uiModel.FilterStart = (string)ViewData["startFilter"];
@@ -14147,15 +15517,15 @@ namespace SFS.ServiceDesk.Web.Mvc.Controllers
                 {
                 List<PropertyDefinition> results = new List<PropertyDefinition>();
 
-			string idSDCaseStatu = GetRouteDataOrQueryParam("id");
-			if (idSDCaseStatu != null)
+			string idSDCaseState = GetRouteDataOrQueryParam("id");
+			if (idSDCaseState != null)
 			{
 				if (!decripted)
                 {
-					idSDCaseStatu = SFSdotNet.Framework.Entities.Utils.GetPropertyKey(idSDCaseStatu.Replace("-","/"), "GuidCaseStatus");
+					idSDCaseState = SFSdotNet.Framework.Entities.Utils.GetPropertyKey(idSDCaseState.Replace("-","/"), "GuidCaseState");
 				}else{
 					if (id != null )
-						idSDCaseStatu = id.Value.ToString();                
+						idSDCaseState = id.Value.ToString();                
 
 				}
 			}
@@ -14165,14 +15535,14 @@ namespace SFS.ServiceDesk.Web.Mvc.Controllers
                 if (uiModel.ContextType == UIModelContextTypes.EditForm || uiModel.ContextType == UIModelContextTypes.DisplayForm ||  uiModel.ContextType == UIModelContextTypes.GenericForm )
                     conditionalshow = true;
 visibleProperty =allProperties;
-if (visibleProperty || specificProperties.Contains("GuidCaseStatus"))
+if (visibleProperty || specificProperties.Contains("GuidCaseState"))
 {				
     customProperties = new List<CustomProperty>();
 
         
 	
 	//Null
-		//if (this.Request.QueryString["fk"] != "GuidCaseStatus")
+		//if (this.Request.QueryString["fk"] != "GuidCaseState")
         //	{
 				results.Add(new PropertyDefinition()
                 {
@@ -14180,21 +15550,21 @@ if (visibleProperty || specificProperties.Contains("GuidCaseStatus"))
 																	
 					CustomProperties = customProperties,
 
-                    PropertyName = "GuidCaseStatus",
+                    PropertyName = "GuidCaseState",
 
 					 MaxLength = 0,
 					IsRequired = true ,
 					IsHidden = true,
                     SystemProperty =  SystemProperties.Identifier ,
 					IsDefaultProperty = false,
-                    SortBy = "GuidCaseStatus",
+                    SortBy = "GuidCaseState",
 					
 	
                     TypeName = "Guid",
                     IsNavigationProperty = false,
 					IsNavigationPropertyMany = false,
                     PathName = "SFSServiceDesk/"
-                    /*,PropertyDisplayName = Resources.SDCaseStatuResources.GUIDCASESTATUS*/
+                    /*,PropertyDisplayName = Resources.SDCaseStateResources.GUIDCASESTATE*/
                 });
 		//	}
 	
@@ -14227,7 +15597,180 @@ if (visibleProperty || specificProperties.Contains("Title"))
                     IsNavigationProperty = false,
 					IsNavigationPropertyMany = false,
                     PathName = "SFSServiceDesk/"
-                    /*,PropertyDisplayName = Resources.SDCaseStatuResources.TITLE*/
+                    /*,PropertyDisplayName = Resources.SDCaseStateResources.TITLE*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("CreatedDate"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "CreatedDate")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 102,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "CreatedDate",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "CreatedDate",
+					
+	
+				SystemProperty = SystemProperties.CreatedDate ,
+                    TypeName = "DateTime",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDCaseStateResources.CREATEDDATE*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("UpdatedDate"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "UpdatedDate")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 114,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "UpdatedDate",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "UpdatedDate",
+					
+	
+					IsUpdatedDate = true,
+					SystemProperty = SystemProperties.UpdatedDate ,
+	
+                    TypeName = "DateTime",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    ,PropertyDisplayName = SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.UPDATED
+
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("CreatedBy"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "CreatedBy")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 104,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "CreatedBy",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "CreatedBy",
+					
+	
+				SystemProperty = SystemProperties.CreatedUser,
+                    TypeName = "Guid",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDCaseStateResources.CREATEDBY*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("UpdatedBy"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "UpdatedBy")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 105,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "UpdatedBy",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "UpdatedBy",
+					
+	
+				SystemProperty = SystemProperties.UpdatedUser,
+                    TypeName = "Guid",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDCaseStateResources.UPDATEDBY*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("Bytes"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "Bytes")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 106,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "Bytes",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "Bytes",
+					
+	
+				SystemProperty = SystemProperties.SizeBytes,
+                    TypeName = "Int32",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDCaseStateResources.BYTES*/
                 });
 		//	}
 	
@@ -14237,21 +15780,21 @@ if (visibleProperty || specificProperties.Contains("SDCases"))
 {				
     customProperties = new List<CustomProperty>();
 
-        			customProperties.Add(new CustomProperty() { Name="Fk", Value=@"SDCaseStatu" });
+        			customProperties.Add(new CustomProperty() { Name="Fk", Value=@"SDCaseState" });
 			//[RelationFilterable(DisableFilterableInSubfilter=true, FiltrablePropertyPathName="SDCases.GuidCase")]		
 			customProperties.Add(new CustomProperty() { Name="FiltrablePropertyPathName", Value=@"SDCases.GuidCase" });
 			customProperties.Add(new CustomProperty() { Name = "BusinessObjectSetName", Value = @"SDCases" });
 			
 
 	
-	//fk_SdCase_SdCaseStatus
+	//fk_SdCase_SdCaseState
 		//if (this.Request.QueryString["fk"] != "SDCases")
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 102,
+					Order = 107,
 																
-					Link = VirtualPathUtility.ToAbsolute("~/") + "SFSServiceDesk/SDCases/ListViewGen?overrideModule=" + GetOverrideApp()  + "&pal=False&es=False&pag=10&filterlinks=1&idTab=SDCases&fk=SDCaseStatu&startFilter="+ (new UrlHelper(System.Web.HttpContext.Current.Request.RequestContext)).Encode("it.SDCaseStatu.GuidCaseStatus = Guid(\"" + idSDCaseStatu +"\")")+ "&fkValue=" + idSDCaseStatu,
+					Link = VirtualPathUtility.ToAbsolute("~/") + "SFSServiceDesk/SDCases/ListViewGen?overrideModule=" + GetOverrideApp()  + "&pal=False&es=False&pag=10&filterlinks=1&idTab=SDCases&fk=SDCaseState&startFilter="+ (new UrlHelper(System.Web.HttpContext.Current.Request.RequestContext)).Encode("it.SDCaseState.GuidCaseState = Guid(\"" + idSDCaseState +"\")")+ "&fkValue=" + idSDCaseState,
 					ModuleKey = "SFSServiceDesk",
 					BusinessObjectKey = "SDCase",
 					
@@ -14269,7 +15812,7 @@ if (visibleProperty || specificProperties.Contains("SDCases"))
                     IsNavigationProperty = true,
 					IsNavigationPropertyMany = true,
                     PathName = "SFSServiceDesk/SDCases"
-                    /*,PropertyDisplayName = Resources.SDCaseStatuResources.SDCASES*/
+                    /*,PropertyDisplayName = Resources.SDCaseStateResources.SDCASES*/
                 });
 		//	}
 	
@@ -14279,7 +15822,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
 {				
     customProperties = new List<CustomProperty>();
 
-        			customProperties.Add(new CustomProperty() { Name="Fk", Value=@"SDCaseStatu" });
+        			customProperties.Add(new CustomProperty() { Name="Fk", Value=@"SDCaseState" });
 			//[RelationFilterable(DisableFilterableInSubfilter=true, FiltrablePropertyPathName="SDCaseHistories.GuidCaseHistory")]		
 			customProperties.Add(new CustomProperty() { Name="FiltrablePropertyPathName", Value=@"SDCaseHistories.GuidCaseHistory" });
 			customProperties.Add(new CustomProperty() { Name = "BusinessObjectSetName", Value = @"SDCaseHistories" });
@@ -14291,9 +15834,9 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 103,
+					Order = 108,
 																
-					Link = VirtualPathUtility.ToAbsolute("~/") + "SFSServiceDesk/SDCaseHistories/ListViewGen?overrideModule=" + GetOverrideApp()  + "&pal=False&es=False&pag=10&filterlinks=1&idTab=SDCaseHistories&fk=SDCaseStatu&startFilter="+ (new UrlHelper(System.Web.HttpContext.Current.Request.RequestContext)).Encode("it.SDCaseStatu.GuidCaseStatus = Guid(\"" + idSDCaseStatu +"\")")+ "&fkValue=" + idSDCaseStatu,
+					Link = VirtualPathUtility.ToAbsolute("~/") + "SFSServiceDesk/SDCaseHistories/ListViewGen?overrideModule=" + GetOverrideApp()  + "&pal=False&es=False&pag=10&filterlinks=1&idTab=SDCaseHistories&fk=SDCaseState&startFilter="+ (new UrlHelper(System.Web.HttpContext.Current.Request.RequestContext)).Encode("it.SDCaseState.GuidCaseState = Guid(\"" + idSDCaseState +"\")")+ "&fkValue=" + idSDCaseState,
 					ModuleKey = "SFSServiceDesk",
 					BusinessObjectKey = "SDCaseHistory",
 					
@@ -14311,7 +15854,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
                     IsNavigationProperty = true,
 					IsNavigationPropertyMany = true,
                     PathName = "SFSServiceDesk/SDCaseHistories"
-                    /*,PropertyDisplayName = Resources.SDCaseStatuResources.SDCASEHISTORIES*/
+                    /*,PropertyDisplayName = Resources.SDCaseStateResources.SDCASEHISTORIES*/
                 });
 		//	}
 	
@@ -14326,7 +15869,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
                 }
             }
 
-		protected override  UIModel<SDCaseStatuModel> GetByForShow(string filter, int? pageSize, int? page, string orderBy, string orderDir, ContextRequest contextRequest, params  object[] extraParams)
+		protected override  UIModel<SDCaseStateModel> GetByForShow(string filter, int? pageSize, int? page, string orderBy, string orderDir, ContextRequest contextRequest, params  object[] extraParams)
         {
 			if (Request != null )
 				if (!string.IsNullOrEmpty(Request.QueryString["q"]))
@@ -14336,18 +15879,18 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
                 contextRequest = new ContextRequest();
                 contextRequest.CurrentContext = SFSdotNet.Framework.My.Context.CurrentContext;
             }
-            var bos = BR.SDCaseStatusBR.Instance.GetBy(HttpUtility.UrlDecode(filter), pageSize, page, orderBy, orderDir, GetUseMode(), contextRequest, extraParams);
-			//var bos = BR.SDCaseStatusBR.Instance.GetBy(HttpUtility.UrlDecode(filter), pageSize, page, orderBy, orderDir, GetUseMode(), context, extraParams);
-            SDCaseStatuModel model = null;
-            List<SDCaseStatuModel> results = new List<SDCaseStatuModel>();
+            var bos = BR.SDCaseStatesBR.Instance.GetBy(HttpUtility.UrlDecode(filter), pageSize, page, orderBy, orderDir, GetUseMode(), contextRequest, extraParams);
+			//var bos = BR.SDCaseStatesBR.Instance.GetBy(HttpUtility.UrlDecode(filter), pageSize, page, orderBy, orderDir, GetUseMode(), context, extraParams);
+            SDCaseStateModel model = null;
+            List<SDCaseStateModel> results = new List<SDCaseStateModel>();
             foreach (var item in bos)
             {
-                model = new SDCaseStatuModel();
+                model = new SDCaseStateModel();
 				model.Bind(item);
 				results.Add(model);
             }
             //return results;
-			UIModel<SDCaseStatuModel> uiModel = GetContextModel(UIModelContextTypes.Items, null);
+			UIModel<SDCaseStateModel> uiModel = GetContextModel(UIModelContextTypes.Items, null);
             uiModel.Items = results;
 			if (Request != null){
 				if (SFSdotNet.Framework.Web.Utils.GetRouteDataOrQueryParam(Request.RequestContext, "action") == "Download")
@@ -14359,10 +15902,10 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
             return uiModel;
 		}			
 		
-		//public List<SDCaseStatuModel> GetBy(string filter, int? pageSize, int? page, string orderBy, string orderDir,  params  object[] extraParams)
+		//public List<SDCaseStateModel> GetBy(string filter, int? pageSize, int? page, string orderBy, string orderDir,  params  object[] extraParams)
         //{
 		//	var uiModel = GetByForShow(filter, pageSize, page, orderBy, orderDir, null, extraParams);
-        public override List<SDCaseStatuModel> GetBy(string filter, int? pageSize, int? page, string orderBy, string orderDir, ContextRequest contextRequest,  params  object[] extraParams)
+        public override List<SDCaseStateModel> GetBy(string filter, int? pageSize, int? page, string orderBy, string orderDir, ContextRequest contextRequest,  params  object[] extraParams)
         {
             var uiModel = GetByForShow(filter, pageSize, page, orderBy, orderDir, contextRequest, extraParams);
            
@@ -14370,13 +15913,13 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
 		
         }
 		/*
-        [MyAuthorize("r", "SDCaseStatu", "SFSServiceDesk", typeof(SDCaseStatusController))]
+        [MyAuthorize("r", "SDCaseState", "SFSServiceDesk", typeof(SDCaseStatesController))]
 		public ActionResult GetByJson(string filter, int? pageSize, int? page, string orderBy, string orderDir)
         {
 			 return GetByJsonBase(filter, pageSize, page, orderBy, orderDir);
         }*/
 
-		  [MyAuthorize("r", "SDCaseStatu", "SFSServiceDesk", typeof(SDCaseStatusController))]
+		  [MyAuthorize("r", "SDCaseState", "SFSServiceDesk", typeof(SDCaseStatesController))]
 		public ActionResult GetByJson(string filter, int? pageSize, int? page, string orderBy, string orderDir,ContextRequest contextRequest,  object[] extraParams)
         {
 			if (contextRequest == null || contextRequest.Company == null || contextRequest.User == null )
@@ -14401,7 +15944,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
                 }
             }
         }
-/*		  [MyAuthorize("r", "SDCaseStatu", "SFSServiceDesk", typeof(SDCaseStatusController))]
+/*		  [MyAuthorize("r", "SDCaseState", "SFSServiceDesk", typeof(SDCaseStatesController))]
        public ActionResult GetByJson(string filter, int? pageSize, int? page, string orderBy, string orderDir, ContextRequest contextRequest, object[] extraParams)
         {
             return GetByJsonBase(filter, pageSize, page, orderBy, orderDir, contextRequest, extraParams);
@@ -14419,7 +15962,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
                 try
                 {
 
-                    var result = BR.SDCaseStatusBR.Instance.GetCount(HttpUtility.UrlDecode(filter), GetUseMode(), contextRequest);
+                    var result = BR.SDCaseStatesBR.Instance.GetCount(HttpUtility.UrlDecode(filter), GetUseMode(), contextRequest);
 
                    if (Request.QueryString["v"] == "2")
                     {
@@ -14441,25 +15984,25 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
             }
             else
             {
-                var result = BR.SDCaseStatusBR.Instance.GetCount(HttpUtility.UrlDecode(filter), GetUseMode(), contextRequest);
+                var result = BR.SDCaseStatesBR.Instance.GetCount(HttpUtility.UrlDecode(filter), GetUseMode(), contextRequest);
                 return Content(result.ToString());
             }
 		}
 		
 
-		[MyAuthorize("r", "SDCaseStatu", "SFSServiceDesk", typeof(SDCaseStatusController))]
+		[MyAuthorize("r", "SDCaseState", "SFSServiceDesk", typeof(SDCaseStatesController))]
         public ActionResult GetByKeyJson(string id, ContextRequest contextRequest,  bool dec = false)
         {
             return Json(GetByKey(id, null, contextRequest, dec), JsonRequestBehavior.AllowGet);
         }
-		public SDCaseStatuModel GetByKey(string id) {
+		public SDCaseStateModel GetByKey(string id) {
 			return GetByKey(id, null,null, false);
        	}
-		    public SDCaseStatuModel GetByKey(string id, string includes)
+		    public SDCaseStateModel GetByKey(string id, string includes)
         {
             return GetByKey(id, includes, false);
         }
-		 public  SDCaseStatuModel GetByKey(string id, string includes, ContextRequest contextRequest)
+		 public  SDCaseStateModel GetByKey(string id, string includes, ContextRequest contextRequest)
         {
             return GetByKey(id, includes, contextRequest, false);
         }
@@ -14471,7 +16014,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
                   safePropertyName = fieldName.Substring(2, fieldName.Length - 2);
               }
 
-             SDCaseStatuModel model = new  SDCaseStatuModel();
+             SDCaseStateModel model = new  SDCaseStateModel();
 
             UIModel uiModel = GetUIModel(model, new string[] { "NoField-" });
 			
@@ -14498,22 +16041,22 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
 
         }
       */
-	public SDCaseStatuModel GetByKey(string id, ContextRequest contextRequest, bool dec)
+	public SDCaseStateModel GetByKey(string id, ContextRequest contextRequest, bool dec)
         {
             return GetByKey(id, null, contextRequest, dec);
         }
-        public SDCaseStatuModel GetByKey(string id, string  includes, bool dec)
+        public SDCaseStateModel GetByKey(string id, string  includes, bool dec)
         {
             return GetByKey(id, includes, null, dec);
         }
 
-        public SDCaseStatuModel GetByKey(string id, string includes, ContextRequest contextRequest, bool dec) {
-		             SDCaseStatuModel model = null;
-            ControllerEventArgs<SDCaseStatuModel> e = null;
+        public SDCaseStateModel GetByKey(string id, string includes, ContextRequest contextRequest, bool dec) {
+		             SDCaseStateModel model = null;
+            ControllerEventArgs<SDCaseStateModel> e = null;
 			string objectKey = id.Replace("-","/");
-             OnGettingByKey(this, e=  new ControllerEventArgs<SDCaseStatuModel>() { Id = objectKey  });
+             OnGettingByKey(this, e=  new ControllerEventArgs<SDCaseStateModel>() { Id = objectKey  });
              bool cancel = false;
-             SDCaseStatuModel eItem = null;
+             SDCaseStateModel eItem = null;
              if (e != null)
              {
                  cancel = e.Cancel;
@@ -14521,23 +16064,23 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
              }
 			if (cancel == false && eItem == null)
              {
-			Guid guidCaseStatus = Guid.Empty; //new Guid(SFSdotNet.Framework.Entities.Utils.GetPropertyKey(objectKey, "GuidCaseStatus"));
+			Guid guidCaseState = Guid.Empty; //new Guid(SFSdotNet.Framework.Entities.Utils.GetPropertyKey(objectKey, "GuidCaseState"));
 			if (dec)
                  {
-                     guidCaseStatus = new Guid(id);
+                     guidCaseState = new Guid(id);
                  }
                  else
                  {
-                     guidCaseStatus = new Guid(SFSdotNet.Framework.Entities.Utils.GetPropertyKey(objectKey, null));
+                     guidCaseState = new Guid(SFSdotNet.Framework.Entities.Utils.GetPropertyKey(objectKey, null));
                  }
 			
             
-				model = new SDCaseStatuModel();
+				model = new SDCaseStateModel();
                   if (contextRequest == null)
                 {
                     contextRequest = GetContextRequest();
                 }
-				var bo = BR.SDCaseStatusBR.Instance.GetByKey(guidCaseStatus, GetUseMode(), contextRequest,  includes);
+				var bo = BR.SDCaseStatesBR.Instance.GetByKey(guidCaseState, GetUseMode(), contextRequest,  includes);
 				 if (bo != null)
                     model.Bind(bo);
                 else
@@ -14550,16 +16093,16 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
 
             return model;
         }
-        // GET: /SDCaseStatus/DetailsGen/5
-		[MyAuthorize("r", "SDCaseStatu", "SFSServiceDesk", typeof(SDCaseStatusController))]
+        // GET: /SDCaseStates/DetailsGen/5
+		[MyAuthorize("r", "SDCaseState", "SFSServiceDesk", typeof(SDCaseStatesController))]
         public ActionResult DetailsGen(string id)
         {
 			//if (System.Web.SiteMap.CurrentNode != null)
-			//	System.Web.SiteMap.CurrentNode.Title = SDCaseStatuResources.ENTITY_PLURAL;
+			//	System.Web.SiteMap.CurrentNode.Title = SDCaseStateResources.ENTITY_PLURAL;
 			 #region implementaci�n de m�todo parcial
 
             bool cancel = false; bool replaceResult = false;
-            OnDetailsShowing(this, e = new ControllerEventArgs<SDCaseStatuModel>() { Id = id });
+            OnDetailsShowing(this, e = new ControllerEventArgs<SDCaseStateModel>() { Id = id });
             if (e != null)
             {
                 if (e.Cancel && e.ActionResult != null)
@@ -14581,7 +16124,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
                     guidId = Guid.Parse(id);
                 }
             }
-			//UIModel<SDCaseStatuModel> uiModel = GetContextModel(UIModelContextTypes.DisplayForm, GetByKey(id, null, decripted), decripted, guidId);
+			//UIModel<SDCaseStateModel> uiModel = GetContextModel(UIModelContextTypes.DisplayForm, GetByKey(id, null, decripted), decripted, guidId);
 			var item = GetByKey(id, null, null, decripted);
 			if (item == null)
             {
@@ -14604,14 +16147,14 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
                 return RedirectToAction("Index", rv);
             }
             //
-            UIModel<SDCaseStatuModel> uiModel = null;
+            UIModel<SDCaseStateModel> uiModel = null;
                 uiModel = GetContextModel(UIModelContextTypes.DisplayForm, item, decripted, guidId);
 
 
 
-            MyEventArgs<UIModel<SDCaseStatuModel>> me = null;
+            MyEventArgs<UIModel<SDCaseStateModel>> me = null;
 
-            OnActionsCreated(this, me = new MyEventArgs<UIModel<SDCaseStatuModel>>() { Object = uiModel });
+            OnActionsCreated(this, me = new MyEventArgs<UIModel<SDCaseStateModel>>() { Object = uiModel });
 
             if (me != null) {
                 uiModel = me.Object;
@@ -14625,12 +16168,12 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
 			return ResolveView(uiModel, uiModel.Items[0]);
 
         }
-		[MyAuthorize("r", "SDCaseStatu", "SFSServiceDesk", typeof(SDCaseStatusController))]
+		[MyAuthorize("r", "SDCaseState", "SFSServiceDesk", typeof(SDCaseStatesController))]
 		public ActionResult DetailsViewGen(string id)
         {
 
 		 bool cancel = false; bool replaceResult = false;
-            OnDetailsShowing(this, e = new ControllerEventArgs<SDCaseStatuModel>() { Id = id });
+            OnDetailsShowing(this, e = new ControllerEventArgs<SDCaseStateModel>() { Id = id });
             if (e != null)
             {
                 if (e.Cancel && e.ActionResult != null)
@@ -14660,12 +16203,12 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
                     guidId = Guid.Parse(id);
                 }
             }
-            UIModel<SDCaseStatuModel> uiModel = GetContextModel(UIModelContextTypes.DisplayForm, GetByKey(id, null, null, decripted), decripted, guidId);
+            UIModel<SDCaseStateModel> uiModel = GetContextModel(UIModelContextTypes.DisplayForm, GetByKey(id, null, null, decripted), decripted, guidId);
 			
 
-            MyEventArgs<UIModel<SDCaseStatuModel>> me = null;
+            MyEventArgs<UIModel<SDCaseStateModel>> me = null;
 
-            OnActionsCreated(this, me = new MyEventArgs<UIModel<SDCaseStatuModel>>() { Object = uiModel });
+            OnActionsCreated(this, me = new MyEventArgs<UIModel<SDCaseStateModel>>() { Object = uiModel });
 
             if (me != null)
             {
@@ -14677,21 +16220,21 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
         
         }
         //
-        // GET: /SDCaseStatus/Details/5
+        // GET: /SDCaseStates/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
         //
-        // GET: /SDCaseStatus/CreateGen
-		[MyAuthorize("c", "SDCaseStatu", "SFSServiceDesk", typeof(SDCaseStatusController))]
+        // GET: /SDCaseStates/CreateGen
+		[MyAuthorize("c", "SDCaseState", "SFSServiceDesk", typeof(SDCaseStatesController))]
         public ActionResult CreateGen()
         {
-			SDCaseStatuModel model = new SDCaseStatuModel();
+			SDCaseStateModel model = new SDCaseStateModel();
             model.IsNew = true;
 			 var me = GetContextModel(UIModelContextTypes.EditForm, model);
 
-			OnCreateShowing(this, e = new ControllerEventArgs<SDCaseStatuModel>() { Item = model });
+			OnCreateShowing(this, e = new ControllerEventArgs<SDCaseStateModel>() { Item = model });
    			if (e != null)
             {
                 model = e.Item;
@@ -14711,30 +16254,34 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
 			return ResolveView(me, me.Items[0]);
         } 
 			
-		protected override UIModel<SDCaseStatuModel> GetContextModel(UIModelContextTypes formMode, SDCaseStatuModel model)
+		protected override UIModel<SDCaseStateModel> GetContextModel(UIModelContextTypes formMode, SDCaseStateModel model)
         {
             return GetContextModel(formMode, model, false, null);
         }
 			
-		 private UIModel<SDCaseStatuModel> GetContextModel(UIModelContextTypes formMode, SDCaseStatuModel model, bool decript, Guid ? id) {
-            UIModel<SDCaseStatuModel> me = new UIModel<SDCaseStatuModel>(true, "SDCaseStatus");
+		 private UIModel<SDCaseStateModel> GetContextModel(UIModelContextTypes formMode, SDCaseStateModel model, bool decript, Guid ? id) {
+            UIModel<SDCaseStateModel> me = new UIModel<SDCaseStateModel>(true, "SDCaseStates");
 			me.UseMode = GetUseMode();
 			me.Controller = this;
 			me.OverrideApp = GetOverrideApp();
 			me.ContextType = formMode ;
-			me.Id = "SDCaseStatu";
+			me.Id = "SDCaseState";
 			
             me.ModuleKey = "SFSServiceDesk";
 
 			me.ModuleNamespace = "SFS.ServiceDesk";
-            me.EntityKey = "SDCaseStatu";
-            me.EntitySetName = "SDCaseStatus";
+            me.EntityKey = "SDCaseState";
+            me.EntitySetName = "SDCaseStates";
 
 			me.AreaAction = "SFSServiceDesk";
-            me.ControllerAction = "SDCaseStatus";
-            me.PropertyKeyName = "GuidCaseStatus";
+            me.ControllerAction = "SDCaseStates";
+            me.PropertyKeyName = "GuidCaseState";
 
             me.Properties = GetProperties(me, decript, id);
+
+			me.SortBy = "UpdatedDate";
+			me.SortDirection = UIModelSortDirection.DESC;
+
  			
 			if (Request != null)
             {
@@ -14746,14 +16293,14 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
 			 #region Buttons
 			 if (Request != null ){
              if (formMode == UIModelContextTypes.DisplayForm || formMode == UIModelContextTypes.EditForm || formMode == UIModelContextTypes.ListForm)
-				me.ActionButtons = GetActionButtons(formMode,model != null ?(Request.QueryString["dec"] == "true" ? model.Id : model.SafeKey)  : null, "SFSServiceDesk", "SDCaseStatus", "SDCaseStatu", me.IsNew);
+				me.ActionButtons = GetActionButtons(formMode,model != null ?(Request.QueryString["dec"] == "true" ? model.Id : model.SafeKey)  : null, "SFSServiceDesk", "SDCaseStates", "SDCaseState", me.IsNew);
 
-            //me.ActionButtons.Add(new ActionModel() { ActionKey = "return", Title = GlobalMessages.RETURN, Url = System.Web.VirtualPathUtility.ToAbsolute("~/") + "SFSServiceDesk/SDCaseStatus" });
+            //me.ActionButtons.Add(new ActionModel() { ActionKey = "return", Title = GlobalMessages.RETURN, Url = System.Web.VirtualPathUtility.ToAbsolute("~/") + "SFSServiceDesk/SDCaseStates" });
 			if (this.HttpContext != null &&  !this.HttpContext.SkipAuthorization){
 				//antes this.HttpContext
-				me.SetAction("u", (new SFSdotNet.Framework.Globals.Security.Permission()).IsAllowed("u", "SDCaseStatu", "SFSServiceDesk"));
-				me.SetAction("c", (new SFSdotNet.Framework.Globals.Security.Permission()).IsAllowed("c", "SDCaseStatu", "SFSServiceDesk"));
-				me.SetAction("d", (new SFSdotNet.Framework.Globals.Security.Permission()).IsAllowed("d", "SDCaseStatu", "SFSServiceDesk"));
+				me.SetAction("u", (new SFSdotNet.Framework.Globals.Security.Permission()).IsAllowed("u", "SDCaseState", "SFSServiceDesk"));
+				me.SetAction("c", (new SFSdotNet.Framework.Globals.Security.Permission()).IsAllowed("c", "SDCaseState", "SFSServiceDesk"));
+				me.SetAction("d", (new SFSdotNet.Framework.Globals.Security.Permission()).IsAllowed("d", "SDCaseState", "SFSServiceDesk"));
 			
 			}else{
 				me.SetAction("u", true);
@@ -14766,7 +16313,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
             switch (formMode)
             {
                 case UIModelContextTypes.DisplayForm:
-					//me.TitleForm = SDCaseStatuResources.SDCASESTATUS_DETAILS;
+					//me.TitleForm = SDCaseStateResources.SDCASESTATES_DETAILS;
                     me.ActionButtons.First(p => p.ActionKey == "u").Title = GlobalMessages.MODIFY_DATA;
 					 me.Properties.Where(p=>p.PropertyName  != "Id" && p.IsForeignKey == false).ToList().ForEach(p => p.IsHidden = false);
 
@@ -14783,14 +16330,14 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
                         me.ActionButtons.First(p => p.ActionKey == "u").Title = GlobalMessages.SAVE_DATA;                        
                         me.ActionButtons.First(p => p.ActionKey == "c").Title = GlobalMessages.SAVE_DATA;
 						if (model.IsNew ){
-							//me.TitleForm = SDCaseStatuResources.SDCASESTATUS_ADD_NEW;
+							//me.TitleForm = SDCaseStateResources.SDCASESTATES_ADD_NEW;
 							me.ActionName = "CreateGen";
 							me.Properties.RemoveAll(p => p.SystemProperty != null || (p.IsNavigationPropertyMany && p.NavigationPropertyType != NavigationPropertyTypes.Tags));
 						}else{
 							
 							me.ActionName = "EditGen";
 
-							//me.TitleForm = SDCaseStatuResources.SDCASESTATUS_EDIT;
+							//me.TitleForm = SDCaseStateResources.SDCASESTATES_EDIT;
 							me.Properties.RemoveAll(p => p.SystemProperty != null && p.SystemProperty != SystemProperties.Identifier || (p.IsNavigationPropertyMany && p.NavigationPropertyType != NavigationPropertyTypes.Tags));	
 						}
 						//me.Properties.Remove(me.Properties.Find(p => p.PropertyName == "UpdatedDate"));
@@ -14809,9 +16356,15 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
 					 
                     
 					
+					 if (me.Properties.Find(p => p.PropertyName == "UpdatedDate") != null){
+						me.Properties.Find(p => p.PropertyName == "UpdatedDate").IsHidden = false;
+					 }
+					 
+                    
+					
 
-						 if (me.Properties.Find(p => p.PropertyName == "GuidCaseStatus") != null){
-						me.Properties.Find(p => p.PropertyName == "GuidCaseStatus").IsHidden = false;
+						 if (me.Properties.Find(p => p.PropertyName == "GuidCaseState") != null){
+						me.Properties.Find(p => p.PropertyName == "GuidCaseState").IsHidden = false;
 					 }
 					 
                     
@@ -14830,9 +16383,13 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
 						me.Properties.Find(p => p.PropertyName == "Title").IsHidden = false;
 					 }
 					
+					 if (me.Properties.Find(p => p.PropertyName == "UpdatedDate") != null){
+						me.Properties.Find(p => p.PropertyName == "UpdatedDate").IsHidden = false;
+					 }
+					
 					me.PrincipalActionName = "GetByJson";
 					//}
-					//me.TitleForm = SDCaseStatuResources.SDCASESTATUS_LIST;
+					//me.TitleForm = SDCaseStateResources.SDCASESTATES_LIST;
                     break;
                 default:
                     break;
@@ -14843,14 +16400,14 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
             	me.Items.Add(model);
             return me;
         }
-		// GET: /SDCaseStatus/CreateViewGen
-		[MyAuthorize("c", "SDCaseStatu", "SFSServiceDesk", typeof(SDCaseStatusController))]
+		// GET: /SDCaseStates/CreateViewGen
+		[MyAuthorize("c", "SDCaseState", "SFSServiceDesk", typeof(SDCaseStatesController))]
         public ActionResult CreateViewGen()
         {
-				SDCaseStatuModel model = new SDCaseStatuModel();
+				SDCaseStateModel model = new SDCaseStateModel();
             model.IsNew = true;
 			e= null;
-			OnCreateShowing(this, e = new ControllerEventArgs<SDCaseStatuModel>() { Item = model });
+			OnCreateShowing(this, e = new ControllerEventArgs<SDCaseStateModel>() { Item = model });
    			if (e != null)
             {
                 model = e.Item;
@@ -14876,11 +16433,11 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
             Showing(ref me);
             return ResolveView(me, me.Items[0]);
         }
-		protected override  void GettingExtraData(ref UIModel<SDCaseStatuModel> uiModel)
+		protected override  void GettingExtraData(ref UIModel<SDCaseStateModel> uiModel)
         {
 
-            MyEventArgs<UIModel<SDCaseStatuModel>> me = null;
-            OnGettingExtraData(this, me = new MyEventArgs<UIModel<SDCaseStatuModel>>() { Object = uiModel });
+            MyEventArgs<UIModel<SDCaseStateModel>> me = null;
+            OnGettingExtraData(this, me = new MyEventArgs<UIModel<SDCaseStateModel>>() { Object = uiModel });
             //bool maybeAnyReplaced = false; 
             if (me != null)
             {
@@ -14893,14 +16450,14 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
             bool isFK = false;
 			PropertyDefinition prop =null;
 			var contextRequest = this.GetContextRequest();
-            contextRequest.CustomParams.Add(new CustomParam() { Name="ui", Value= SDCaseStatu.EntityName });
+            contextRequest.CustomParams.Add(new CustomParam() { Name="ui", Value= SDCaseState.EntityName });
 
                         
 
         }
-		private void Showing(ref UIModel<SDCaseStatuModel> uiModel) {
+		private void Showing(ref UIModel<SDCaseStateModel> uiModel) {
           	
-			MyEventArgs<UIModel<SDCaseStatuModel>> me = new MyEventArgs<UIModel<SDCaseStatuModel>>() { Object = uiModel };
+			MyEventArgs<UIModel<SDCaseStateModel>> me = new MyEventArgs<UIModel<SDCaseStateModel>>() { Object = uiModel };
 			 OnVirtualLayoutSettings(this, me);
 
 
@@ -14924,11 +16481,11 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
 
         }
         //
-        // POST: /SDCaseStatus/Create
-		[MyAuthorize("c", "SDCaseStatu", "SFSServiceDesk", typeof(SDCaseStatusController))]
+        // POST: /SDCaseStates/Create
+		[MyAuthorize("c", "SDCaseState", "SFSServiceDesk", typeof(SDCaseStatesController))]
         [HttpPost]
 		[ValidateInput(false)] 
-        public ActionResult CreateGen(SDCaseStatuModel  model,  ContextRequest contextRequest)
+        public ActionResult CreateGen(SDCaseStateModel  model,  ContextRequest contextRequest)
         {
 			bool isPopUp = false;
             if (!string.IsNullOrEmpty(System.Web.HttpContext.Current.Request.Form["popup"]) || !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request.QueryString["popup"]))
@@ -14938,7 +16495,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
 		 	e = null;
 			this.Validations(model);
 
-            OnValidating(this, e = new ControllerEventArgs<SDCaseStatuModel>() { Item = model });
+            OnValidating(this, e = new ControllerEventArgs<SDCaseStateModel>() { Item = model });
            
 		  	if (!ModelState.IsValid) {
 				model.IsNew = true;
@@ -14960,14 +16517,14 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
             }
             try
             {
-				if (model.GuidCaseStatus == null || model.GuidCaseStatus.ToString().Contains("000000000"))
-				model.GuidCaseStatus = Guid.NewGuid();
+				if (model.GuidCaseState == null || model.GuidCaseState.ToString().Contains("000000000"))
+				model.GuidCaseState = Guid.NewGuid();
 	
 				// habilitando m�todo parcial
                 #region implementaci�n de m�todo parcial
                
                 bool cancel = false; bool replaceResult = false;
-                OnCreating(this, e = new ControllerEventArgs<SDCaseStatuModel>() { Item = model });
+                OnCreating(this, e = new ControllerEventArgs<SDCaseStateModel>() { Item = model });
                 if (e != null) {
                    if (e.Cancel && e.RedirectValues.Count > 0){
                         RouteValueDictionary rv = new RouteValueDictionary();
@@ -14998,8 +16555,8 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
 					
 				}
                 if (!cancel)
-                	model.Bind(SDCaseStatusBR.Instance.Create(model.GetBusinessObject(), contextRequest ));
-				OnCreated(this, e = new ControllerEventArgs<SDCaseStatuModel>() { Item = model });
+                	model.Bind(SDCaseStatesBR.Instance.Create(model.GetBusinessObject(), contextRequest ));
+				OnCreated(this, e = new ControllerEventArgs<SDCaseStateModel>() { Item = model });
                  if (this.IsRESTRequest == true)
                 {
                     if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
@@ -15104,7 +16661,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
                 }
                 SFSdotNet.Framework.My.Context.CurrentContext.AddMessage(ex.Message, SFSdotNet.Framework.My.MessageResultTypes.Error);
                 model.IsNew = true;
-                var me = GetContextModel(UIModelContextTypes.EditForm, model, true, model.GuidCaseStatus);
+                var me = GetContextModel(UIModelContextTypes.EditForm, model, true, model.GuidCaseState);
                 Showing(ref me);
                 if (isPopUp)
                 {
@@ -15125,24 +16682,24 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
             }
         }        
         //
-        // GET: /SDCaseStatus/Edit/5 
+        // GET: /SDCaseStates/Edit/5 
         public ActionResult Edit(int id)
         {
             return View();
         }
 			
 		
-		[MyAuthorize("u", "SDCaseStatu", "SFSServiceDesk", typeof(SDCaseStatusController))]
-		[MvcSiteMapNode(Area="SFSServiceDesk", Title="sss", Clickable=false, ParentKey = "SFSServiceDesk_SDCaseStatu_List")]
+		[MyAuthorize("u", "SDCaseState", "SFSServiceDesk", typeof(SDCaseStatesController))]
+		[MvcSiteMapNode(Area="SFSServiceDesk", Title="sss", Clickable=false, ParentKey = "SFSServiceDesk_SDCaseState_List")]
 		public ActionResult EditGen(string id)
         {
 			//if (System.Web.SiteMap.CurrentNode != null)
-			//	System.Web.SiteMap.CurrentNode.Title = SDCaseStatuResources.ENTITY_SINGLE;		 	
+			//	System.Web.SiteMap.CurrentNode.Title = SDCaseStateResources.ENTITY_SINGLE;		 	
   // habilitando m�todo parcial
             #region implementaci�n de m�todo parcial
 
             bool cancel = false; bool replaceResult = false;
-            OnEditShowing(this, e = new ControllerEventArgs<SDCaseStatuModel>() { Id= id });
+            OnEditShowing(this, e = new ControllerEventArgs<SDCaseStateModel>() { Id= id });
             if (e != null)
             {
                 if (e.Cancel && e.ActionResult != null)
@@ -15153,7 +16710,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
                     replaceResult = true;
             }
             #endregion
-            SDCaseStatuModel model = null;
+            SDCaseStateModel model = null;
             // si fue implementado el m�todo parcial y no se ha decidido suspender la acci�n
 			bool dec = false;
             Guid ? idGuidDecripted = null ;
@@ -15180,7 +16737,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
                 return e.ActionResult;
             }
         }
-			[MyAuthorize("u", "SDCaseStatu","SFSServiceDesk", typeof(SDCaseStatusController))]
+			[MyAuthorize("u", "SDCaseState","SFSServiceDesk", typeof(SDCaseStatesController))]
 		public ActionResult EditViewGen(string id)
         {
             if (!string.IsNullOrEmpty(System.Web.HttpContext.Current.Request.QueryString["popup"]))
@@ -15194,7 +16751,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
             #region implementaci�n de m�todo parcial
 
             bool cancel = false; bool replaceResult = false;
-            OnEditShowing(this, e = new ControllerEventArgs<SDCaseStatuModel>() { Id= id });
+            OnEditShowing(this, e = new ControllerEventArgs<SDCaseStateModel>() { Id= id });
             if (e != null)
             {
                 if (e.Cancel && e.ActionResult != null)
@@ -15206,7 +16763,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
             }
             #endregion
 			
-            SDCaseStatuModel model = null;
+            SDCaseStateModel model = null;
 			 bool dec = false;
             Guid? guidId = null ;
 
@@ -15224,10 +16781,10 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
 
             return ResolveView(me, model);
         }
-		[MyAuthorize("u", "SDCaseStatu",  "SFSServiceDesk", typeof(SDCaseStatusController))]
+		[MyAuthorize("u", "SDCaseState",  "SFSServiceDesk", typeof(SDCaseStatesController))]
 		[HttpPost]
 		[ValidateInput(false)] 
-		        public ActionResult EditGen(SDCaseStatuModel model)
+		        public ActionResult EditGen(SDCaseStateModel model)
         {
 			bool isPopUp = false;
             if (!string.IsNullOrEmpty(System.Web.HttpContext.Current.Request.Form["popup"]) || !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request.QueryString["popup"]))
@@ -15237,7 +16794,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
 			e = null;
 			this.Validations(model);
 
-            OnValidating(this, e = new ControllerEventArgs<SDCaseStatuModel>() { Item = model });
+            OnValidating(this, e = new ControllerEventArgs<SDCaseStateModel>() { Item = model });
            
             if (!ModelState.IsValid)
             {
@@ -15258,7 +16815,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
                 #region implementaci�n de m�todo parcial
                
                 bool cancel = false; bool replaceResult = false;
-                OnEditing(this, e = new ControllerEventArgs<SDCaseStatuModel>() { Item = model });
+                OnEditing(this, e = new ControllerEventArgs<SDCaseStateModel>() { Item = model });
                 if (e != null) {
                     if (e.Cancel && e.ActionResult != null)
                         return e.ActionResult;
@@ -15272,11 +16829,11 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
 				ContextRequest context = new ContextRequest();
                 context.CurrentContext = SFSdotNet.Framework.My.Context.CurrentContext;
 
-                SDCaseStatu resultObj = null;
+                SDCaseState resultObj = null;
 			    if (!cancel)
-                	resultObj = SDCaseStatusBR.Instance.Update(model.GetBusinessObject(), GetContextRequest());
+                	resultObj = SDCaseStatesBR.Instance.Update(model.GetBusinessObject(), GetContextRequest());
 				
-				OnEdited(this, e = new ControllerEventArgs<SDCaseStatuModel>() { Item =   new SDCaseStatuModel(resultObj) });
+				OnEdited(this, e = new ControllerEventArgs<SDCaseStateModel>() { Item =   new SDCaseStateModel(resultObj) });
 				if (this.IsRESTRequest == true)
                 {
                     if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
@@ -15419,7 +16976,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
             }
         }
         //
-        // POST: /SDCaseStatus/Edit/5
+        // POST: /SDCaseStates/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -15436,9 +16993,9 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
         }
 
         //
-        // GET: /SDCaseStatus/Delete/5
+        // GET: /SDCaseStates/Delete/5
         
-		[MyAuthorize("d", "SDCaseStatu", "SFSServiceDesk", typeof(SDCaseStatusController))]
+		[MyAuthorize("d", "SDCaseState", "SFSServiceDesk", typeof(SDCaseStatesController))]
 		[HttpDelete]
         public ActionResult DeleteGen(string objectKey, string extraParams)
         {
@@ -15446,10 +17003,10 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
             {
 					
 			
-				Guid guidCaseStatus = new Guid(SFSdotNet.Framework.Entities.Utils.GetPropertyKey(objectKey.Replace("-", "/"), "GuidCaseStatus")); 
-                BO.SDCaseStatu entity = new BO.SDCaseStatu() { GuidCaseStatus = guidCaseStatus };
+				Guid guidCaseState = new Guid(SFSdotNet.Framework.Entities.Utils.GetPropertyKey(objectKey.Replace("-", "/"), "GuidCaseState")); 
+                BO.SDCaseState entity = new BO.SDCaseState() { GuidCaseState = guidCaseState };
 
-                BR.SDCaseStatusBR.Instance.Delete(entity, GetContextRequest());               
+                BR.SDCaseStatesBR.Instance.Delete(entity, GetContextRequest());               
                 return PartialView("ResultMessageView", (new MessageModel()).GetDone(GlobalMessages.DELETE_DONE));
 
             }
@@ -15486,10 +17043,10 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
                 }
             }
 				
-            query = SFSdotNet.Framework.Web.Mvc.Lists.GetQuery(query, allSelected.Value, selected, "GuidCaseStatus");
-            MyEventArgs<ContextActionModel<SDCaseStatuModel>> eArgs = null;
-            List<SDCaseStatuModel> results = GetBy(query, null, null, orderBy, direction, GetContextRequest(), keysSelected1);
-            OnDownloading(this, eArgs = new MyEventArgs<ContextActionModel<SDCaseStatuModel>>() { Object = new ContextActionModel<SDCaseStatuModel>() { Query = query, SelectedItems = results, Selected=selected, SelectAll = allSelected.Value, Direction = direction , OrderBy = orderBy, ActionKey=actionKey  } });
+            query = SFSdotNet.Framework.Web.Mvc.Lists.GetQuery(query, allSelected.Value, selected, "GuidCaseState");
+            MyEventArgs<ContextActionModel<SDCaseStateModel>> eArgs = null;
+            List<SDCaseStateModel> results = GetBy(query, null, null, orderBy, direction, GetContextRequest(), keysSelected1);
+            OnDownloading(this, eArgs = new MyEventArgs<ContextActionModel<SDCaseStateModel>>() { Object = new ContextActionModel<SDCaseStateModel>() { Query = query, SelectedItems = results, Selected=selected, SelectAll = allSelected.Value, Direction = direction , OrderBy = orderBy, ActionKey=actionKey  } });
 
             if (eArgs != null)
             {
@@ -15498,7 +17055,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
             }
             
 
-            return (new FeaturesController()).ExportDownload(typeof(SDCaseStatuModel), results, format, this.GetUIPluralText("SFSServiceDesk", "SDCaseStatu"));
+            return (new FeaturesController()).ExportDownload(typeof(SDCaseStateModel), results, format, this.GetUIPluralText("SFSServiceDesk", "SDCaseState"));
             
         }
 			*/
@@ -15524,13 +17081,13 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
 			DataAction dataAction = DataAction.GetDataAction(Request);
 			 model.Selected = dataAction.Selected;
 
-            model.Query = SFSdotNet.Framework.Web.Mvc.Lists.GetQuery(dataAction.Query, dataAction.AllSelected, dataAction.Selected, "GuidCaseStatus");
+            model.Query = SFSdotNet.Framework.Web.Mvc.Lists.GetQuery(dataAction.Query, dataAction.AllSelected, dataAction.Selected, "GuidCaseState");
            
             
 			
 			#region implementaci�n de m�todo parcial
             bool replaceResult = false;
-            MyEventArgs<ContextActionModel<SDCaseStatuModel>> actionEventArgs = null;
+            MyEventArgs<ContextActionModel<SDCaseStateModel>> actionEventArgs = null;
            
 			if (model.ActionKey != "deletemany" && model.ActionKey != "deleterelmany" && model.ActionKey != "updateRel" &&  model.ActionKey != "delete-relation-fk" && model.ActionKey != "restore" )
 			{
@@ -15540,22 +17097,26 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
 				if (model.IsBackground)
 				{
 					System.Threading.Tasks.Task.Run(() => 
-						OnCustomActionExecutingBackground(this, actionEventArgs = new MyEventArgs<ContextActionModel<SDCaseStatuModel>>() { Object = new ContextActionModel<SDCaseStatuModel>() { DataAction = dataAction, ContextRequest = context, AllSelected = model.AllSelected, SelectAll = model.AllSelected, IsBackground = model.IsBackground, ActionKey = model.ActionKey, Direction = model.Direction, OrderBy = model.OrderBy, /*SelectedItems = results,*/ SelectedKeys = dataAction.SelectedGuids.Cast<Object>().ToList(), Query = model.Query } })
+						OnCustomActionExecutingBackground(this, actionEventArgs = new MyEventArgs<ContextActionModel<SDCaseStateModel>>() { Object = new ContextActionModel<SDCaseStateModel>() { DataAction = dataAction, ContextRequest = context, AllSelected = model.AllSelected, SelectAll = model.AllSelected, IsBackground = model.IsBackground, ActionKey = model.ActionKey, Direction = model.Direction, OrderBy = model.OrderBy, /*SelectedItems = results,*/ SelectedKeys = dataAction.SelectedGuids.Cast<Object>().ToList(), Query = model.Query } })
 					);
 				}
 				else
 				{
-					OnCustomActionExecuting(this, actionEventArgs = new MyEventArgs<ContextActionModel<SDCaseStatuModel>>() {  Object = new ContextActionModel<SDCaseStatuModel>() { DataAction = dataAction, ContextRequest = context, AllSelected = model.AllSelected, SelectAll = model.AllSelected, IsBackground = model.IsBackground, ActionKey = model.ActionKey, Direction = model.Direction, OrderBy = model.OrderBy, /*SelectedItems = results,*/ SelectedKeys = dataAction.SelectedGuids.Cast<Object>().ToList(), Query = model.Query } });
+					OnCustomActionExecuting(this, actionEventArgs = new MyEventArgs<ContextActionModel<SDCaseStateModel>>() {  Object = new ContextActionModel<SDCaseStateModel>() { DataAction = dataAction, ContextRequest = context, AllSelected = model.AllSelected, SelectAll = model.AllSelected, IsBackground = model.IsBackground, ActionKey = model.ActionKey, Direction = model.Direction, OrderBy = model.OrderBy, /*SelectedItems = results,*/ SelectedKeys = dataAction.SelectedGuids.Cast<Object>().ToList(), Query = model.Query } });
 				}
 			}
-            List<SDCaseStatuModel> results = null;
+            List<SDCaseStateModel> results = null;
 	
 			if (model.ActionKey == "deletemany") { 
 				
-				BR.SDCaseStatusBR.Instance.Delete(model.Query, dataAction.SelectedGuids.ToArray(), GetContextRequest());
+				BR.SDCaseStatesBR.Instance.Delete(model.Query, dataAction.SelectedGuids.ToArray(), GetContextRequest());
 
             }
 	
+			else if (model.ActionKey == "restore") {
+                    BR.SDCaseStatesBR.Instance.UnDelete(model.Query, dataAction.SelectedGuids.ToArray(), GetContextRequest());
+
+                }
             else if (model.ActionKey == "updateRel" || model.ActionKey == "delete-relation-fk" || model.ActionKey == "updateRel-proxyMany")
             {
                try {
@@ -15572,7 +17133,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
                     {
                         valueForUpdate = Request.QueryString["valueForUpdate"];
                     }
-                    BR.SDCaseStatusBR.Instance.UpdateAssociation(propForUpdate, valueForUpdate, model.Query, dataAction.SelectedGuids.ToArray(), GetContextRequest());
+                    BR.SDCaseStatesBR.Instance.UpdateAssociation(propForUpdate, valueForUpdate, model.Query, dataAction.SelectedGuids.ToArray(), GetContextRequest());
 					
                     if (model.ActionKey == "delete-relation-fk")
                     {
@@ -15649,7 +17210,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
             }
         }
         //
-        // POST: /SDCaseStatus/Delete/5
+        // POST: /SDCaseStates/Delete/5
         
 			
 	
@@ -16136,6 +17697,179 @@ if (visibleProperty || specificProperties.Contains("StorageLocation"))
 	
 	}
 visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("CreatedDate"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "CreatedDate")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 106,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "CreatedDate",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "CreatedDate",
+					
+	
+				SystemProperty = SystemProperties.CreatedDate ,
+                    TypeName = "DateTime",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDFileResources.CREATEDDATE*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("UpdatedDate"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "UpdatedDate")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 122,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "UpdatedDate",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "UpdatedDate",
+					
+	
+					IsUpdatedDate = true,
+					SystemProperty = SystemProperties.UpdatedDate ,
+	
+                    TypeName = "DateTime",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    ,PropertyDisplayName = SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.UPDATED
+
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("CreatedBy"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "CreatedBy")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 108,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "CreatedBy",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "CreatedBy",
+					
+	
+				SystemProperty = SystemProperties.CreatedUser,
+                    TypeName = "Guid",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDFileResources.CREATEDBY*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("UpdatedBy"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "UpdatedBy")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 109,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "UpdatedBy",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "UpdatedBy",
+					
+	
+				SystemProperty = SystemProperties.UpdatedUser,
+                    TypeName = "Guid",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDFileResources.UPDATEDBY*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("Bytes"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "Bytes")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 110,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "Bytes",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "Bytes",
+					
+	
+				SystemProperty = SystemProperties.SizeBytes,
+                    TypeName = "Int32",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDFileResources.BYTES*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
 if (visibleProperty || specificProperties.Contains("SDCaseFiles"))
 {				
     customProperties = new List<CustomProperty>();
@@ -16152,7 +17886,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseFiles"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 106,
+					Order = 111,
 																
 					Link = VirtualPathUtility.ToAbsolute("~/") + "SFSServiceDesk/SDCaseFiles/ListViewGen?overrideModule=" + GetOverrideApp()  + "&pal=False&es=False&pag=10&filterlinks=1&idTab=SDCaseFiles&fk=SDFile&startFilter="+ (new UrlHelper(System.Web.HttpContext.Current.Request.RequestContext)).Encode("it.SDFile.GuidFile = Guid(\"" + idSDFile +"\")")+ "&fkValue=" + idSDFile,
 					ModuleKey = "SFSServiceDesk",
@@ -16165,7 +17899,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseFiles"))
 					 MaxLength = 0,
 					 Nullable = true,
 					IsDefaultProperty = false,
-                    SortBy = "SDCaseFiles.GuidCasefile",
+                    SortBy = "SDCaseFiles.Bytes",
 					
 	
                     TypeName = "SFSServiceDeskModel.SDCaseFile",
@@ -16194,7 +17928,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistoryFiles"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 107,
+					Order = 112,
 																
 					Link = VirtualPathUtility.ToAbsolute("~/") + "SFSServiceDesk/SDCaseHistoryFiles/ListViewGen?overrideModule=" + GetOverrideApp()  + "&pal=False&es=False&pag=10&filterlinks=1&idTab=SDCaseHistoryFiles&fk=SDFile&startFilter="+ (new UrlHelper(System.Web.HttpContext.Current.Request.RequestContext)).Encode("it.SDFile.GuidFile = Guid(\"" + idSDFile +"\")")+ "&fkValue=" + idSDFile,
 					ModuleKey = "SFSServiceDesk",
@@ -16207,7 +17941,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistoryFiles"))
 					 MaxLength = 0,
 					 Nullable = true,
 					IsDefaultProperty = false,
-                    SortBy = "SDCaseHistoryFiles.GuidCasehistoryFile",
+                    SortBy = "SDCaseHistoryFiles.Bytes",
 					
 	
                     TypeName = "SFSServiceDeskModel.SDCaseHistoryFile",
@@ -16638,6 +18372,10 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistoryFiles"))
             me.PropertyKeyName = "GuidFile";
 
             me.Properties = GetProperties(me, decript, id);
+
+			me.SortBy = "UpdatedDate";
+			me.SortDirection = UIModelSortDirection.DESC;
+
  			
 			if (Request != null)
             {
@@ -16712,6 +18450,12 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistoryFiles"))
 					 
                     
 					
+					 if (me.Properties.Find(p => p.PropertyName == "UpdatedDate") != null){
+						me.Properties.Find(p => p.PropertyName == "UpdatedDate").IsHidden = false;
+					 }
+					 
+                    
+					
 
 						 if (me.Properties.Find(p => p.PropertyName == "GuidFile") != null){
 						me.Properties.Find(p => p.PropertyName == "GuidFile").IsHidden = false;
@@ -16731,6 +18475,10 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistoryFiles"))
 					//if (Request.QueryString["allFields"] != "1"){
 					 if (me.Properties.Find(p => p.PropertyName == "FileName") != null){
 						me.Properties.Find(p => p.PropertyName == "FileName").IsHidden = false;
+					 }
+					
+					 if (me.Properties.Find(p => p.PropertyName == "UpdatedDate") != null){
+						me.Properties.Find(p => p.PropertyName == "UpdatedDate").IsHidden = false;
 					 }
 					
 					me.PrincipalActionName = "GetByJson";
@@ -17459,6 +19207,10 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistoryFiles"))
 
             }
 	
+			else if (model.ActionKey == "restore") {
+                    BR.SDFilesBR.Instance.UnDelete(model.Query, dataAction.SelectedGuids.ToArray(), GetContextRequest());
+
+                }
             else if (model.ActionKey == "updateRel" || model.ActionKey == "delete-relation-fk" || model.ActionKey == "updateRel-proxyMany")
             {
                try {
@@ -17907,6 +19659,179 @@ if (visibleProperty || specificProperties.Contains("FullName"))
 	
 	}
 visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("CreatedDate"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "CreatedDate")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 102,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "CreatedDate",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "CreatedDate",
+					
+	
+				SystemProperty = SystemProperties.CreatedDate ,
+                    TypeName = "DateTime",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDOrganizationResources.CREATEDDATE*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("UpdatedDate"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "UpdatedDate")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 114,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "UpdatedDate",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "UpdatedDate",
+					
+	
+					IsUpdatedDate = true,
+					SystemProperty = SystemProperties.UpdatedDate ,
+	
+                    TypeName = "DateTime",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    ,PropertyDisplayName = SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.UPDATED
+
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("CreatedBy"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "CreatedBy")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 104,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "CreatedBy",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "CreatedBy",
+					
+	
+				SystemProperty = SystemProperties.CreatedUser,
+                    TypeName = "Guid",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDOrganizationResources.CREATEDBY*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("UpdatedBy"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "UpdatedBy")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 105,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "UpdatedBy",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "UpdatedBy",
+					
+	
+				SystemProperty = SystemProperties.UpdatedUser,
+                    TypeName = "Guid",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDOrganizationResources.UPDATEDBY*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("Bytes"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "Bytes")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 106,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "Bytes",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "Bytes",
+					
+	
+				SystemProperty = SystemProperties.SizeBytes,
+                    TypeName = "Int32",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDOrganizationResources.BYTES*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
 if (visibleProperty || specificProperties.Contains("SDAreas"))
 {				
     customProperties = new List<CustomProperty>();
@@ -17923,7 +19848,7 @@ if (visibleProperty || specificProperties.Contains("SDAreas"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 102,
+					Order = 107,
 																
 					Link = VirtualPathUtility.ToAbsolute("~/") + "SFSServiceDesk/SDAreas/ListViewGen?overrideModule=" + GetOverrideApp()  + "&pal=False&es=False&pag=10&filterlinks=1&idTab=SDAreas&fk=SDOrganization&startFilter="+ (new UrlHelper(System.Web.HttpContext.Current.Request.RequestContext)).Encode("it.SDOrganization.GuidOrganization = Guid(\"" + idSDOrganization +"\")")+ "&fkValue=" + idSDOrganization,
 					ModuleKey = "SFSServiceDesk",
@@ -17965,7 +19890,7 @@ if (visibleProperty || specificProperties.Contains("SDPersons"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 103,
+					Order = 108,
 																
 					Link = VirtualPathUtility.ToAbsolute("~/") + "SFSServiceDesk/SDPersons/ListViewGen?overrideModule=" + GetOverrideApp()  + "&pal=False&es=False&pag=10&filterlinks=1&idTab=SDPersons&fk=SDOrganization&startFilter="+ (new UrlHelper(System.Web.HttpContext.Current.Request.RequestContext)).Encode("it.SDOrganization.GuidOrganization = Guid(\"" + idSDOrganization +"\")")+ "&fkValue=" + idSDOrganization,
 					ModuleKey = "SFSServiceDesk",
@@ -18409,6 +20334,10 @@ if (visibleProperty || specificProperties.Contains("SDPersons"))
             me.PropertyKeyName = "GuidOrganization";
 
             me.Properties = GetProperties(me, decript, id);
+
+			me.SortBy = "UpdatedDate";
+			me.SortDirection = UIModelSortDirection.DESC;
+
  			
 			if (Request != null)
             {
@@ -18483,6 +20412,12 @@ if (visibleProperty || specificProperties.Contains("SDPersons"))
 					 
                     
 					
+					 if (me.Properties.Find(p => p.PropertyName == "UpdatedDate") != null){
+						me.Properties.Find(p => p.PropertyName == "UpdatedDate").IsHidden = false;
+					 }
+					 
+                    
+					
 
 						 if (me.Properties.Find(p => p.PropertyName == "GuidOrganization") != null){
 						me.Properties.Find(p => p.PropertyName == "GuidOrganization").IsHidden = false;
@@ -18502,6 +20437,10 @@ if (visibleProperty || specificProperties.Contains("SDPersons"))
 					//if (Request.QueryString["allFields"] != "1"){
 					 if (me.Properties.Find(p => p.PropertyName == "FullName") != null){
 						me.Properties.Find(p => p.PropertyName == "FullName").IsHidden = false;
+					 }
+					
+					 if (me.Properties.Find(p => p.PropertyName == "UpdatedDate") != null){
+						me.Properties.Find(p => p.PropertyName == "UpdatedDate").IsHidden = false;
 					 }
 					
 					me.PrincipalActionName = "GetByJson";
@@ -19230,6 +21169,10 @@ if (visibleProperty || specificProperties.Contains("SDPersons"))
 
             }
 	
+			else if (model.ActionKey == "restore") {
+                    BR.SDOrganizationsBR.Instance.UnDelete(model.Query, dataAction.SelectedGuids.ToArray(), GetContextRequest());
+
+                }
             else if (model.ActionKey == "updateRel" || model.ActionKey == "delete-relation-fk" || model.ActionKey == "updateRel-proxyMany")
             {
                try {
@@ -19663,7 +21606,7 @@ if (visibleProperty || specificProperties.Contains("DisplayName"))
                     PropertyName = "DisplayName",
 
 					 MaxLength = 255,
-					 Nullable = true,
+					IsRequired = true ,
 					IsDefaultProperty = true,
                     SortBy = "DisplayName",
 					
@@ -19748,6 +21691,179 @@ if (visibleProperty || specificProperties.Contains("GuidOrganization"))
 	
 	}
 visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("CreatedDate"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "CreatedDate")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 104,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "CreatedDate",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "CreatedDate",
+					
+	
+				SystemProperty = SystemProperties.CreatedDate ,
+                    TypeName = "DateTime",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDPersonResources.CREATEDDATE*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("UpdatedDate"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "UpdatedDate")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 120,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "UpdatedDate",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "UpdatedDate",
+					
+	
+					IsUpdatedDate = true,
+					SystemProperty = SystemProperties.UpdatedDate ,
+	
+                    TypeName = "DateTime",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    ,PropertyDisplayName = SFSdotNet.Framework.Web.Mvc.Resources.GlobalMessages.UPDATED
+
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("CreatedBy"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "CreatedBy")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 106,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "CreatedBy",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "CreatedBy",
+					
+	
+				SystemProperty = SystemProperties.CreatedUser,
+                    TypeName = "Guid",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDPersonResources.CREATEDBY*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("UpdatedBy"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "UpdatedBy")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 107,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "UpdatedBy",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "UpdatedBy",
+					
+	
+				SystemProperty = SystemProperties.UpdatedUser,
+                    TypeName = "Guid",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDPersonResources.UPDATEDBY*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("Bytes"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "Bytes")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 108,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "Bytes",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "Bytes",
+					
+	
+				SystemProperty = SystemProperties.SizeBytes,
+                    TypeName = "Int32",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDPersonResources.BYTES*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
 if (visibleProperty || specificProperties.Contains("SDAreaPersons"))
 {				
     customProperties = new List<CustomProperty>();
@@ -19764,7 +21880,7 @@ if (visibleProperty || specificProperties.Contains("SDAreaPersons"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 104,
+					Order = 109,
 																
 					Link = VirtualPathUtility.ToAbsolute("~/") + "SFSServiceDesk/SDAreaPersons/ListViewGen?overrideModule=" + GetOverrideApp()  + "&pal=False&es=False&pag=10&filterlinks=1&idTab=SDAreaPersons&fk=SDPerson&startFilter="+ (new UrlHelper(System.Web.HttpContext.Current.Request.RequestContext)).Encode("it.SDPerson.GuidPerson = Guid(\"" + idSDPerson +"\")")+ "&fkValue=" + idSDPerson,
 					ModuleKey = "SFSServiceDesk",
@@ -19777,7 +21893,7 @@ if (visibleProperty || specificProperties.Contains("SDAreaPersons"))
 					 MaxLength = 0,
 					 Nullable = true,
 					IsDefaultProperty = false,
-                    SortBy = "SDAreaPersons.GuidAreaPerson",
+                    SortBy = "SDAreaPersons.Bytes",
 					
 	
                     TypeName = "SFSServiceDeskModel.SDAreaPerson",
@@ -19806,7 +21922,7 @@ if (visibleProperty || specificProperties.Contains("SDCases"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 105,
+					Order = 110,
 																
 					Link = VirtualPathUtility.ToAbsolute("~/") + "SFSServiceDesk/SDCases/ListViewGen?overrideModule=" + GetOverrideApp()  + "&pal=False&es=False&pag=10&filterlinks=1&idTab=SDCases&fk=SDPerson&startFilter="+ (new UrlHelper(System.Web.HttpContext.Current.Request.RequestContext)).Encode("it.SDPerson.GuidPerson = Guid(\"" + idSDPerson +"\")")+ "&fkValue=" + idSDPerson,
 					ModuleKey = "SFSServiceDesk",
@@ -19848,7 +21964,7 @@ if (visibleProperty || specificProperties.Contains("SDOrganization"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 106,
+					Order = 111,
 																
 					
 					ModuleKey = "SFSServiceDesk",
@@ -19897,7 +22013,7 @@ if (visibleProperty || specificProperties.Contains("SDProxyUser"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 107,
+					Order = 112,
 																
 					
 					ModuleKey = "SFSServiceDesk",
@@ -20348,6 +22464,10 @@ if (visibleProperty || specificProperties.Contains("SDProxyUser"))
             me.PropertyKeyName = "GuidPerson";
 
             me.Properties = GetProperties(me, decript, id);
+
+			me.SortBy = "UpdatedDate";
+			me.SortDirection = UIModelSortDirection.DESC;
+
  			
 			if (Request != null)
             {
@@ -20422,6 +22542,12 @@ if (visibleProperty || specificProperties.Contains("SDProxyUser"))
 					 
                     
 					
+					 if (me.Properties.Find(p => p.PropertyName == "UpdatedDate") != null){
+						me.Properties.Find(p => p.PropertyName == "UpdatedDate").IsHidden = false;
+					 }
+					 
+                    
+					
 
 						 if (me.Properties.Find(p => p.PropertyName == "GuidPerson") != null){
 						me.Properties.Find(p => p.PropertyName == "GuidPerson").IsHidden = false;
@@ -20441,6 +22567,10 @@ if (visibleProperty || specificProperties.Contains("SDProxyUser"))
 					//if (Request.QueryString["allFields"] != "1"){
 					 if (me.Properties.Find(p => p.PropertyName == "DisplayName") != null){
 						me.Properties.Find(p => p.PropertyName == "DisplayName").IsHidden = false;
+					 }
+					
+					 if (me.Properties.Find(p => p.PropertyName == "UpdatedDate") != null){
+						me.Properties.Find(p => p.PropertyName == "UpdatedDate").IsHidden = false;
 					 }
 					
 					me.PrincipalActionName = "GetByJson";
@@ -21277,6 +23407,10 @@ if (visibleProperty || specificProperties.Contains("SDProxyUser"))
 
             }
 	
+			else if (model.ActionKey == "restore") {
+                    BR.SDPersonsBR.Instance.UnDelete(model.Query, dataAction.SelectedGuids.ToArray(), GetContextRequest());
+
+                }
             else if (model.ActionKey == "updateRel" || model.ActionKey == "delete-relation-fk" || model.ActionKey == "updateRel-proxyMany")
             {
                try {
@@ -21710,7 +23844,7 @@ if (visibleProperty || specificProperties.Contains("Email"))
                     PropertyName = "Email",
 
 					 MaxLength = 255,
-					 Nullable = true,
+					IsRequired = true ,
 					IsDefaultProperty = true,
                     SortBy = "Email",
 					

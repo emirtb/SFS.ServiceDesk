@@ -20,7 +20,7 @@ namespace SFS.ServiceDesk.BusinessObjects
 {
 
 	  [Serializable()]
-	  [EntityInfo(PropertyKeyName="GuidArea",PropertyDefaultText="Name")]
+	  [EntityInfo(PropertyKeyName="GuidArea",PropertyDefaultText="Name",RequiredProperties="Name", CompanyPropertyName = "GuidCompany",CreatedByPropertyName="CreatedBy",UpdatedByPropertyName="UpdatedBy",CreatedDatePropertyName="CreatedDate",UpdatedDatePropertyName="UpdatedDate",DeletedPropertyName="IsDeleted")]
 	  [DynamicLinqType]
 	  public partial class SDArea:  IMyEntity{
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
@@ -87,6 +87,13 @@ namespace SFS.ServiceDesk.BusinessObjects
             public static readonly string Name = "Name";
             public static readonly string GuidAreaParent = "GuidAreaParent";
             public static readonly string GuidOrganization = "GuidOrganization";
+            public static readonly string GuidCompany = "GuidCompany";
+            public static readonly string CreatedDate = "CreatedDate";
+            public static readonly string UpdatedDate = "UpdatedDate";
+            public static readonly string CreatedBy = "CreatedBy";
+            public static readonly string UpdatedBy = "UpdatedBy";
+            public static readonly string Bytes = "Bytes";
+            public static readonly string IsDeleted = "IsDeleted";
             public static readonly string SDArea1 = "SDArea1";
             public static readonly string SDArea2 = "SDArea2";
             public static readonly string SDOrganization = "SDOrganization";
@@ -95,15 +102,18 @@ namespace SFS.ServiceDesk.BusinessObjects
 		#endregion
 	}
 		  [Serializable()]
-	  [EntityInfo(PropertyKeyName="GuidAreaPerson")]
+	  [EntityInfo(PropertyKeyName="GuidAreaPerson",PropertyDefaultText="Bytes", CompanyPropertyName = "GuidCompany",CreatedByPropertyName="CreatedBy",UpdatedByPropertyName="UpdatedBy",CreatedDatePropertyName="CreatedDate",UpdatedDatePropertyName="UpdatedDate",DeletedPropertyName="IsDeleted")]
 	  [DynamicLinqType]
 	  public partial class SDAreaPerson:  IMyEntity{
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
 
 			public override string ToString()
             {
-				
-				return base.ToString();
+	
+				if (this.Bytes != null )		
+            		return this.Bytes.ToString();
+				else
+					return String.Empty;
 			}
 
 		//public SDAreaPerson()
@@ -158,13 +168,20 @@ namespace SFS.ServiceDesk.BusinessObjects
             public static readonly string GuidAreaPerson = "GuidAreaPerson";
             public static readonly string GuidArea = "GuidArea";
             public static readonly string GuidPerson = "GuidPerson";
+            public static readonly string GuidCompany = "GuidCompany";
+            public static readonly string CreatedDate = "CreatedDate";
+            public static readonly string UpdatedDate = "UpdatedDate";
+            public static readonly string CreatedBy = "CreatedBy";
+            public static readonly string UpdatedBy = "UpdatedBy";
+            public static readonly string Bytes = "Bytes";
+            public static readonly string IsDeleted = "IsDeleted";
             public static readonly string SDArea = "SDArea";
             public static readonly string SDPerson = "SDPerson";
 		}
 		#endregion
 	}
 		  [Serializable()]
-	  [EntityInfo(PropertyKeyName="GuidCase",PropertyDefaultText="BodyContent",RequiredProperties="GuidCaseStatus,GuidCasePriority,SDCasePriority,SDCaseStatu")]
+	  [EntityInfo(PropertyKeyName="GuidCase",PropertyDefaultText="BodyContent",RequiredProperties="GuidCaseState,GuidCasePriority,SDCasePriority,SDCaseState", CompanyPropertyName = "GuidCompany",CreatedByPropertyName="CreatedBy",UpdatedByPropertyName="UpdatedBy",CreatedDatePropertyName="CreatedDate",UpdatedDatePropertyName="UpdatedDate",DeletedPropertyName="IsDeleted")]
 	  [DynamicLinqType]
 	  public partial class SDCase:  IMyEntity{
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
@@ -228,30 +245,41 @@ namespace SFS.ServiceDesk.BusinessObjects
 		public static readonly string EntitySetName = "SDCases";
         public struct PropertyNames {
             public static readonly string GuidCase = "GuidCase";
-            public static readonly string GuidCaseStatus = "GuidCaseStatus";
+            public static readonly string GuidCaseState = "GuidCaseState";
             public static readonly string GuidPersonClient = "GuidPersonClient";
             public static readonly string ClosedDateTime = "ClosedDateTime";
             public static readonly string BodyContent = "BodyContent";
             public static readonly string PreviewContent = "PreviewContent";
             public static readonly string GuidCasePriority = "GuidCasePriority";
+            public static readonly string Title = "Title";
+            public static readonly string GuidCompany = "GuidCompany";
+            public static readonly string CreatedDate = "CreatedDate";
+            public static readonly string UpdatedDate = "UpdatedDate";
+            public static readonly string CreatedBy = "CreatedBy";
+            public static readonly string UpdatedBy = "UpdatedBy";
+            public static readonly string Bytes = "Bytes";
+            public static readonly string IsDeleted = "IsDeleted";
             public static readonly string SDPerson = "SDPerson";
             public static readonly string SDCasePriority = "SDCasePriority";
-            public static readonly string SDCaseStatu = "SDCaseStatu";
+            public static readonly string SDCaseState = "SDCaseState";
             public static readonly string SDCaseFiles = "SDCaseFiles";
             public static readonly string SDCaseHistories = "SDCaseHistories";
 		}
 		#endregion
 	}
 		  [Serializable()]
-	  [EntityInfo(PropertyKeyName="GuidCasefile")]
+	  [EntityInfo(PropertyKeyName="GuidCasefile",PropertyDefaultText="Bytes", CompanyPropertyName = "GuidCompany",CreatedByPropertyName="CreatedBy",UpdatedByPropertyName="UpdatedBy",CreatedDatePropertyName="CreatedDate",UpdatedDatePropertyName="UpdatedDate",DeletedPropertyName="IsDeleted")]
 	  [DynamicLinqType]
 	  public partial class SDCaseFile:  IMyEntity{
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
 
 			public override string ToString()
             {
-				
-				return base.ToString();
+	
+				if (this.Bytes != null )		
+            		return this.Bytes.ToString();
+				else
+					return String.Empty;
 			}
 
 		//public SDCaseFile()
@@ -306,13 +334,20 @@ namespace SFS.ServiceDesk.BusinessObjects
             public static readonly string GuidCasefile = "GuidCasefile";
             public static readonly string GuidCase = "GuidCase";
             public static readonly string GuidFile = "GuidFile";
+            public static readonly string GuidCompany = "GuidCompany";
+            public static readonly string CreatedDate = "CreatedDate";
+            public static readonly string UpdatedDate = "UpdatedDate";
+            public static readonly string CreatedBy = "CreatedBy";
+            public static readonly string UpdatedBy = "UpdatedBy";
+            public static readonly string Bytes = "Bytes";
+            public static readonly string IsDeleted = "IsDeleted";
             public static readonly string SDCase = "SDCase";
             public static readonly string SDFile = "SDFile";
 		}
 		#endregion
 	}
 		  [Serializable()]
-	  [EntityInfo(PropertyKeyName="GuidCaseHistory",PropertyDefaultText="BodyContent",RequiredProperties="GuidCase,SDCase")]
+	  [EntityInfo(PropertyKeyName="GuidCaseHistory",PropertyDefaultText="BodyContent",RequiredProperties="GuidCase,BodyContent,SDCase", CompanyPropertyName = "GuidCompany",CreatedByPropertyName="CreatedBy",UpdatedByPropertyName="UpdatedBy",CreatedDatePropertyName="CreatedDate",UpdatedDatePropertyName="UpdatedDate",DeletedPropertyName="IsDeleted")]
 	  [DynamicLinqType]
 	  public partial class SDCaseHistory:  IMyEntity{
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
@@ -380,22 +415,32 @@ namespace SFS.ServiceDesk.BusinessObjects
             public static readonly string GuidCaseStatus = "GuidCaseStatus";
             public static readonly string BodyContent = "BodyContent";
             public static readonly string PreviewContent = "PreviewContent";
+            public static readonly string GuidCompany = "GuidCompany";
+            public static readonly string CreatedDate = "CreatedDate";
+            public static readonly string UpdatedDate = "UpdatedDate";
+            public static readonly string CreatedBy = "CreatedBy";
+            public static readonly string UpdatedBy = "UpdatedBy";
+            public static readonly string Bytes = "Bytes";
+            public static readonly string IsDeleted = "IsDeleted";
             public static readonly string SDCase = "SDCase";
-            public static readonly string SDCaseStatu = "SDCaseStatu";
+            public static readonly string SDCaseState = "SDCaseState";
             public static readonly string SDCaseHistoryFiles = "SDCaseHistoryFiles";
 		}
 		#endregion
 	}
 		  [Serializable()]
-	  [EntityInfo(PropertyKeyName="GuidCasehistoryFile")]
+	  [EntityInfo(PropertyKeyName="GuidCasehistoryFile",PropertyDefaultText="Bytes", CompanyPropertyName = "GuidCompany",CreatedByPropertyName="CreatedBy",UpdatedByPropertyName="UpdatedBy",CreatedDatePropertyName="CreatedDate",UpdatedDatePropertyName="UpdatedDate",DeletedPropertyName="IsDeleted")]
 	  [DynamicLinqType]
 	  public partial class SDCaseHistoryFile:  IMyEntity{
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
 
 			public override string ToString()
             {
-				
-				return base.ToString();
+	
+				if (this.Bytes != null )		
+            		return this.Bytes.ToString();
+				else
+					return String.Empty;
 			}
 
 		//public SDCaseHistoryFile()
@@ -450,13 +495,20 @@ namespace SFS.ServiceDesk.BusinessObjects
             public static readonly string GuidCasehistoryFile = "GuidCasehistoryFile";
             public static readonly string GuidFile = "GuidFile";
             public static readonly string GuidCaseHistory = "GuidCaseHistory";
+            public static readonly string GuidCompany = "GuidCompany";
+            public static readonly string CreatedDate = "CreatedDate";
+            public static readonly string UpdatedDate = "UpdatedDate";
+            public static readonly string CreatedBy = "CreatedBy";
+            public static readonly string UpdatedBy = "UpdatedBy";
+            public static readonly string Bytes = "Bytes";
+            public static readonly string IsDeleted = "IsDeleted";
             public static readonly string SDCaseHistory = "SDCaseHistory";
             public static readonly string SDFile = "SDFile";
 		}
 		#endregion
 	}
 		  [Serializable()]
-	  [EntityInfo(PropertyKeyName="GuidCasePriority",PropertyDefaultText="Title",RequiredProperties="Title")]
+	  [EntityInfo(PropertyKeyName="GuidCasePriority",PropertyDefaultText="Title",RequiredProperties="Title", CompanyPropertyName = "GuidCompany",CreatedByPropertyName="CreatedBy",UpdatedByPropertyName="UpdatedBy",CreatedDatePropertyName="CreatedDate",UpdatedDatePropertyName="UpdatedDate",DeletedPropertyName="IsDeleted")]
 	  [DynamicLinqType]
 	  public partial class SDCasePriority:  IMyEntity{
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
@@ -521,14 +573,21 @@ namespace SFS.ServiceDesk.BusinessObjects
         public struct PropertyNames {
             public static readonly string GuidCasePriority = "GuidCasePriority";
             public static readonly string Title = "Title";
+            public static readonly string GuidCompany = "GuidCompany";
+            public static readonly string CreatedDate = "CreatedDate";
+            public static readonly string UpdatedDate = "UpdatedDate";
+            public static readonly string CreatedBy = "CreatedBy";
+            public static readonly string UpdatedBy = "UpdatedBy";
+            public static readonly string Bytes = "Bytes";
+            public static readonly string IsDeleted = "IsDeleted";
             public static readonly string SDCases = "SDCases";
 		}
 		#endregion
 	}
 		  [Serializable()]
-	  [EntityInfo(PropertyKeyName="GuidCaseStatus",PropertyDefaultText="Title",RequiredProperties="Title")]
+	  [EntityInfo(PropertyKeyName="GuidCaseState",PropertyDefaultText="Title",RequiredProperties="Title", CompanyPropertyName = "GuidCompany",CreatedByPropertyName="CreatedBy",UpdatedByPropertyName="UpdatedBy",CreatedDatePropertyName="CreatedDate",UpdatedDatePropertyName="UpdatedDate",DeletedPropertyName="IsDeleted")]
 	  [DynamicLinqType]
-	  public partial class SDCaseStatu:  IMyEntity{
+	  public partial class SDCaseState:  IMyEntity{
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
 
 			public override string ToString()
@@ -540,7 +599,7 @@ namespace SFS.ServiceDesk.BusinessObjects
 					return String.Empty;
 			}
 
-		//public SDCaseStatu()
+		//public SDCaseState()
         //  {
 
         //  }
@@ -549,7 +608,7 @@ namespace SFS.ServiceDesk.BusinessObjects
 	   public string Key { 
                   get {
                       StringBuilder sb = new StringBuilder();
-					sb.Append(this.GuidCaseStatus.ToString());
+					sb.Append(this.GuidCaseState.ToString());
                       return sb.ToString();
                 } 
 		}
@@ -558,21 +617,21 @@ namespace SFS.ServiceDesk.BusinessObjects
         public class CompositeKey {
 
 			
-            public CompositeKey(Guid guidCaseStatus)
+            public CompositeKey(Guid guidCaseState)
             {
-				_GuidCaseStatus = guidCaseStatus;
+				_GuidCaseState = guidCaseState;
 
             }
-			private Guid _GuidCaseStatus;
+			private Guid _GuidCaseState;
 			[DataMember]
-			public Guid GuidCaseStatus
+			public Guid GuidCaseState
 			{
 				get{
-					return _GuidCaseStatus;
+					return _GuidCaseState;
 				}
 				set{
                      
-					_GuidCaseStatus = value;
+					_GuidCaseState = value;
 				}
 	        }
 
@@ -586,18 +645,25 @@ namespace SFS.ServiceDesk.BusinessObjects
 
 
 	      #region propertyNames
-		public static readonly string EntityName = "SDCaseStatu";
-		public static readonly string EntitySetName = "SDCaseStatus";
+		public static readonly string EntityName = "SDCaseState";
+		public static readonly string EntitySetName = "SDCaseStates";
         public struct PropertyNames {
-            public static readonly string GuidCaseStatus = "GuidCaseStatus";
+            public static readonly string GuidCaseState = "GuidCaseState";
             public static readonly string Title = "Title";
+            public static readonly string GuidCompany = "GuidCompany";
+            public static readonly string CreatedDate = "CreatedDate";
+            public static readonly string UpdatedDate = "UpdatedDate";
+            public static readonly string CreatedBy = "CreatedBy";
+            public static readonly string UpdatedBy = "UpdatedBy";
+            public static readonly string Bytes = "Bytes";
+            public static readonly string IsDeleted = "IsDeleted";
             public static readonly string SDCases = "SDCases";
             public static readonly string SDCaseHistories = "SDCaseHistories";
 		}
 		#endregion
 	}
 		  [Serializable()]
-	  [EntityInfo(PropertyKeyName="GuidFile",PropertyDefaultText="FileName",RequiredProperties="FileName")]
+	  [EntityInfo(PropertyKeyName="GuidFile",PropertyDefaultText="FileName",RequiredProperties="FileName", CompanyPropertyName = "GuidCompany",CreatedByPropertyName="CreatedBy",UpdatedByPropertyName="UpdatedBy",CreatedDatePropertyName="CreatedDate",UpdatedDatePropertyName="UpdatedDate",DeletedPropertyName="IsDeleted")]
 	  [DynamicLinqType]
 	  public partial class SDFile:  IMyEntity{
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
@@ -666,13 +732,20 @@ namespace SFS.ServiceDesk.BusinessObjects
             public static readonly string FileSize = "FileSize";
             public static readonly string FileData = "FileData";
             public static readonly string StorageLocation = "StorageLocation";
+            public static readonly string GuidCompany = "GuidCompany";
+            public static readonly string CreatedDate = "CreatedDate";
+            public static readonly string UpdatedDate = "UpdatedDate";
+            public static readonly string CreatedBy = "CreatedBy";
+            public static readonly string UpdatedBy = "UpdatedBy";
+            public static readonly string Bytes = "Bytes";
+            public static readonly string IsDeleted = "IsDeleted";
             public static readonly string SDCaseFiles = "SDCaseFiles";
             public static readonly string SDCaseHistoryFiles = "SDCaseHistoryFiles";
 		}
 		#endregion
 	}
 		  [Serializable()]
-	  [EntityInfo(PropertyKeyName="GuidOrganization",PropertyDefaultText="FullName",RequiredProperties="FullName")]
+	  [EntityInfo(PropertyKeyName="GuidOrganization",PropertyDefaultText="FullName",RequiredProperties="FullName", CompanyPropertyName = "GuidCompany",CreatedByPropertyName="CreatedBy",UpdatedByPropertyName="UpdatedBy",CreatedDatePropertyName="CreatedDate",UpdatedDatePropertyName="UpdatedDate",DeletedPropertyName="IsDeleted")]
 	  [DynamicLinqType]
 	  public partial class SDOrganization:  IMyEntity{
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
@@ -737,13 +810,20 @@ namespace SFS.ServiceDesk.BusinessObjects
         public struct PropertyNames {
             public static readonly string GuidOrganization = "GuidOrganization";
             public static readonly string FullName = "FullName";
+            public static readonly string GuidCompany = "GuidCompany";
+            public static readonly string CreatedDate = "CreatedDate";
+            public static readonly string UpdatedDate = "UpdatedDate";
+            public static readonly string CreatedBy = "CreatedBy";
+            public static readonly string UpdatedBy = "UpdatedBy";
+            public static readonly string Bytes = "Bytes";
+            public static readonly string IsDeleted = "IsDeleted";
             public static readonly string SDAreas = "SDAreas";
             public static readonly string SDPersons = "SDPersons";
 		}
 		#endregion
 	}
 		  [Serializable()]
-	  [EntityInfo(PropertyKeyName="GuidPerson",PropertyDefaultText="DisplayName")]
+	  [EntityInfo(PropertyKeyName="GuidPerson",PropertyDefaultText="DisplayName",RequiredProperties="DisplayName", CompanyPropertyName = "GuidCompany",CreatedByPropertyName="CreatedBy",UpdatedByPropertyName="UpdatedBy",CreatedDatePropertyName="CreatedDate",UpdatedDatePropertyName="UpdatedDate",DeletedPropertyName="IsDeleted")]
 	  [DynamicLinqType]
 	  public partial class SDPerson:  IMyEntity{
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
@@ -810,6 +890,13 @@ namespace SFS.ServiceDesk.BusinessObjects
             public static readonly string DisplayName = "DisplayName";
             public static readonly string GuidUser = "GuidUser";
             public static readonly string GuidOrganization = "GuidOrganization";
+            public static readonly string GuidCompany = "GuidCompany";
+            public static readonly string CreatedDate = "CreatedDate";
+            public static readonly string UpdatedDate = "UpdatedDate";
+            public static readonly string CreatedBy = "CreatedBy";
+            public static readonly string UpdatedBy = "UpdatedBy";
+            public static readonly string Bytes = "Bytes";
+            public static readonly string IsDeleted = "IsDeleted";
             public static readonly string SDAreaPersons = "SDAreaPersons";
             public static readonly string SDCases = "SDCases";
             public static readonly string SDOrganization = "SDOrganization";
@@ -818,7 +905,7 @@ namespace SFS.ServiceDesk.BusinessObjects
 		#endregion
 	}
 		  [Serializable()]
-	  [EntityInfo(PropertyKeyName="GuidUser",PropertyDefaultText="Email")]
+	  [EntityInfo(PropertyKeyName="GuidUser",PropertyDefaultText="Email",RequiredProperties="Email")]
 	  [DynamicLinqType]
 	  public partial class SDProxyUser:  IMyEntity{
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }

@@ -36,6 +36,41 @@ public Guid? GuidAreaParent { get; set; }
 public Guid? GuidOrganization { get; set; }		
 		
 			
+
+
+public Guid? GuidCompany { get; set; }		
+		
+			
+
+
+public DateTime? CreatedDate { get; set; }		
+		
+			
+
+
+public DateTime? UpdatedDate { get; set; }		
+		
+			
+
+
+public Guid? CreatedBy { get; set; }		
+		
+			
+
+
+public Guid? UpdatedBy { get; set; }		
+		
+			
+
+
+public Int32? Bytes { get; set; }		
+		
+			
+
+
+public Boolean? IsDeleted { get; set; }		
+		
+			
 public List<SDArea>  SDArea1 { get; set; }		
 		
  			
@@ -70,6 +105,41 @@ public Guid? GuidPerson { get; set; }
 			
 
 
+public Guid? GuidCompany { get; set; }		
+		
+			
+
+
+public DateTime? CreatedDate { get; set; }		
+		
+			
+
+
+public DateTime? UpdatedDate { get; set; }		
+		
+			
+
+
+public Guid? CreatedBy { get; set; }		
+		
+			
+
+
+public Guid? UpdatedBy { get; set; }		
+		
+			
+
+
+public Int32? Bytes { get; set; }		
+		
+			
+
+
+public Boolean? IsDeleted { get; set; }		
+		
+			
+
+
 public SDArea SDArea { get; set; }		
 		
 			
@@ -86,7 +156,7 @@ public Guid? GuidCase { get; set; }
 			
 
 
-public Guid GuidCaseStatus { get; set; }		
+public Guid GuidCaseState { get; set; }		
 		
 			
 
@@ -116,6 +186,46 @@ public Guid GuidCasePriority { get; set; }
 			
 
 
+public String Title { get; set; }		
+		
+			
+
+
+public Guid? GuidCompany { get; set; }		
+		
+			
+
+
+public DateTime? CreatedDate { get; set; }		
+		
+			
+
+
+public DateTime? UpdatedDate { get; set; }		
+		
+			
+
+
+public Guid? CreatedBy { get; set; }		
+		
+			
+
+
+public Guid? UpdatedBy { get; set; }		
+		
+			
+
+
+public Int32? Bytes { get; set; }		
+		
+			
+
+
+public Boolean? IsDeleted { get; set; }		
+		
+			
+
+
 public SDPerson SDPerson { get; set; }		
 		
 			
@@ -126,7 +236,7 @@ public SDCasePriority SDCasePriority { get; set; }
 			
 
 
-public SDCaseStatu SDCaseStatu { get; set; }		
+public SDCaseState SDCaseState { get; set; }		
 		
 			
 public List<SDCaseFile>  SDCaseFiles { get; set; }		
@@ -149,6 +259,41 @@ public Guid? GuidCase { get; set; }
 
 
 public Guid? GuidFile { get; set; }		
+		
+			
+
+
+public Guid? GuidCompany { get; set; }		
+		
+			
+
+
+public DateTime? CreatedDate { get; set; }		
+		
+			
+
+
+public DateTime? UpdatedDate { get; set; }		
+		
+			
+
+
+public Guid? CreatedBy { get; set; }		
+		
+			
+
+
+public Guid? UpdatedBy { get; set; }		
+		
+			
+
+
+public Int32? Bytes { get; set; }		
+		
+			
+
+
+public Boolean? IsDeleted { get; set; }		
 		
 			
 
@@ -189,12 +334,47 @@ public String PreviewContent { get; set; }
 			
 
 
+public Guid? GuidCompany { get; set; }		
+		
+			
+
+
+public DateTime? CreatedDate { get; set; }		
+		
+			
+
+
+public DateTime? UpdatedDate { get; set; }		
+		
+			
+
+
+public Guid? CreatedBy { get; set; }		
+		
+			
+
+
+public Guid? UpdatedBy { get; set; }		
+		
+			
+
+
+public Int32? Bytes { get; set; }		
+		
+			
+
+
+public Boolean? IsDeleted { get; set; }		
+		
+			
+
+
 public SDCase SDCase { get; set; }		
 		
 			
 
 
-public SDCaseStatu SDCaseStatu { get; set; }		
+public SDCaseState SDCaseState { get; set; }		
 		
 			
 public List<SDCaseHistoryFile>  SDCaseHistoryFiles { get; set; }		
@@ -218,6 +398,41 @@ public Guid? GuidCaseHistory { get; set; }
 			
 
 
+public Guid? GuidCompany { get; set; }		
+		
+			
+
+
+public DateTime? CreatedDate { get; set; }		
+		
+			
+
+
+public DateTime? UpdatedDate { get; set; }		
+		
+			
+
+
+public Guid? CreatedBy { get; set; }		
+		
+			
+
+
+public Guid? UpdatedBy { get; set; }		
+		
+			
+
+
+public Int32? Bytes { get; set; }		
+		
+			
+
+
+public Boolean? IsDeleted { get; set; }		
+		
+			
+
+
 public SDCaseHistory SDCaseHistory { get; set; }		
 		
 			
@@ -237,18 +452,88 @@ public Guid? GuidCasePriority { get; set; }
 public String Title { get; set; }		
 		
 			
+
+
+public Guid? GuidCompany { get; set; }		
+		
+			
+
+
+public DateTime? CreatedDate { get; set; }		
+		
+			
+
+
+public DateTime? UpdatedDate { get; set; }		
+		
+			
+
+
+public Guid? CreatedBy { get; set; }		
+		
+			
+
+
+public Guid? UpdatedBy { get; set; }		
+		
+			
+
+
+public Int32? Bytes { get; set; }		
+		
+			
+
+
+public Boolean? IsDeleted { get; set; }		
+		
+			
 public List<SDCase>  SDCases { get; set; }		
 		
  	  }
 
 	  [Serializable()]
-	  public partial class SDCaseStatu{
-public Guid? GuidCaseStatus { get; set; }		
+	  public partial class SDCaseState{
+public Guid? GuidCaseState { get; set; }		
 
 			
 
 
 public String Title { get; set; }		
+		
+			
+
+
+public Guid? GuidCompany { get; set; }		
+		
+			
+
+
+public DateTime? CreatedDate { get; set; }		
+		
+			
+
+
+public DateTime? UpdatedDate { get; set; }		
+		
+			
+
+
+public Guid? CreatedBy { get; set; }		
+		
+			
+
+
+public Guid? UpdatedBy { get; set; }		
+		
+			
+
+
+public Int32? Bytes { get; set; }		
+		
+			
+
+
+public Boolean? IsDeleted { get; set; }		
 		
 			
 public List<SDCase>  SDCases { get; set; }		
@@ -288,6 +573,41 @@ public Byte[] FileData { get; set; }
 public String StorageLocation { get; set; }		
 		
 			
+
+
+public Guid? GuidCompany { get; set; }		
+		
+			
+
+
+public DateTime? CreatedDate { get; set; }		
+		
+			
+
+
+public DateTime? UpdatedDate { get; set; }		
+		
+			
+
+
+public Guid? CreatedBy { get; set; }		
+		
+			
+
+
+public Guid? UpdatedBy { get; set; }		
+		
+			
+
+
+public Int32? Bytes { get; set; }		
+		
+			
+
+
+public Boolean? IsDeleted { get; set; }		
+		
+			
 public List<SDCaseFile>  SDCaseFiles { get; set; }		
 		
  			
@@ -303,6 +623,41 @@ public Guid? GuidOrganization { get; set; }
 
 
 public String FullName { get; set; }		
+		
+			
+
+
+public Guid? GuidCompany { get; set; }		
+		
+			
+
+
+public DateTime? CreatedDate { get; set; }		
+		
+			
+
+
+public DateTime? UpdatedDate { get; set; }		
+		
+			
+
+
+public Guid? CreatedBy { get; set; }		
+		
+			
+
+
+public Guid? UpdatedBy { get; set; }		
+		
+			
+
+
+public Int32? Bytes { get; set; }		
+		
+			
+
+
+public Boolean? IsDeleted { get; set; }		
 		
 			
 public List<SDArea>  SDAreas { get; set; }		
@@ -330,6 +685,41 @@ public Guid? GuidUser { get; set; }
 
 
 public Guid? GuidOrganization { get; set; }		
+		
+			
+
+
+public Guid? GuidCompany { get; set; }		
+		
+			
+
+
+public DateTime? CreatedDate { get; set; }		
+		
+			
+
+
+public DateTime? UpdatedDate { get; set; }		
+		
+			
+
+
+public Guid? CreatedBy { get; set; }		
+		
+			
+
+
+public Guid? UpdatedBy { get; set; }		
+		
+			
+
+
+public Int32? Bytes { get; set; }		
+		
+			
+
+
+public Boolean? IsDeleted { get; set; }		
 		
 			
 public List<SDAreaPerson>  SDAreaPersons { get; set; }		

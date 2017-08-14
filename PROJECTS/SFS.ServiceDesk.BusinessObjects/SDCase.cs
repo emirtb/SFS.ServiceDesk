@@ -39,7 +39,7 @@ public partial class SDCase : ITrackable
         public System.Guid GuidCase { get; set; }
 
     [DataMember]
-        public System.Guid GuidCaseStatus { get; set; }
+        public System.Guid GuidCaseState { get; set; }
 
     [DataMember]
         public Nullable<System.Guid> GuidPersonClient { get; set; }
@@ -56,6 +56,30 @@ public partial class SDCase : ITrackable
     [DataMember]
         public System.Guid GuidCasePriority { get; set; }
 
+    [DataMember]
+        public string Title { get; set; }
+
+    [DataMember]
+        public Nullable<System.Guid> GuidCompany { get; set; }
+
+    [DataMember]
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+
+    [DataMember]
+        public Nullable<System.DateTime> UpdatedDate { get; set; }
+
+    [DataMember]
+        public Nullable<System.Guid> CreatedBy { get; set; }
+
+    [DataMember]
+        public Nullable<System.Guid> UpdatedBy { get; set; }
+
+    [DataMember]
+        public Nullable<int> Bytes { get; set; }
+
+    [DataMember]
+        public Nullable<bool> IsDeleted { get; set; }
+
 
 
     [DataMember]
@@ -65,7 +89,7 @@ public partial class SDCase : ITrackable
         public SDCasePriority SDCasePriority { get; set; }
 
     [DataMember]
-        public SDCaseStatu SDCaseStatu { get; set; }
+        public SDCaseState SDCaseState { get; set; }
 
     [DataMember]
         public ICollection<SDCaseFile> SDCaseFiles { get; set; }

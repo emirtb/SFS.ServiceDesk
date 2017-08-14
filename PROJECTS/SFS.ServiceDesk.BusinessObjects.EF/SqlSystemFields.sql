@@ -364,55 +364,55 @@ begin
   add IsDeleted [bit] null DEFAULT ('false') 
 end
 GO
-PRINT 'Table SDCaseStatu, entity SDCaseStatu'
+PRINT 'Table SDCaseState, entity SDCaseState'
 -- GuidCompany
-if COLUMNPROPERTY(OBJECT_ID(N'SD.SDCaseStatu', N'U'),'GuidCompany','ColumnId') is null
+if COLUMNPROPERTY(OBJECT_ID(N'SD.SDCaseState', N'U'),'GuidCompany','ColumnId') is null
 begin 
-  alter table SD.SDCaseStatu 
+  alter table SD.SDCaseState 
   add GuidCompany uniqueidentifier null 
 end
 GO
 -- CreatedDate
-if COLUMNPROPERTY(OBJECT_ID(N'SD.SDCaseStatu', N'U'),'CreatedDate','ColumnId') is null
+if COLUMNPROPERTY(OBJECT_ID(N'SD.SDCaseState', N'U'),'CreatedDate','ColumnId') is null
 begin 
-  alter table SD.SDCaseStatu 
+  alter table SD.SDCaseState 
   add CreatedDate DATETIME null 
 end
 GO
 -- UpdatedDate
-if COLUMNPROPERTY(OBJECT_ID(N'SD.SDCaseStatu', N'U'),'UpdatedDate','ColumnId') is null
+if COLUMNPROPERTY(OBJECT_ID(N'SD.SDCaseState', N'U'),'UpdatedDate','ColumnId') is null
 begin 
-  alter table SD.SDCaseStatu 
+  alter table SD.SDCaseState 
   add UpdatedDate DATETIME null 
 end
 GO
 -- CreatedBy
-if COLUMNPROPERTY(OBJECT_ID(N'SD.SDCaseStatu', N'U'),'CreatedBy','ColumnId') is null
+if COLUMNPROPERTY(OBJECT_ID(N'SD.SDCaseState', N'U'),'CreatedBy','ColumnId') is null
 begin 
-  alter table SD.SDCaseStatu 
+  alter table SD.SDCaseState 
   add CreatedBy uniqueidentifier null 
 end
 GO
 -- UpdatedBy
-if COLUMNPROPERTY(OBJECT_ID(N'SD.SDCaseStatu', N'U'),'UpdatedBy','ColumnId') is null
+if COLUMNPROPERTY(OBJECT_ID(N'SD.SDCaseState', N'U'),'UpdatedBy','ColumnId') is null
 begin 
-  alter table SD.SDCaseStatu 
+  alter table SD.SDCaseState 
   add UpdatedBy uniqueidentifier null 
 end
 GO
 
 -- Bytes
-if COLUMNPROPERTY(OBJECT_ID(N'SD.SDCaseStatu', N'U'),'Bytes','ColumnId') is null
+if COLUMNPROPERTY(OBJECT_ID(N'SD.SDCaseState', N'U'),'Bytes','ColumnId') is null
 begin 
-  alter table SD.SDCaseStatu 
+  alter table SD.SDCaseState 
   add Bytes [int] null 
 end
 GO
 
 -- IsDeleted
-if COLUMNPROPERTY(OBJECT_ID(N'SD.SDCaseStatu', N'U'),'IsDeleted','ColumnId') is null
+if COLUMNPROPERTY(OBJECT_ID(N'SD.SDCaseState', N'U'),'IsDeleted','ColumnId') is null
 begin 
-  alter table SD.SDCaseStatu 
+  alter table SD.SDCaseState 
   add IsDeleted [bit] null DEFAULT ('false') 
 end
 GO

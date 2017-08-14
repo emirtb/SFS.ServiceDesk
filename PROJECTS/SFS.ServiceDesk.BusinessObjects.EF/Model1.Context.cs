@@ -53,7 +53,7 @@ namespace SFS.ServiceDesk.BusinessObjects.EF
         public virtual DbSet<SDCaseHistory> SDCaseHistories { get; set; }
         public virtual DbSet<SDCaseHistoryFile> SDCaseHistoryFiles { get; set; }
         public virtual DbSet<SDCasePriority> SDCasePriorities { get; set; }
-        public virtual DbSet<SDCaseStatu> SDCaseStatus { get; set; }
+        public virtual DbSet<SDCaseState> SDCaseStates { get; set; }
         public virtual DbSet<SDFile> SDFiles { get; set; }
         public virtual DbSet<SDOrganization> SDOrganizations { get; set; }
         public virtual DbSet<SDPerson> SDPersons { get; set; }

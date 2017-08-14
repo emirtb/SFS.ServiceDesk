@@ -56,6 +56,8 @@ using SFS.ServiceDesk.BusinessObjects;
 		
 	
 [Exportable()]
+	
+	    [Required()]
 		
 	[RelationFilterable()] 
 	[LocalizedDisplayName("NAME"/*, NameResourceType=typeof(SDAreaResources)*/)]
@@ -76,6 +78,146 @@ using SFS.ServiceDesk.BusinessObjects;
 	[RelationFilterable()] 
 	[LocalizedDisplayName("GUIDORGANIZATION"/*, NameResourceType=typeof(SDAreaResources)*/)]
 	public Guid  ? GuidOrganization { get; set; }
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[LocalizedDisplayName("GUIDCOMPANY"/*, NameResourceType=typeof(SDAreaResources)*/)]
+	public Guid  ? GuidCompany { get; set; }
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DateTime(true, false, null)]	
+	[LocalizedDisplayName("CREATEDDATE"/*, NameResourceType=typeof(SDAreaResources)*/)]
+	public DateTime  ? CreatedDate { get; set; }
+	public string CreatedDateText {
+        get {
+            if (CreatedDate != null)
+				return ((DateTime)CreatedDate).ToShortDateString() ;
+            else
+                return String.Empty;
+        }
+				set{
+					if (!string.IsNullOrEmpty(value))
+						this.CreatedDate = Convert.ToDateTime(value);
+    }
+		}
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DateTime(true, false, null)]	
+	[LocalizedDisplayName("UPDATEDDATE"/*, NameResourceType=typeof(SDAreaResources)*/)]
+	public DateTime  ? UpdatedDate { get; set; }
+	public string UpdatedDateText {
+        get {
+            if (UpdatedDate != null)
+			
+                return ((DateTime)UpdatedDate).ToString("s") ;
+            else
+                return String.Empty;
+        }
+				set{
+					if (!string.IsNullOrEmpty(value))
+						this.UpdatedDate = Convert.ToDateTime(value);
+    }
+		}
+		
+		
+	
+[Exportable()]
+		
+[RelationFilterable(FiltrablePropertyPathName = "CreatedBy", IsExternal =true )]
+[AutoComplete("SFSdotNetFrameworkSecurity", "secUsers", "FindUsers", "filter", "DisplayName", "GuidUser", true)]	
+
+	[SystemProperty()]
+	[LocalizedDisplayName("CREATEDBY"/*, NameResourceType=typeof(SDAreaResources)*/)]
+	public Guid  ? CreatedBy { get; set; }
+		
+		
+	
+[Exportable()]
+		
+[RelationFilterable(FiltrablePropertyPathName = "UpdatedBy", IsExternal =true )]
+[AutoComplete("SFSdotNetFrameworkSecurity", "secUsers", "FindUsers", "filter", "DisplayName", "GuidUser", true)]	
+
+	[SystemProperty()]
+	[LocalizedDisplayName("UPDATEDBY"/*, NameResourceType=typeof(SDAreaResources)*/)]
+	public Guid  ? UpdatedBy { get; set; }
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DataType("Integer")]
+	[LocalizedDisplayName("BYTES"/*, NameResourceType=typeof(SDAreaResources)*/)]
+	public Int32  ? Bytes { get; set; }
+	public string _BytesText = null;
+    public string BytesText {
+        get {
+			if (string.IsNullOrEmpty( _BytesText ))
+				{
+	
+            if (Bytes != null)
+				return Bytes.ToString();
+				
+            else
+                return String.Empty;
+	
+			}else{
+				return _BytesText ;
+			}			
+        }
+		set{
+			_BytesText = value;
+		}
+        
+    }
+
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[LocalizedDisplayName("ISDELETED"/*, NameResourceType=typeof(SDAreaResources)*/)]
+	public Boolean  ? IsDeleted { get; set; }
+	public string _IsDeletedText = null;
+    public string IsDeletedText {
+        get {
+			if (string.IsNullOrEmpty( _IsDeletedText ))
+				{
+	
+            if (IsDeleted != null)
+
+				return IsDeleted.ToString();
+				
+            else
+                return String.Empty;
+	
+			}else{
+				return _IsDeletedText ;
+			}			
+        }
+		set{
+			_IsDeletedText = value;
+		}
+        
+    }
+
 		
 		
 	
@@ -131,6 +273,13 @@ using SFS.ServiceDesk.BusinessObjects;
 		this.Name = model.Name;
 		this.GuidAreaParent = model.GuidAreaParent;
 		this.GuidOrganization = model.GuidOrganization;
+		this.GuidCompany = model.GuidCompany;
+		this.CreatedDate = model.CreatedDate;
+		this.UpdatedDate = model.UpdatedDate;
+		this.CreatedBy = model.CreatedBy;
+		this.UpdatedBy = model.UpdatedBy;
+		this.Bytes = model.Bytes;
+		this.IsDeleted = model.IsDeleted;
         }
 
         public BusinessObjects.SDArea GetBusinessObject()
@@ -151,6 +300,29 @@ using SFS.ServiceDesk.BusinessObjects;
 	if (this.GuidOrganization != null )
 				result.GuidOrganization = (Guid)this.GuidOrganization;
 				
+	if (this.GuidCompany != null )
+				result.GuidCompany = (Guid)this.GuidCompany;
+				
+				if(this.CreatedDate != null)
+					if (this.CreatedDate != null)
+				result.CreatedDate = (DateTime)this.CreatedDate;		
+				
+				if(this.UpdatedDate != null)
+					if (this.UpdatedDate != null)
+				result.UpdatedDate = (DateTime)this.UpdatedDate;		
+				
+	if (this.CreatedBy != null )
+				result.CreatedBy = (Guid)this.CreatedBy;
+				
+	if (this.UpdatedBy != null )
+				result.UpdatedBy = (Guid)this.UpdatedBy;
+				
+	if (this.Bytes != null )
+				result.Bytes = (Int32)this.Bytes;
+				
+	if (this.IsDeleted != null )
+				result.IsDeleted = (Boolean)this.IsDeleted;
+				
 			
 			if(this.FkSDArea2 != null )
 			if (GuidAreaParent != null && this.FkSDArea2 == null) this.FkSDArea2 = GuidAreaParent; 
@@ -170,17 +342,36 @@ using SFS.ServiceDesk.BusinessObjects;
 
 			this.GuidArea = businessObject.GuidArea;
 				
+			this.Name = businessObject.Name != null ? businessObject.Name.Trim().Replace("\t", String.Empty) : "";
 				
-	if (businessObject.Name != null )
-				this.Name = (String)businessObject.Name;
 				
 	if (businessObject.GuidAreaParent != null )
 				this.GuidAreaParent = (Guid)businessObject.GuidAreaParent;
 				
 	if (businessObject.GuidOrganization != null )
 				this.GuidOrganization = (Guid)businessObject.GuidOrganization;
+				
+	if (businessObject.GuidCompany != null )
+				this.GuidCompany = (Guid)businessObject.GuidCompany;
+				if (businessObject.CreatedDate != null )
+				this.CreatedDate = (DateTime)businessObject.CreatedDate;
+				if (businessObject.UpdatedDate != null )
+				this.UpdatedDate = (DateTime)businessObject.UpdatedDate;
+				
+	if (businessObject.CreatedBy != null )
+				this.CreatedBy = (Guid)businessObject.CreatedBy;
+				
+	if (businessObject.UpdatedBy != null )
+				this.UpdatedBy = (Guid)businessObject.UpdatedBy;
+				
+	if (businessObject.Bytes != null )
+				this.Bytes = (Int32)businessObject.Bytes;
+				
+	if (businessObject.IsDeleted != null )
+				this.IsDeleted = (Boolean)businessObject.IsDeleted;
 	        if (businessObject.SDArea2 != null){
 	                	this.FkSDArea2Text = businessObject.SDArea2.Name != null ? businessObject.SDArea2.Name.ToString() : "";; 
+										
 										
 				this.FkSDArea2 = businessObject.SDArea2.GuidArea;
                 this.FkSDArea2SafeKey  = SFSdotNet.Framework.Entities.Utils.GetKey(businessObject.SDArea2,"GuidArea").Replace("/","-");
@@ -223,8 +414,11 @@ using SFS.ServiceDesk.BusinessObjects;
 			
         public override string ToString()
         {
+			if (this.Bytes != null)
 		
-            return this.GuidAreaPerson.ToString();
+            return this.Bytes.ToString();
+			else
+				return "";
 		
         }    
 			
@@ -248,6 +442,146 @@ using SFS.ServiceDesk.BusinessObjects;
 	[RelationFilterable()] 
 	[LocalizedDisplayName("GUIDPERSON"/*, NameResourceType=typeof(SDAreaPersonResources)*/)]
 	public Guid  ? GuidPerson { get; set; }
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[LocalizedDisplayName("GUIDCOMPANY"/*, NameResourceType=typeof(SDAreaPersonResources)*/)]
+	public Guid  ? GuidCompany { get; set; }
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DateTime(true, false, null)]	
+	[LocalizedDisplayName("CREATEDDATE"/*, NameResourceType=typeof(SDAreaPersonResources)*/)]
+	public DateTime  ? CreatedDate { get; set; }
+	public string CreatedDateText {
+        get {
+            if (CreatedDate != null)
+				return ((DateTime)CreatedDate).ToShortDateString() ;
+            else
+                return String.Empty;
+        }
+				set{
+					if (!string.IsNullOrEmpty(value))
+						this.CreatedDate = Convert.ToDateTime(value);
+    }
+		}
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DateTime(true, false, null)]	
+	[LocalizedDisplayName("UPDATEDDATE"/*, NameResourceType=typeof(SDAreaPersonResources)*/)]
+	public DateTime  ? UpdatedDate { get; set; }
+	public string UpdatedDateText {
+        get {
+            if (UpdatedDate != null)
+			
+                return ((DateTime)UpdatedDate).ToString("s") ;
+            else
+                return String.Empty;
+        }
+				set{
+					if (!string.IsNullOrEmpty(value))
+						this.UpdatedDate = Convert.ToDateTime(value);
+    }
+		}
+		
+		
+	
+[Exportable()]
+		
+[RelationFilterable(FiltrablePropertyPathName = "CreatedBy", IsExternal =true )]
+[AutoComplete("SFSdotNetFrameworkSecurity", "secUsers", "FindUsers", "filter", "DisplayName", "GuidUser", true)]	
+
+	[SystemProperty()]
+	[LocalizedDisplayName("CREATEDBY"/*, NameResourceType=typeof(SDAreaPersonResources)*/)]
+	public Guid  ? CreatedBy { get; set; }
+		
+		
+	
+[Exportable()]
+		
+[RelationFilterable(FiltrablePropertyPathName = "UpdatedBy", IsExternal =true )]
+[AutoComplete("SFSdotNetFrameworkSecurity", "secUsers", "FindUsers", "filter", "DisplayName", "GuidUser", true)]	
+
+	[SystemProperty()]
+	[LocalizedDisplayName("UPDATEDBY"/*, NameResourceType=typeof(SDAreaPersonResources)*/)]
+	public Guid  ? UpdatedBy { get; set; }
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DataType("Integer")]
+	[LocalizedDisplayName("BYTES"/*, NameResourceType=typeof(SDAreaPersonResources)*/)]
+	public Int32  ? Bytes { get; set; }
+	public string _BytesText = null;
+    public string BytesText {
+        get {
+			if (string.IsNullOrEmpty( _BytesText ))
+				{
+	
+            if (Bytes != null)
+				return Bytes.ToString();
+				
+            else
+                return String.Empty;
+	
+			}else{
+				return _BytesText ;
+			}			
+        }
+		set{
+			_BytesText = value;
+		}
+        
+    }
+
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[LocalizedDisplayName("ISDELETED"/*, NameResourceType=typeof(SDAreaPersonResources)*/)]
+	public Boolean  ? IsDeleted { get; set; }
+	public string _IsDeletedText = null;
+    public string IsDeletedText {
+        get {
+			if (string.IsNullOrEmpty( _IsDeletedText ))
+				{
+	
+            if (IsDeleted != null)
+
+				return IsDeleted.ToString();
+				
+            else
+                return String.Empty;
+	
+			}else{
+				return _IsDeletedText ;
+			}			
+        }
+		set{
+			_IsDeletedText = value;
+		}
+        
+    }
+
 		
 		
 	
@@ -294,6 +628,13 @@ using SFS.ServiceDesk.BusinessObjects;
 		this.GuidAreaPerson = model.GuidAreaPerson;
 		this.GuidArea = model.GuidArea;
 		this.GuidPerson = model.GuidPerson;
+		this.GuidCompany = model.GuidCompany;
+		this.CreatedDate = model.CreatedDate;
+		this.UpdatedDate = model.UpdatedDate;
+		this.CreatedBy = model.CreatedBy;
+		this.UpdatedBy = model.UpdatedBy;
+		this.Bytes = model.Bytes;
+		this.IsDeleted = model.IsDeleted;
         }
 
         public BusinessObjects.SDAreaPerson GetBusinessObject()
@@ -310,6 +651,29 @@ using SFS.ServiceDesk.BusinessObjects;
 				
 	if (this.GuidPerson != null )
 				result.GuidPerson = (Guid)this.GuidPerson;
+				
+	if (this.GuidCompany != null )
+				result.GuidCompany = (Guid)this.GuidCompany;
+				
+				if(this.CreatedDate != null)
+					if (this.CreatedDate != null)
+				result.CreatedDate = (DateTime)this.CreatedDate;		
+				
+				if(this.UpdatedDate != null)
+					if (this.UpdatedDate != null)
+				result.UpdatedDate = (DateTime)this.UpdatedDate;		
+				
+	if (this.CreatedBy != null )
+				result.CreatedBy = (Guid)this.CreatedBy;
+				
+	if (this.UpdatedBy != null )
+				result.UpdatedBy = (Guid)this.UpdatedBy;
+				
+	if (this.Bytes != null )
+				result.Bytes = (Int32)this.Bytes;
+				
+	if (this.IsDeleted != null )
+				result.IsDeleted = (Boolean)this.IsDeleted;
 				
 			
 			if(this.FkSDArea != null )
@@ -336,8 +700,28 @@ using SFS.ServiceDesk.BusinessObjects;
 				
 	if (businessObject.GuidPerson != null )
 				this.GuidPerson = (Guid)businessObject.GuidPerson;
+				
+	if (businessObject.GuidCompany != null )
+				this.GuidCompany = (Guid)businessObject.GuidCompany;
+				if (businessObject.CreatedDate != null )
+				this.CreatedDate = (DateTime)businessObject.CreatedDate;
+				if (businessObject.UpdatedDate != null )
+				this.UpdatedDate = (DateTime)businessObject.UpdatedDate;
+				
+	if (businessObject.CreatedBy != null )
+				this.CreatedBy = (Guid)businessObject.CreatedBy;
+				
+	if (businessObject.UpdatedBy != null )
+				this.UpdatedBy = (Guid)businessObject.UpdatedBy;
+				
+	if (businessObject.Bytes != null )
+				this.Bytes = (Int32)businessObject.Bytes;
+				
+	if (businessObject.IsDeleted != null )
+				this.IsDeleted = (Boolean)businessObject.IsDeleted;
 	        if (businessObject.SDArea != null){
 	                	this.FkSDAreaText = businessObject.SDArea.Name != null ? businessObject.SDArea.Name.ToString() : "";; 
+										
 										
 				this.FkSDArea = businessObject.SDArea.GuidArea;
                 this.FkSDAreaSafeKey  = SFSdotNet.Framework.Entities.Utils.GetKey(businessObject.SDArea,"GuidArea").Replace("/","-");
@@ -345,6 +729,7 @@ using SFS.ServiceDesk.BusinessObjects;
 			}
 	        if (businessObject.SDPerson != null){
 	                	this.FkSDPersonText = businessObject.SDPerson.DisplayName != null ? businessObject.SDPerson.DisplayName.ToString() : "";; 
+										
 										
 				this.FkSDPerson = businessObject.SDPerson.GuidPerson;
                 this.FkSDPersonSafeKey  = SFSdotNet.Framework.Entities.Utils.GetKey(businessObject.SDPerson,"GuidPerson").Replace("/","-");
@@ -399,8 +784,8 @@ using SFS.ServiceDesk.BusinessObjects;
 	    [Required()]
 		
 	[RelationFilterable()] 
-	[LocalizedDisplayName("GUIDCASESTATUS"/*, NameResourceType=typeof(SDCaseResources)*/)]
-	public Guid   GuidCaseStatus { get; set; }
+	[LocalizedDisplayName("GUIDCASESTATE"/*, NameResourceType=typeof(SDCaseResources)*/)]
+	public Guid   GuidCaseState { get; set; }
 		
 		
 	
@@ -462,6 +847,154 @@ using SFS.ServiceDesk.BusinessObjects;
 	
 [Exportable()]
 		
+	[RelationFilterable()] 
+	[LocalizedDisplayName("TITLE"/*, NameResourceType=typeof(SDCaseResources)*/)]
+	public String   Title { get; set; }
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[LocalizedDisplayName("GUIDCOMPANY"/*, NameResourceType=typeof(SDCaseResources)*/)]
+	public Guid  ? GuidCompany { get; set; }
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DateTime(true, false, null)]	
+	[LocalizedDisplayName("CREATEDDATE"/*, NameResourceType=typeof(SDCaseResources)*/)]
+	public DateTime  ? CreatedDate { get; set; }
+	public string CreatedDateText {
+        get {
+            if (CreatedDate != null)
+				return ((DateTime)CreatedDate).ToShortDateString() ;
+            else
+                return String.Empty;
+        }
+				set{
+					if (!string.IsNullOrEmpty(value))
+						this.CreatedDate = Convert.ToDateTime(value);
+    }
+		}
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DateTime(true, false, null)]	
+	[LocalizedDisplayName("UPDATEDDATE"/*, NameResourceType=typeof(SDCaseResources)*/)]
+	public DateTime  ? UpdatedDate { get; set; }
+	public string UpdatedDateText {
+        get {
+            if (UpdatedDate != null)
+			
+                return ((DateTime)UpdatedDate).ToString("s") ;
+            else
+                return String.Empty;
+        }
+				set{
+					if (!string.IsNullOrEmpty(value))
+						this.UpdatedDate = Convert.ToDateTime(value);
+    }
+		}
+		
+		
+	
+[Exportable()]
+		
+[RelationFilterable(FiltrablePropertyPathName = "CreatedBy", IsExternal =true )]
+[AutoComplete("SFSdotNetFrameworkSecurity", "secUsers", "FindUsers", "filter", "DisplayName", "GuidUser", true)]	
+
+	[SystemProperty()]
+	[LocalizedDisplayName("CREATEDBY"/*, NameResourceType=typeof(SDCaseResources)*/)]
+	public Guid  ? CreatedBy { get; set; }
+		
+		
+	
+[Exportable()]
+		
+[RelationFilterable(FiltrablePropertyPathName = "UpdatedBy", IsExternal =true )]
+[AutoComplete("SFSdotNetFrameworkSecurity", "secUsers", "FindUsers", "filter", "DisplayName", "GuidUser", true)]	
+
+	[SystemProperty()]
+	[LocalizedDisplayName("UPDATEDBY"/*, NameResourceType=typeof(SDCaseResources)*/)]
+	public Guid  ? UpdatedBy { get; set; }
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DataType("Integer")]
+	[LocalizedDisplayName("BYTES"/*, NameResourceType=typeof(SDCaseResources)*/)]
+	public Int32  ? Bytes { get; set; }
+	public string _BytesText = null;
+    public string BytesText {
+        get {
+			if (string.IsNullOrEmpty( _BytesText ))
+				{
+	
+            if (Bytes != null)
+				return Bytes.ToString();
+				
+            else
+                return String.Empty;
+	
+			}else{
+				return _BytesText ;
+			}			
+        }
+		set{
+			_BytesText = value;
+		}
+        
+    }
+
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[LocalizedDisplayName("ISDELETED"/*, NameResourceType=typeof(SDCaseResources)*/)]
+	public Boolean  ? IsDeleted { get; set; }
+	public string _IsDeletedText = null;
+    public string IsDeletedText {
+        get {
+			if (string.IsNullOrEmpty( _IsDeletedText ))
+				{
+	
+            if (IsDeleted != null)
+
+				return IsDeleted.ToString();
+				
+            else
+                return String.Empty;
+	
+			}else{
+				return _IsDeletedText ;
+			}			
+        }
+		set{
+			_IsDeletedText = value;
+		}
+        
+    }
+
+		
+		
+	
+[Exportable()]
+		
 	[RelationFilterable(DataClassProvider = typeof(Controllers.SDPersonsController), GetByKeyMethod="GetByKey", GetAllMethod = "GetAll", DataPropertyText = "DisplayName", DataPropertyValue = "GuidPerson", FiltrablePropertyPathName="SDPerson.GuidPerson")]	
 
 	[LocalizedDisplayName("SDPERSON"/*, NameResourceType=typeof(SDCaseResources)*/)]
@@ -490,14 +1023,14 @@ using SFS.ServiceDesk.BusinessObjects;
 	
 [Exportable()]
 		
-	[RelationFilterable(DataClassProvider = typeof(Controllers.SDCaseStatusController), GetByKeyMethod="GetByKey", GetAllMethod = "GetAll", DataPropertyText = "Title", DataPropertyValue = "GuidCaseStatus", FiltrablePropertyPathName="SDCaseStatu.GuidCaseStatus")]	
+	[RelationFilterable(DataClassProvider = typeof(Controllers.SDCaseStatesController), GetByKeyMethod="GetByKey", GetAllMethod = "GetAll", DataPropertyText = "Title", DataPropertyValue = "GuidCaseState", FiltrablePropertyPathName="SDCaseState.GuidCaseState")]	
 
-	[LocalizedDisplayName("SDCASESTATU"/*, NameResourceType=typeof(SDCaseResources)*/)]
-	public Guid  ? FkSDCaseStatu { get; set; }
-		[LocalizedDisplayName("SDCASESTATU"/*, NameResourceType=typeof(SDCaseResources)*/)]
+	[LocalizedDisplayName("SDCASESTATE"/*, NameResourceType=typeof(SDCaseResources)*/)]
+	public Guid  ? FkSDCaseState { get; set; }
+		[LocalizedDisplayName("SDCASESTATE"/*, NameResourceType=typeof(SDCaseResources)*/)]
 	[Exportable()]
-	public string  FkSDCaseStatuText { get; set; }
-    public string FkSDCaseStatuSafeKey { get; set; }
+	public string  FkSDCaseStateText { get; set; }
+    public string FkSDCaseStateSafeKey { get; set; }
 
 	
 		
@@ -523,12 +1056,20 @@ using SFS.ServiceDesk.BusinessObjects;
 		public void Bind(SDCaseModel model){
             
 		this.GuidCase = model.GuidCase;
-		this.GuidCaseStatus = model.GuidCaseStatus;
+		this.GuidCaseState = model.GuidCaseState;
 		this.GuidPersonClient = model.GuidPersonClient;
 		this.ClosedDateTime = model.ClosedDateTime;
 		this.BodyContent = model.BodyContent;
 		this.PreviewContent = model.PreviewContent;
 		this.GuidCasePriority = model.GuidCasePriority;
+		this.Title = model.Title;
+		this.GuidCompany = model.GuidCompany;
+		this.CreatedDate = model.CreatedDate;
+		this.UpdatedDate = model.UpdatedDate;
+		this.CreatedBy = model.CreatedBy;
+		this.UpdatedBy = model.UpdatedBy;
+		this.Bytes = model.Bytes;
+		this.IsDeleted = model.IsDeleted;
         }
 
         public BusinessObjects.SDCase GetBusinessObject()
@@ -540,8 +1081,8 @@ using SFS.ServiceDesk.BusinessObjects;
 	if (this.GuidCase != null )
 				result.GuidCase = (Guid)this.GuidCase;
 				
-	if (this.GuidCaseStatus != null )
-				result.GuidCaseStatus = (Guid)this.GuidCaseStatus;
+	if (this.GuidCaseState != null )
+				result.GuidCaseState = (Guid)this.GuidCaseState;
 				
 	if (this.GuidPersonClient != null )
 				result.GuidPersonClient = (Guid)this.GuidPersonClient;
@@ -559,6 +1100,32 @@ using SFS.ServiceDesk.BusinessObjects;
 	if (this.GuidCasePriority != null )
 				result.GuidCasePriority = (Guid)this.GuidCasePriority;
 				
+	if (this.Title != null )
+				result.Title = (String)this.Title.Trim().Replace("\t", String.Empty);
+				
+	if (this.GuidCompany != null )
+				result.GuidCompany = (Guid)this.GuidCompany;
+				
+				if(this.CreatedDate != null)
+					if (this.CreatedDate != null)
+				result.CreatedDate = (DateTime)this.CreatedDate;		
+				
+				if(this.UpdatedDate != null)
+					if (this.UpdatedDate != null)
+				result.UpdatedDate = (DateTime)this.UpdatedDate;		
+				
+	if (this.CreatedBy != null )
+				result.CreatedBy = (Guid)this.CreatedBy;
+				
+	if (this.UpdatedBy != null )
+				result.UpdatedBy = (Guid)this.UpdatedBy;
+				
+	if (this.Bytes != null )
+				result.Bytes = (Int32)this.Bytes;
+				
+	if (this.IsDeleted != null )
+				result.IsDeleted = (Boolean)this.IsDeleted;
+				
 			
 			if(this.FkSDPerson != null )
 			if (GuidPersonClient != null && this.FkSDPerson == null) this.FkSDPerson = GuidPersonClient; 
@@ -567,8 +1134,8 @@ using SFS.ServiceDesk.BusinessObjects;
 			if (GuidCasePriority != null && this.FkSDCasePriority == null) this.FkSDCasePriority = GuidCasePriority; 
 			result.SDCasePriority = new BusinessObjects.SDCasePriority() { GuidCasePriority= (Guid)this.FkSDCasePriority };
 				
-			if (GuidCaseStatus != null && this.FkSDCaseStatu == null) this.FkSDCaseStatu = GuidCaseStatus; 
-			result.SDCaseStatu = new BusinessObjects.SDCaseStatu() { GuidCaseStatus= (Guid)this.FkSDCaseStatu };
+			if (GuidCaseState != null && this.FkSDCaseState == null) this.FkSDCaseState = GuidCaseState; 
+			result.SDCaseState = new BusinessObjects.SDCaseState() { GuidCaseState= (Guid)this.FkSDCaseState };
 				
 
             return result;
@@ -579,7 +1146,7 @@ using SFS.ServiceDesk.BusinessObjects;
 
 			this.GuidCase = businessObject.GuidCase;
 				
-			this.GuidCaseStatus = businessObject.GuidCaseStatus;
+			this.GuidCaseState = businessObject.GuidCaseState;
 				
 				
 	if (businessObject.GuidPersonClient != null )
@@ -594,8 +1161,31 @@ using SFS.ServiceDesk.BusinessObjects;
 				this.PreviewContent = (String)businessObject.PreviewContent;
 			this.GuidCasePriority = businessObject.GuidCasePriority;
 				
+				
+	if (businessObject.Title != null )
+				this.Title = (String)businessObject.Title;
+				
+	if (businessObject.GuidCompany != null )
+				this.GuidCompany = (Guid)businessObject.GuidCompany;
+				if (businessObject.CreatedDate != null )
+				this.CreatedDate = (DateTime)businessObject.CreatedDate;
+				if (businessObject.UpdatedDate != null )
+				this.UpdatedDate = (DateTime)businessObject.UpdatedDate;
+				
+	if (businessObject.CreatedBy != null )
+				this.CreatedBy = (Guid)businessObject.CreatedBy;
+				
+	if (businessObject.UpdatedBy != null )
+				this.UpdatedBy = (Guid)businessObject.UpdatedBy;
+				
+	if (businessObject.Bytes != null )
+				this.Bytes = (Int32)businessObject.Bytes;
+				
+	if (businessObject.IsDeleted != null )
+				this.IsDeleted = (Boolean)businessObject.IsDeleted;
 	        if (businessObject.SDPerson != null){
 	                	this.FkSDPersonText = businessObject.SDPerson.DisplayName != null ? businessObject.SDPerson.DisplayName.ToString() : "";; 
+										
 										
 				this.FkSDPerson = businessObject.SDPerson.GuidPerson;
                 this.FkSDPersonSafeKey  = SFSdotNet.Framework.Entities.Utils.GetKey(businessObject.SDPerson,"GuidPerson").Replace("/","-");
@@ -609,12 +1199,12 @@ using SFS.ServiceDesk.BusinessObjects;
                 this.FkSDCasePrioritySafeKey  = SFSdotNet.Framework.Entities.Utils.GetKey(businessObject.SDCasePriority,"GuidCasePriority").Replace("/","-");
 
 			}
-	        if (businessObject.SDCaseStatu != null){
-	                	this.FkSDCaseStatuText = businessObject.SDCaseStatu.Title != null ? businessObject.SDCaseStatu.Title.ToString() : "";; 
+	        if (businessObject.SDCaseState != null){
+	                	this.FkSDCaseStateText = businessObject.SDCaseState.Title != null ? businessObject.SDCaseState.Title.ToString() : "";; 
 										
 										
-				this.FkSDCaseStatu = businessObject.SDCaseStatu.GuidCaseStatus;
-                this.FkSDCaseStatuSafeKey  = SFSdotNet.Framework.Entities.Utils.GetKey(businessObject.SDCaseStatu,"GuidCaseStatus").Replace("/","-");
+				this.FkSDCaseState = businessObject.SDCaseState.GuidCaseState;
+                this.FkSDCaseStateSafeKey  = SFSdotNet.Framework.Entities.Utils.GetKey(businessObject.SDCaseState,"GuidCaseState").Replace("/","-");
 
 			}
            
@@ -646,8 +1236,11 @@ using SFS.ServiceDesk.BusinessObjects;
 			
         public override string ToString()
         {
+			if (this.Bytes != null)
 		
-            return this.GuidCasefile.ToString();
+            return this.Bytes.ToString();
+			else
+				return "";
 		
         }    
 			
@@ -671,6 +1264,146 @@ using SFS.ServiceDesk.BusinessObjects;
 	[RelationFilterable()] 
 	[LocalizedDisplayName("GUIDFILE"/*, NameResourceType=typeof(SDCaseFileResources)*/)]
 	public Guid  ? GuidFile { get; set; }
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[LocalizedDisplayName("GUIDCOMPANY"/*, NameResourceType=typeof(SDCaseFileResources)*/)]
+	public Guid  ? GuidCompany { get; set; }
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DateTime(true, false, null)]	
+	[LocalizedDisplayName("CREATEDDATE"/*, NameResourceType=typeof(SDCaseFileResources)*/)]
+	public DateTime  ? CreatedDate { get; set; }
+	public string CreatedDateText {
+        get {
+            if (CreatedDate != null)
+				return ((DateTime)CreatedDate).ToShortDateString() ;
+            else
+                return String.Empty;
+        }
+				set{
+					if (!string.IsNullOrEmpty(value))
+						this.CreatedDate = Convert.ToDateTime(value);
+    }
+		}
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DateTime(true, false, null)]	
+	[LocalizedDisplayName("UPDATEDDATE"/*, NameResourceType=typeof(SDCaseFileResources)*/)]
+	public DateTime  ? UpdatedDate { get; set; }
+	public string UpdatedDateText {
+        get {
+            if (UpdatedDate != null)
+			
+                return ((DateTime)UpdatedDate).ToString("s") ;
+            else
+                return String.Empty;
+        }
+				set{
+					if (!string.IsNullOrEmpty(value))
+						this.UpdatedDate = Convert.ToDateTime(value);
+    }
+		}
+		
+		
+	
+[Exportable()]
+		
+[RelationFilterable(FiltrablePropertyPathName = "CreatedBy", IsExternal =true )]
+[AutoComplete("SFSdotNetFrameworkSecurity", "secUsers", "FindUsers", "filter", "DisplayName", "GuidUser", true)]	
+
+	[SystemProperty()]
+	[LocalizedDisplayName("CREATEDBY"/*, NameResourceType=typeof(SDCaseFileResources)*/)]
+	public Guid  ? CreatedBy { get; set; }
+		
+		
+	
+[Exportable()]
+		
+[RelationFilterable(FiltrablePropertyPathName = "UpdatedBy", IsExternal =true )]
+[AutoComplete("SFSdotNetFrameworkSecurity", "secUsers", "FindUsers", "filter", "DisplayName", "GuidUser", true)]	
+
+	[SystemProperty()]
+	[LocalizedDisplayName("UPDATEDBY"/*, NameResourceType=typeof(SDCaseFileResources)*/)]
+	public Guid  ? UpdatedBy { get; set; }
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DataType("Integer")]
+	[LocalizedDisplayName("BYTES"/*, NameResourceType=typeof(SDCaseFileResources)*/)]
+	public Int32  ? Bytes { get; set; }
+	public string _BytesText = null;
+    public string BytesText {
+        get {
+			if (string.IsNullOrEmpty( _BytesText ))
+				{
+	
+            if (Bytes != null)
+				return Bytes.ToString();
+				
+            else
+                return String.Empty;
+	
+			}else{
+				return _BytesText ;
+			}			
+        }
+		set{
+			_BytesText = value;
+		}
+        
+    }
+
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[LocalizedDisplayName("ISDELETED"/*, NameResourceType=typeof(SDCaseFileResources)*/)]
+	public Boolean  ? IsDeleted { get; set; }
+	public string _IsDeletedText = null;
+    public string IsDeletedText {
+        get {
+			if (string.IsNullOrEmpty( _IsDeletedText ))
+				{
+	
+            if (IsDeleted != null)
+
+				return IsDeleted.ToString();
+				
+            else
+                return String.Empty;
+	
+			}else{
+				return _IsDeletedText ;
+			}			
+        }
+		set{
+			_IsDeletedText = value;
+		}
+        
+    }
+
 		
 		
 	
@@ -717,6 +1450,13 @@ using SFS.ServiceDesk.BusinessObjects;
 		this.GuidCasefile = model.GuidCasefile;
 		this.GuidCase = model.GuidCase;
 		this.GuidFile = model.GuidFile;
+		this.GuidCompany = model.GuidCompany;
+		this.CreatedDate = model.CreatedDate;
+		this.UpdatedDate = model.UpdatedDate;
+		this.CreatedBy = model.CreatedBy;
+		this.UpdatedBy = model.UpdatedBy;
+		this.Bytes = model.Bytes;
+		this.IsDeleted = model.IsDeleted;
         }
 
         public BusinessObjects.SDCaseFile GetBusinessObject()
@@ -733,6 +1473,29 @@ using SFS.ServiceDesk.BusinessObjects;
 				
 	if (this.GuidFile != null )
 				result.GuidFile = (Guid)this.GuidFile;
+				
+	if (this.GuidCompany != null )
+				result.GuidCompany = (Guid)this.GuidCompany;
+				
+				if(this.CreatedDate != null)
+					if (this.CreatedDate != null)
+				result.CreatedDate = (DateTime)this.CreatedDate;		
+				
+				if(this.UpdatedDate != null)
+					if (this.UpdatedDate != null)
+				result.UpdatedDate = (DateTime)this.UpdatedDate;		
+				
+	if (this.CreatedBy != null )
+				result.CreatedBy = (Guid)this.CreatedBy;
+				
+	if (this.UpdatedBy != null )
+				result.UpdatedBy = (Guid)this.UpdatedBy;
+				
+	if (this.Bytes != null )
+				result.Bytes = (Int32)this.Bytes;
+				
+	if (this.IsDeleted != null )
+				result.IsDeleted = (Boolean)this.IsDeleted;
 				
 			
 			if(this.FkSDCase != null )
@@ -759,6 +1522,25 @@ using SFS.ServiceDesk.BusinessObjects;
 				
 	if (businessObject.GuidFile != null )
 				this.GuidFile = (Guid)businessObject.GuidFile;
+				
+	if (businessObject.GuidCompany != null )
+				this.GuidCompany = (Guid)businessObject.GuidCompany;
+				if (businessObject.CreatedDate != null )
+				this.CreatedDate = (DateTime)businessObject.CreatedDate;
+				if (businessObject.UpdatedDate != null )
+				this.UpdatedDate = (DateTime)businessObject.UpdatedDate;
+				
+	if (businessObject.CreatedBy != null )
+				this.CreatedBy = (Guid)businessObject.CreatedBy;
+				
+	if (businessObject.UpdatedBy != null )
+				this.UpdatedBy = (Guid)businessObject.UpdatedBy;
+				
+	if (businessObject.Bytes != null )
+				this.Bytes = (Int32)businessObject.Bytes;
+				
+	if (businessObject.IsDeleted != null )
+				this.IsDeleted = (Boolean)businessObject.IsDeleted;
 	        if (businessObject.SDCase != null){
 	                	this.FkSDCaseText = businessObject.SDCase.BodyContent != null ? businessObject.SDCase.BodyContent.ToString() : "";; 
 										
@@ -837,6 +1619,8 @@ using SFS.ServiceDesk.BusinessObjects;
 		
 	
 [Exportable()]
+	
+	    [Required()]
 		
 	[RelationFilterable()] 
 	[LocalizedDisplayName("BODYCONTENT"/*, NameResourceType=typeof(SDCaseHistoryResources)*/)]
@@ -849,6 +1633,146 @@ using SFS.ServiceDesk.BusinessObjects;
 	[RelationFilterable()] 
 	[LocalizedDisplayName("PREVIEWCONTENT"/*, NameResourceType=typeof(SDCaseHistoryResources)*/)]
 	public String   PreviewContent { get; set; }
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[LocalizedDisplayName("GUIDCOMPANY"/*, NameResourceType=typeof(SDCaseHistoryResources)*/)]
+	public Guid  ? GuidCompany { get; set; }
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DateTime(true, false, null)]	
+	[LocalizedDisplayName("CREATEDDATE"/*, NameResourceType=typeof(SDCaseHistoryResources)*/)]
+	public DateTime  ? CreatedDate { get; set; }
+	public string CreatedDateText {
+        get {
+            if (CreatedDate != null)
+				return ((DateTime)CreatedDate).ToShortDateString() ;
+            else
+                return String.Empty;
+        }
+				set{
+					if (!string.IsNullOrEmpty(value))
+						this.CreatedDate = Convert.ToDateTime(value);
+    }
+		}
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DateTime(true, false, null)]	
+	[LocalizedDisplayName("UPDATEDDATE"/*, NameResourceType=typeof(SDCaseHistoryResources)*/)]
+	public DateTime  ? UpdatedDate { get; set; }
+	public string UpdatedDateText {
+        get {
+            if (UpdatedDate != null)
+			
+                return ((DateTime)UpdatedDate).ToString("s") ;
+            else
+                return String.Empty;
+        }
+				set{
+					if (!string.IsNullOrEmpty(value))
+						this.UpdatedDate = Convert.ToDateTime(value);
+    }
+		}
+		
+		
+	
+[Exportable()]
+		
+[RelationFilterable(FiltrablePropertyPathName = "CreatedBy", IsExternal =true )]
+[AutoComplete("SFSdotNetFrameworkSecurity", "secUsers", "FindUsers", "filter", "DisplayName", "GuidUser", true)]	
+
+	[SystemProperty()]
+	[LocalizedDisplayName("CREATEDBY"/*, NameResourceType=typeof(SDCaseHistoryResources)*/)]
+	public Guid  ? CreatedBy { get; set; }
+		
+		
+	
+[Exportable()]
+		
+[RelationFilterable(FiltrablePropertyPathName = "UpdatedBy", IsExternal =true )]
+[AutoComplete("SFSdotNetFrameworkSecurity", "secUsers", "FindUsers", "filter", "DisplayName", "GuidUser", true)]	
+
+	[SystemProperty()]
+	[LocalizedDisplayName("UPDATEDBY"/*, NameResourceType=typeof(SDCaseHistoryResources)*/)]
+	public Guid  ? UpdatedBy { get; set; }
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DataType("Integer")]
+	[LocalizedDisplayName("BYTES"/*, NameResourceType=typeof(SDCaseHistoryResources)*/)]
+	public Int32  ? Bytes { get; set; }
+	public string _BytesText = null;
+    public string BytesText {
+        get {
+			if (string.IsNullOrEmpty( _BytesText ))
+				{
+	
+            if (Bytes != null)
+				return Bytes.ToString();
+				
+            else
+                return String.Empty;
+	
+			}else{
+				return _BytesText ;
+			}			
+        }
+		set{
+			_BytesText = value;
+		}
+        
+    }
+
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[LocalizedDisplayName("ISDELETED"/*, NameResourceType=typeof(SDCaseHistoryResources)*/)]
+	public Boolean  ? IsDeleted { get; set; }
+	public string _IsDeletedText = null;
+    public string IsDeletedText {
+        get {
+			if (string.IsNullOrEmpty( _IsDeletedText ))
+				{
+	
+            if (IsDeleted != null)
+
+				return IsDeleted.ToString();
+				
+            else
+                return String.Empty;
+	
+			}else{
+				return _IsDeletedText ;
+			}			
+        }
+		set{
+			_IsDeletedText = value;
+		}
+        
+    }
+
 		
 		
 	
@@ -868,14 +1792,14 @@ using SFS.ServiceDesk.BusinessObjects;
 	
 [Exportable()]
 		
-	[RelationFilterable(DataClassProvider = typeof(Controllers.SDCaseStatusController), GetByKeyMethod="GetByKey", GetAllMethod = "GetAll", DataPropertyText = "Title", DataPropertyValue = "GuidCaseStatus", FiltrablePropertyPathName="SDCaseStatu.GuidCaseStatus")]	
+	[RelationFilterable(DataClassProvider = typeof(Controllers.SDCaseStatesController), GetByKeyMethod="GetByKey", GetAllMethod = "GetAll", DataPropertyText = "Title", DataPropertyValue = "GuidCaseState", FiltrablePropertyPathName="SDCaseState.GuidCaseState")]	
 
-	[LocalizedDisplayName("SDCASESTATU"/*, NameResourceType=typeof(SDCaseHistoryResources)*/)]
-	public Guid  ? FkSDCaseStatu { get; set; }
-		[LocalizedDisplayName("SDCASESTATU"/*, NameResourceType=typeof(SDCaseHistoryResources)*/)]
+	[LocalizedDisplayName("SDCASESTATE"/*, NameResourceType=typeof(SDCaseHistoryResources)*/)]
+	public Guid  ? FkSDCaseState { get; set; }
+		[LocalizedDisplayName("SDCASESTATE"/*, NameResourceType=typeof(SDCaseHistoryResources)*/)]
 	[Exportable()]
-	public string  FkSDCaseStatuText { get; set; }
-    public string FkSDCaseStatuSafeKey { get; set; }
+	public string  FkSDCaseStateText { get; set; }
+    public string FkSDCaseStateSafeKey { get; set; }
 
 	
 		
@@ -901,6 +1825,13 @@ using SFS.ServiceDesk.BusinessObjects;
 		this.GuidCaseStatus = model.GuidCaseStatus;
 		this.BodyContent = model.BodyContent;
 		this.PreviewContent = model.PreviewContent;
+		this.GuidCompany = model.GuidCompany;
+		this.CreatedDate = model.CreatedDate;
+		this.UpdatedDate = model.UpdatedDate;
+		this.CreatedBy = model.CreatedBy;
+		this.UpdatedBy = model.UpdatedBy;
+		this.Bytes = model.Bytes;
+		this.IsDeleted = model.IsDeleted;
         }
 
         public BusinessObjects.SDCaseHistory GetBusinessObject()
@@ -924,13 +1855,36 @@ using SFS.ServiceDesk.BusinessObjects;
 	if (this.PreviewContent != null )
 				result.PreviewContent = (String)this.PreviewContent.Trim().Replace("\t", String.Empty);
 				
+	if (this.GuidCompany != null )
+				result.GuidCompany = (Guid)this.GuidCompany;
+				
+				if(this.CreatedDate != null)
+					if (this.CreatedDate != null)
+				result.CreatedDate = (DateTime)this.CreatedDate;		
+				
+				if(this.UpdatedDate != null)
+					if (this.UpdatedDate != null)
+				result.UpdatedDate = (DateTime)this.UpdatedDate;		
+				
+	if (this.CreatedBy != null )
+				result.CreatedBy = (Guid)this.CreatedBy;
+				
+	if (this.UpdatedBy != null )
+				result.UpdatedBy = (Guid)this.UpdatedBy;
+				
+	if (this.Bytes != null )
+				result.Bytes = (Int32)this.Bytes;
+				
+	if (this.IsDeleted != null )
+				result.IsDeleted = (Boolean)this.IsDeleted;
+				
 			if (GuidCase != null && this.FkSDCase == null) this.FkSDCase = GuidCase; 
 			result.SDCase = new BusinessObjects.SDCase() { GuidCase= (Guid)this.FkSDCase };
 				
 			
-			if(this.FkSDCaseStatu != null )
-			if (GuidCaseStatus != null && this.FkSDCaseStatu == null) this.FkSDCaseStatu = GuidCaseStatus; 
-			result.SDCaseStatu = new BusinessObjects.SDCaseStatu() { GuidCaseStatus= (Guid)this.FkSDCaseStatu };
+			if(this.FkSDCaseState != null )
+			if (GuidCaseStatus != null && this.FkSDCaseState == null) this.FkSDCaseState = GuidCaseStatus; 
+			result.SDCaseState = new BusinessObjects.SDCaseState() { GuidCaseState= (Guid)this.FkSDCaseState };
 				
 
             return result;
@@ -946,12 +1900,30 @@ using SFS.ServiceDesk.BusinessObjects;
 				
 	if (businessObject.GuidCaseStatus != null )
 				this.GuidCaseStatus = (Guid)businessObject.GuidCaseStatus;
+			this.BodyContent = businessObject.BodyContent != null ? businessObject.BodyContent.Trim().Replace("\t", String.Empty) : "";
 				
-	if (businessObject.BodyContent != null )
-				this.BodyContent = (String)businessObject.BodyContent;
 				
 	if (businessObject.PreviewContent != null )
 				this.PreviewContent = (String)businessObject.PreviewContent;
+				
+	if (businessObject.GuidCompany != null )
+				this.GuidCompany = (Guid)businessObject.GuidCompany;
+				if (businessObject.CreatedDate != null )
+				this.CreatedDate = (DateTime)businessObject.CreatedDate;
+				if (businessObject.UpdatedDate != null )
+				this.UpdatedDate = (DateTime)businessObject.UpdatedDate;
+				
+	if (businessObject.CreatedBy != null )
+				this.CreatedBy = (Guid)businessObject.CreatedBy;
+				
+	if (businessObject.UpdatedBy != null )
+				this.UpdatedBy = (Guid)businessObject.UpdatedBy;
+				
+	if (businessObject.Bytes != null )
+				this.Bytes = (Int32)businessObject.Bytes;
+				
+	if (businessObject.IsDeleted != null )
+				this.IsDeleted = (Boolean)businessObject.IsDeleted;
 	        if (businessObject.SDCase != null){
 	                	this.FkSDCaseText = businessObject.SDCase.BodyContent != null ? businessObject.SDCase.BodyContent.ToString() : "";; 
 										
@@ -959,12 +1931,12 @@ using SFS.ServiceDesk.BusinessObjects;
                 this.FkSDCaseSafeKey  = SFSdotNet.Framework.Entities.Utils.GetKey(businessObject.SDCase,"GuidCase").Replace("/","-");
 
 			}
-	        if (businessObject.SDCaseStatu != null){
-	                	this.FkSDCaseStatuText = businessObject.SDCaseStatu.Title != null ? businessObject.SDCaseStatu.Title.ToString() : "";; 
+	        if (businessObject.SDCaseState != null){
+	                	this.FkSDCaseStateText = businessObject.SDCaseState.Title != null ? businessObject.SDCaseState.Title.ToString() : "";; 
 										
 										
-				this.FkSDCaseStatu = businessObject.SDCaseStatu.GuidCaseStatus;
-                this.FkSDCaseStatuSafeKey  = SFSdotNet.Framework.Entities.Utils.GetKey(businessObject.SDCaseStatu,"GuidCaseStatus").Replace("/","-");
+				this.FkSDCaseState = businessObject.SDCaseState.GuidCaseState;
+                this.FkSDCaseStateSafeKey  = SFSdotNet.Framework.Entities.Utils.GetKey(businessObject.SDCaseState,"GuidCaseState").Replace("/","-");
 
 			}
            
@@ -996,8 +1968,11 @@ using SFS.ServiceDesk.BusinessObjects;
 			
         public override string ToString()
         {
+			if (this.Bytes != null)
 		
-            return this.GuidCasehistoryFile.ToString();
+            return this.Bytes.ToString();
+			else
+				return "";
 		
         }    
 			
@@ -1021,6 +1996,146 @@ using SFS.ServiceDesk.BusinessObjects;
 	[RelationFilterable()] 
 	[LocalizedDisplayName("GUIDCASEHISTORY"/*, NameResourceType=typeof(SDCaseHistoryFileResources)*/)]
 	public Guid  ? GuidCaseHistory { get; set; }
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[LocalizedDisplayName("GUIDCOMPANY"/*, NameResourceType=typeof(SDCaseHistoryFileResources)*/)]
+	public Guid  ? GuidCompany { get; set; }
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DateTime(true, false, null)]	
+	[LocalizedDisplayName("CREATEDDATE"/*, NameResourceType=typeof(SDCaseHistoryFileResources)*/)]
+	public DateTime  ? CreatedDate { get; set; }
+	public string CreatedDateText {
+        get {
+            if (CreatedDate != null)
+				return ((DateTime)CreatedDate).ToShortDateString() ;
+            else
+                return String.Empty;
+        }
+				set{
+					if (!string.IsNullOrEmpty(value))
+						this.CreatedDate = Convert.ToDateTime(value);
+    }
+		}
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DateTime(true, false, null)]	
+	[LocalizedDisplayName("UPDATEDDATE"/*, NameResourceType=typeof(SDCaseHistoryFileResources)*/)]
+	public DateTime  ? UpdatedDate { get; set; }
+	public string UpdatedDateText {
+        get {
+            if (UpdatedDate != null)
+			
+                return ((DateTime)UpdatedDate).ToString("s") ;
+            else
+                return String.Empty;
+        }
+				set{
+					if (!string.IsNullOrEmpty(value))
+						this.UpdatedDate = Convert.ToDateTime(value);
+    }
+		}
+		
+		
+	
+[Exportable()]
+		
+[RelationFilterable(FiltrablePropertyPathName = "CreatedBy", IsExternal =true )]
+[AutoComplete("SFSdotNetFrameworkSecurity", "secUsers", "FindUsers", "filter", "DisplayName", "GuidUser", true)]	
+
+	[SystemProperty()]
+	[LocalizedDisplayName("CREATEDBY"/*, NameResourceType=typeof(SDCaseHistoryFileResources)*/)]
+	public Guid  ? CreatedBy { get; set; }
+		
+		
+	
+[Exportable()]
+		
+[RelationFilterable(FiltrablePropertyPathName = "UpdatedBy", IsExternal =true )]
+[AutoComplete("SFSdotNetFrameworkSecurity", "secUsers", "FindUsers", "filter", "DisplayName", "GuidUser", true)]	
+
+	[SystemProperty()]
+	[LocalizedDisplayName("UPDATEDBY"/*, NameResourceType=typeof(SDCaseHistoryFileResources)*/)]
+	public Guid  ? UpdatedBy { get; set; }
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DataType("Integer")]
+	[LocalizedDisplayName("BYTES"/*, NameResourceType=typeof(SDCaseHistoryFileResources)*/)]
+	public Int32  ? Bytes { get; set; }
+	public string _BytesText = null;
+    public string BytesText {
+        get {
+			if (string.IsNullOrEmpty( _BytesText ))
+				{
+	
+            if (Bytes != null)
+				return Bytes.ToString();
+				
+            else
+                return String.Empty;
+	
+			}else{
+				return _BytesText ;
+			}			
+        }
+		set{
+			_BytesText = value;
+		}
+        
+    }
+
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[LocalizedDisplayName("ISDELETED"/*, NameResourceType=typeof(SDCaseHistoryFileResources)*/)]
+	public Boolean  ? IsDeleted { get; set; }
+	public string _IsDeletedText = null;
+    public string IsDeletedText {
+        get {
+			if (string.IsNullOrEmpty( _IsDeletedText ))
+				{
+	
+            if (IsDeleted != null)
+
+				return IsDeleted.ToString();
+				
+            else
+                return String.Empty;
+	
+			}else{
+				return _IsDeletedText ;
+			}			
+        }
+		set{
+			_IsDeletedText = value;
+		}
+        
+    }
+
 		
 		
 	
@@ -1067,6 +2182,13 @@ using SFS.ServiceDesk.BusinessObjects;
 		this.GuidCasehistoryFile = model.GuidCasehistoryFile;
 		this.GuidFile = model.GuidFile;
 		this.GuidCaseHistory = model.GuidCaseHistory;
+		this.GuidCompany = model.GuidCompany;
+		this.CreatedDate = model.CreatedDate;
+		this.UpdatedDate = model.UpdatedDate;
+		this.CreatedBy = model.CreatedBy;
+		this.UpdatedBy = model.UpdatedBy;
+		this.Bytes = model.Bytes;
+		this.IsDeleted = model.IsDeleted;
         }
 
         public BusinessObjects.SDCaseHistoryFile GetBusinessObject()
@@ -1083,6 +2205,29 @@ using SFS.ServiceDesk.BusinessObjects;
 				
 	if (this.GuidCaseHistory != null )
 				result.GuidCaseHistory = (Guid)this.GuidCaseHistory;
+				
+	if (this.GuidCompany != null )
+				result.GuidCompany = (Guid)this.GuidCompany;
+				
+				if(this.CreatedDate != null)
+					if (this.CreatedDate != null)
+				result.CreatedDate = (DateTime)this.CreatedDate;		
+				
+				if(this.UpdatedDate != null)
+					if (this.UpdatedDate != null)
+				result.UpdatedDate = (DateTime)this.UpdatedDate;		
+				
+	if (this.CreatedBy != null )
+				result.CreatedBy = (Guid)this.CreatedBy;
+				
+	if (this.UpdatedBy != null )
+				result.UpdatedBy = (Guid)this.UpdatedBy;
+				
+	if (this.Bytes != null )
+				result.Bytes = (Int32)this.Bytes;
+				
+	if (this.IsDeleted != null )
+				result.IsDeleted = (Boolean)this.IsDeleted;
 				
 			
 			if(this.FkSDCaseHistory != null )
@@ -1109,8 +2254,28 @@ using SFS.ServiceDesk.BusinessObjects;
 				
 	if (businessObject.GuidCaseHistory != null )
 				this.GuidCaseHistory = (Guid)businessObject.GuidCaseHistory;
+				
+	if (businessObject.GuidCompany != null )
+				this.GuidCompany = (Guid)businessObject.GuidCompany;
+				if (businessObject.CreatedDate != null )
+				this.CreatedDate = (DateTime)businessObject.CreatedDate;
+				if (businessObject.UpdatedDate != null )
+				this.UpdatedDate = (DateTime)businessObject.UpdatedDate;
+				
+	if (businessObject.CreatedBy != null )
+				this.CreatedBy = (Guid)businessObject.CreatedBy;
+				
+	if (businessObject.UpdatedBy != null )
+				this.UpdatedBy = (Guid)businessObject.UpdatedBy;
+				
+	if (businessObject.Bytes != null )
+				this.Bytes = (Int32)businessObject.Bytes;
+				
+	if (businessObject.IsDeleted != null )
+				this.IsDeleted = (Boolean)businessObject.IsDeleted;
 	        if (businessObject.SDCaseHistory != null){
 	                	this.FkSDCaseHistoryText = businessObject.SDCaseHistory.BodyContent != null ? businessObject.SDCaseHistory.BodyContent.ToString() : "";; 
+										
 										
 				this.FkSDCaseHistory = businessObject.SDCaseHistory.GuidCaseHistory;
                 this.FkSDCaseHistorySafeKey  = SFSdotNet.Framework.Entities.Utils.GetKey(businessObject.SDCaseHistory,"GuidCaseHistory").Replace("/","-");
@@ -1177,6 +2342,146 @@ using SFS.ServiceDesk.BusinessObjects;
 	public String   Title { get; set; }
 		
 		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[LocalizedDisplayName("GUIDCOMPANY"/*, NameResourceType=typeof(SDCasePriorityResources)*/)]
+	public Guid  ? GuidCompany { get; set; }
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DateTime(true, false, null)]	
+	[LocalizedDisplayName("CREATEDDATE"/*, NameResourceType=typeof(SDCasePriorityResources)*/)]
+	public DateTime  ? CreatedDate { get; set; }
+	public string CreatedDateText {
+        get {
+            if (CreatedDate != null)
+				return ((DateTime)CreatedDate).ToShortDateString() ;
+            else
+                return String.Empty;
+        }
+				set{
+					if (!string.IsNullOrEmpty(value))
+						this.CreatedDate = Convert.ToDateTime(value);
+    }
+		}
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DateTime(true, false, null)]	
+	[LocalizedDisplayName("UPDATEDDATE"/*, NameResourceType=typeof(SDCasePriorityResources)*/)]
+	public DateTime  ? UpdatedDate { get; set; }
+	public string UpdatedDateText {
+        get {
+            if (UpdatedDate != null)
+			
+                return ((DateTime)UpdatedDate).ToString("s") ;
+            else
+                return String.Empty;
+        }
+				set{
+					if (!string.IsNullOrEmpty(value))
+						this.UpdatedDate = Convert.ToDateTime(value);
+    }
+		}
+		
+		
+	
+[Exportable()]
+		
+[RelationFilterable(FiltrablePropertyPathName = "CreatedBy", IsExternal =true )]
+[AutoComplete("SFSdotNetFrameworkSecurity", "secUsers", "FindUsers", "filter", "DisplayName", "GuidUser", true)]	
+
+	[SystemProperty()]
+	[LocalizedDisplayName("CREATEDBY"/*, NameResourceType=typeof(SDCasePriorityResources)*/)]
+	public Guid  ? CreatedBy { get; set; }
+		
+		
+	
+[Exportable()]
+		
+[RelationFilterable(FiltrablePropertyPathName = "UpdatedBy", IsExternal =true )]
+[AutoComplete("SFSdotNetFrameworkSecurity", "secUsers", "FindUsers", "filter", "DisplayName", "GuidUser", true)]	
+
+	[SystemProperty()]
+	[LocalizedDisplayName("UPDATEDBY"/*, NameResourceType=typeof(SDCasePriorityResources)*/)]
+	public Guid  ? UpdatedBy { get; set; }
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DataType("Integer")]
+	[LocalizedDisplayName("BYTES"/*, NameResourceType=typeof(SDCasePriorityResources)*/)]
+	public Int32  ? Bytes { get; set; }
+	public string _BytesText = null;
+    public string BytesText {
+        get {
+			if (string.IsNullOrEmpty( _BytesText ))
+				{
+	
+            if (Bytes != null)
+				return Bytes.ToString();
+				
+            else
+                return String.Empty;
+	
+			}else{
+				return _BytesText ;
+			}			
+        }
+		set{
+			_BytesText = value;
+		}
+        
+    }
+
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[LocalizedDisplayName("ISDELETED"/*, NameResourceType=typeof(SDCasePriorityResources)*/)]
+	public Boolean  ? IsDeleted { get; set; }
+	public string _IsDeletedText = null;
+    public string IsDeletedText {
+        get {
+			if (string.IsNullOrEmpty( _IsDeletedText ))
+				{
+	
+            if (IsDeleted != null)
+
+				return IsDeleted.ToString();
+				
+            else
+                return String.Empty;
+	
+			}else{
+				return _IsDeletedText ;
+			}			
+        }
+		set{
+			_IsDeletedText = value;
+		}
+        
+    }
+
+		
+		
 		
 		[LocalizedDisplayName("SDCASES"/*, NameResourceType=typeof(SDCasePriorityResources)*/)]
 		[RelationFilterable(IsNavigationPropertyMany=true, FiltrablePropertyPathName="SDCases.Count()", ModelPartialType="SDCases.SDCase", BusinessObjectSetName = "SDCases")]
@@ -1196,6 +2501,13 @@ using SFS.ServiceDesk.BusinessObjects;
             
 		this.GuidCasePriority = model.GuidCasePriority;
 		this.Title = model.Title;
+		this.GuidCompany = model.GuidCompany;
+		this.CreatedDate = model.CreatedDate;
+		this.UpdatedDate = model.UpdatedDate;
+		this.CreatedBy = model.CreatedBy;
+		this.UpdatedBy = model.UpdatedBy;
+		this.Bytes = model.Bytes;
+		this.IsDeleted = model.IsDeleted;
         }
 
         public BusinessObjects.SDCasePriority GetBusinessObject()
@@ -1210,6 +2522,29 @@ using SFS.ServiceDesk.BusinessObjects;
 	if (this.Title != null )
 				result.Title = (String)this.Title.Trim().Replace("\t", String.Empty);
 				
+	if (this.GuidCompany != null )
+				result.GuidCompany = (Guid)this.GuidCompany;
+				
+				if(this.CreatedDate != null)
+					if (this.CreatedDate != null)
+				result.CreatedDate = (DateTime)this.CreatedDate;		
+				
+				if(this.UpdatedDate != null)
+					if (this.UpdatedDate != null)
+				result.UpdatedDate = (DateTime)this.UpdatedDate;		
+				
+	if (this.CreatedBy != null )
+				result.CreatedBy = (Guid)this.CreatedBy;
+				
+	if (this.UpdatedBy != null )
+				result.UpdatedBy = (Guid)this.UpdatedBy;
+				
+	if (this.Bytes != null )
+				result.Bytes = (Int32)this.Bytes;
+				
+	if (this.IsDeleted != null )
+				result.IsDeleted = (Boolean)this.IsDeleted;
+				
 
             return result;
         }
@@ -1221,29 +2556,48 @@ using SFS.ServiceDesk.BusinessObjects;
 				
 			this.Title = businessObject.Title != null ? businessObject.Title.Trim().Replace("\t", String.Empty) : "";
 				
+				
+	if (businessObject.GuidCompany != null )
+				this.GuidCompany = (Guid)businessObject.GuidCompany;
+				if (businessObject.CreatedDate != null )
+				this.CreatedDate = (DateTime)businessObject.CreatedDate;
+				if (businessObject.UpdatedDate != null )
+				this.UpdatedDate = (DateTime)businessObject.UpdatedDate;
+				
+	if (businessObject.CreatedBy != null )
+				this.CreatedBy = (Guid)businessObject.CreatedBy;
+				
+	if (businessObject.UpdatedBy != null )
+				this.UpdatedBy = (Guid)businessObject.UpdatedBy;
+				
+	if (businessObject.Bytes != null )
+				this.Bytes = (Int32)businessObject.Bytes;
+				
+	if (businessObject.IsDeleted != null )
+				this.IsDeleted = (Boolean)businessObject.IsDeleted;
            
         }
 	}
 }
-	namespace SFS.ServiceDesk.Web.Mvc.Models.SDCaseStatus 
+	namespace SFS.ServiceDesk.Web.Mvc.Models.SDCaseStates 
 	{
-	public partial class SDCaseStatuModel: ModelBase{
+	public partial class SDCaseStateModel: ModelBase{
 
-	  public SDCaseStatuModel(BO.SDCaseStatu resultObj)
+	  public SDCaseStateModel(BO.SDCaseState resultObj)
         {
 
             Bind(resultObj);
         }
 #region Tags		
 #endregion
-		public SDCaseStatuModel()
+		public SDCaseStateModel()
         {
 		}
 		public override string Id
         {
             get
             {
-                return this.GuidCaseStatus.ToString();
+                return this.GuidCaseState.ToString();
             }
         }
 			
@@ -1262,7 +2616,7 @@ using SFS.ServiceDesk.BusinessObjects;
        
 	
 		[SystemProperty()]		
-		public Guid? GuidCaseStatus{ get; set; }
+		public Guid? GuidCaseState{ get; set; }
 		
 	
 [Exportable()]
@@ -1270,16 +2624,156 @@ using SFS.ServiceDesk.BusinessObjects;
 	    [Required()]
 		
 	[RelationFilterable()] 
-	[LocalizedDisplayName("TITLE"/*, NameResourceType=typeof(SDCaseStatuResources)*/)]
+	[LocalizedDisplayName("TITLE"/*, NameResourceType=typeof(SDCaseStateResources)*/)]
 	public String   Title { get; set; }
 		
 		
+	
+[Exportable()]
 		
-		[LocalizedDisplayName("SDCASES"/*, NameResourceType=typeof(SDCaseStatuResources)*/)]
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[LocalizedDisplayName("GUIDCOMPANY"/*, NameResourceType=typeof(SDCaseStateResources)*/)]
+	public Guid  ? GuidCompany { get; set; }
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DateTime(true, false, null)]	
+	[LocalizedDisplayName("CREATEDDATE"/*, NameResourceType=typeof(SDCaseStateResources)*/)]
+	public DateTime  ? CreatedDate { get; set; }
+	public string CreatedDateText {
+        get {
+            if (CreatedDate != null)
+				return ((DateTime)CreatedDate).ToShortDateString() ;
+            else
+                return String.Empty;
+        }
+				set{
+					if (!string.IsNullOrEmpty(value))
+						this.CreatedDate = Convert.ToDateTime(value);
+    }
+		}
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DateTime(true, false, null)]	
+	[LocalizedDisplayName("UPDATEDDATE"/*, NameResourceType=typeof(SDCaseStateResources)*/)]
+	public DateTime  ? UpdatedDate { get; set; }
+	public string UpdatedDateText {
+        get {
+            if (UpdatedDate != null)
+			
+                return ((DateTime)UpdatedDate).ToString("s") ;
+            else
+                return String.Empty;
+        }
+				set{
+					if (!string.IsNullOrEmpty(value))
+						this.UpdatedDate = Convert.ToDateTime(value);
+    }
+		}
+		
+		
+	
+[Exportable()]
+		
+[RelationFilterable(FiltrablePropertyPathName = "CreatedBy", IsExternal =true )]
+[AutoComplete("SFSdotNetFrameworkSecurity", "secUsers", "FindUsers", "filter", "DisplayName", "GuidUser", true)]	
+
+	[SystemProperty()]
+	[LocalizedDisplayName("CREATEDBY"/*, NameResourceType=typeof(SDCaseStateResources)*/)]
+	public Guid  ? CreatedBy { get; set; }
+		
+		
+	
+[Exportable()]
+		
+[RelationFilterable(FiltrablePropertyPathName = "UpdatedBy", IsExternal =true )]
+[AutoComplete("SFSdotNetFrameworkSecurity", "secUsers", "FindUsers", "filter", "DisplayName", "GuidUser", true)]	
+
+	[SystemProperty()]
+	[LocalizedDisplayName("UPDATEDBY"/*, NameResourceType=typeof(SDCaseStateResources)*/)]
+	public Guid  ? UpdatedBy { get; set; }
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DataType("Integer")]
+	[LocalizedDisplayName("BYTES"/*, NameResourceType=typeof(SDCaseStateResources)*/)]
+	public Int32  ? Bytes { get; set; }
+	public string _BytesText = null;
+    public string BytesText {
+        get {
+			if (string.IsNullOrEmpty( _BytesText ))
+				{
+	
+            if (Bytes != null)
+				return Bytes.ToString();
+				
+            else
+                return String.Empty;
+	
+			}else{
+				return _BytesText ;
+			}			
+        }
+		set{
+			_BytesText = value;
+		}
+        
+    }
+
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[LocalizedDisplayName("ISDELETED"/*, NameResourceType=typeof(SDCaseStateResources)*/)]
+	public Boolean  ? IsDeleted { get; set; }
+	public string _IsDeletedText = null;
+    public string IsDeletedText {
+        get {
+			if (string.IsNullOrEmpty( _IsDeletedText ))
+				{
+	
+            if (IsDeleted != null)
+
+				return IsDeleted.ToString();
+				
+            else
+                return String.Empty;
+	
+			}else{
+				return _IsDeletedText ;
+			}			
+        }
+		set{
+			_IsDeletedText = value;
+		}
+        
+    }
+
+		
+		
+		
+		[LocalizedDisplayName("SDCASES"/*, NameResourceType=typeof(SDCaseStateResources)*/)]
 		[RelationFilterable(IsNavigationPropertyMany=true, FiltrablePropertyPathName="SDCases.Count()", ModelPartialType="SDCases.SDCase", BusinessObjectSetName = "SDCases")]
         public List<SDCases.SDCaseModel> SDCases { get; set; }			
 	
-		[LocalizedDisplayName("SDCASEHISTORIES"/*, NameResourceType=typeof(SDCaseStatuResources)*/)]
+		[LocalizedDisplayName("SDCASEHISTORIES"/*, NameResourceType=typeof(SDCaseStateResources)*/)]
 		[RelationFilterable(IsNavigationPropertyMany=true, FiltrablePropertyPathName="SDCaseHistories.Count()", ModelPartialType="SDCaseHistories.SDCaseHistory", BusinessObjectSetName = "SDCaseHistories")]
         public List<SDCaseHistories.SDCaseHistoryModel> SDCaseHistories { get; set; }			
 	
@@ -1287,41 +2781,90 @@ using SFS.ServiceDesk.BusinessObjects;
    	{
 		get
         {
-			if(this.GuidCaseStatus != null)
-				return SFSdotNet.Framework.Entities.Utils.GetKey(this ,"GuidCaseStatus").Replace("/","-");
+			if(this.GuidCaseState != null)
+				return SFSdotNet.Framework.Entities.Utils.GetKey(this ,"GuidCaseState").Replace("/","-");
 			else
 				return String.Empty;
 		}
     }		
-		public void Bind(SDCaseStatuModel model){
+		public void Bind(SDCaseStateModel model){
             
-		this.GuidCaseStatus = model.GuidCaseStatus;
+		this.GuidCaseState = model.GuidCaseState;
 		this.Title = model.Title;
+		this.GuidCompany = model.GuidCompany;
+		this.CreatedDate = model.CreatedDate;
+		this.UpdatedDate = model.UpdatedDate;
+		this.CreatedBy = model.CreatedBy;
+		this.UpdatedBy = model.UpdatedBy;
+		this.Bytes = model.Bytes;
+		this.IsDeleted = model.IsDeleted;
         }
 
-        public BusinessObjects.SDCaseStatu GetBusinessObject()
+        public BusinessObjects.SDCaseState GetBusinessObject()
         {
-            BusinessObjects.SDCaseStatu result = new BusinessObjects.SDCaseStatu();
+            BusinessObjects.SDCaseState result = new BusinessObjects.SDCaseState();
 
 
 			       
-	if (this.GuidCaseStatus != null )
-				result.GuidCaseStatus = (Guid)this.GuidCaseStatus;
+	if (this.GuidCaseState != null )
+				result.GuidCaseState = (Guid)this.GuidCaseState;
 				
 	if (this.Title != null )
 				result.Title = (String)this.Title.Trim().Replace("\t", String.Empty);
 				
+	if (this.GuidCompany != null )
+				result.GuidCompany = (Guid)this.GuidCompany;
+				
+				if(this.CreatedDate != null)
+					if (this.CreatedDate != null)
+				result.CreatedDate = (DateTime)this.CreatedDate;		
+				
+				if(this.UpdatedDate != null)
+					if (this.UpdatedDate != null)
+				result.UpdatedDate = (DateTime)this.UpdatedDate;		
+				
+	if (this.CreatedBy != null )
+				result.CreatedBy = (Guid)this.CreatedBy;
+				
+	if (this.UpdatedBy != null )
+				result.UpdatedBy = (Guid)this.UpdatedBy;
+				
+	if (this.Bytes != null )
+				result.Bytes = (Int32)this.Bytes;
+				
+	if (this.IsDeleted != null )
+				result.IsDeleted = (Boolean)this.IsDeleted;
+				
 
             return result;
         }
-        public void Bind(BusinessObjects.SDCaseStatu businessObject)
+        public void Bind(BusinessObjects.SDCaseState businessObject)
         {
 				this.BusinessObjectObject = businessObject;
 
-			this.GuidCaseStatus = businessObject.GuidCaseStatus;
+			this.GuidCaseState = businessObject.GuidCaseState;
 				
 			this.Title = businessObject.Title != null ? businessObject.Title.Trim().Replace("\t", String.Empty) : "";
 				
+				
+	if (businessObject.GuidCompany != null )
+				this.GuidCompany = (Guid)businessObject.GuidCompany;
+				if (businessObject.CreatedDate != null )
+				this.CreatedDate = (DateTime)businessObject.CreatedDate;
+				if (businessObject.UpdatedDate != null )
+				this.UpdatedDate = (DateTime)businessObject.UpdatedDate;
+				
+	if (businessObject.CreatedBy != null )
+				this.CreatedBy = (Guid)businessObject.CreatedBy;
+				
+	if (businessObject.UpdatedBy != null )
+				this.UpdatedBy = (Guid)businessObject.UpdatedBy;
+				
+	if (businessObject.Bytes != null )
+				this.Bytes = (Int32)businessObject.Bytes;
+				
+	if (businessObject.IsDeleted != null )
+				this.IsDeleted = (Boolean)businessObject.IsDeleted;
            
         }
 	}
@@ -1432,6 +2975,146 @@ using SFS.ServiceDesk.BusinessObjects;
 	public String   StorageLocation { get; set; }
 		
 		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[LocalizedDisplayName("GUIDCOMPANY"/*, NameResourceType=typeof(SDFileResources)*/)]
+	public Guid  ? GuidCompany { get; set; }
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DateTime(true, false, null)]	
+	[LocalizedDisplayName("CREATEDDATE"/*, NameResourceType=typeof(SDFileResources)*/)]
+	public DateTime  ? CreatedDate { get; set; }
+	public string CreatedDateText {
+        get {
+            if (CreatedDate != null)
+				return ((DateTime)CreatedDate).ToShortDateString() ;
+            else
+                return String.Empty;
+        }
+				set{
+					if (!string.IsNullOrEmpty(value))
+						this.CreatedDate = Convert.ToDateTime(value);
+    }
+		}
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DateTime(true, false, null)]	
+	[LocalizedDisplayName("UPDATEDDATE"/*, NameResourceType=typeof(SDFileResources)*/)]
+	public DateTime  ? UpdatedDate { get; set; }
+	public string UpdatedDateText {
+        get {
+            if (UpdatedDate != null)
+			
+                return ((DateTime)UpdatedDate).ToString("s") ;
+            else
+                return String.Empty;
+        }
+				set{
+					if (!string.IsNullOrEmpty(value))
+						this.UpdatedDate = Convert.ToDateTime(value);
+    }
+		}
+		
+		
+	
+[Exportable()]
+		
+[RelationFilterable(FiltrablePropertyPathName = "CreatedBy", IsExternal =true )]
+[AutoComplete("SFSdotNetFrameworkSecurity", "secUsers", "FindUsers", "filter", "DisplayName", "GuidUser", true)]	
+
+	[SystemProperty()]
+	[LocalizedDisplayName("CREATEDBY"/*, NameResourceType=typeof(SDFileResources)*/)]
+	public Guid  ? CreatedBy { get; set; }
+		
+		
+	
+[Exportable()]
+		
+[RelationFilterable(FiltrablePropertyPathName = "UpdatedBy", IsExternal =true )]
+[AutoComplete("SFSdotNetFrameworkSecurity", "secUsers", "FindUsers", "filter", "DisplayName", "GuidUser", true)]	
+
+	[SystemProperty()]
+	[LocalizedDisplayName("UPDATEDBY"/*, NameResourceType=typeof(SDFileResources)*/)]
+	public Guid  ? UpdatedBy { get; set; }
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DataType("Integer")]
+	[LocalizedDisplayName("BYTES"/*, NameResourceType=typeof(SDFileResources)*/)]
+	public Int32  ? Bytes { get; set; }
+	public string _BytesText = null;
+    public string BytesText {
+        get {
+			if (string.IsNullOrEmpty( _BytesText ))
+				{
+	
+            if (Bytes != null)
+				return Bytes.ToString();
+				
+            else
+                return String.Empty;
+	
+			}else{
+				return _BytesText ;
+			}			
+        }
+		set{
+			_BytesText = value;
+		}
+        
+    }
+
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[LocalizedDisplayName("ISDELETED"/*, NameResourceType=typeof(SDFileResources)*/)]
+	public Boolean  ? IsDeleted { get; set; }
+	public string _IsDeletedText = null;
+    public string IsDeletedText {
+        get {
+			if (string.IsNullOrEmpty( _IsDeletedText ))
+				{
+	
+            if (IsDeleted != null)
+
+				return IsDeleted.ToString();
+				
+            else
+                return String.Empty;
+	
+			}else{
+				return _IsDeletedText ;
+			}			
+        }
+		set{
+			_IsDeletedText = value;
+		}
+        
+    }
+
+		
+		
 		
 		[LocalizedDisplayName("SDCASEFILES"/*, NameResourceType=typeof(SDFileResources)*/)]
 		[RelationFilterable(IsNavigationPropertyMany=true, FiltrablePropertyPathName="SDCaseFiles.Count()", ModelPartialType="SDCaseFiles.SDCaseFile", BusinessObjectSetName = "SDCaseFiles")]
@@ -1459,6 +3142,13 @@ using SFS.ServiceDesk.BusinessObjects;
 		this.FileSize = model.FileSize;
 		this.FileData = model.FileData;
 		this.StorageLocation = model.StorageLocation;
+		this.GuidCompany = model.GuidCompany;
+		this.CreatedDate = model.CreatedDate;
+		this.UpdatedDate = model.UpdatedDate;
+		this.CreatedBy = model.CreatedBy;
+		this.UpdatedBy = model.UpdatedBy;
+		this.Bytes = model.Bytes;
+		this.IsDeleted = model.IsDeleted;
         }
 
         public BusinessObjects.SDFile GetBusinessObject()
@@ -1486,6 +3176,29 @@ using SFS.ServiceDesk.BusinessObjects;
 	if (this.StorageLocation != null )
 				result.StorageLocation = (String)this.StorageLocation.Trim().Replace("\t", String.Empty);
 				
+	if (this.GuidCompany != null )
+				result.GuidCompany = (Guid)this.GuidCompany;
+				
+				if(this.CreatedDate != null)
+					if (this.CreatedDate != null)
+				result.CreatedDate = (DateTime)this.CreatedDate;		
+				
+				if(this.UpdatedDate != null)
+					if (this.UpdatedDate != null)
+				result.UpdatedDate = (DateTime)this.UpdatedDate;		
+				
+	if (this.CreatedBy != null )
+				result.CreatedBy = (Guid)this.CreatedBy;
+				
+	if (this.UpdatedBy != null )
+				result.UpdatedBy = (Guid)this.UpdatedBy;
+				
+	if (this.Bytes != null )
+				result.Bytes = (Int32)this.Bytes;
+				
+	if (this.IsDeleted != null )
+				result.IsDeleted = (Boolean)this.IsDeleted;
+				
 
             return result;
         }
@@ -1508,6 +3221,25 @@ using SFS.ServiceDesk.BusinessObjects;
 				
 	if (businessObject.StorageLocation != null )
 				this.StorageLocation = (String)businessObject.StorageLocation;
+				
+	if (businessObject.GuidCompany != null )
+				this.GuidCompany = (Guid)businessObject.GuidCompany;
+				if (businessObject.CreatedDate != null )
+				this.CreatedDate = (DateTime)businessObject.CreatedDate;
+				if (businessObject.UpdatedDate != null )
+				this.UpdatedDate = (DateTime)businessObject.UpdatedDate;
+				
+	if (businessObject.CreatedBy != null )
+				this.CreatedBy = (Guid)businessObject.CreatedBy;
+				
+	if (businessObject.UpdatedBy != null )
+				this.UpdatedBy = (Guid)businessObject.UpdatedBy;
+				
+	if (businessObject.Bytes != null )
+				this.Bytes = (Int32)businessObject.Bytes;
+				
+	if (businessObject.IsDeleted != null )
+				this.IsDeleted = (Boolean)businessObject.IsDeleted;
            
         }
 	}
@@ -1561,6 +3293,146 @@ using SFS.ServiceDesk.BusinessObjects;
 	public String   FullName { get; set; }
 		
 		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[LocalizedDisplayName("GUIDCOMPANY"/*, NameResourceType=typeof(SDOrganizationResources)*/)]
+	public Guid  ? GuidCompany { get; set; }
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DateTime(true, false, null)]	
+	[LocalizedDisplayName("CREATEDDATE"/*, NameResourceType=typeof(SDOrganizationResources)*/)]
+	public DateTime  ? CreatedDate { get; set; }
+	public string CreatedDateText {
+        get {
+            if (CreatedDate != null)
+				return ((DateTime)CreatedDate).ToShortDateString() ;
+            else
+                return String.Empty;
+        }
+				set{
+					if (!string.IsNullOrEmpty(value))
+						this.CreatedDate = Convert.ToDateTime(value);
+    }
+		}
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DateTime(true, false, null)]	
+	[LocalizedDisplayName("UPDATEDDATE"/*, NameResourceType=typeof(SDOrganizationResources)*/)]
+	public DateTime  ? UpdatedDate { get; set; }
+	public string UpdatedDateText {
+        get {
+            if (UpdatedDate != null)
+			
+                return ((DateTime)UpdatedDate).ToString("s") ;
+            else
+                return String.Empty;
+        }
+				set{
+					if (!string.IsNullOrEmpty(value))
+						this.UpdatedDate = Convert.ToDateTime(value);
+    }
+		}
+		
+		
+	
+[Exportable()]
+		
+[RelationFilterable(FiltrablePropertyPathName = "CreatedBy", IsExternal =true )]
+[AutoComplete("SFSdotNetFrameworkSecurity", "secUsers", "FindUsers", "filter", "DisplayName", "GuidUser", true)]	
+
+	[SystemProperty()]
+	[LocalizedDisplayName("CREATEDBY"/*, NameResourceType=typeof(SDOrganizationResources)*/)]
+	public Guid  ? CreatedBy { get; set; }
+		
+		
+	
+[Exportable()]
+		
+[RelationFilterable(FiltrablePropertyPathName = "UpdatedBy", IsExternal =true )]
+[AutoComplete("SFSdotNetFrameworkSecurity", "secUsers", "FindUsers", "filter", "DisplayName", "GuidUser", true)]	
+
+	[SystemProperty()]
+	[LocalizedDisplayName("UPDATEDBY"/*, NameResourceType=typeof(SDOrganizationResources)*/)]
+	public Guid  ? UpdatedBy { get; set; }
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DataType("Integer")]
+	[LocalizedDisplayName("BYTES"/*, NameResourceType=typeof(SDOrganizationResources)*/)]
+	public Int32  ? Bytes { get; set; }
+	public string _BytesText = null;
+    public string BytesText {
+        get {
+			if (string.IsNullOrEmpty( _BytesText ))
+				{
+	
+            if (Bytes != null)
+				return Bytes.ToString();
+				
+            else
+                return String.Empty;
+	
+			}else{
+				return _BytesText ;
+			}			
+        }
+		set{
+			_BytesText = value;
+		}
+        
+    }
+
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[LocalizedDisplayName("ISDELETED"/*, NameResourceType=typeof(SDOrganizationResources)*/)]
+	public Boolean  ? IsDeleted { get; set; }
+	public string _IsDeletedText = null;
+    public string IsDeletedText {
+        get {
+			if (string.IsNullOrEmpty( _IsDeletedText ))
+				{
+	
+            if (IsDeleted != null)
+
+				return IsDeleted.ToString();
+				
+            else
+                return String.Empty;
+	
+			}else{
+				return _IsDeletedText ;
+			}			
+        }
+		set{
+			_IsDeletedText = value;
+		}
+        
+    }
+
+		
+		
 		
 		[LocalizedDisplayName("SDAREAS"/*, NameResourceType=typeof(SDOrganizationResources)*/)]
 		[RelationFilterable(IsNavigationPropertyMany=true, FiltrablePropertyPathName="SDAreas.Count()", ModelPartialType="SDAreas.SDArea", BusinessObjectSetName = "SDAreas")]
@@ -1584,6 +3456,13 @@ using SFS.ServiceDesk.BusinessObjects;
             
 		this.GuidOrganization = model.GuidOrganization;
 		this.FullName = model.FullName;
+		this.GuidCompany = model.GuidCompany;
+		this.CreatedDate = model.CreatedDate;
+		this.UpdatedDate = model.UpdatedDate;
+		this.CreatedBy = model.CreatedBy;
+		this.UpdatedBy = model.UpdatedBy;
+		this.Bytes = model.Bytes;
+		this.IsDeleted = model.IsDeleted;
         }
 
         public BusinessObjects.SDOrganization GetBusinessObject()
@@ -1598,6 +3477,29 @@ using SFS.ServiceDesk.BusinessObjects;
 	if (this.FullName != null )
 				result.FullName = (String)this.FullName.Trim().Replace("\t", String.Empty);
 				
+	if (this.GuidCompany != null )
+				result.GuidCompany = (Guid)this.GuidCompany;
+				
+				if(this.CreatedDate != null)
+					if (this.CreatedDate != null)
+				result.CreatedDate = (DateTime)this.CreatedDate;		
+				
+				if(this.UpdatedDate != null)
+					if (this.UpdatedDate != null)
+				result.UpdatedDate = (DateTime)this.UpdatedDate;		
+				
+	if (this.CreatedBy != null )
+				result.CreatedBy = (Guid)this.CreatedBy;
+				
+	if (this.UpdatedBy != null )
+				result.UpdatedBy = (Guid)this.UpdatedBy;
+				
+	if (this.Bytes != null )
+				result.Bytes = (Int32)this.Bytes;
+				
+	if (this.IsDeleted != null )
+				result.IsDeleted = (Boolean)this.IsDeleted;
+				
 
             return result;
         }
@@ -1609,6 +3511,25 @@ using SFS.ServiceDesk.BusinessObjects;
 				
 			this.FullName = businessObject.FullName != null ? businessObject.FullName.Trim().Replace("\t", String.Empty) : "";
 				
+				
+	if (businessObject.GuidCompany != null )
+				this.GuidCompany = (Guid)businessObject.GuidCompany;
+				if (businessObject.CreatedDate != null )
+				this.CreatedDate = (DateTime)businessObject.CreatedDate;
+				if (businessObject.UpdatedDate != null )
+				this.UpdatedDate = (DateTime)businessObject.UpdatedDate;
+				
+	if (businessObject.CreatedBy != null )
+				this.CreatedBy = (Guid)businessObject.CreatedBy;
+				
+	if (businessObject.UpdatedBy != null )
+				this.UpdatedBy = (Guid)businessObject.UpdatedBy;
+				
+	if (businessObject.Bytes != null )
+				this.Bytes = (Int32)businessObject.Bytes;
+				
+	if (businessObject.IsDeleted != null )
+				this.IsDeleted = (Boolean)businessObject.IsDeleted;
            
         }
 	}
@@ -1654,6 +3575,8 @@ using SFS.ServiceDesk.BusinessObjects;
 		
 	
 [Exportable()]
+	
+	    [Required()]
 		
 	[RelationFilterable()] 
 	[LocalizedDisplayName("DISPLAYNAME"/*, NameResourceType=typeof(SDPersonResources)*/)]
@@ -1674,6 +3597,146 @@ using SFS.ServiceDesk.BusinessObjects;
 	[RelationFilterable()] 
 	[LocalizedDisplayName("GUIDORGANIZATION"/*, NameResourceType=typeof(SDPersonResources)*/)]
 	public Guid  ? GuidOrganization { get; set; }
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[LocalizedDisplayName("GUIDCOMPANY"/*, NameResourceType=typeof(SDPersonResources)*/)]
+	public Guid  ? GuidCompany { get; set; }
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DateTime(true, false, null)]	
+	[LocalizedDisplayName("CREATEDDATE"/*, NameResourceType=typeof(SDPersonResources)*/)]
+	public DateTime  ? CreatedDate { get; set; }
+	public string CreatedDateText {
+        get {
+            if (CreatedDate != null)
+				return ((DateTime)CreatedDate).ToShortDateString() ;
+            else
+                return String.Empty;
+        }
+				set{
+					if (!string.IsNullOrEmpty(value))
+						this.CreatedDate = Convert.ToDateTime(value);
+    }
+		}
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DateTime(true, false, null)]	
+	[LocalizedDisplayName("UPDATEDDATE"/*, NameResourceType=typeof(SDPersonResources)*/)]
+	public DateTime  ? UpdatedDate { get; set; }
+	public string UpdatedDateText {
+        get {
+            if (UpdatedDate != null)
+			
+                return ((DateTime)UpdatedDate).ToString("s") ;
+            else
+                return String.Empty;
+        }
+				set{
+					if (!string.IsNullOrEmpty(value))
+						this.UpdatedDate = Convert.ToDateTime(value);
+    }
+		}
+		
+		
+	
+[Exportable()]
+		
+[RelationFilterable(FiltrablePropertyPathName = "CreatedBy", IsExternal =true )]
+[AutoComplete("SFSdotNetFrameworkSecurity", "secUsers", "FindUsers", "filter", "DisplayName", "GuidUser", true)]	
+
+	[SystemProperty()]
+	[LocalizedDisplayName("CREATEDBY"/*, NameResourceType=typeof(SDPersonResources)*/)]
+	public Guid  ? CreatedBy { get; set; }
+		
+		
+	
+[Exportable()]
+		
+[RelationFilterable(FiltrablePropertyPathName = "UpdatedBy", IsExternal =true )]
+[AutoComplete("SFSdotNetFrameworkSecurity", "secUsers", "FindUsers", "filter", "DisplayName", "GuidUser", true)]	
+
+	[SystemProperty()]
+	[LocalizedDisplayName("UPDATEDBY"/*, NameResourceType=typeof(SDPersonResources)*/)]
+	public Guid  ? UpdatedBy { get; set; }
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[DataType("Integer")]
+	[LocalizedDisplayName("BYTES"/*, NameResourceType=typeof(SDPersonResources)*/)]
+	public Int32  ? Bytes { get; set; }
+	public string _BytesText = null;
+    public string BytesText {
+        get {
+			if (string.IsNullOrEmpty( _BytesText ))
+				{
+	
+            if (Bytes != null)
+				return Bytes.ToString();
+				
+            else
+                return String.Empty;
+	
+			}else{
+				return _BytesText ;
+			}			
+        }
+		set{
+			_BytesText = value;
+		}
+        
+    }
+
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[SystemProperty()]
+	[LocalizedDisplayName("ISDELETED"/*, NameResourceType=typeof(SDPersonResources)*/)]
+	public Boolean  ? IsDeleted { get; set; }
+	public string _IsDeletedText = null;
+    public string IsDeletedText {
+        get {
+			if (string.IsNullOrEmpty( _IsDeletedText ))
+				{
+	
+            if (IsDeleted != null)
+
+				return IsDeleted.ToString();
+				
+            else
+                return String.Empty;
+	
+			}else{
+				return _IsDeletedText ;
+			}			
+        }
+		set{
+			_IsDeletedText = value;
+		}
+        
+    }
+
 		
 		
 	
@@ -1729,6 +3792,13 @@ using SFS.ServiceDesk.BusinessObjects;
 		this.DisplayName = model.DisplayName;
 		this.GuidUser = model.GuidUser;
 		this.GuidOrganization = model.GuidOrganization;
+		this.GuidCompany = model.GuidCompany;
+		this.CreatedDate = model.CreatedDate;
+		this.UpdatedDate = model.UpdatedDate;
+		this.CreatedBy = model.CreatedBy;
+		this.UpdatedBy = model.UpdatedBy;
+		this.Bytes = model.Bytes;
+		this.IsDeleted = model.IsDeleted;
         }
 
         public BusinessObjects.SDPerson GetBusinessObject()
@@ -1749,6 +3819,29 @@ using SFS.ServiceDesk.BusinessObjects;
 	if (this.GuidOrganization != null )
 				result.GuidOrganization = (Guid)this.GuidOrganization;
 				
+	if (this.GuidCompany != null )
+				result.GuidCompany = (Guid)this.GuidCompany;
+				
+				if(this.CreatedDate != null)
+					if (this.CreatedDate != null)
+				result.CreatedDate = (DateTime)this.CreatedDate;		
+				
+				if(this.UpdatedDate != null)
+					if (this.UpdatedDate != null)
+				result.UpdatedDate = (DateTime)this.UpdatedDate;		
+				
+	if (this.CreatedBy != null )
+				result.CreatedBy = (Guid)this.CreatedBy;
+				
+	if (this.UpdatedBy != null )
+				result.UpdatedBy = (Guid)this.UpdatedBy;
+				
+	if (this.Bytes != null )
+				result.Bytes = (Int32)this.Bytes;
+				
+	if (this.IsDeleted != null )
+				result.IsDeleted = (Boolean)this.IsDeleted;
+				
 			
 			if(this.FkSDOrganization != null )
 			if (GuidOrganization != null && this.FkSDOrganization == null) this.FkSDOrganization = GuidOrganization; 
@@ -1768,15 +3861,33 @@ using SFS.ServiceDesk.BusinessObjects;
 
 			this.GuidPerson = businessObject.GuidPerson;
 				
+			this.DisplayName = businessObject.DisplayName != null ? businessObject.DisplayName.Trim().Replace("\t", String.Empty) : "";
 				
-	if (businessObject.DisplayName != null )
-				this.DisplayName = (String)businessObject.DisplayName;
 				
 	if (businessObject.GuidUser != null )
 				this.GuidUser = (Guid)businessObject.GuidUser;
 				
 	if (businessObject.GuidOrganization != null )
 				this.GuidOrganization = (Guid)businessObject.GuidOrganization;
+				
+	if (businessObject.GuidCompany != null )
+				this.GuidCompany = (Guid)businessObject.GuidCompany;
+				if (businessObject.CreatedDate != null )
+				this.CreatedDate = (DateTime)businessObject.CreatedDate;
+				if (businessObject.UpdatedDate != null )
+				this.UpdatedDate = (DateTime)businessObject.UpdatedDate;
+				
+	if (businessObject.CreatedBy != null )
+				this.CreatedBy = (Guid)businessObject.CreatedBy;
+				
+	if (businessObject.UpdatedBy != null )
+				this.UpdatedBy = (Guid)businessObject.UpdatedBy;
+				
+	if (businessObject.Bytes != null )
+				this.Bytes = (Int32)businessObject.Bytes;
+				
+	if (businessObject.IsDeleted != null )
+				this.IsDeleted = (Boolean)businessObject.IsDeleted;
 	        if (businessObject.SDOrganization != null){
 	                	this.FkSDOrganizationText = businessObject.SDOrganization.FullName != null ? businessObject.SDOrganization.FullName.ToString() : "";; 
 										
@@ -1787,6 +3898,7 @@ using SFS.ServiceDesk.BusinessObjects;
 			}
 	        if (businessObject.SDProxyUser != null){
 	                	this.FkSDProxyUserText = businessObject.SDProxyUser.Email != null ? businessObject.SDProxyUser.Email.ToString() : "";; 
+										
 										
 				this.FkSDProxyUser = businessObject.SDProxyUser.GuidUser;
                 this.FkSDProxyUserSafeKey  = SFSdotNet.Framework.Entities.Utils.GetKey(businessObject.SDProxyUser,"GuidUser").Replace("/","-");
@@ -1837,6 +3949,8 @@ using SFS.ServiceDesk.BusinessObjects;
 		
 	
 [Exportable()]
+	
+	    [Required()]
 		
 	[RelationFilterable()] 
 	[LocalizedDisplayName("EMAIL"/*, NameResourceType=typeof(SDProxyUserResources)*/)]
@@ -1897,9 +4011,8 @@ using SFS.ServiceDesk.BusinessObjects;
 
 			this.GuidUser = businessObject.GuidUser;
 				
+			this.Email = businessObject.Email != null ? businessObject.Email.Trim().Replace("\t", String.Empty) : "";
 				
-	if (businessObject.Email != null )
-				this.Email = (String)businessObject.Email;
 				
 	if (businessObject.DisplayName != null )
 				this.DisplayName = (String)businessObject.DisplayName;

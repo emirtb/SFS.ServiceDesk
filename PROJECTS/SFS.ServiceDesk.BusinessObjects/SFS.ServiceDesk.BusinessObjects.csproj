@@ -137,7 +137,7 @@
     <Compile Include="SDCasePriority.cs">
       <DependentUpon>Entities.EF.tt</DependentUpon>
     </Compile>
-    <Compile Include="SDCaseStatu.cs">
+    <Compile Include="SDCaseState.cs">
       <DependentUpon>Entities.EF.tt</DependentUpon>
     </Compile>
     <Compile Include="SDFile.cs">

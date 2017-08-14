@@ -41,7 +41,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\ShellLivingArt\bin\</OutputPath>
+    <OutputPath>..\..\..\ShellServiceDesk\bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -302,9 +302,6 @@
     <Content Include="Views\Dashboard\DashboardTest.cshtml" />
     <Content Include="Views\Shared\_LayoutHome.cshtml" />
     <Content Include="Views\TemplateScripts.cshtml" />
-    <Content Include="Views\Footer.cshtml" />
-    <Content Include="Views\HeaderScripts.html" />
-    <Content Include="Views\LogoTop.cshtml" />
     <Content Include="Views\LoginScripts.cshtml" />
     <None Include="Views\_ViewStart.cshtml" />
   </ItemGroup>

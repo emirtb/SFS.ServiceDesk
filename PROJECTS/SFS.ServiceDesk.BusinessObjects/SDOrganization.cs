@@ -41,6 +41,27 @@ public partial class SDOrganization : ITrackable
     [DataMember]
         public string FullName { get; set; }
 
+    [DataMember]
+        public Nullable<System.Guid> GuidCompany { get; set; }
+
+    [DataMember]
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+
+    [DataMember]
+        public Nullable<System.DateTime> UpdatedDate { get; set; }
+
+    [DataMember]
+        public Nullable<System.Guid> CreatedBy { get; set; }
+
+    [DataMember]
+        public Nullable<System.Guid> UpdatedBy { get; set; }
+
+    [DataMember]
+        public Nullable<int> Bytes { get; set; }
+
+    [DataMember]
+        public Nullable<bool> IsDeleted { get; set; }
+
 
 
     [DataMember]

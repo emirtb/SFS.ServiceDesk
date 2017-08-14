@@ -10,9 +10,16 @@
             <PropertyRef Name="GuidArea" />
           </Key>
           <Property Name="GuidArea" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="255" />
+          <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="GuidAreaParent" Type="uniqueidentifier" />
           <Property Name="GuidOrganization" Type="uniqueidentifier" />
+          <Property Name="GuidCompany" Type="uniqueidentifier" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" />
+          <Property Name="UpdatedBy" Type="uniqueidentifier" />
+          <Property Name="Bytes" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="SDAreaPerson">
           <Key>
@@ -21,18 +28,33 @@
           <Property Name="GuidAreaPerson" Type="uniqueidentifier" Nullable="false" />
           <Property Name="GuidArea" Type="uniqueidentifier" />
           <Property Name="GuidPerson" Type="uniqueidentifier" />
+          <Property Name="GuidCompany" Type="uniqueidentifier" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" />
+          <Property Name="UpdatedBy" Type="uniqueidentifier" />
+          <Property Name="Bytes" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="SDCase">
           <Key>
             <PropertyRef Name="GuidCase" />
           </Key>
           <Property Name="GuidCase" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="GuidCaseStatus" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="GuidCaseState" Type="uniqueidentifier" Nullable="false" />
           <Property Name="GuidPersonClient" Type="uniqueidentifier" />
           <Property Name="ClosedDateTime" Type="datetime" />
           <Property Name="BodyContent" Type="varchar(max)" />
           <Property Name="PreviewContent" Type="varchar" MaxLength="3000" />
           <Property Name="GuidCasePriority" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="255" />
+          <Property Name="GuidCompany" Type="uniqueidentifier" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" />
+          <Property Name="UpdatedBy" Type="uniqueidentifier" />
+          <Property Name="Bytes" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="SDCaseFile">
           <Key>
@@ -41,6 +63,13 @@
           <Property Name="GuidCasefile" Type="uniqueidentifier" Nullable="false" />
           <Property Name="GuidCase" Type="uniqueidentifier" />
           <Property Name="GuidFile" Type="uniqueidentifier" />
+          <Property Name="GuidCompany" Type="uniqueidentifier" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" />
+          <Property Name="UpdatedBy" Type="uniqueidentifier" />
+          <Property Name="Bytes" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="SDCaseHistory">
           <Key>
@@ -49,8 +78,15 @@
           <Property Name="GuidCaseHistory" Type="uniqueidentifier" Nullable="false" />
           <Property Name="GuidCase" Type="uniqueidentifier" Nullable="false" />
           <Property Name="GuidCaseStatus" Type="uniqueidentifier" />
-          <Property Name="BodyContent" Type="varchar" MaxLength="255" />
+          <Property Name="BodyContent" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="PreviewContent" Type="varchar" MaxLength="3000" />
+          <Property Name="GuidCompany" Type="uniqueidentifier" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" />
+          <Property Name="UpdatedBy" Type="uniqueidentifier" />
+          <Property Name="Bytes" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="SDCaseHistoryFile">
           <Key>
@@ -59,6 +95,13 @@
           <Property Name="GuidCasehistoryFile" Type="uniqueidentifier" Nullable="false" />
           <Property Name="GuidFile" Type="uniqueidentifier" />
           <Property Name="GuidCaseHistory" Type="uniqueidentifier" />
+          <Property Name="GuidCompany" Type="uniqueidentifier" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" />
+          <Property Name="UpdatedBy" Type="uniqueidentifier" />
+          <Property Name="Bytes" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="SDCasePriority">
           <Key>
@@ -66,13 +109,27 @@
           </Key>
           <Property Name="GuidCasePriority" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Title" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="GuidCompany" Type="uniqueidentifier" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" />
+          <Property Name="UpdatedBy" Type="uniqueidentifier" />
+          <Property Name="Bytes" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
         </EntityType>
-        <EntityType Name="SDCaseStatus">
+        <EntityType Name="SDCaseState">
           <Key>
-            <PropertyRef Name="GuidCaseStatus" />
+            <PropertyRef Name="GuidCaseState" />
           </Key>
-          <Property Name="GuidCaseStatus" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="GuidCaseState" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Title" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="GuidCompany" Type="uniqueidentifier" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" />
+          <Property Name="UpdatedBy" Type="uniqueidentifier" />
+          <Property Name="Bytes" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="SDFile">
           <Key>
@@ -84,6 +141,13 @@
           <Property Name="FileSize" Type="bigint" />
           <Property Name="FileData" Type="varbinary(max)" />
           <Property Name="StorageLocation" Type="varchar" MaxLength="255" />
+          <Property Name="GuidCompany" Type="uniqueidentifier" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" />
+          <Property Name="UpdatedBy" Type="uniqueidentifier" />
+          <Property Name="Bytes" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="SDOrganization">
           <Key>
@@ -91,22 +155,36 @@
           </Key>
           <Property Name="GuidOrganization" Type="uniqueidentifier" Nullable="false" />
           <Property Name="FullName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="GuidCompany" Type="uniqueidentifier" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" />
+          <Property Name="UpdatedBy" Type="uniqueidentifier" />
+          <Property Name="Bytes" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="SDPerson">
           <Key>
             <PropertyRef Name="GuidPerson" />
           </Key>
           <Property Name="GuidPerson" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="DisplayName" Type="varchar" MaxLength="255" />
+          <Property Name="DisplayName" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="GuidUser" Type="uniqueidentifier" />
           <Property Name="GuidOrganization" Type="uniqueidentifier" />
+          <Property Name="GuidCompany" Type="uniqueidentifier" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" />
+          <Property Name="UpdatedBy" Type="uniqueidentifier" />
+          <Property Name="Bytes" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="SDProxyUser">
           <Key>
             <PropertyRef Name="GuidUser" />
           </Key>
           <Property Name="GuidUser" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Email" Type="varchar" MaxLength="255" />
+          <Property Name="Email" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="DisplayName" Type="varchar" MaxLength="255" />
         </EntityType>
         <Association Name="fk_Area_Parent">
@@ -181,15 +259,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_SdCase_SdCaseStatus">
-          <End Role="SDCaseStatus" Type="Self.SDCaseStatus" Multiplicity="1" />
+        <Association Name="fk_SdCase_SdCaseState">
+          <End Role="SDCaseState" Type="Self.SDCaseState" Multiplicity="1" />
           <End Role="SDCase" Type="Self.SDCase" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="SDCaseStatus">
-              <PropertyRef Name="GuidCaseStatus" />
+            <Principal Role="SDCaseState">
+              <PropertyRef Name="GuidCaseState" />
             </Principal>
             <Dependent Role="SDCase">
-              <PropertyRef Name="GuidCaseStatus" />
+              <PropertyRef Name="GuidCaseState" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -230,11 +308,11 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_SdCaseHistory_SdCaseStatus">
-          <End Role="SDCaseStatus" Type="Self.SDCaseStatus" Multiplicity="0..1" />
+          <End Role="SDCaseState" Type="Self.SDCaseState" Multiplicity="0..1" />
           <End Role="SDCaseHistory" Type="Self.SDCaseHistory" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="SDCaseStatus">
-              <PropertyRef Name="GuidCaseStatus" />
+            <Principal Role="SDCaseState">
+              <PropertyRef Name="GuidCaseState" />
             </Principal>
             <Dependent Role="SDCaseHistory">
               <PropertyRef Name="GuidCaseStatus" />
@@ -297,7 +375,7 @@
           <EntitySet Name="SDCaseHistory" EntityType="Self.SDCaseHistory" Schema="SD" store:Type="Tables" />
           <EntitySet Name="SDCaseHistoryFile" EntityType="Self.SDCaseHistoryFile" Schema="SD" store:Type="Tables" />
           <EntitySet Name="SDCasePriority" EntityType="Self.SDCasePriority" Schema="SD" store:Type="Tables" />
-          <EntitySet Name="SDCaseStatus" EntityType="Self.SDCaseStatus" Schema="SD" store:Type="Tables" />
+          <EntitySet Name="SDCaseState" EntityType="Self.SDCaseState" Schema="SD" store:Type="Tables" />
           <EntitySet Name="SDFile" EntityType="Self.SDFile" Schema="SD" store:Type="Tables" />
           <EntitySet Name="SDOrganization" EntityType="Self.SDOrganization" Schema="SD" store:Type="Tables" />
           <EntitySet Name="SDPerson" EntityType="Self.SDPerson" Schema="SD" store:Type="Tables" />
@@ -326,8 +404,8 @@
             <End Role="SDCasePriority" EntitySet="SDCasePriority" />
             <End Role="SDCase" EntitySet="SDCase" />
           </AssociationSet>
-          <AssociationSet Name="fk_SdCase_SdCaseStatus" Association="Self.fk_SdCase_SdCaseStatus">
-            <End Role="SDCaseStatus" EntitySet="SDCaseStatus" />
+          <AssociationSet Name="fk_SdCase_SdCaseState" Association="Self.fk_SdCase_SdCaseState">
+            <End Role="SDCaseState" EntitySet="SDCaseState" />
             <End Role="SDCase" EntitySet="SDCase" />
           </AssociationSet>
           <AssociationSet Name="fk_SdCaseFile_SdCase" Association="Self.fk_SdCaseFile_SdCase">
@@ -343,7 +421,7 @@
             <End Role="SDCaseHistory" EntitySet="SDCaseHistory" />
           </AssociationSet>
           <AssociationSet Name="fk_SdCaseHistory_SdCaseStatus" Association="Self.fk_SdCaseHistory_SdCaseStatus">
-            <End Role="SDCaseStatus" EntitySet="SDCaseStatus" />
+            <End Role="SDCaseState" EntitySet="SDCaseState" />
             <End Role="SDCaseHistory" EntitySet="SDCaseHistory" />
           </AssociationSet>
           <AssociationSet Name="fk_SdCaseHistoryFile_SdCaseHistory" Association="Self.fk_SdCaseHistoryFile_SdCaseHistory">
@@ -375,7 +453,7 @@
           <EntitySet Name="SDCaseHistories" EntityType="SFSServiceDeskModel.SDCaseHistory" />
           <EntitySet Name="SDCaseHistoryFiles" EntityType="SFSServiceDeskModel.SDCaseHistoryFile" />
           <EntitySet Name="SDCasePriorities" EntityType="SFSServiceDeskModel.SDCasePriority" />
-          <EntitySet Name="SDCaseStatus" EntityType="SFSServiceDeskModel.SDCaseStatu" />
+          <EntitySet Name="SDCaseStates" EntityType="SFSServiceDeskModel.SDCaseState" />
           <EntitySet Name="SDFiles" EntityType="SFSServiceDeskModel.SDFile" />
           <EntitySet Name="SDOrganizations" EntityType="SFSServiceDeskModel.SDOrganization" />
           <EntitySet Name="SDPersons" EntityType="SFSServiceDeskModel.SDPerson" />
@@ -404,8 +482,8 @@
             <End Role="SDCasePriority" EntitySet="SDCasePriorities" />
             <End Role="SDCase" EntitySet="SDCases" />
           </AssociationSet>
-          <AssociationSet Name="fk_SdCase_SdCaseStatus" Association="SFSServiceDeskModel.fk_SdCase_SdCaseStatus">
-            <End Role="SDCaseStatu" EntitySet="SDCaseStatus" />
+          <AssociationSet Name="fk_SdCase_SdCaseState" Association="SFSServiceDeskModel.fk_SdCase_SdCaseState">
+            <End Role="SDCaseState" EntitySet="SDCaseStates" />
             <End Role="SDCase" EntitySet="SDCases" />
           </AssociationSet>
           <AssociationSet Name="fk_SdCaseFile_SdCase" Association="SFSServiceDeskModel.fk_SdCaseFile_SdCase">
@@ -421,7 +499,7 @@
             <End Role="SDCaseFile" EntitySet="SDCaseFiles" />
           </AssociationSet>
           <AssociationSet Name="fk_SdCaseHistory_SdCaseStatus" Association="SFSServiceDeskModel.fk_SdCaseHistory_SdCaseStatus">
-            <End Role="SDCaseStatu" EntitySet="SDCaseStatus" />
+            <End Role="SDCaseState" EntitySet="SDCaseStates" />
             <End Role="SDCaseHistory" EntitySet="SDCaseHistories" />
           </AssociationSet>
           <AssociationSet Name="fk_SdCaseHistoryFile_SdCaseHistory" Association="SFSServiceDeskModel.fk_SdCaseHistoryFile_SdCaseHistory">
@@ -446,13 +524,20 @@
             <PropertyRef Name="GuidArea" />
           </Key>
           <Property Name="GuidArea" Type="Guid" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="GuidAreaParent" Type="Guid" />
           <Property Name="GuidOrganization" Type="Guid" />
           <NavigationProperty Name="SDArea1" Relationship="SFSServiceDeskModel.fk_Area_Parent" FromRole="SDArea" ToRole="SDArea1" />
           <NavigationProperty Name="SDArea2" Relationship="SFSServiceDeskModel.fk_Area_Parent" FromRole="SDArea1" ToRole="SDArea" />
           <NavigationProperty Name="SDOrganization" Relationship="SFSServiceDeskModel.fk_SdArea_SdOrganization" FromRole="SDArea" ToRole="SDOrganization" />
           <NavigationProperty Name="SDAreaPersons" Relationship="SFSServiceDeskModel.fk_SdAreaPerson_SdArea" FromRole="SDArea" ToRole="SDAreaPerson" />
+          <Property Name="GuidCompany" Type="Guid" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Guid" />
+          <Property Name="UpdatedBy" Type="Guid" />
+          <Property Name="Bytes" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
         </EntityType>
         <EntityType Name="SDAreaPerson">
           <Key>
@@ -463,23 +548,38 @@
           <Property Name="GuidPerson" Type="Guid" />
           <NavigationProperty Name="SDArea" Relationship="SFSServiceDeskModel.fk_SdAreaPerson_SdArea" FromRole="SDAreaPerson" ToRole="SDArea" />
           <NavigationProperty Name="SDPerson" Relationship="SFSServiceDeskModel.fk_SdAreaPerson_SdPerson" FromRole="SDAreaPerson" ToRole="SDPerson" />
+          <Property Name="GuidCompany" Type="Guid" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Guid" />
+          <Property Name="UpdatedBy" Type="Guid" />
+          <Property Name="Bytes" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
         </EntityType>
         <EntityType Name="SDCase">
           <Key>
             <PropertyRef Name="GuidCase" />
           </Key>
           <Property Name="GuidCase" Type="Guid" Nullable="false" />
-          <Property Name="GuidCaseStatus" Type="Guid" Nullable="false" />
+          <Property Name="GuidCaseState" Type="Guid" Nullable="false" />
           <Property Name="GuidPersonClient" Type="Guid" />
           <Property Name="ClosedDateTime" Type="DateTime" Precision="3" />
           <Property Name="BodyContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="PreviewContent" Type="String" MaxLength="3000" FixedLength="false" Unicode="false" />
           <Property Name="GuidCasePriority" Type="Guid" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SDPerson" Relationship="SFSServiceDeskModel.fk_Case_Person_Client" FromRole="SDCase" ToRole="SDPerson" />
           <NavigationProperty Name="SDCasePriority" Relationship="SFSServiceDeskModel.fk_SdCase_SdCasePriority" FromRole="SDCase" ToRole="SDCasePriority" />
-          <NavigationProperty Name="SDCaseStatu" Relationship="SFSServiceDeskModel.fk_SdCase_SdCaseStatus" FromRole="SDCase" ToRole="SDCaseStatu" />
+          <NavigationProperty Name="SDCaseState" Relationship="SFSServiceDeskModel.fk_SdCase_SdCaseState" FromRole="SDCase" ToRole="SDCaseState" />
           <NavigationProperty Name="SDCaseFiles" Relationship="SFSServiceDeskModel.fk_SdCaseFile_SdCase" FromRole="SDCase" ToRole="SDCaseFile" />
           <NavigationProperty Name="SDCaseHistories" Relationship="SFSServiceDeskModel.fk_SdCaseHistory_SdCase" FromRole="SDCase" ToRole="SDCaseHistory" />
+          <Property Name="GuidCompany" Type="Guid" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Guid" />
+          <Property Name="UpdatedBy" Type="Guid" />
+          <Property Name="Bytes" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
         </EntityType>
         <EntityType Name="SDCaseFile">
           <Key>
@@ -490,6 +590,13 @@
           <Property Name="GuidFile" Type="Guid" />
           <NavigationProperty Name="SDCase" Relationship="SFSServiceDeskModel.fk_SdCaseFile_SdCase" FromRole="SDCaseFile" ToRole="SDCase" />
           <NavigationProperty Name="SDFile" Relationship="SFSServiceDeskModel.fk_SdCaseFile_SdFile" FromRole="SDCaseFile" ToRole="SDFile" />
+          <Property Name="GuidCompany" Type="Guid" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Guid" />
+          <Property Name="UpdatedBy" Type="Guid" />
+          <Property Name="Bytes" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
         </EntityType>
         <EntityType Name="SDCaseHistory">
           <Key>
@@ -498,11 +605,18 @@
           <Property Name="GuidCaseHistory" Type="Guid" Nullable="false" />
           <Property Name="GuidCase" Type="Guid" Nullable="false" />
           <Property Name="GuidCaseStatus" Type="Guid" />
-          <Property Name="BodyContent" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="BodyContent" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="PreviewContent" Type="String" MaxLength="3000" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SDCase" Relationship="SFSServiceDeskModel.fk_SdCaseHistory_SdCase" FromRole="SDCaseHistory" ToRole="SDCase" />
-          <NavigationProperty Name="SDCaseStatu" Relationship="SFSServiceDeskModel.fk_SdCaseHistory_SdCaseStatus" FromRole="SDCaseHistory" ToRole="SDCaseStatu" />
+          <NavigationProperty Name="SDCaseState" Relationship="SFSServiceDeskModel.fk_SdCaseHistory_SdCaseStatus" FromRole="SDCaseHistory" ToRole="SDCaseState" />
           <NavigationProperty Name="SDCaseHistoryFiles" Relationship="SFSServiceDeskModel.fk_SdCaseHistoryFile_SdCaseHistory" FromRole="SDCaseHistory" ToRole="SDCaseHistoryFile" />
+          <Property Name="GuidCompany" Type="Guid" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Guid" />
+          <Property Name="UpdatedBy" Type="Guid" />
+          <Property Name="Bytes" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
         </EntityType>
         <EntityType Name="SDCaseHistoryFile">
           <Key>
@@ -513,6 +627,13 @@
           <Property Name="GuidCaseHistory" Type="Guid" />
           <NavigationProperty Name="SDCaseHistory" Relationship="SFSServiceDeskModel.fk_SdCaseHistoryFile_SdCaseHistory" FromRole="SDCaseHistoryFile" ToRole="SDCaseHistory" />
           <NavigationProperty Name="SDFile" Relationship="SFSServiceDeskModel.fk_SdCaseHistoryFile_SdFile" FromRole="SDCaseHistoryFile" ToRole="SDFile" />
+          <Property Name="GuidCompany" Type="Guid" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Guid" />
+          <Property Name="UpdatedBy" Type="Guid" />
+          <Property Name="Bytes" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
         </EntityType>
         <EntityType Name="SDCasePriority">
           <Key>
@@ -521,15 +642,29 @@
           <Property Name="GuidCasePriority" Type="Guid" Nullable="false" />
           <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SDCases" Relationship="SFSServiceDeskModel.fk_SdCase_SdCasePriority" FromRole="SDCasePriority" ToRole="SDCase" />
+          <Property Name="GuidCompany" Type="Guid" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Guid" />
+          <Property Name="UpdatedBy" Type="Guid" />
+          <Property Name="Bytes" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
         </EntityType>
-        <EntityType Name="SDCaseStatu">
+        <EntityType Name="SDCaseState">
           <Key>
-            <PropertyRef Name="GuidCaseStatus" />
+            <PropertyRef Name="GuidCaseState" />
           </Key>
-          <Property Name="GuidCaseStatus" Type="Guid" Nullable="false" />
+          <Property Name="GuidCaseState" Type="Guid" Nullable="false" />
           <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="SDCases" Relationship="SFSServiceDeskModel.fk_SdCase_SdCaseStatus" FromRole="SDCaseStatu" ToRole="SDCase" />
-          <NavigationProperty Name="SDCaseHistories" Relationship="SFSServiceDeskModel.fk_SdCaseHistory_SdCaseStatus" FromRole="SDCaseStatu" ToRole="SDCaseHistory" />
+          <NavigationProperty Name="SDCases" Relationship="SFSServiceDeskModel.fk_SdCase_SdCaseState" FromRole="SDCaseState" ToRole="SDCase" />
+          <NavigationProperty Name="SDCaseHistories" Relationship="SFSServiceDeskModel.fk_SdCaseHistory_SdCaseStatus" FromRole="SDCaseState" ToRole="SDCaseHistory" />
+          <Property Name="GuidCompany" Type="Guid" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Guid" />
+          <Property Name="UpdatedBy" Type="Guid" />
+          <Property Name="Bytes" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
         </EntityType>
         <EntityType Name="SDFile">
           <Key>
@@ -543,6 +678,13 @@
           <Property Name="StorageLocation" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SDCaseFiles" Relationship="SFSServiceDeskModel.fk_SdCaseFile_SdFile" FromRole="SDFile" ToRole="SDCaseFile" />
           <NavigationProperty Name="SDCaseHistoryFiles" Relationship="SFSServiceDeskModel.fk_SdCaseHistoryFile_SdFile" FromRole="SDFile" ToRole="SDCaseHistoryFile" />
+          <Property Name="GuidCompany" Type="Guid" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Guid" />
+          <Property Name="UpdatedBy" Type="Guid" />
+          <Property Name="Bytes" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
         </EntityType>
         <EntityType Name="SDOrganization">
           <Key>
@@ -552,26 +694,40 @@
           <Property Name="FullName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SDAreas" Relationship="SFSServiceDeskModel.fk_SdArea_SdOrganization" FromRole="SDOrganization" ToRole="SDArea" />
           <NavigationProperty Name="SDPersons" Relationship="SFSServiceDeskModel.fk_SdPerson_SdOrganization" FromRole="SDOrganization" ToRole="SDPerson" />
+          <Property Name="GuidCompany" Type="Guid" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Guid" />
+          <Property Name="UpdatedBy" Type="Guid" />
+          <Property Name="Bytes" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
         </EntityType>
         <EntityType Name="SDPerson">
           <Key>
             <PropertyRef Name="GuidPerson" />
           </Key>
           <Property Name="GuidPerson" Type="Guid" Nullable="false" />
-          <Property Name="DisplayName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="GuidUser" Type="Guid" />
           <Property Name="GuidOrganization" Type="Guid" />
           <NavigationProperty Name="SDAreaPersons" Relationship="SFSServiceDeskModel.fk_SdAreaPerson_SdPerson" FromRole="SDPerson" ToRole="SDAreaPerson" />
           <NavigationProperty Name="SDCases" Relationship="SFSServiceDeskModel.fk_Case_Person_Client" FromRole="SDPerson" ToRole="SDCase" />
           <NavigationProperty Name="SDOrganization" Relationship="SFSServiceDeskModel.fk_SdPerson_SdOrganization" FromRole="SDPerson" ToRole="SDOrganization" />
           <NavigationProperty Name="SDProxyUser" Relationship="SFSServiceDeskModel.fk_SdPerson_SdProxyUser" FromRole="SDPerson" ToRole="SDProxyUser" />
+          <Property Name="GuidCompany" Type="Guid" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Guid" />
+          <Property Name="UpdatedBy" Type="Guid" />
+          <Property Name="Bytes" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
         </EntityType>
         <EntityType Name="SDProxyUser">
           <Key>
             <PropertyRef Name="GuidUser" />
           </Key>
           <Property Name="GuidUser" Type="Guid" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="DisplayName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SDPersons" Relationship="SFSServiceDeskModel.fk_SdPerson_SdProxyUser" FromRole="SDProxyUser" ToRole="SDPerson" />
         </EntityType>
@@ -647,15 +803,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_SdCase_SdCaseStatus">
-          <End Type="SFSServiceDeskModel.SDCaseStatu" Role="SDCaseStatu" Multiplicity="1" />
+        <Association Name="fk_SdCase_SdCaseState">
+          <End Type="SFSServiceDeskModel.SDCaseState" Role="SDCaseState" Multiplicity="1" />
           <End Type="SFSServiceDeskModel.SDCase" Role="SDCase" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="SDCaseStatu">
-              <PropertyRef Name="GuidCaseStatus" />
+            <Principal Role="SDCaseState">
+              <PropertyRef Name="GuidCaseState" />
             </Principal>
             <Dependent Role="SDCase">
-              <PropertyRef Name="GuidCaseStatus" />
+              <PropertyRef Name="GuidCaseState" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -696,11 +852,11 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_SdCaseHistory_SdCaseStatus">
-          <End Type="SFSServiceDeskModel.SDCaseStatu" Role="SDCaseStatu" Multiplicity="0..1" />
+          <End Type="SFSServiceDeskModel.SDCaseState" Role="SDCaseState" Multiplicity="0..1" />
           <End Type="SFSServiceDeskModel.SDCaseHistory" Role="SDCaseHistory" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="SDCaseStatu">
-              <PropertyRef Name="GuidCaseStatus" />
+            <Principal Role="SDCaseState">
+              <PropertyRef Name="GuidCaseState" />
             </Principal>
             <Dependent Role="SDCaseHistory">
               <PropertyRef Name="GuidCaseStatus" />
@@ -764,6 +920,13 @@
           <EntitySetMapping Name="SDAreas">
             <EntityTypeMapping TypeName="SFSServiceDeskModel.SDArea">
               <MappingFragment StoreEntitySet="SDArea">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Bytes" ColumnName="Bytes" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="GuidCompany" ColumnName="GuidCompany" />
                 <ScalarProperty Name="GuidOrganization" ColumnName="GuidOrganization" />
                 <ScalarProperty Name="GuidAreaParent" ColumnName="GuidAreaParent" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -774,6 +937,13 @@
           <EntitySetMapping Name="SDAreaPersons">
             <EntityTypeMapping TypeName="SFSServiceDeskModel.SDAreaPerson">
               <MappingFragment StoreEntitySet="SDAreaPerson">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Bytes" ColumnName="Bytes" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="GuidCompany" ColumnName="GuidCompany" />
                 <ScalarProperty Name="GuidPerson" ColumnName="GuidPerson" />
                 <ScalarProperty Name="GuidArea" ColumnName="GuidArea" />
                 <ScalarProperty Name="GuidAreaPerson" ColumnName="GuidAreaPerson" />
@@ -783,12 +953,20 @@
           <EntitySetMapping Name="SDCases">
             <EntityTypeMapping TypeName="SFSServiceDeskModel.SDCase">
               <MappingFragment StoreEntitySet="SDCase">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Bytes" ColumnName="Bytes" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="GuidCompany" ColumnName="GuidCompany" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="GuidCasePriority" ColumnName="GuidCasePriority" />
                 <ScalarProperty Name="PreviewContent" ColumnName="PreviewContent" />
                 <ScalarProperty Name="BodyContent" ColumnName="BodyContent" />
                 <ScalarProperty Name="ClosedDateTime" ColumnName="ClosedDateTime" />
                 <ScalarProperty Name="GuidPersonClient" ColumnName="GuidPersonClient" />
-                <ScalarProperty Name="GuidCaseStatus" ColumnName="GuidCaseStatus" />
+                <ScalarProperty Name="GuidCaseState" ColumnName="GuidCaseState" />
                 <ScalarProperty Name="GuidCase" ColumnName="GuidCase" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -796,6 +974,13 @@
           <EntitySetMapping Name="SDCaseFiles">
             <EntityTypeMapping TypeName="SFSServiceDeskModel.SDCaseFile">
               <MappingFragment StoreEntitySet="SDCaseFile">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Bytes" ColumnName="Bytes" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="GuidCompany" ColumnName="GuidCompany" />
                 <ScalarProperty Name="GuidFile" ColumnName="GuidFile" />
                 <ScalarProperty Name="GuidCase" ColumnName="GuidCase" />
                 <ScalarProperty Name="GuidCasefile" ColumnName="GuidCasefile" />
@@ -805,6 +990,13 @@
           <EntitySetMapping Name="SDCaseHistories">
             <EntityTypeMapping TypeName="SFSServiceDeskModel.SDCaseHistory">
               <MappingFragment StoreEntitySet="SDCaseHistory">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Bytes" ColumnName="Bytes" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="GuidCompany" ColumnName="GuidCompany" />
                 <ScalarProperty Name="PreviewContent" ColumnName="PreviewContent" />
                 <ScalarProperty Name="BodyContent" ColumnName="BodyContent" />
                 <ScalarProperty Name="GuidCaseStatus" ColumnName="GuidCaseStatus" />
@@ -816,6 +1008,13 @@
           <EntitySetMapping Name="SDCaseHistoryFiles">
             <EntityTypeMapping TypeName="SFSServiceDeskModel.SDCaseHistoryFile">
               <MappingFragment StoreEntitySet="SDCaseHistoryFile">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Bytes" ColumnName="Bytes" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="GuidCompany" ColumnName="GuidCompany" />
                 <ScalarProperty Name="GuidCaseHistory" ColumnName="GuidCaseHistory" />
                 <ScalarProperty Name="GuidFile" ColumnName="GuidFile" />
                 <ScalarProperty Name="GuidCasehistoryFile" ColumnName="GuidCasehistoryFile" />
@@ -825,22 +1024,43 @@
           <EntitySetMapping Name="SDCasePriorities">
             <EntityTypeMapping TypeName="SFSServiceDeskModel.SDCasePriority">
               <MappingFragment StoreEntitySet="SDCasePriority">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Bytes" ColumnName="Bytes" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="GuidCompany" ColumnName="GuidCompany" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="GuidCasePriority" ColumnName="GuidCasePriority" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SDCaseStatus">
-            <EntityTypeMapping TypeName="SFSServiceDeskModel.SDCaseStatu">
-              <MappingFragment StoreEntitySet="SDCaseStatus">
+          <EntitySetMapping Name="SDCaseStates">
+            <EntityTypeMapping TypeName="SFSServiceDeskModel.SDCaseState">
+              <MappingFragment StoreEntitySet="SDCaseState">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Bytes" ColumnName="Bytes" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="GuidCompany" ColumnName="GuidCompany" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="GuidCaseStatus" ColumnName="GuidCaseStatus" />
+                <ScalarProperty Name="GuidCaseState" ColumnName="GuidCaseState" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SDFiles">
             <EntityTypeMapping TypeName="SFSServiceDeskModel.SDFile">
               <MappingFragment StoreEntitySet="SDFile">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Bytes" ColumnName="Bytes" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="GuidCompany" ColumnName="GuidCompany" />
                 <ScalarProperty Name="StorageLocation" ColumnName="StorageLocation" />
                 <ScalarProperty Name="FileData" ColumnName="FileData" />
                 <ScalarProperty Name="FileSize" ColumnName="FileSize" />
@@ -853,6 +1073,13 @@
           <EntitySetMapping Name="SDOrganizations">
             <EntityTypeMapping TypeName="SFSServiceDeskModel.SDOrganization">
               <MappingFragment StoreEntitySet="SDOrganization">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Bytes" ColumnName="Bytes" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="GuidCompany" ColumnName="GuidCompany" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
                 <ScalarProperty Name="GuidOrganization" ColumnName="GuidOrganization" />
               </MappingFragment>
@@ -861,6 +1088,13 @@
           <EntitySetMapping Name="SDPersons">
             <EntityTypeMapping TypeName="SFSServiceDeskModel.SDPerson">
               <MappingFragment StoreEntitySet="SDPerson">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Bytes" ColumnName="Bytes" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="GuidCompany" ColumnName="GuidCompany" />
                 <ScalarProperty Name="GuidOrganization" ColumnName="GuidOrganization" />
                 <ScalarProperty Name="GuidUser" ColumnName="GuidUser" />
                 <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />

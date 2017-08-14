@@ -1,10 +1,10 @@
+USE ServiceDesk;
 
 
 /************ Update: Schemas ***************/
 
 /* Add Schema: SD */
 --CREATE SCHEMA SD;
-
 
 
 
@@ -16,7 +16,7 @@
 CREATE TABLE SD.SDArea
 (
 	GuidArea UniqueIdentifier NOT NULL,
-	Name VARCHAR(255) NULL,
+	Name VARCHAR(255) NOT NULL,
 	GuidAreaParent UniqueIdentifier NULL,
 	GuidOrganization UniqueIdentifier NULL
 );
@@ -76,12 +76,13 @@ EXEC sp_addextendedproperty 'MS_Description', 'Relación de área con una persona'
 CREATE TABLE SD.SDCase
 (
 	GuidCase UniqueIdentifier NOT NULL,
-	GuidCaseStatus UniqueIdentifier NOT NULL,
+	GuidCaseState UniqueIdentifier NOT NULL,
 	GuidPersonClient UniqueIdentifier NULL,
 	ClosedDateTime DATETIME NULL,
 	BodyContent VARCHAR(MAX) NULL,
 	PreviewContent VARCHAR(3000) NULL,
-	GuidCasePriority UniqueIdentifier NOT NULL
+	GuidCasePriority UniqueIdentifier NOT NULL,
+	Title VARCHAR(255) NULL
 );
 
 /* Add Primary Key */
@@ -93,7 +94,7 @@ EXEC sp_addextendedproperty 'MS_Description', 'Identificador', 'schema', 'SD',
 	'table', 'SDCase', 'column', 'GuidCase';
 
 EXEC sp_addextendedproperty 'MS_Description', 'Relación con estados', 'schema', 'SD', 
-	'table', 'SDCase', 'column', 'GuidCaseStatus';
+	'table', 'SDCase', 'column', 'GuidCaseState';
 
 EXEC sp_addextendedproperty 'MS_Description', 'Relación con persona que creo el caso, se considera cliente del servicio', 'schema', 'SD', 
 	'table', 'SDCase', 'column', 'GuidPersonClient';
@@ -109,6 +110,9 @@ EXEC sp_addextendedproperty 'MS_Description', 'Texto plano de caso cortado a máx
 
 EXEC sp_addextendedproperty 'MS_Description', 'Relación con prioridad', 'schema', 'SD', 
 	'table', 'SDCase', 'column', 'GuidCasePriority';
+
+EXEC sp_addextendedproperty 'MS_Description', 'Título o descripción corta del caso', 'schema', 'SD', 
+	'table', 'SDCase', 'column', 'Title';
 
 EXEC sp_addextendedproperty 'MS_Description', 'Catálogo de casos', 'schema', 'SD', 
 	'table', SDCase, null, null;
@@ -137,7 +141,7 @@ CREATE TABLE SD.SDCaseHistory
 	GuidCaseHistory UniqueIdentifier NOT NULL,
 	GuidCase UniqueIdentifier NOT NULL,
 	GuidCaseStatus UniqueIdentifier NULL,
-	BodyContent VARCHAR(255) NULL,
+	BodyContent VARCHAR(255) NOT NULL,
 	PreviewContent VARCHAR(3000) NULL
 );
 
@@ -217,28 +221,28 @@ EXEC sp_addextendedproperty 'MS_Description', 'Catálogo de niveles de prioridad'
 	'table', SDCasePriority, null, null;
 
 
-/******************** Add Table: SD.SDCaseStatus ************************/
+/******************** Add Table: SD.SDCaseState ************************/
 
 /* Build Table Structure */
-CREATE TABLE SD.SDCaseStatus
+CREATE TABLE SD.SDCaseState
 (
-	GuidCaseStatus UniqueIdentifier NOT NULL,
+	GuidCaseState UniqueIdentifier NOT NULL,
 	Title VARCHAR(255) NOT NULL
 );
 
 /* Add Primary Key */
-ALTER TABLE SD.SDCaseStatus ADD CONSTRAINT pkSDCaseStatus
-	PRIMARY KEY (GuidCaseStatus);
+ALTER TABLE SD.SDCaseState ADD CONSTRAINT pkSDCaseState
+	PRIMARY KEY (GuidCaseState);
 
 /* Add Comments */
 EXEC sp_addextendedproperty 'MS_Description', 'Identificador', 'schema', 'SD', 
-	'table', 'SDCaseStatus', 'column', 'GuidCaseStatus';
+	'table', 'SDCaseState', 'column', 'GuidCaseState';
 
 EXEC sp_addextendedproperty 'MS_Description', 'Título del estado', 'schema', 'SD', 
-	'table', 'SDCaseStatus', 'column', 'Title';
+	'table', 'SDCaseState', 'column', 'Title';
 
 EXEC sp_addextendedproperty 'MS_Description', 'Catálogo de estados', 'schema', 'SD', 
-	'table', SDCaseStatus, null, null;
+	'table', SDCaseState, null, null;
 
 
 /******************** Add Table: SD.SDFile ************************/
@@ -279,7 +283,7 @@ ALTER TABLE SD.SDOrganization ADD CONSTRAINT pkSDOrganization
 CREATE TABLE SD.SDPerson
 (
 	GuidPerson UniqueIdentifier NOT NULL,
-	DisplayName VARCHAR(255) NULL,
+	DisplayName VARCHAR(255) NOT NULL,
 	GuidUser UniqueIdentifier NULL,
 	GuidOrganization UniqueIdentifier NULL
 );
@@ -311,7 +315,7 @@ EXEC sp_addextendedproperty 'MS_Description', 'Persona o empleado dentro de la o
 CREATE TABLE SD.SDProxyUser
 (
 	GuidUser UniqueIdentifier NOT NULL,
-	Email VARCHAR(255) NULL,
+	Email VARCHAR(255) NOT NULL,
 	DisplayName VARCHAR(255) NULL
 );
 
@@ -368,9 +372,9 @@ ALTER TABLE SD.SDCase ADD CONSTRAINT fk_SdCase_SdCasePriority
 	FOREIGN KEY (GuidCasePriority) REFERENCES SD.SDCasePriority (GuidCasePriority)
 	ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-/* Add Foreign Key: fk_SdCase_SdCaseStatus */
-ALTER TABLE SD.SDCase ADD CONSTRAINT fk_SdCase_SdCaseStatus
-	FOREIGN KEY (GuidCaseStatus) REFERENCES SD.SDCaseStatus (GuidCaseStatus)
+/* Add Foreign Key: fk_SdCase_SdCaseState */
+ALTER TABLE SD.SDCase ADD CONSTRAINT fk_SdCase_SdCaseState
+	FOREIGN KEY (GuidCaseState) REFERENCES SD.SDCaseState (GuidCaseState)
 	ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 /* Add Foreign Key: fk_SdCaseFile_SdCase */
@@ -390,7 +394,7 @@ ALTER TABLE SD.SDCaseHistory ADD CONSTRAINT fk_SdCaseHistory_SdCase
 
 /* Add Foreign Key: fk_SdCaseHistory_SdCaseStatus */
 ALTER TABLE SD.SDCaseHistory ADD CONSTRAINT fk_SdCaseHistory_SdCaseStatus
-	FOREIGN KEY (GuidCaseStatus) REFERENCES SD.SDCaseStatus (GuidCaseStatus)
+	FOREIGN KEY (GuidCaseStatus) REFERENCES SD.SDCaseState (GuidCaseState)
 	ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 /* Add Foreign Key: fk_SdCaseHistoryFile_SdCaseHistory */

@@ -151,12 +151,12 @@ namespace SFS.ServiceDesk.Web.Mvc
             AddPermissionIfNotExist(module, bo, deletePermission);
             #endregion
 
-            #region SDCaseStatu
-            bo = SFSdotNet.Framework.Security.BR.secBusinessObjectsBR.Instance.GetBy(p=>p.BusinessObjectKey == "SDCaseStatu" && p.secModule.ModuleKey == module.ModuleKey , contextRequest).FirstOrDefault();
+            #region SDCaseState
+            bo = SFSdotNet.Framework.Security.BR.secBusinessObjectsBR.Instance.GetBy(p=>p.BusinessObjectKey == "SDCaseState" && p.secModule.ModuleKey == module.ModuleKey , contextRequest).FirstOrDefault();
             if (bo == null) {
-                            bo = SFSdotNet.Framework.Security.BR.secBusinessObjectsBR.Instance.Create(new secBusinessObject() { BusinessObjectKey="SDCaseStatu",EntitySetName="SDCaseStatus", Name="SDCaseStatu", secModule = module, GuidBusinessObject= Guid.NewGuid()  }, contextRequest);
+                            bo = SFSdotNet.Framework.Security.BR.secBusinessObjectsBR.Instance.Create(new secBusinessObject() { BusinessObjectKey="SDCaseState",EntitySetName="SDCaseStates", Name="SDCaseState", secModule = module, GuidBusinessObject= Guid.NewGuid()  }, contextRequest);
             }else{
-				bo.EntitySetName = "SDCaseStatus";
+				bo.EntitySetName = "SDCaseStates";
 				bo = SFSdotNet.Framework.Security.BR.secBusinessObjectsBR.Instance.Update(bo, contextRequest);
 			}
             AddPermissionIfNotExist(module, bo, createPermission);

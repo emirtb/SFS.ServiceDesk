@@ -36,6 +36,13 @@ namespace SFS.ServiceDesk.Tests
 
             item.Title = Utils.GetString(10);
 
+
+
+
+
+
+
+
 		return item;
 	}
  [TestMethod]
@@ -67,29 +74,36 @@ namespace SFS.ServiceDesk.Tests
 			}
             
         }
-	public SDCaseStatu SDCaseStatuSample(){
-		 SDCaseStatu item = new SDCaseStatu();
-            item.GuidCaseStatus = Guid.NewGuid();
+	public SDCaseState SDCaseStateSample(){
+		 SDCaseState item = new SDCaseState();
+            item.GuidCaseState = Guid.NewGuid();
 
             item.Title = Utils.GetString(10);
+
+
+
+
+
+
+
 
 		return item;
 	}
  [TestMethod]
-  public void  SDCaseStatuCreate()
+  public void  SDCaseStateCreate()
   {
-            this. SDCaseStatuCreate(null, null);
+            this. SDCaseStateCreate(null, null);
    }
 
 	[TestMethod]
-	 public void SDCaseStatuCreate( List<SDCaseStatu> items, SDCaseStatu item )
+	 public void SDCaseStateCreate( List<SDCaseState> items, SDCaseState item )
         {
-            var apiWrapper = GetWrapper<SDCaseStatu>();
-            apiWrapper.EntityKeyName = "SDCaseStatu";
-            apiWrapper.EntitySetName  = "SDCaseStatus";
+            var apiWrapper = GetWrapper<SDCaseState>();
+            apiWrapper.EntityKeyName = "SDCaseState";
+            apiWrapper.EntitySetName  = "SDCaseStates";
 			if (item == null && items == null)
             {
-				apiWrapper.Item = SDCaseStatuSample();
+				apiWrapper.Item = SDCaseStateSample();
 			}else{
 				apiWrapper.Item = item;
                 apiWrapper.Items = items;
@@ -98,8 +112,8 @@ namespace SFS.ServiceDesk.Tests
 			Assert.IsTrue(resultCreate == "ok");
 			if (apiWrapper.Item != null)
             {
-				apiWrapper.ItemKey = apiWrapper.Item.GuidCaseStatus;
-				var existent = Services.ApiGetByKey<SDCaseStatu>(url, apiWrapper);
+				apiWrapper.ItemKey = apiWrapper.Item.GuidCaseState;
+				var existent = Services.ApiGetByKey<SDCaseState>(url, apiWrapper);
 				Assert.IsNotNull(existent);
 			}
             
@@ -116,6 +130,13 @@ namespace SFS.ServiceDesk.Tests
 
 
             item.StorageLocation = Utils.GetString(10);
+
+
+
+
+
+
+
 
 		return item;
 	}
@@ -153,6 +174,13 @@ namespace SFS.ServiceDesk.Tests
             item.GuidOrganization = Guid.NewGuid();
 
             item.FullName = Utils.GetString(10);
+
+
+
+
+
+
+
 
 		return item;
 	}
@@ -232,6 +260,13 @@ namespace SFS.ServiceDesk.Tests
 
 
 
+
+
+
+
+
+
+
 		return item;
 	}
  [TestMethod]
@@ -271,6 +306,13 @@ namespace SFS.ServiceDesk.Tests
 
 
 
+
+
+
+
+
+
+
 		return item;
 	}
  [TestMethod]
@@ -305,6 +347,13 @@ namespace SFS.ServiceDesk.Tests
 	public SDAreaPerson SDAreaPersonSample(){
 		 SDAreaPerson item = new SDAreaPerson();
             item.GuidAreaPerson = Guid.NewGuid();
+
+
+
+
+
+
+
 
 
 
@@ -353,6 +402,15 @@ namespace SFS.ServiceDesk.Tests
             item.PreviewContent = Utils.GetString(10);
 
 
+            item.Title = Utils.GetString(10);
+
+
+
+
+
+
+
+
 		return item;
 	}
  [TestMethod]
@@ -387,6 +445,13 @@ namespace SFS.ServiceDesk.Tests
 	public SDCaseFile SDCaseFileSample(){
 		 SDCaseFile item = new SDCaseFile();
             item.GuidCasefile = Guid.NewGuid();
+
+
+
+
+
+
+
 
 
 
@@ -431,6 +496,13 @@ namespace SFS.ServiceDesk.Tests
 
             item.PreviewContent = Utils.GetString(10);
 
+
+
+
+
+
+
+
 		return item;
 	}
  [TestMethod]
@@ -465,6 +537,13 @@ namespace SFS.ServiceDesk.Tests
 	public SDCaseHistoryFile SDCaseHistoryFileSample(){
 		 SDCaseHistoryFile item = new SDCaseHistoryFile();
             item.GuidCasehistoryFile = Guid.NewGuid();
+
+
+
+
+
+
+
 
 
 

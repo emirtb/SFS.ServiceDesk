@@ -12,7 +12,7 @@
         <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
         <Cm>Identificador</Cm>
       </Cl>
-      <Cl au="0" df="" nm="Name" nu="1">
+      <Cl au="0" df="" nm="Name" nu="0">
         <DT arr="0" ds="VarChar" en="" id="12" ln="255" sc="null" sg="1" un="0"/>
         <Cm>Nombre del área</Cm>
       </Cl>
@@ -74,7 +74,7 @@
         <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
         <Cm>Identificador</Cm>
       </Cl>
-      <Cl au="0" df="" nm="GuidCaseStatus" nu="0">
+      <Cl au="0" df="" nm="GuidCaseState" nu="0">
         <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
         <Cm>Relación con estados</Cm>
       </Cl>
@@ -98,6 +98,10 @@
         <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
         <Cm>Relación con prioridad</Cm>
       </Cl>
+      <Cl au="0" df="" nm="Title" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="255" sc="null" sg="1" un="0"/>
+        <Cm>Título o descripción corta del caso</Cm>
+      </Cl>
       <Fk deAc="3" nm="fk_Case_Person_Client" prLkCl="GuidPerson" upAc="3">
         <PrTb mn="0" nm="SDPerson" oe="1" sch="SD" zr="1"/>
         <CdTb mn="1" nm="SDCase" oe="0" sch="SD" zr="1"/>
@@ -108,10 +112,10 @@
         <CdTb mn="1" nm="SDCase" oe="0" sch="SD" zr="1"/>
         <ClPr cdCl="GuidCasePriority" prCl="GuidCasePriority"/>
       </Fk>
-      <Fk deAc="3" nm="fk_SdCase_SdCaseStatus" prLkCl="GuidCaseStatus" upAc="3">
-        <PrTb mn="0" nm="SDCaseStatus" oe="1" sch="SD" zr="0"/>
+      <Fk deAc="3" nm="fk_SdCase_SdCaseState" prLkCl="GuidCaseState" upAc="3">
+        <PrTb mn="0" nm="SDCaseState" oe="1" sch="SD" zr="0"/>
         <CdTb mn="1" nm="SDCase" oe="0" sch="SD" zr="1"/>
-        <ClPr cdCl="GuidCaseStatus" prCl="GuidCaseStatus"/>
+        <ClPr cdCl="GuidCaseState" prCl="GuidCaseState"/>
       </Fk>
       <UniqueConstraints/>
       <SchTrHis/>
@@ -157,7 +161,7 @@
         <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
         <Cm>Relación con estado</Cm>
       </Cl>
-      <Cl au="0" df="" nm="BodyContent" nu="1">
+      <Cl au="0" df="" nm="BodyContent" nu="0">
         <DT arr="0" ds="VarChar" en="" id="12" ln="255" sc="null" sg="1" un="0"/>
         <Cm>Contenido completo del caso</Cm>
       </Cl>
@@ -170,10 +174,10 @@
         <CdTb mn="1" nm="SDCaseHistory" oe="0" sch="SD" zr="1"/>
         <ClPr cdCl="GuidCase" prCl="GuidCase"/>
       </Fk>
-      <Fk deAc="3" nm="fk_SdCaseHistory_SdCaseStatus" prLkCl="GuidCaseStatus" upAc="3">
-        <PrTb mn="0" nm="SDCaseStatus" oe="1" sch="SD" zr="1"/>
+      <Fk deAc="3" nm="fk_SdCaseHistory_SdCaseStatus" prLkCl="GuidCaseState" upAc="3">
+        <PrTb mn="0" nm="SDCaseState" oe="1" sch="SD" zr="1"/>
         <CdTb mn="1" nm="SDCaseHistory" oe="0" sch="SD" zr="1"/>
-        <ClPr cdCl="GuidCaseStatus" prCl="GuidCaseStatus"/>
+        <ClPr cdCl="GuidCaseStatus" prCl="GuidCaseState"/>
       </Fk>
       <UniqueConstraints/>
       <SchTrHis/>
@@ -222,11 +226,11 @@
       <UniqueConstraints/>
       <SchTrHis/>
     </Tbl>
-    <Tbl UsSo="1" nm="SDCaseStatus">
+    <Tbl UsSo="1" nm="SDCaseState">
       <Cm>Catálogo de estados</Cm>
       <TblOpts/>
-      <Pk ClNs="GuidCaseStatus" nm="pkSDCaseStatus"/>
-      <Cl au="0" df="" nm="GuidCaseStatus" nu="0">
+      <Pk ClNs="GuidCaseState" nm="pkSDCaseState"/>
+      <Cl au="0" df="" nm="GuidCaseState" nu="0">
         <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
         <Cm>Identificador</Cm>
       </Cl>
@@ -281,7 +285,7 @@
         <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
         <Cm>Identificador</Cm>
       </Cl>
-      <Cl au="0" df="" nm="DisplayName" nu="1">
+      <Cl au="0" df="" nm="DisplayName" nu="0">
         <DT arr="0" ds="VarChar" en="" id="12" ln="255" sc="null" sg="1" un="0"/>
         <Cm>Nombre visual</Cm>
       </Cl>
@@ -314,7 +318,7 @@
         <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
         <Cm>Identificador</Cm>
       </Cl>
-      <Cl au="0" df="" nm="Email" nu="1">
+      <Cl au="0" df="" nm="Email" nu="0">
         <DT arr="0" ds="VarChar" en="" id="12" ln="255" sc="null" sg="1" un="0"/>
         <Cm>Correo electrónico</Cm>
       </Cl>
@@ -356,7 +360,7 @@
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDCaseHistory" x="36" y="147"/>
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDCaseHistoryFile" x="338" y="39"/>
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDCasePriority" x="47" y="366"/>
-    <TbGl bkCl="ff6666ff" sch="SD" tbl="SDCaseStatus" x="50" y="284"/>
+    <TbGl bkCl="ff6666ff" sch="SD" tbl="SDCaseState" x="50" y="284"/>
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDFile" x="656" y="31"/>
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDOrganization" x="345" y="550"/>
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDPerson" x="650" y="308"/>
@@ -382,7 +386,7 @@
     <FkGl bkCl="ff000000" childEdge="SOUTH" nm="SD.SDCase.fk_Case_Person_Client" parentEdge="WEST" positioner="TwoLineUserLinkPositioner">
       <positionableLines>
         <positionableLine lineRole="PARENT_LINE" x1="650" x2="605" y1="318" y2="318"/>
-        <positionableLine lineRole="CHILD_LINE" x1="601" x2="601" y1="256" y2="314"/>
+        <positionableLine lineRole="CHILD_LINE" x1="601" x2="601" y1="269" y2="314"/>
       </positionableLines>
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="WEST" nm="SD.SDCase.fk_SdCase_SdCasePriority" parentEdge="EAST" positioner="ThreeLineUserLinkPositioner">
@@ -392,10 +396,10 @@
         <positionableLine lineRole="MIDDLE_LINE" x1="323" x2="323" y1="234" y2="397"/>
       </positionableLines>
     </FkGl>
-    <FkGl bkCl="ff000000" childEdge="SOUTH" nm="SD.SDCase.fk_SdCase_SdCaseStatus" parentEdge="EAST" positioner="TwoLineUserLinkPositioner">
+    <FkGl bkCl="ff000000" childEdge="SOUTH" nm="SD.SDCase.fk_SdCase_SdCaseState" parentEdge="EAST" positioner="TwoLineUserLinkPositioner">
       <positionableLines>
-        <positionableLine lineRole="PARENT_LINE" x1="301" x2="342" y1="304" y2="304"/>
-        <positionableLine lineRole="CHILD_LINE" x1="346" x2="346" y1="256" y2="300"/>
+        <positionableLine lineRole="PARENT_LINE" x1="295" x2="342" y1="304" y2="304"/>
+        <positionableLine lineRole="CHILD_LINE" x1="346" x2="346" y1="269" y2="300"/>
       </positionableLines>
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="NORTH" nm="SD.SDCaseFile.fk_SdCaseFile_SdCase" parentEdge="EAST" positioner="TwoLineUserLinkPositioner">
@@ -472,7 +476,7 @@
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDProxyUser" x="64" y="244"/>
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDPerson" x="66" y="395"/>
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDCaseHistory" x="345" y="286"/>
-    <TbGl bkCl="ff6666ff" sch="SD" tbl="SDCaseStatus" x="766" y="311"/>
+    <TbGl bkCl="ff6666ff" sch="SD" tbl="SDCaseState" x="766" y="311"/>
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDArea" x="631" y="415"/>
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDCasePriority" x="891" y="108"/>
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDAreaPerson" x="815" y="527"/>
@@ -503,7 +507,7 @@
     <FkGl bkCl="ff000000" childEdge="SOUTH" nm="SD.SDCase.fk_Case_Person_Client" parentEdge="EAST" positioner="TwoLineUserLinkPositioner">
       <positionableLines>
         <positionableLine lineRole="PARENT_LINE" x1="324" x2="570" y1="421" y2="421"/>
-        <positionableLine lineRole="CHILD_LINE" x1="574" x2="574" y1="234" y2="417"/>
+        <positionableLine lineRole="CHILD_LINE" x1="574" x2="574" y1="247" y2="417"/>
       </positionableLines>
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="EAST" nm="SD.SDCase.fk_SdCase_SdCasePriority" parentEdge="WEST" positioner="OneLineUserLinkPositioner">
@@ -511,7 +515,7 @@
         <positionableLine lineRole="SINGLE_LINE" x1="891" x2="727" y1="128" y2="128"/>
       </positionableLines>
     </FkGl>
-    <FkGl bkCl="ff000000" childEdge="EAST" nm="SD.SDCase.fk_SdCase_SdCaseStatus" parentEdge="NORTH" positioner="TwoLineUserLinkPositioner">
+    <FkGl bkCl="ff000000" childEdge="EAST" nm="SD.SDCase.fk_SdCase_SdCaseState" parentEdge="NORTH" positioner="TwoLineUserLinkPositioner">
       <positionableLines>
         <positionableLine lineRole="PARENT_LINE" x1="781" x2="781" y1="311" y2="220"/>
         <positionableLine lineRole="CHILD_LINE" x1="727" x2="777" y1="216" y2="216"/>
@@ -519,7 +523,7 @@
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="NORTH" nm="SD.SDCaseFile.fk_SdCaseFile_SdCase" parentEdge="SOUTH" positioner="ThreeLineUserLinkPositioner">
       <positionableLines>
-        <positionableLine lineRole="PARENT_LINE" x1="594" x2="594" y1="234" y2="632"/>
+        <positionableLine lineRole="PARENT_LINE" x1="594" x2="594" y1="247" y2="632"/>
         <positionableLine lineRole="CHILD_LINE" x1="969" x2="969" y1="680" y2="640"/>
         <positionableLine lineRole="MIDDLE_LINE" x1="965" x2="598" y1="636" y2="636"/>
       </positionableLines>
@@ -531,7 +535,7 @@
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="NORTH" nm="SD.SDCaseHistory.fk_SdCaseHistory_SdCase" parentEdge="SOUTH" positioner="OneLineUserLinkPositioner">
       <positionableLines>
-        <positionableLine lineRole="SINGLE_LINE" x1="500" x2="500" y1="234" y2="286"/>
+        <positionableLine lineRole="SINGLE_LINE" x1="500" x2="500" y1="247" y2="286"/>
       </positionableLines>
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="EAST" nm="SD.SDCaseHistory.fk_SdCaseHistory_SdCaseStatus" parentEdge="WEST" positioner="OneLineUserLinkPositioner">
@@ -562,7 +566,7 @@
     <Notes/>
     <Zones/>
   </Dgm>
-  <RnmMgr NxRnmId="40">
+  <RnmMgr NxRnmId="43">
     <RnmCh ObjCls="Schema" ParCls="Database" ParNme="CRM" SupCls="" SupNme="">
       <Rnm id="4" nNm="SD" oNm="CRM"/>
       <Rnm id="1" nNm="CRM" oNm="schemaA"/>
@@ -598,7 +602,8 @@
       <Rnm id="16" nNm="GuidPerson" oNm="GuidAttendant"/>
       <Rnm id="12" nNm="GuidAttendant" oNm="Id"/>
     </RnmCh>
-    <RnmCh ObjCls="Column" ParCls="Table" ParNme="SDCaseStatus" SupCls="Schema" SupNme="SD">
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="SDCaseState" SupCls="Schema" SupNme="SD">
+      <Rnm id="41" nNm="GuidCaseState" oNm="GuidCaseStatus"/>
       <Rnm id="13" nNm="GuidCaseStatus" oNm="Id"/>
     </RnmCh>
     <RnmCh ObjCls="Column" ParCls="Table" ParNme="SDCaseHistory" SupCls="Schema" SupNme="SD">
@@ -643,6 +648,7 @@
       <Rnm id="29" nNm="SDCaseHistory" oNm="SdCaseHistory"/>
     </RnmCh>
     <RnmCh ObjCls="Table" ParCls="Schema" ParNme="SD" SupCls="" SupNme="">
+      <Rnm id="40" nNm="SDCaseState" oNm="SDCaseStatus"/>
       <Rnm id="31" nNm="SDCaseStatus" oNm="SdCaseStatus"/>
     </RnmCh>
     <RnmCh ObjCls="Table" ParCls="Schema" ParNme="SD" SupCls="" SupNme="">
@@ -659,6 +665,9 @@
     </RnmCh>
     <RnmCh ObjCls="Table" ParCls="Schema" ParNme="SD" SupCls="" SupNme="">
       <Rnm id="37" nNm="SDArea" oNm="SdArea"/>
+    </RnmCh>
+    <RnmCh ObjCls="Column" ParCls="Table" ParNme="SDCase" SupCls="Schema" SupNme="SD">
+      <Rnm id="42" nNm="GuidCaseState" oNm="GuidCaseStatus"/>
     </RnmCh>
   </RnmMgr>
   <DbDocOptionMgr>
@@ -677,8 +686,8 @@
     </BasicOptionMgr>
   </DbDocOptionMgr>
   <OpenEditors>
-    <OpenEditor ClsNm="Diagram" fqn="null.diagramA" selected="0"/>
-    <OpenEditor ClsNm="Diagram" fqn="null.B" selected="1"/>
+    <OpenEditor ClsNm="Diagram" fqn="null.diagramA" selected="1"/>
+    <OpenEditor ClsNm="Diagram" fqn="null.B" selected="0"/>
   </OpenEditors>
   <TreePaths>
     <TreePath/>
