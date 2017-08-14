@@ -30,7 +30,8 @@ namespace SFS.ServiceDesk.Web.Mvc
             e.UIModel.UILayoutFile = "~/Views/Templates/AdminLTE.cshtml";
             e.UIModel.UIVersion = 2;
             ViewBag.IsAdmin = true;
-           
+            ViewData["class-body"] = "sd sidebar-mini";
+
             e.UIModel.ViewData = ViewData;
         }
 

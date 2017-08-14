@@ -324,14 +324,20 @@ using SFS.ServiceDesk.BusinessObjects;
 				result.IsDeleted = (Boolean)this.IsDeleted;
 				
 			
-			if(this.FkSDArea2 != null )
+			if(this.FkSDArea2 != null || this.GuidAreaParent != null){
 			if (GuidAreaParent != null && this.FkSDArea2 == null) this.FkSDArea2 = GuidAreaParent; 
 			result.SDArea2 = new BusinessObjects.SDArea() { GuidArea= (Guid)this.FkSDArea2 };
+
+			
+			}
 				
 			
-			if(this.FkSDOrganization != null )
+			if(this.FkSDOrganization != null || this.GuidOrganization != null){
 			if (GuidOrganization != null && this.FkSDOrganization == null) this.FkSDOrganization = GuidOrganization; 
 			result.SDOrganization = new BusinessObjects.SDOrganization() { GuidOrganization= (Guid)this.FkSDOrganization };
+
+			
+			}
 				
 
             return result;
@@ -676,14 +682,20 @@ using SFS.ServiceDesk.BusinessObjects;
 				result.IsDeleted = (Boolean)this.IsDeleted;
 				
 			
-			if(this.FkSDArea != null )
+			if(this.FkSDArea != null || this.GuidArea != null){
 			if (GuidArea != null && this.FkSDArea == null) this.FkSDArea = GuidArea; 
 			result.SDArea = new BusinessObjects.SDArea() { GuidArea= (Guid)this.FkSDArea };
+
+			
+			}
 				
 			
-			if(this.FkSDPerson != null )
+			if(this.FkSDPerson != null || this.GuidPerson != null){
 			if (GuidPerson != null && this.FkSDPerson == null) this.FkSDPerson = GuidPerson; 
 			result.SDPerson = new BusinessObjects.SDPerson() { GuidPerson= (Guid)this.FkSDPerson };
+
+			
+			}
 				
 
             return result;
@@ -1127,15 +1139,20 @@ using SFS.ServiceDesk.BusinessObjects;
 				result.IsDeleted = (Boolean)this.IsDeleted;
 				
 			
-			if(this.FkSDPerson != null )
+			if(this.FkSDPerson != null || this.GuidPersonClient != null){
 			if (GuidPersonClient != null && this.FkSDPerson == null) this.FkSDPerson = GuidPersonClient; 
 			result.SDPerson = new BusinessObjects.SDPerson() { GuidPerson= (Guid)this.FkSDPerson };
+
+			
+			}
 				
 			if (GuidCasePriority != null && this.FkSDCasePriority == null) this.FkSDCasePriority = GuidCasePriority; 
 			result.SDCasePriority = new BusinessObjects.SDCasePriority() { GuidCasePriority= (Guid)this.FkSDCasePriority };
+
 				
 			if (GuidCaseState != null && this.FkSDCaseState == null) this.FkSDCaseState = GuidCaseState; 
 			result.SDCaseState = new BusinessObjects.SDCaseState() { GuidCaseState= (Guid)this.FkSDCaseState };
+
 				
 
             return result;
@@ -1498,14 +1515,20 @@ using SFS.ServiceDesk.BusinessObjects;
 				result.IsDeleted = (Boolean)this.IsDeleted;
 				
 			
-			if(this.FkSDCase != null )
+			if(this.FkSDCase != null || this.GuidCase != null){
 			if (GuidCase != null && this.FkSDCase == null) this.FkSDCase = GuidCase; 
 			result.SDCase = new BusinessObjects.SDCase() { GuidCase= (Guid)this.FkSDCase };
+
+			
+			}
 				
 			
-			if(this.FkSDFile != null )
+			if(this.FkSDFile != null || this.GuidFile != null){
 			if (GuidFile != null && this.FkSDFile == null) this.FkSDFile = GuidFile; 
 			result.SDFile = new BusinessObjects.SDFile() { GuidFile= (Guid)this.FkSDFile };
+
+			
+			}
 				
 
             return result;
@@ -1880,11 +1903,15 @@ using SFS.ServiceDesk.BusinessObjects;
 				
 			if (GuidCase != null && this.FkSDCase == null) this.FkSDCase = GuidCase; 
 			result.SDCase = new BusinessObjects.SDCase() { GuidCase= (Guid)this.FkSDCase };
+
 				
 			
-			if(this.FkSDCaseState != null )
+			if(this.FkSDCaseState != null || this.GuidCaseStatus != null){
 			if (GuidCaseStatus != null && this.FkSDCaseState == null) this.FkSDCaseState = GuidCaseStatus; 
 			result.SDCaseState = new BusinessObjects.SDCaseState() { GuidCaseState= (Guid)this.FkSDCaseState };
+
+			
+			}
 				
 
             return result;
@@ -2230,14 +2257,20 @@ using SFS.ServiceDesk.BusinessObjects;
 				result.IsDeleted = (Boolean)this.IsDeleted;
 				
 			
-			if(this.FkSDCaseHistory != null )
+			if(this.FkSDCaseHistory != null || this.GuidCaseHistory != null){
 			if (GuidCaseHistory != null && this.FkSDCaseHistory == null) this.FkSDCaseHistory = GuidCaseHistory; 
 			result.SDCaseHistory = new BusinessObjects.SDCaseHistory() { GuidCaseHistory= (Guid)this.FkSDCaseHistory };
+
+			
+			}
 				
 			
-			if(this.FkSDFile != null )
+			if(this.FkSDFile != null || this.GuidFile != null){
 			if (GuidFile != null && this.FkSDFile == null) this.FkSDFile = GuidFile; 
 			result.SDFile = new BusinessObjects.SDFile() { GuidFile= (Guid)this.FkSDFile };
+
+			
+			}
 				
 
             return result;
@@ -3843,14 +3876,20 @@ using SFS.ServiceDesk.BusinessObjects;
 				result.IsDeleted = (Boolean)this.IsDeleted;
 				
 			
-			if(this.FkSDOrganization != null )
+			if(this.FkSDOrganization != null || this.GuidOrganization != null){
 			if (GuidOrganization != null && this.FkSDOrganization == null) this.FkSDOrganization = GuidOrganization; 
 			result.SDOrganization = new BusinessObjects.SDOrganization() { GuidOrganization= (Guid)this.FkSDOrganization };
+
+			
+			}
 				
 			
-			if(this.FkSDProxyUser != null )
+			if(this.FkSDProxyUser != null || this.GuidUser != null){
 			if (GuidUser != null && this.FkSDProxyUser == null) this.FkSDProxyUser = GuidUser; 
 			result.SDProxyUser = new BusinessObjects.SDProxyUser() { GuidUser= (Guid)this.FkSDProxyUser };
+
+			
+			}
 				
 
             return result;

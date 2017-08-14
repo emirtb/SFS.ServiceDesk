@@ -526,7 +526,7 @@ this.<#= property.Name #>Value = model.<#= property.Name #>Value;
 	#>
 <#+ 		if (property.Nullable || !IsVisibleProperty(property)) { 
 			#>			
-			if(this.Fk<#= property.Name #> != null )
+			if(this.Fk<#= property.Name #> != null || this.<#= propertyFK.Name #> != null){
 <#+ } #>
 <#+ if ((string)GetCustomProperty(property, "GlobalData", "String") == "GlobalUser") { 
 			var  emailProp = entityFK.Properties.FirstOrDefault(p=> p.Name.ToLower() == "email");
@@ -543,11 +543,22 @@ this.<#= property.Name #>Value = model.<#= property.Name #>Value;
 					<#= sbKeysMerge.ToString() #>
 					result.<#= property.Name #> = new BusinessObjects.<#= entityFKName #>() { <#= sbKeys.ToString() #> };
 				}
+<#+ 		if (property.Nullable || !IsVisibleProperty(property)) { 
+			#>			
+			}
+<#+ } #>
 		
 <#+ }else{ #>
 			<#= sbKeysMerge.ToString() #>
 			result.<#= property.Name #> = new BusinessObjects.<#= entityFKName #>() { <#= sbKeys.ToString() #> };
+
+<#+ 		if (property.Nullable || !IsVisibleProperty(property)) { 
+			#>			
+			}
 <#+ } #>
+<#+ } #>
+
+
 <#+ 	}else{ #>
 
 <#+ 		// si es tipo fecha
