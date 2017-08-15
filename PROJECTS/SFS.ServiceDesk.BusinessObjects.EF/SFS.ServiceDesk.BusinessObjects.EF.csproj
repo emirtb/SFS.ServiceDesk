@@ -99,6 +99,7 @@
       <DependentUpon>SFSServiceDeskModel.edmx</DependentUpon>
     </None>
     <None Include="SFSServiceDeskModel.sfsedmx" />
+    <None Include="SFSServiceDeskModel\SDCase.sfsedmx" />
     <None Include="SFSServiceDeskModel\Model.Partial.sfsedmx" />
     <None Include="SqlSystemFields.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

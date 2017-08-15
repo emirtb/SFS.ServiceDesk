@@ -303,6 +303,7 @@
     <Content Include="Views\Shared\_LayoutHome.cshtml" />
     <Content Include="Views\TemplateScripts.cshtml" />
     <Content Include="Views\LoginScripts.cshtml" />
+    <Content Include="Views\secRoles\Scripts.cshtml" />
     <None Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>

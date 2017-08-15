@@ -566,6 +566,38 @@
     <Notes/>
     <Zones/>
   </Dgm>
+  <Dgm nm="z">
+    <RnCf ClkAct="true" FtSz="11" lkStgy="RightAngleStrategy" zm="1.0">
+      <VbCfg>
+        <Fg ky="Auto Number" vl="0"/>
+        <Fg ky="Check" vl="0"/>
+        <Fg ky="Comment" vl="0"/>
+        <Fg ky="Data Type" vl="1"/>
+        <Fg ky="Default" vl="0"/>
+        <Fg ky="ENUM Values" vl="0"/>
+        <Fg ky="Length" vl="1"/>
+        <Fg ky="Name" vl="1"/>
+        <Fg ky="Nullable" vl="0"/>
+        <Fg ky="Schema Name" vl="0"/>
+        <Fg ky="Signed" vl="0"/>
+      </VbCfg>
+    </RnCf>
+    <DiaProps>
+      <Show AllCols="1" FkCols="1" FkNms="0" PkCols="1"/>
+      <ErNotation>BarkerErNotation</ErNotation>
+      <DbTableRectangleFill>HeaderFooterFill</DbTableRectangleFill>
+      <svg path=""/>
+    </DiaProps>
+    <TbGl bkCl="ff6666ff" sch="SD" tbl="SDCase" x="47" y="123"/>
+    <TbGl bkCl="ff6666ff" sch="SD" tbl="SDCaseHistory" x="403" y="141"/>
+    <FkGl bkCl="ff000000" childEdge="WEST" nm="SD.SDCaseHistory.fk_SdCaseHistory_SdCase" parentEdge="EAST" positioner="OneLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="SINGLE_LINE" x1="312" x2="403" y1="185" y2="185"/>
+      </positionableLines>
+    </FkGl>
+    <Notes/>
+    <Zones/>
+  </Dgm>
   <RnmMgr NxRnmId="43">
     <RnmCh ObjCls="Schema" ParCls="Database" ParNme="CRM" SupCls="" SupNme="">
       <Rnm id="4" nNm="SD" oNm="CRM"/>
@@ -686,7 +718,8 @@
     </BasicOptionMgr>
   </DbDocOptionMgr>
   <OpenEditors>
-    <OpenEditor ClsNm="Diagram" fqn="null.diagramA" selected="1"/>
+    <OpenEditor ClsNm="Diagram" fqn="null.z" selected="1"/>
+    <OpenEditor ClsNm="Diagram" fqn="null.diagramA" selected="0"/>
     <OpenEditor ClsNm="Diagram" fqn="null.B" selected="0"/>
   </OpenEditors>
   <TreePaths>
@@ -694,7 +727,7 @@
     <TreePath>/Schemas (1)</TreePath>
     <TreePath>/Schemas (1)/SD</TreePath>
     <TreePath>/Schemas (1)/SD/Tables (12)</TreePath>
-    <TreePath>/Diagrams (2)</TreePath>
+    <TreePath>/Diagrams (3)</TreePath>
   </TreePaths>
   <SqlTexts>
     <SqlText path="">

@@ -6208,6 +6208,10 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
                 {
                     if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
                     {
+                        if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
                         return Content("ok");
                     }
                     else

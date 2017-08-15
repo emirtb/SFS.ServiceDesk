@@ -51,34 +51,21 @@ namespace SFS.ServiceDesk.Web.Mvc.Controllers
             string controller = SFSdotNet.Framework.Web.Mvc.Utils.GetRouteDataOrQueryParam(requestContext.HttpContext.Request.RequestContext, "controller");
             string action = SFSdotNet.Framework.Web.Mvc.Utils.GetRouteDataOrQueryParam(requestContext.HttpContext.Request.RequestContext, "action");
 
-            if (controller == "Public" && (action == "Login" || action == "Register" || action == "ResetPassword"))
+            if (controller == "Public" && (action == "Login" || action == "Register" || action == "ResetPassword" || action == "RememberMePassword"))
             {
                 if (!string.IsNullOrEmpty(requestContext.HttpContext.Request.QueryString["ReturnUrl"]))
                 {
-                    StringBuilder sbLangChange = new StringBuilder();
-                    if (!string.IsNullOrEmpty(requestContext.HttpContext.Request.QueryString["lang"]))
-                    {
-
-                    }
-               
-
                     UIModel uiModel = new UIModel();
 
                     uiModel.UILayoutFile = "~/Views/Templates/AdminLTE.cshtml";
                     uiModel.NewUILayoutTool = true;
                     uiModel.UIVersion = 2;
-
-
                     ViewData["uiModel"] = uiModel;
-
                     string loginScripts = SFSdotNet.Framework.Resources.Content.GetContent("SFSServiceDesk", "Views/LoginScripts.cshtml", GetContextRequest(requestContext.HttpContext.ApplicationInstance.Context));
                     loginScripts = loginScripts.Replace("{APP_PATH}", VirtualPathUtility.ToAbsolute("~/"));
-
-                    //ViewData["HeaderScript"] = "";
                     ViewData["FooterScript"] = loginScripts;
                 }
             }
-
             return ViewData;
         }
         public void OnLayoutSettings(object sender, object e)
@@ -104,11 +91,31 @@ namespace SFS.ServiceDesk.Web.Mvc.Controllers
                 MyEventArgs<SFSdotNet.Framework.Web.Mvc.Models.UIModel<SFSdotNet.Framework.Security.Web.Mvc.Models.secCompanies.secCompanyModel>> eModel = (MyEventArgs<SFSdotNet.Framework.Web.Mvc.Models.UIModel<SFSdotNet.Framework.Security.Web.Mvc.Models.secCompanies.secCompanyModel>>)e;
                 if (IsItemsOrListForm(eModel.UIModel))
                 {
-                 
+                    //eModel.UIModel.SetVisibleAll(false); // poner invisible todas
+
+                    //eModel.UIModel.SetOrder(secRole.PropertyNames.RoleName, true);
+                    //eModel.UIModel.SetOrder(secRole.PropertyNames.Description);
+
                 }
                 if (IsEditOrDetailsForm(eModel.UIModel))
                 { 
                   
+                }
+            }
+
+
+            if (sender.GetType().FullName.Contains("secRolesController"))
+            {
+                MyEventArgs<SFSdotNet.Framework.Web.Mvc.Models.UIModel<SFSdotNet.Framework.Security.Web.Mvc.Models.secRoles.secRoleModel>> eModel = (MyEventArgs<SFSdotNet.Framework.Web.Mvc.Models.UIModel<SFSdotNet.Framework.Security.Web.Mvc.Models.secRoles.secRoleModel>>)e;
+                if (IsItemsOrListForm(eModel.UIModel))
+                {
+                    eModel.UIModel.ForcePopUp = false;
+                    eModel.UIModel.HeaderPartialView = "~/Areas/SFSServiceDesk/Views/secRoles/Scripts.cshtml";
+                }
+                if (IsEditOrDetailsForm(eModel.UIModel))
+                {
+                    eModel.UIModel.HeaderPartialView = "~/Areas/SFSServiceDesk/Views/secRoles/Scripts.cshtml";
+
                 }
             }
         }

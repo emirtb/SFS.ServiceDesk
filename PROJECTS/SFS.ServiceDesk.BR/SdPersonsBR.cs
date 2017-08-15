@@ -9,12 +9,22 @@ using SFSdotNet.Framework.BR;
 namespace SFS.ServiceDesk.BR
 {
     public partial class SDPersonsBR
+
+        
     {
-        //partial void OnGetting(object sender, BusinessRulesEventArgs<SDPerson> e)
+        //public void MyMethod()
         //{
-        //    // Sample of replace API response and cancel the current request
-        //    e.ContextRequest.ReplaceApiResponse("success", "test", "simple test of replace", 22);
-        //    e.Cancel = true; // Canceling the execution of the query
+        //    SFSdotNet.Framework.My.Context.CurrentContext.ContextRequest.ReplaceApiResponse()
         //}
+        //partial void OnTaken(object sender, BusinessRulesEventArgs<SDPerson> e)
+        //{
+        //    throw new NotImplementedException();
+        //}
+        partial void OnGetting(object sender, BusinessRulesEventArgs<SDPerson> e)
+        {
+            // Sample of replace API response and cancel the current request
+            e.ContextRequest.ReplaceApiResponse("success", "test", "simple test of replace", e.Items);
+            e.Cancel = true; // Canceling the execution of the query
+        }
     }
 }
