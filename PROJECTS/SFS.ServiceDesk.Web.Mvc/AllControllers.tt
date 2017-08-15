@@ -2004,7 +2004,15 @@ if ((bool)GetCustomProperty(item, "UIReadOnly", "Boolean")) {
 					   return ResolveApiResponse("error", "exception", ex.ToString(), null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json(ex.ToString(), JsonRequestBehavior.AllowGet);
+                        }
+                        return Content(ex.ToString());
+
+					}
                 SFSdotNet.Framework.My.Context.CurrentContext.AddMessage(ex.Message, SFSdotNet.Framework.My.MessageResultTypes.Error);
                 model.IsNew = true;
                 var me = GetContextModel(UIModelContextTypes.EditForm, model, true, model.<#=entity.Properties.FirstOrDefault(p=>p.IsPrimaryKey ).Name#>);
@@ -2376,7 +2384,15 @@ if ((bool)GetCustomProperty(item, "UIReadOnly", "Boolean")) {
 						 return ResolveApiResponse("error", "exception", ex.ToString(), null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json(ex.ToString(), JsonRequestBehavior.AllowGet);
+                        }
+                        return Content(ex.ToString());
+
+					}
 			    if (isPopUp)
                 {
                     return PartialView("ResultMessageView", (new MessageModel()).GetException(ex.Message));
