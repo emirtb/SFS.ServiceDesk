@@ -1906,7 +1906,15 @@ if ((bool)GetCustomProperty(item, "UIReadOnly", "Boolean")) {
                         return ResolveApiResponse("success", null, null, null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
+
+					}
 				 
 				 if (e != null )
 					if (e.ActionResult != null)
@@ -2256,13 +2264,26 @@ if ((bool)GetCustomProperty(item, "UIReadOnly", "Boolean")) {
                 {
                     if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
                     {
+					if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
                         return Content("ok");
                     }
                     else
                     {
                          return ResolveApiResponse("success", null, null, null);
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
+
+					}
 				
 				if (e != null && e.ActionResult != null) replaceResult = true; 
 

@@ -936,7 +936,15 @@ if (visibleProperty || specificProperties.Contains("SDAreaPersons"))
 		[MyAuthorize("r", "SDArea", "SFSServiceDesk", typeof(SDAreasController))]
         public ActionResult GetByKeyJson(string id, ContextRequest contextRequest,  bool dec = false)
         {
-            return Json(GetByKey(id, null, contextRequest, dec), JsonRequestBehavior.AllowGet);
+             if (this.IsRESTRequest == true && Request.QueryString["v"] == "2")
+            {
+                var result =  GetByKey(id, null, contextRequest, dec);
+                return ResolveApiResponse("success", null, null, result);
+            }
+            else
+            {
+               return  Json(GetByKey(id, null, contextRequest, dec), JsonRequestBehavior.AllowGet);
+            }
         }
 		public SDAreaModel GetByKey(string id) {
 			return GetByKey(id, null,null, false);
@@ -1612,6 +1620,10 @@ if (visibleProperty || specificProperties.Contains("SDAreaPersons"))
                 {
                     if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
                     {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
                         return Content("ok");
                     }
                     else
@@ -1619,7 +1631,15 @@ if (visibleProperty || specificProperties.Contains("SDAreaPersons"))
                         return ResolveApiResponse("success", null, null, null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
+
+					}
 				 
 				 if (e != null )
 					if (e.ActionResult != null)
@@ -1889,13 +1909,26 @@ if (visibleProperty || specificProperties.Contains("SDAreaPersons"))
                 {
                     if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
                     {
+					if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
                         return Content("ok");
                     }
                     else
                     {
                          return ResolveApiResponse("success", null, null, null);
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
+
+					}
 				
 				if (e != null && e.ActionResult != null) replaceResult = true; 
 
@@ -3057,7 +3090,15 @@ if (visibleProperty || specificProperties.Contains("SDPerson"))
 		[MyAuthorize("r", "SDAreaPerson", "SFSServiceDesk", typeof(SDAreaPersonsController))]
         public ActionResult GetByKeyJson(string id, ContextRequest contextRequest,  bool dec = false)
         {
-            return Json(GetByKey(id, null, contextRequest, dec), JsonRequestBehavior.AllowGet);
+             if (this.IsRESTRequest == true && Request.QueryString["v"] == "2")
+            {
+                var result =  GetByKey(id, null, contextRequest, dec);
+                return ResolveApiResponse("success", null, null, result);
+            }
+            else
+            {
+               return  Json(GetByKey(id, null, contextRequest, dec), JsonRequestBehavior.AllowGet);
+            }
         }
 		public SDAreaPersonModel GetByKey(string id) {
 			return GetByKey(id, null,null, false);
@@ -3733,6 +3774,10 @@ if (visibleProperty || specificProperties.Contains("SDPerson"))
                 {
                     if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
                     {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
                         return Content("ok");
                     }
                     else
@@ -3740,7 +3785,15 @@ if (visibleProperty || specificProperties.Contains("SDPerson"))
                         return ResolveApiResponse("success", null, null, null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
+
+					}
 				 
 				 if (e != null )
 					if (e.ActionResult != null)
@@ -4010,13 +4063,26 @@ if (visibleProperty || specificProperties.Contains("SDPerson"))
                 {
                     if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
                     {
+					if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
                         return Content("ok");
                     }
                     else
                     {
                          return ResolveApiResponse("success", null, null, null);
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
+
+					}
 				
 				if (e != null && e.ActionResult != null) replaceResult = true; 
 
@@ -5478,7 +5544,15 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
 		[MyAuthorize("r", "SDCase", "SFSServiceDesk", typeof(SDCasesController))]
         public ActionResult GetByKeyJson(string id, ContextRequest contextRequest,  bool dec = false)
         {
-            return Json(GetByKey(id, null, contextRequest, dec), JsonRequestBehavior.AllowGet);
+             if (this.IsRESTRequest == true && Request.QueryString["v"] == "2")
+            {
+                var result =  GetByKey(id, null, contextRequest, dec);
+                return ResolveApiResponse("success", null, null, result);
+            }
+            else
+            {
+               return  Json(GetByKey(id, null, contextRequest, dec), JsonRequestBehavior.AllowGet);
+            }
         }
 		public SDCaseModel GetByKey(string id) {
 			return GetByKey(id, null,null, false);
@@ -6208,7 +6282,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
                 {
                     if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
                     {
-                        if (Request.QueryString["resultFormat"] == "json")
+						if (Request.QueryString["resultFormat"] == "json")
                         {
                             return Json("ok", JsonRequestBehavior.AllowGet);
                         }
@@ -6219,7 +6293,15 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
                         return ResolveApiResponse("success", null, null, null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
+
+					}
 				 
 				 if (e != null )
 					if (e.ActionResult != null)
@@ -6489,13 +6571,26 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
                 {
                     if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
                     {
+					if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
                         return Content("ok");
                     }
                     else
                     {
                          return ResolveApiResponse("success", null, null, null);
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
+
+					}
 				
 				if (e != null && e.ActionResult != null) replaceResult = true; 
 
@@ -7657,7 +7752,15 @@ if (visibleProperty || specificProperties.Contains("SDFile"))
 		[MyAuthorize("r", "SDCaseFile", "SFSServiceDesk", typeof(SDCaseFilesController))]
         public ActionResult GetByKeyJson(string id, ContextRequest contextRequest,  bool dec = false)
         {
-            return Json(GetByKey(id, null, contextRequest, dec), JsonRequestBehavior.AllowGet);
+             if (this.IsRESTRequest == true && Request.QueryString["v"] == "2")
+            {
+                var result =  GetByKey(id, null, contextRequest, dec);
+                return ResolveApiResponse("success", null, null, result);
+            }
+            else
+            {
+               return  Json(GetByKey(id, null, contextRequest, dec), JsonRequestBehavior.AllowGet);
+            }
         }
 		public SDCaseFileModel GetByKey(string id) {
 			return GetByKey(id, null,null, false);
@@ -8333,6 +8436,10 @@ if (visibleProperty || specificProperties.Contains("SDFile"))
                 {
                     if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
                     {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
                         return Content("ok");
                     }
                     else
@@ -8340,7 +8447,15 @@ if (visibleProperty || specificProperties.Contains("SDFile"))
                         return ResolveApiResponse("success", null, null, null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
+
+					}
 				 
 				 if (e != null )
 					if (e.ActionResult != null)
@@ -8610,13 +8725,26 @@ if (visibleProperty || specificProperties.Contains("SDFile"))
                 {
                     if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
                     {
+					if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
                         return Content("ok");
                     }
                     else
                     {
                          return ResolveApiResponse("success", null, null, null);
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
+
+					}
 				
 				if (e != null && e.ActionResult != null) replaceResult = true; 
 
@@ -9886,7 +10014,15 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistoryFiles"))
 		[MyAuthorize("r", "SDCaseHistory", "SFSServiceDesk", typeof(SDCaseHistoriesController))]
         public ActionResult GetByKeyJson(string id, ContextRequest contextRequest,  bool dec = false)
         {
-            return Json(GetByKey(id, null, contextRequest, dec), JsonRequestBehavior.AllowGet);
+             if (this.IsRESTRequest == true && Request.QueryString["v"] == "2")
+            {
+                var result =  GetByKey(id, null, contextRequest, dec);
+                return ResolveApiResponse("success", null, null, result);
+            }
+            else
+            {
+               return  Json(GetByKey(id, null, contextRequest, dec), JsonRequestBehavior.AllowGet);
+            }
         }
 		public SDCaseHistoryModel GetByKey(string id) {
 			return GetByKey(id, null,null, false);
@@ -10562,6 +10698,10 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistoryFiles"))
                 {
                     if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
                     {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
                         return Content("ok");
                     }
                     else
@@ -10569,7 +10709,15 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistoryFiles"))
                         return ResolveApiResponse("success", null, null, null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
+
+					}
 				 
 				 if (e != null )
 					if (e.ActionResult != null)
@@ -10839,13 +10987,26 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistoryFiles"))
                 {
                     if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
                     {
+					if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
                         return Content("ok");
                     }
                     else
                     {
                          return ResolveApiResponse("success", null, null, null);
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
+
+					}
 				
 				if (e != null && e.ActionResult != null) replaceResult = true; 
 
@@ -12007,7 +12168,15 @@ if (visibleProperty || specificProperties.Contains("SDFile"))
 		[MyAuthorize("r", "SDCaseHistoryFile", "SFSServiceDesk", typeof(SDCaseHistoryFilesController))]
         public ActionResult GetByKeyJson(string id, ContextRequest contextRequest,  bool dec = false)
         {
-            return Json(GetByKey(id, null, contextRequest, dec), JsonRequestBehavior.AllowGet);
+             if (this.IsRESTRequest == true && Request.QueryString["v"] == "2")
+            {
+                var result =  GetByKey(id, null, contextRequest, dec);
+                return ResolveApiResponse("success", null, null, result);
+            }
+            else
+            {
+               return  Json(GetByKey(id, null, contextRequest, dec), JsonRequestBehavior.AllowGet);
+            }
         }
 		public SDCaseHistoryFileModel GetByKey(string id) {
 			return GetByKey(id, null,null, false);
@@ -12683,6 +12852,10 @@ if (visibleProperty || specificProperties.Contains("SDFile"))
                 {
                     if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
                     {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
                         return Content("ok");
                     }
                     else
@@ -12690,7 +12863,15 @@ if (visibleProperty || specificProperties.Contains("SDFile"))
                         return ResolveApiResponse("success", null, null, null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
+
+					}
 				 
 				 if (e != null )
 					if (e.ActionResult != null)
@@ -12960,13 +13141,26 @@ if (visibleProperty || specificProperties.Contains("SDFile"))
                 {
                     if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
                     {
+					if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
                         return Content("ok");
                     }
                     else
                     {
                          return ResolveApiResponse("success", null, null, null);
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
+
+					}
 				
 				if (e != null && e.ActionResult != null) replaceResult = true; 
 
@@ -14035,7 +14229,15 @@ if (visibleProperty || specificProperties.Contains("SDCases"))
 		[MyAuthorize("r", "SDCasePriority", "SFSServiceDesk", typeof(SDCasePrioritiesController))]
         public ActionResult GetByKeyJson(string id, ContextRequest contextRequest,  bool dec = false)
         {
-            return Json(GetByKey(id, null, contextRequest, dec), JsonRequestBehavior.AllowGet);
+             if (this.IsRESTRequest == true && Request.QueryString["v"] == "2")
+            {
+                var result =  GetByKey(id, null, contextRequest, dec);
+                return ResolveApiResponse("success", null, null, result);
+            }
+            else
+            {
+               return  Json(GetByKey(id, null, contextRequest, dec), JsonRequestBehavior.AllowGet);
+            }
         }
 		public SDCasePriorityModel GetByKey(string id) {
 			return GetByKey(id, null,null, false);
@@ -14603,6 +14805,10 @@ if (visibleProperty || specificProperties.Contains("SDCases"))
                 {
                     if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
                     {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
                         return Content("ok");
                     }
                     else
@@ -14610,7 +14816,15 @@ if (visibleProperty || specificProperties.Contains("SDCases"))
                         return ResolveApiResponse("success", null, null, null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
+
+					}
 				 
 				 if (e != null )
 					if (e.ActionResult != null)
@@ -14880,13 +15094,26 @@ if (visibleProperty || specificProperties.Contains("SDCases"))
                 {
                     if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
                     {
+					if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
                         return Content("ok");
                     }
                     else
                     {
                          return ResolveApiResponse("success", null, null, null);
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
+
+					}
 				
 				if (e != null && e.ActionResult != null) replaceResult = true; 
 
@@ -15997,7 +16224,15 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
 		[MyAuthorize("r", "SDCaseState", "SFSServiceDesk", typeof(SDCaseStatesController))]
         public ActionResult GetByKeyJson(string id, ContextRequest contextRequest,  bool dec = false)
         {
-            return Json(GetByKey(id, null, contextRequest, dec), JsonRequestBehavior.AllowGet);
+             if (this.IsRESTRequest == true && Request.QueryString["v"] == "2")
+            {
+                var result =  GetByKey(id, null, contextRequest, dec);
+                return ResolveApiResponse("success", null, null, result);
+            }
+            else
+            {
+               return  Json(GetByKey(id, null, contextRequest, dec), JsonRequestBehavior.AllowGet);
+            }
         }
 		public SDCaseStateModel GetByKey(string id) {
 			return GetByKey(id, null,null, false);
@@ -16565,6 +16800,10 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
                 {
                     if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
                     {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
                         return Content("ok");
                     }
                     else
@@ -16572,7 +16811,15 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
                         return ResolveApiResponse("success", null, null, null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
+
+					}
 				 
 				 if (e != null )
 					if (e.ActionResult != null)
@@ -16842,13 +17089,26 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
                 {
                     if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
                     {
+					if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
                         return Content("ok");
                     }
                     else
                     {
                          return ResolveApiResponse("success", null, null, null);
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
+
+					}
 				
 				if (e != null && e.ActionResult != null) replaceResult = true; 
 
@@ -18091,7 +18351,15 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistoryFiles"))
 		[MyAuthorize("r", "SDFile", "SFSServiceDesk", typeof(SDFilesController))]
         public ActionResult GetByKeyJson(string id, ContextRequest contextRequest,  bool dec = false)
         {
-            return Json(GetByKey(id, null, contextRequest, dec), JsonRequestBehavior.AllowGet);
+             if (this.IsRESTRequest == true && Request.QueryString["v"] == "2")
+            {
+                var result =  GetByKey(id, null, contextRequest, dec);
+                return ResolveApiResponse("success", null, null, result);
+            }
+            else
+            {
+               return  Json(GetByKey(id, null, contextRequest, dec), JsonRequestBehavior.AllowGet);
+            }
         }
 		public SDFileModel GetByKey(string id) {
 			return GetByKey(id, null,null, false);
@@ -18659,6 +18927,10 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistoryFiles"))
                 {
                     if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
                     {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
                         return Content("ok");
                     }
                     else
@@ -18666,7 +18938,15 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistoryFiles"))
                         return ResolveApiResponse("success", null, null, null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
+
+					}
 				 
 				 if (e != null )
 					if (e.ActionResult != null)
@@ -18936,13 +19216,26 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistoryFiles"))
                 {
                     if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
                     {
+					if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
                         return Content("ok");
                     }
                     else
                     {
                          return ResolveApiResponse("success", null, null, null);
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
+
+					}
 				
 				if (e != null && e.ActionResult != null) replaceResult = true; 
 
@@ -20053,7 +20346,15 @@ if (visibleProperty || specificProperties.Contains("SDPersons"))
 		[MyAuthorize("r", "SDOrganization", "SFSServiceDesk", typeof(SDOrganizationsController))]
         public ActionResult GetByKeyJson(string id, ContextRequest contextRequest,  bool dec = false)
         {
-            return Json(GetByKey(id, null, contextRequest, dec), JsonRequestBehavior.AllowGet);
+             if (this.IsRESTRequest == true && Request.QueryString["v"] == "2")
+            {
+                var result =  GetByKey(id, null, contextRequest, dec);
+                return ResolveApiResponse("success", null, null, result);
+            }
+            else
+            {
+               return  Json(GetByKey(id, null, contextRequest, dec), JsonRequestBehavior.AllowGet);
+            }
         }
 		public SDOrganizationModel GetByKey(string id) {
 			return GetByKey(id, null,null, false);
@@ -20621,6 +20922,10 @@ if (visibleProperty || specificProperties.Contains("SDPersons"))
                 {
                     if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
                     {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
                         return Content("ok");
                     }
                     else
@@ -20628,7 +20933,15 @@ if (visibleProperty || specificProperties.Contains("SDPersons"))
                         return ResolveApiResponse("success", null, null, null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
+
+					}
 				 
 				 if (e != null )
 					if (e.ActionResult != null)
@@ -20898,13 +21211,26 @@ if (visibleProperty || specificProperties.Contains("SDPersons"))
                 {
                     if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
                     {
+					if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
                         return Content("ok");
                     }
                     else
                     {
                          return ResolveApiResponse("success", null, null, null);
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
+
+					}
 				
 				if (e != null && e.ActionResult != null) replaceResult = true; 
 
@@ -22183,7 +22509,15 @@ if (visibleProperty || specificProperties.Contains("SDProxyUser"))
 		[MyAuthorize("r", "SDPerson", "SFSServiceDesk", typeof(SDPersonsController))]
         public ActionResult GetByKeyJson(string id, ContextRequest contextRequest,  bool dec = false)
         {
-            return Json(GetByKey(id, null, contextRequest, dec), JsonRequestBehavior.AllowGet);
+             if (this.IsRESTRequest == true && Request.QueryString["v"] == "2")
+            {
+                var result =  GetByKey(id, null, contextRequest, dec);
+                return ResolveApiResponse("success", null, null, result);
+            }
+            else
+            {
+               return  Json(GetByKey(id, null, contextRequest, dec), JsonRequestBehavior.AllowGet);
+            }
         }
 		public SDPersonModel GetByKey(string id) {
 			return GetByKey(id, null,null, false);
@@ -22859,6 +23193,10 @@ if (visibleProperty || specificProperties.Contains("SDProxyUser"))
                 {
                     if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
                     {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
                         return Content("ok");
                     }
                     else
@@ -22866,7 +23204,15 @@ if (visibleProperty || specificProperties.Contains("SDProxyUser"))
                         return ResolveApiResponse("success", null, null, null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
+
+					}
 				 
 				 if (e != null )
 					if (e.ActionResult != null)
@@ -23136,13 +23482,26 @@ if (visibleProperty || specificProperties.Contains("SDProxyUser"))
                 {
                     if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
                     {
+					if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
                         return Content("ok");
                     }
                     else
                     {
                          return ResolveApiResponse("success", null, null, null);
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
+
+					}
 				
 				if (e != null && e.ActionResult != null) replaceResult = true; 
 
@@ -24071,7 +24430,15 @@ if (visibleProperty || specificProperties.Contains("SDPersons"))
 		[MyAuthorize("r", "SDProxyUser", "SFSServiceDesk", typeof(SDProxyUsersController))]
         public ActionResult GetByKeyJson(string id, ContextRequest contextRequest,  bool dec = false)
         {
-            return Json(GetByKey(id, null, contextRequest, dec), JsonRequestBehavior.AllowGet);
+             if (this.IsRESTRequest == true && Request.QueryString["v"] == "2")
+            {
+                var result =  GetByKey(id, null, contextRequest, dec);
+                return ResolveApiResponse("success", null, null, result);
+            }
+            else
+            {
+               return  Json(GetByKey(id, null, contextRequest, dec), JsonRequestBehavior.AllowGet);
+            }
         }
 		public SDProxyUserModel GetByKey(string id) {
 			return GetByKey(id, null,null, false);
@@ -24625,6 +24992,10 @@ if (visibleProperty || specificProperties.Contains("SDPersons"))
                 {
                     if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
                     {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
                         return Content("ok");
                     }
                     else
@@ -24632,7 +25003,15 @@ if (visibleProperty || specificProperties.Contains("SDPersons"))
                         return ResolveApiResponse("success", null, null, null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
+
+					}
 				 
 				 if (e != null )
 					if (e.ActionResult != null)
@@ -24902,13 +25281,26 @@ if (visibleProperty || specificProperties.Contains("SDPersons"))
                 {
                     if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
                     {
+					if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
                         return Content("ok");
                     }
                     else
                     {
                          return ResolveApiResponse("success", null, null, null);
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json("ok", JsonRequestBehavior.AllowGet);
+                        }
+                        return Content("ok");
+
+					}
 				
 				if (e != null && e.ActionResult != null) replaceResult = true; 
 
