@@ -24,12 +24,10 @@
         <AssociationConnector Association="SFSServiceDeskModel.fk_SdCase_SdCaseState" />
         <AssociationConnector Association="SFSServiceDeskModel.fk_SdCaseFile_SdCase" />
         <AssociationConnector Association="SFSServiceDeskModel.fk_SdCaseHistory_SdCase" ManuallyRouted="true" >
-          <ConnectorPoint PointX="7" PointY="2.4687500000000013" />
-          <ConnectorPoint PointX="7.875" PointY="2.4687500000000013" />
-          <ConnectorPoint PointX="7.875" PointY="2.46875" />
-          <ConnectorPoint PointX="8.5729166666666661" PointY="2.4687499999999996" />
-          <ConnectorPoint PointX="8.7395833333333339" PointY="2.46875" />
-          <ConnectorPoint PointX="8.75" PointY="2.46875" />
+          <ConnectorPoint PointX="7" PointY="5.6148079427083326" />
+          <ConnectorPoint PointX="7.875" PointY="67.641109212239627" />
+          <ConnectorPoint PointX="7.875" PointY="46.863784179687492" />
+          <ConnectorPoint PointX="8.75" PointY="4.90330078125" />
         </AssociationConnector>
         <AssociationConnector Association="SFSServiceDeskModel.fk_SdCaseFile_SdFile" />
         <AssociationConnector Association="SFSServiceDeskModel.fk_SdCaseHistory_SdCaseStatus" />

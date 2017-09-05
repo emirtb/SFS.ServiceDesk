@@ -305,8 +305,8 @@ public class SinglentonContext
 				string fkIncludes = "SDArea2,SDOrganization";
                 List<string> multilangProperties = new List<string>();
 				if (predicate == null) predicate = PredicateBuilder.True<SDArea>();
-				string isDeletedField = null;
-				Expression<Func<SDArea,bool>> notDeletedExpression = null;
+                var notDeletedExpression = predicate.And(p => p.IsDeleted != true || p.IsDeleted ==null );
+				string isDeletedField = "IsDeleted";
 	
 					bool sharedAndMultiTenant = false;
 					Expression<Func<SDArea,bool>> multitenantExpression  = null;
@@ -370,6 +370,7 @@ public class SinglentonContext
                             query = query.Include(include);
                     }
                 }
+                    predicate = predicate.And(p => p.IsDeleted != true || p.IsDeleted ==null );
 					 	if (!preventSecurityRestrictions)
 						{
 							if (contextRequest != null )
@@ -458,8 +459,8 @@ public class SinglentonContext
 				string fkIncludes = "SDArea2,SDOrganization";
                 List<string> multilangProperties = new List<string>();
 				//if (predicate == null) predicate = PredicateBuilder.True<SDArea>();
-				string isDeletedField = null;
-				string notDeletedExpression = null;
+                var notDeletedExpression = "(IsDeleted != true OR IsDeleted = null)";
+				string isDeletedField = "IsDeleted";
 	
 					bool sharedAndMultiTenant = false;	  
 					string multitenantExpression = null;
@@ -563,6 +564,15 @@ public class SinglentonContext
 					includes ="";
 				}
 				StringBuilder sbQuerySystem = new StringBuilder();
+                    //predicate = predicate.And(p => p.IsDeleted != true || p.IsDeleted ==null );
+				
+
+				//if (!string.IsNullOrEmpty(predicateString))
+                //      sbQuerySystem.Append(" And ");
+                //sbQuerySystem.Append(" (IsDeleted != true Or IsDeleted = null) ");
+				 filter.SetFilterPart("de", "(IsDeleted != true OR IsDeleted = null)");
+
+
 					if (!preventSecurityRestrictions)
 						{
 						if (contextRequest != null )
@@ -664,8 +674,8 @@ public class SinglentonContext
                 string computedFields = "";
                // string fkIncludes = "accContpaqiClassification,accProjectConcept,accProjectType,accProxyUser";
                 List<string> multilangProperties = new List<string>();
-				string isDeletedField = null;
-				string notDeletedExpression = null;
+                var notDeletedExpression = "(IsDeleted != true OR IsDeleted = null)";
+				string isDeletedField = "IsDeleted";
 	
 					bool sharedAndMultiTenant = false;	  
 					string multitenantExpression = null;
@@ -6500,7 +6510,7 @@ public class SinglentonContext
 		{
             using (EFContext con = new EFContext()) {
 				
-				string fkIncludes = "SDCase,SDFile";
+				string fkIncludes = "SDCase";
                 List<string> multilangProperties = new List<string>();
 				if (predicate == null) predicate = PredicateBuilder.True<SDCaseFile>();
                 var notDeletedExpression = predicate.And(p => p.IsDeleted != true || p.IsDeleted ==null );
@@ -6541,7 +6551,7 @@ public class SinglentonContext
                 con.Configuration.ValidateOnSaveEnabled = false;
 
                 if (predicate == null) predicate = PredicateBuilder.True<SDCaseFile>();
- 				string fkIncludes = "SDCase,SDFile";
+ 				string fkIncludes = "SDCase";
                 if(contextRequest!=null){
 					if (contextRequest.CustomQuery != null)
 					{
@@ -6653,8 +6663,8 @@ public class SinglentonContext
 				
 
 
-				string computedFields = "";
-				string fkIncludes = "SDCase,SDFile";
+				string computedFields = "ExistFile|FileName|FileStorage";
+				string fkIncludes = "SDCase";
                 List<string> multilangProperties = new List<string>();
 				//if (predicate == null) predicate = PredicateBuilder.True<SDCaseFile>();
                 var notDeletedExpression = "(IsDeleted != true OR IsDeleted = null)";
@@ -6735,7 +6745,7 @@ public class SinglentonContext
                 con.Configuration.ValidateOnSaveEnabled = false;
 
                 //if (predicate == null) predicate = PredicateBuilder.True<SDCaseFile>();
- 				string fkIncludes = "SDCase,SDFile";
+ 				string fkIncludes = "SDCase";
                 if(contextRequest!=null){
 					if (contextRequest.CustomQuery != null)
 					{
@@ -6787,9 +6797,9 @@ public class SinglentonContext
 						if (preventSecurityRestrictions) preventSecurityRestrictions= false;
 				//string predicateString = predicate.ToDynamicLinq<SDCaseFile>();
 				//predicateString += sbQuerySystem.ToString();
-				filter.CleanAndProcess("");
+				filter.CleanAndProcess("ExistFile|FileName|FileStorage");
 
-				string predicateWithFKAndComputed = filter.GetFilterParentAndCoumputed(); //SFSdotNet.Framework.Linq.Utils.ExtractSpecificProperties("", ref predicateString );               
+				string predicateWithFKAndComputed = filter.GetFilterParentAndCoumputed(); //SFSdotNet.Framework.Linq.Utils.ExtractSpecificProperties("ExistFile|FileName|FileStorage", ref predicateString );               
                 string predicateWithManyRelations = filter.GetFilterChildren(); //SFSdotNet.Framework.Linq.Utils.CleanPartExpression(predicateString);
 
                 //QueryUtils.BreakeQuery1(predicateString, ref predicateWithManyRelations, ref predicateWithFKAndComputed);
@@ -6869,7 +6879,7 @@ public class SinglentonContext
         {
             using (EFContext con = new EFContext(contextRequest))
             {
-                string computedFields = "";
+                string computedFields = "ExistFile|FileName|FileStorage";
                // string fkIncludes = "accContpaqiClassification,accProjectConcept,accProjectType,accProxyUser";
                 List<string> multilangProperties = new List<string>();
                 var notDeletedExpression = "(IsDeleted != true OR IsDeleted = null)";
@@ -6934,6 +6944,12 @@ public class SinglentonContext
 
 				if (isFullDetails || !string.IsNullOrEmpty(predicate))
             {
+                if (isFullDetails || filterForTest.Contains("ExistFile"))
+                    contextRequest.CustomQuery.SpecificProperties.Add("ExistFile");
+                if (isFullDetails || filterForTest.Contains("FileName"))
+                    contextRequest.CustomQuery.SpecificProperties.Add("FileName");
+                if (isFullDetails || filterForTest.Contains("FileStorage"))
+                    contextRequest.CustomQuery.SpecificProperties.Add("FileStorage");
             } 
 
 			if (method == "sum")
@@ -6943,10 +6959,19 @@ public class SinglentonContext
             {
 				foreach (var selected in contextRequest.CustomQuery.SpecificProperties)
                 {
+			if (selected != "UrlFile" && selected != "UrlThumbFile"){
 					string linq = selected;
 					switch (selected)
                     {
 
+					case "ExistFile":
+
+					case "FileName":
+
+					case "FileStorage":
+
+					linq =  null;
+				break;
 					case "SDCase":
 					if (includesList.Contains(selected)){
                         linq = "it.SDCase as SDCase";
@@ -6967,6 +6992,7 @@ public class SinglentonContext
                             break;
                     }
 					contextRequest.CustomQuery.SelectedFields.Add(new SelectedField() { Name=selected, Linq=linq});
+			}
 					if (method == "getby" || method == "sum")
 					{
 						if (includesList.Contains(selected))
@@ -7088,7 +7114,25 @@ public class SinglentonContext
 					
 	
 					
-								
+	
+					
+				if (contextRequest.CustomQuery.SpecificProperties.Contains("FileName")) {	
+					
+									
+					sbSpec.Append(string.Format(@"FileName.Contains(""{0}"")", word));
+					}
+
+					
+				if (contextRequest.CustomQuery.SpecificProperties.Contains("FileStorage")) {	
+										sbSpec.Append(" OR ");
+					
+									
+					sbSpec.Append(string.Format(@"FileStorage.Contains(""{0}"")", word));
+					}
+
+					
+								sbSpec.Append(" OR ");
+					
 					//if (sbSpec.Length > 2)
 					//	sbSpec.Append(" OR "); // test
 					sbSpec.Append(string.Format(@"it.SDCase.BodyContent.Contains(""{0}"")", word)+" OR "+string.Format(@"it.SDFile.FileName.Contains(""{0}"")", word));
@@ -7272,6 +7316,29 @@ public class SinglentonContext
         public SDCaseFile Create(SDCaseFile entity, ContextRequest contextRequest)
         {
 		
+		 if (!string.IsNullOrEmpty(entity.files_SDFile) && entity.files_SDFile.Length > 0)
+            {
+                List<SDCaseFile> entityFiles = new List<SDCaseFile>();
+                foreach (var idFile in entity.files_SDFile.Split(char.Parse(",")))
+                {
+                    Guid guidFile = Guid.Parse(idFile);
+
+                    SDCaseFile entityNew = new SDCaseFile();
+                    entityNew  = (SDCaseFile)SFSdotNet.Framework.BR.Utils.GetConverted(entityNew, entity);
+                    entityNew.files_SDFile = null;
+
+                    entityNew.GuidCasefile = SFSdotNet.Framework.Utilities.UUID.NewSequential();
+                   
+ 
+					entityNew.SDFile = new SDFile() { GuidFile = guidFile };
+                    entityFiles.Add(entityNew);
+                }
+
+                Create(entityFiles, contextRequest);
+                return entity;
+            }
+
+
 		bool graph = false;
 	
 				bool preventPartial = false;
@@ -7776,7 +7843,7 @@ public class SinglentonContext
 						}
 					}
 
-	string includes = "SDCase,SDFile";
+	string includes = "SDCase";
 	IQueryable < SDCaseFile > query = con.SDCaseFiles.AsQueryable();
 	foreach (string include in includes.Split(char.Parse(",")))
                        {
@@ -7784,6 +7851,8 @@ public class SinglentonContext
                                query = query.Include(include);
                        }
 	var oldentity = query.FirstOrDefault(p => p.GuidCasefile == entity.GuidCasefile);
+		if (oldentity.GuidFile != entity.GuidFile)
+			oldentity.GuidFile = entity.GuidFile;
 
 				//if (entity.UpdatedDate == null || (contextRequest != null && contextRequest.IsFromUI("SDCaseFiles", UIActions.Updating)))
 			oldentity.UpdatedDate = DateTime.Now.ToUniversalTime();
@@ -8054,8 +8123,8 @@ public class SinglentonContext
         public int GetCount(string predicate, string usemode, ContextRequest contextRequest){
 
 		using (EFContext con = new EFContext()) {
-				string computedFields = "";
-				string fkIncludes = "SDCase,SDFile";
+				string computedFields = "ExistFile|FileName|FileStorage";
+				string fkIncludes = "SDCase";
                 List<string> multilangProperties = new List<string>();
 				//if (predicate == null) predicate = PredicateBuilder.True<SDCaseFile>();
                 var notDeletedExpression = "(IsDeleted != true OR IsDeleted = null)";
@@ -8144,17 +8213,44 @@ public class SinglentonContext
 							if (preventSecurityRestrictions) preventSecurityRestrictions= false;
 		
 				   
-                 filter.CleanAndProcess("");
-				//string predicateWithFKAndComputed = SFSdotNet.Framework.Linq.Utils.ExtractSpecificProperties("", ref predicate );               
+                 filter.CleanAndProcess("ExistFile|FileName|FileStorage");
+				//string predicateWithFKAndComputed = SFSdotNet.Framework.Linq.Utils.ExtractSpecificProperties("ExistFile|FileName|FileStorage", ref predicate );               
 				string predicateWithFKAndComputed = filter.GetFilterParentAndCoumputed();
                string predicateWithManyRelations = filter.GetFilterChildren();
 			   ///QueryUtils.BreakeQuery1(predicate, ref predicateWithManyRelations, ref predicateWithFKAndComputed);
 			   predicate = filter.GetFilterComplete();
                if (!string.IsNullOrEmpty(predicate))
                {
-				
+			
+ 				var query = con.SDCaseFiles.AsQueryable();
+                    var _queryable = query.AsQueryable();
+                   if (!string.IsNullOrEmpty(predicateWithManyRelations))
+					 	_queryable = _queryable.Where(predicateWithManyRelations);
+
+
+
+
+				StringBuilder sbSelect = new StringBuilder();
+                sbSelect.Append("new (");
+                bool existPrev = false;
+                foreach (var selected in contextRequest.CustomQuery.SelectedFields.Where(p=> !string.IsNullOrEmpty(p.Linq)))
+                {
+                    if (existPrev) sbSelect.Append(", ");
+                    if (!selected.Linq.Contains(".") && !selected.Linq.StartsWith("it.") && !selected.PreventPrefix)
+                        sbSelect.Append("it." + selected.Linq);
+                    else
+                        sbSelect.Append(selected.Linq);
+                    existPrev = true;
+                }
+                sbSelect.Append(")");
+                var queryable = _queryable.Select(sbSelect.ToString());   
+
+					if (!string.IsNullOrEmpty(predicateWithFKAndComputed))
+                        queryable = queryable.Where(predicateWithFKAndComputed);
+
 					
-                    return con.SDCaseFiles.Where(predicate).Count();
+                    return queryable.Count();
+			
 					
                 }else
                     return con.SDCaseFiles.Count();
@@ -16714,7 +16810,6 @@ public class SinglentonContext
 					if (includesList.Contains(SDFile.PropertyNames.FileData))
 					    contextRequest.CustomQuery.SpecificProperties.Add(SDFile.PropertyNames.FileData);
 					
-					contextRequest.CustomQuery.SpecificProperties.Add(SDFile.PropertyNames.StorageLocation);
 					contextRequest.CustomQuery.SpecificProperties.Add(SDFile.PropertyNames.GuidCompany);
 					contextRequest.CustomQuery.SpecificProperties.Add(SDFile.PropertyNames.CreatedDate);
 					contextRequest.CustomQuery.SpecificProperties.Add(SDFile.PropertyNames.UpdatedDate);
@@ -16722,6 +16817,7 @@ public class SinglentonContext
 					contextRequest.CustomQuery.SpecificProperties.Add(SDFile.PropertyNames.UpdatedBy);
 					contextRequest.CustomQuery.SpecificProperties.Add(SDFile.PropertyNames.Bytes);
 					contextRequest.CustomQuery.SpecificProperties.Add(SDFile.PropertyNames.IsDeleted);
+					contextRequest.CustomQuery.SpecificProperties.Add(SDFile.PropertyNames.FileStorage);
                     
 				}
 
@@ -16886,27 +16982,27 @@ public class SinglentonContext
 					
 	
 					
+	
+					
+	
+					
+	
+					
+	
+					
+	
+					
+	
+					
+	
+					
 					
 										sbSpec.Append(" OR ");
 					
 									
-					sbSpec.Append(string.Format(@"StorageLocation.Contains(""{0}"")", word));
+					sbSpec.Append(string.Format(@"FileStorage.Contains(""{0}"")", word));
 					
 
-					
-	
-					
-	
-					
-	
-					
-	
-					
-	
-					
-	
-					
-	
 					
 								 //sbSpec.Append("*extraFreeText*");
 
@@ -17150,8 +17246,6 @@ public class SinglentonContext
 
 			itemForSave.FileData = entity.FileData;
 
-			itemForSave.StorageLocation = entity.StorageLocation;
-
 			itemForSave.GuidCompany = entity.GuidCompany;
 
 			itemForSave.CreatedDate = entity.CreatedDate;
@@ -17165,6 +17259,8 @@ public class SinglentonContext
 			itemForSave.Bytes = entity.Bytes;
 
 			itemForSave.IsDeleted = entity.IsDeleted;
+
+			itemForSave.FileStorage = entity.FileStorage;
 
 				
 				con.SDFiles.Add(itemForSave);
@@ -17294,8 +17390,6 @@ public class SinglentonContext
 
 			//entity.FileData = entity.FileData;
 
-			//entity.StorageLocation = entity.StorageLocation;
-
 			//entity.GuidCompany = entity.GuidCompany;
 
 			//entity.CreatedDate = entity.CreatedDate;
@@ -17309,6 +17403,8 @@ public class SinglentonContext
 			//entity.Bytes = entity.Bytes;
 
 			//entity.IsDeleted = entity.IsDeleted;
+
+			//entity.FileStorage = entity.FileStorage;
 
 				
 				
@@ -17570,8 +17666,8 @@ public class SinglentonContext
 		oldentity.FileSize = entity.FileSize;
 	if (oldentity.FileData != entity.FileData)
 		oldentity.FileData = entity.FileData;
-	if (oldentity.StorageLocation != entity.StorageLocation)
-		oldentity.StorageLocation = entity.StorageLocation;
+	if (oldentity.FileStorage != entity.FileStorage)
+		oldentity.FileStorage = entity.FileStorage;
 
 				//if (entity.UpdatedDate == null || (contextRequest != null && contextRequest.IsFromUI("SDFiles", UIActions.Updating)))
 			oldentity.UpdatedDate = DateTime.Now.ToUniversalTime();

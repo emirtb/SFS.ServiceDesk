@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SfsModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Entities>
+    <Entity Name="SDCaseFile" SetName="SDCaseFiles" IsUIVisible="false" GenerateCRUD="true" IsForLocalization="false" IsCustom="false" IsView="false" DefaultProperty="Bytes">
+      <EntityKeys>
+        <EntityKey PropertyName="GuidCasefile" IsCustom="false" />
+      </EntityKeys>
+      <Properties>
+        <Property Name="SDFile" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="OnDemand" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDFile" MaxLength="0" IsPrimaryKey="false" IsForeignKey="true" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false">
+          <CustomProperties>
+            <CustomProperty Name="UILookUp" Value="true"/>
+            <CustomProperty Name="IsImage" Value="true"/>
+            <CustomProperty Name="IsUniqueFile" Value="true"/>
+            <CustomProperty Name="ExistFileField" Value="ExistFile"/>
+            <CustomProperty Name="IdentifierFileField" Value="GuidFile"/>
+          </CustomProperties>
+        </Property>
+        <Property Name="UrlFile" IsCustom="true" Nullable="false" Type="String">
+        </Property>
+        <Property Name="UrlThumbFile" IsCustom="true" Nullable="false" Type="String">
+        </Property>
+        <Property Name="ExistFile" IsCustom="true" Nullable="false" Type="Boolean">
+          <CustomProperties>
+            <CustomProperty Name="ComputedLinq" Value="true"/>
+           
+          </CustomProperties>
+
+        </Property>
+        
+        <Property Name="FileName" IsSearchable="false"  IsCustom="true" Nullable="true" Type="String">
+          <CustomProperties>
+            <CustomProperty Name="ComputedLinq" Value="true"/>
+          
+          </CustomProperties>
+
+        </Property>
+        <Property Name="FileStorage" IsSearchable="false"  IsCustom="true" Nullable="true" Type="String">
+          <CustomProperties>
+            <CustomProperty Name="ComputedLinq" Value="true"/>
+
+          </CustomProperties>
+
+        </Property>
+      </Properties>
+     
+    </Entity>
+    
+  </Entities> 
+ 
+</SfsModel>

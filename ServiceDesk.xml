@@ -24,6 +24,27 @@
         <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
         <Cm>Relación con organización</Cm>
       </Cl>
+      <Cl au="0" df="" nm="GuidCompany" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="CreatedDate" nu="1">
+        <DT arr="0" ds="DateTime" en="" id="700" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="UpdatedDate" nu="1">
+        <DT arr="0" ds="DateTime" en="" id="700" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="CreatedBy" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="UpdatedBy" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="Bytes" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="false" nm="IsDeleted" nu="1">
+        <DT arr="0" ds="Bit" en="" id="-7" ln="1" sc="null" sg="1" un="0"/>
+      </Cl>
       <Fk deAc="3" nm="fk_Area_Parent" prLkCl="GuidArea" upAc="3">
         <PrTb mn="0" nm="SDArea" oe="1" sch="SD" zr="1"/>
         <CdTb mn="1" nm="SDArea" oe="0" sch="SD" zr="1"/>
@@ -52,6 +73,27 @@
       <Cl au="0" df="" nm="GuidPerson" nu="1">
         <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
         <Cm>Relación con Persona</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="GuidCompany" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="CreatedDate" nu="1">
+        <DT arr="0" ds="DateTime" en="" id="700" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="UpdatedDate" nu="1">
+        <DT arr="0" ds="DateTime" en="" id="700" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="CreatedBy" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="UpdatedBy" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="Bytes" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="false" nm="IsDeleted" nu="1">
+        <DT arr="0" ds="Bit" en="" id="-7" ln="1" sc="null" sg="1" un="0"/>
       </Cl>
       <Fk deAc="3" nm="fk_SdAreaPerson_SdArea" prLkCl="GuidArea" upAc="3">
         <PrTb mn="0" nm="SDArea" oe="1" sch="SD" zr="1"/>
@@ -102,6 +144,27 @@
         <DT arr="0" ds="VarChar" en="" id="12" ln="255" sc="null" sg="1" un="0"/>
         <Cm>Título o descripción corta del caso</Cm>
       </Cl>
+      <Cl au="0" df="" nm="GuidCompany" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="CreatedDate" nu="1">
+        <DT arr="0" ds="DateTime" en="" id="700" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="UpdatedDate" nu="1">
+        <DT arr="0" ds="DateTime" en="" id="700" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="CreatedBy" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="UpdatedBy" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="Bytes" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="false" nm="IsDeleted" nu="1">
+        <DT arr="0" ds="Bit" en="" id="-7" ln="1" sc="null" sg="1" un="0"/>
+      </Cl>
       <Fk deAc="3" nm="fk_Case_Person_Client" prLkCl="GuidPerson" upAc="3">
         <PrTb mn="0" nm="SDPerson" oe="1" sch="SD" zr="1"/>
         <CdTb mn="1" nm="SDCase" oe="0" sch="SD" zr="1"/>
@@ -131,6 +194,27 @@
       </Cl>
       <Cl au="0" df="" nm="GuidFile" nu="1">
         <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="GuidCompany" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="CreatedDate" nu="1">
+        <DT arr="0" ds="DateTime" en="" id="700" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="UpdatedDate" nu="1">
+        <DT arr="0" ds="DateTime" en="" id="700" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="CreatedBy" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="UpdatedBy" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="Bytes" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="false" nm="IsDeleted" nu="1">
+        <DT arr="0" ds="Bit" en="" id="-7" ln="1" sc="null" sg="1" un="0"/>
       </Cl>
       <Fk deAc="3" nm="fk_SdCaseFile_SdCase" prLkCl="GuidCase" upAc="3">
         <PrTb mn="0" nm="SDCase" oe="1" sch="SD" zr="1"/>
@@ -169,6 +253,27 @@
         <DT arr="0" ds="VarChar" en="" id="12" ln="3000" sc="null" sg="1" un="0"/>
         <Cm>Contenido previo o cortado o abreviado del caso, todo texto plano</Cm>
       </Cl>
+      <Cl au="0" df="" nm="GuidCompany" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="CreatedDate" nu="1">
+        <DT arr="0" ds="DateTime" en="" id="700" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="UpdatedDate" nu="1">
+        <DT arr="0" ds="DateTime" en="" id="700" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="CreatedBy" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="UpdatedBy" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="Bytes" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="false" nm="IsDeleted" nu="1">
+        <DT arr="0" ds="Bit" en="" id="-7" ln="1" sc="null" sg="1" un="0"/>
+      </Cl>
       <Fk deAc="3" nm="fk_SdCaseHistory_SdCase" prLkCl="GuidCase" upAc="3">
         <PrTb mn="0" nm="SDCase" oe="1" sch="SD" zr="0"/>
         <CdTb mn="1" nm="SDCaseHistory" oe="0" sch="SD" zr="1"/>
@@ -198,6 +303,27 @@
         <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
         <Cm>Relación con historia de caso</Cm>
       </Cl>
+      <Cl au="0" df="" nm="GuidCompany" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="CreatedDate" nu="1">
+        <DT arr="0" ds="DateTime" en="" id="700" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="UpdatedDate" nu="1">
+        <DT arr="0" ds="DateTime" en="" id="700" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="CreatedBy" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="UpdatedBy" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="Bytes" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="false" nm="IsDeleted" nu="1">
+        <DT arr="0" ds="Bit" en="" id="-7" ln="1" sc="null" sg="1" un="0"/>
+      </Cl>
       <Fk deAc="3" nm="fk_SdCaseHistoryFile_SdCaseHistory" prLkCl="GuidCaseHistory" upAc="3">
         <PrTb mn="0" nm="SDCaseHistory" oe="1" sch="SD" zr="1"/>
         <CdTb mn="1" nm="SDCaseHistoryFile" oe="0" sch="SD" zr="1"/>
@@ -223,6 +349,27 @@
         <DT arr="0" ds="VarChar" en="" id="12" ln="255" sc="null" sg="1" un="0"/>
         <Cm>Título de la prioridad</Cm>
       </Cl>
+      <Cl au="0" df="" nm="GuidCompany" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="CreatedDate" nu="1">
+        <DT arr="0" ds="DateTime" en="" id="700" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="UpdatedDate" nu="1">
+        <DT arr="0" ds="DateTime" en="" id="700" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="CreatedBy" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="UpdatedBy" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="Bytes" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="false" nm="IsDeleted" nu="1">
+        <DT arr="0" ds="Bit" en="" id="-7" ln="1" sc="null" sg="1" un="0"/>
+      </Cl>
       <UniqueConstraints/>
       <SchTrHis/>
     </Tbl>
@@ -237,6 +384,27 @@
       <Cl au="0" df="" nm="Title" nu="0">
         <DT arr="0" ds="VarChar" en="" id="12" ln="255" sc="null" sg="1" un="0"/>
         <Cm>Título del estado</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="GuidCompany" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="CreatedDate" nu="1">
+        <DT arr="0" ds="DateTime" en="" id="700" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="UpdatedDate" nu="1">
+        <DT arr="0" ds="DateTime" en="" id="700" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="CreatedBy" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="UpdatedBy" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="Bytes" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="false" nm="IsDeleted" nu="1">
+        <DT arr="0" ds="Bit" en="" id="-7" ln="1" sc="null" sg="1" un="0"/>
       </Cl>
       <UniqueConstraints/>
       <SchTrHis/>
@@ -259,8 +427,32 @@
       <Cl au="0" df="" nm="FileData" nu="1">
         <DT arr="0" ds="VarBinary(MAX)" en="" id="730" ln="null" sc="null" sg="1" un="0"/>
       </Cl>
+      <Cl au="0" df="" nm="FileStorage" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="255" sc="null" sg="1" un="0"/>
+      </Cl>
       <Cl au="0" df="" nm="StorageLocation" nu="1">
         <DT arr="0" ds="VarChar" en="" id="12" ln="255" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="GuidCompany" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="CreatedDate" nu="1">
+        <DT arr="0" ds="DateTime" en="" id="700" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="UpdatedDate" nu="1">
+        <DT arr="0" ds="DateTime" en="" id="700" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="CreatedBy" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="UpdatedBy" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="Bytes" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="false" nm="IsDeleted" nu="1">
+        <DT arr="0" ds="Bit" en="" id="-7" ln="1" sc="null" sg="1" un="0"/>
       </Cl>
       <UniqueConstraints/>
       <SchTrHis/>
@@ -273,6 +465,27 @@
       </Cl>
       <Cl au="0" df="" nm="FullName" nu="0">
         <DT arr="0" ds="VarChar" en="" id="12" ln="255" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="GuidCompany" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="CreatedDate" nu="1">
+        <DT arr="0" ds="DateTime" en="" id="700" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="UpdatedDate" nu="1">
+        <DT arr="0" ds="DateTime" en="" id="700" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="CreatedBy" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="UpdatedBy" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="Bytes" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="false" nm="IsDeleted" nu="1">
+        <DT arr="0" ds="Bit" en="" id="-7" ln="1" sc="null" sg="1" un="0"/>
       </Cl>
       <UniqueConstraints/>
       <SchTrHis/>
@@ -296,6 +509,27 @@
       <Cl au="0" df="" nm="GuidOrganization" nu="1">
         <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
         <Cm>Relación con organización</Cm>
+      </Cl>
+      <Cl au="0" df="" nm="GuidCompany" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="CreatedDate" nu="1">
+        <DT arr="0" ds="DateTime" en="" id="700" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="UpdatedDate" nu="1">
+        <DT arr="0" ds="DateTime" en="" id="700" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="CreatedBy" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="UpdatedBy" nu="1">
+        <DT arr="0" ds="UniqueID" en="" id="704" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="" nm="Bytes" nu="1">
+        <DT arr="0" ds="Integer" en="" id="4" ln="null" sc="null" sg="1" un="0"/>
+      </Cl>
+      <Cl au="0" df="false" nm="IsDeleted" nu="1">
+        <DT arr="0" ds="Bit" en="" id="-7" ln="1" sc="null" sg="1" un="0"/>
       </Cl>
       <Fk deAc="3" nm="fk_SdPerson_SdOrganization" prLkCl="GuidOrganization" upAc="3">
         <PrTb mn="0" nm="SDOrganization" oe="1" sch="SD" zr="1"/>
@@ -370,23 +604,22 @@
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="SOUTH" nm="SD.SDArea.fk_SdArea_SdOrganization" parentEdge="NORTH" positioner="OneLineUserLinkPositioner">
       <positionableLines>
-        <positionableLine lineRole="SINGLE_LINE" x1="481" x2="481" y1="550" y2="522"/>
+        <positionableLine lineRole="SINGLE_LINE" x1="481" x2="481" y1="550" y2="613"/>
       </positionableLines>
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="SOUTH" nm="SD.SDAreaPerson.fk_SdAreaPerson_SdArea" parentEdge="NORTH" positioner="OneLineUserLinkPositioner">
       <positionableLines>
-        <positionableLine lineRole="SINGLE_LINE" x1="399" x2="399" y1="443" y2="379"/>
+        <positionableLine lineRole="SINGLE_LINE" x1="399" x2="399" y1="443" y2="470"/>
       </positionableLines>
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="EAST" nm="SD.SDAreaPerson.fk_SdAreaPerson_SdPerson" parentEdge="WEST" positioner="OneLineUserLinkPositioner">
       <positionableLines>
-        <positionableLine lineRole="SINGLE_LINE" x1="650" x2="569" y1="360" y2="360"/>
+        <positionableLine lineRole="SINGLE_LINE" x1="650" x2="571" y1="360" y2="360"/>
       </positionableLines>
     </FkGl>
-    <FkGl bkCl="ff000000" childEdge="SOUTH" nm="SD.SDCase.fk_Case_Person_Client" parentEdge="WEST" positioner="TwoLineUserLinkPositioner">
+    <FkGl bkCl="ff000000" childEdge="EAST" nm="SD.SDCase.fk_Case_Person_Client" parentEdge="WEST" positioner="OneLineUserLinkPositioner">
       <positionableLines>
-        <positionableLine lineRole="PARENT_LINE" x1="650" x2="605" y1="318" y2="318"/>
-        <positionableLine lineRole="CHILD_LINE" x1="601" x2="601" y1="269" y2="314"/>
+        <positionableLine lineRole="SINGLE_LINE" x1="650" x2="606" y1="316" y2="316"/>
       </positionableLines>
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="WEST" nm="SD.SDCase.fk_SdCase_SdCasePriority" parentEdge="EAST" positioner="ThreeLineUserLinkPositioner">
@@ -396,10 +629,9 @@
         <positionableLine lineRole="MIDDLE_LINE" x1="323" x2="323" y1="234" y2="397"/>
       </positionableLines>
     </FkGl>
-    <FkGl bkCl="ff000000" childEdge="SOUTH" nm="SD.SDCase.fk_SdCase_SdCaseState" parentEdge="EAST" positioner="TwoLineUserLinkPositioner">
+    <FkGl bkCl="ff000000" childEdge="WEST" nm="SD.SDCase.fk_SdCase_SdCaseState" parentEdge="EAST" positioner="OneLineUserLinkPositioner">
       <positionableLines>
-        <positionableLine lineRole="PARENT_LINE" x1="295" x2="342" y1="304" y2="304"/>
-        <positionableLine lineRole="CHILD_LINE" x1="346" x2="346" y1="269" y2="300"/>
+        <positionableLine lineRole="SINGLE_LINE" x1="295" x2="341" y1="303" y2="303"/>
       </positionableLines>
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="NORTH" nm="SD.SDCaseFile.fk_SdCaseFile_SdCase" parentEdge="EAST" positioner="TwoLineUserLinkPositioner">
@@ -410,7 +642,7 @@
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="NORTH" nm="SD.SDCaseFile.fk_SdCaseFile_SdFile" parentEdge="SOUTH" positioner="OneLineUserLinkPositioner">
       <positionableLines>
-        <positionableLine lineRole="SINGLE_LINE" x1="719" x2="719" y1="136" y2="205"/>
+        <positionableLine lineRole="SINGLE_LINE" x1="719" x2="719" y1="240" y2="205"/>
       </positionableLines>
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="EAST" nm="SD.SDCaseHistory.fk_SdCaseHistory_SdCase" parentEdge="WEST" positioner="OneLineUserLinkPositioner">
@@ -420,7 +652,7 @@
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="SOUTH" nm="SD.SDCaseHistory.fk_SdCaseHistory_SdCaseStatus" parentEdge="NORTH" positioner="OneLineUserLinkPositioner">
       <positionableLines>
-        <positionableLine lineRole="SINGLE_LINE" x1="175" x2="175" y1="284" y2="239"/>
+        <positionableLine lineRole="SINGLE_LINE" x1="175" x2="175" y1="284" y2="330"/>
       </positionableLines>
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="WEST" nm="SD.SDCaseHistoryFile.fk_SdCaseHistoryFile_SdCaseHistory" parentEdge="NORTH" positioner="TwoLineUserLinkPositioner">
@@ -431,7 +663,7 @@
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="EAST" nm="SD.SDCaseHistoryFile.fk_SdCaseHistoryFile_SdFile" parentEdge="WEST" positioner="OneLineUserLinkPositioner">
       <positionableLines>
-        <positionableLine lineRole="SINGLE_LINE" x1="656" x2="585" y1="46" y2="46"/>
+        <positionableLine lineRole="SINGLE_LINE" x1="656" x2="587" y1="46" y2="46"/>
       </positionableLines>
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="WEST" nm="SD.SDPerson.fk_SdPerson_SdOrganization" parentEdge="EAST" positioner="ThreeLineUserLinkPositioner">
@@ -443,7 +675,7 @@
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="SOUTH" nm="SD.SDPerson.fk_SdPerson_SdProxyUser" parentEdge="NORTH" positioner="OneLineUserLinkPositioner">
       <positionableLines>
-        <positionableLine lineRole="SINGLE_LINE" x1="688" x2="688" y1="440" y2="387"/>
+        <positionableLine lineRole="SINGLE_LINE" x1="688" x2="688" y1="440" y2="478"/>
       </positionableLines>
     </FkGl>
     <Notes/>
@@ -492,22 +724,20 @@
         <positionableLine lineRole="CHILD_LINE" x1="760" x2="760" y1="415" y2="110"/>
       </positionableLines>
     </FkGl>
-    <FkGl bkCl="ff000000" childEdge="WEST" nm="SD.SDAreaPerson.fk_SdAreaPerson_SdArea" parentEdge="SOUTH" positioner="TwoLineUserLinkPositioner">
+    <FkGl bkCl="ff000000" childEdge="WEST" nm="SD.SDAreaPerson.fk_SdAreaPerson_SdArea" parentEdge="EAST" positioner="OneLineUserLinkPositioner">
       <positionableLines>
-        <positionableLine lineRole="PARENT_LINE" x1="708" x2="708" y1="494" y2="528"/>
-        <positionableLine lineRole="CHILD_LINE" x1="815" x2="712" y1="532" y2="532"/>
+        <positionableLine lineRole="SINGLE_LINE" x1="889" x2="815" y1="528" y2="528"/>
       </positionableLines>
     </FkGl>
-    <FkGl bkCl="ff000000" childEdge="WEST" nm="SD.SDAreaPerson.fk_SdAreaPerson_SdPerson" parentEdge="SOUTH" positioner="TwoLineUserLinkPositioner">
+    <FkGl bkCl="ff000000" childEdge="WEST" nm="SD.SDAreaPerson.fk_SdAreaPerson_SdPerson" parentEdge="EAST" positioner="OneLineUserLinkPositioner">
       <positionableLines>
-        <positionableLine lineRole="PARENT_LINE" x1="183" x2="183" y1="474" y2="556"/>
-        <positionableLine lineRole="CHILD_LINE" x1="815" x2="187" y1="560" y2="560"/>
+        <positionableLine lineRole="SINGLE_LINE" x1="324" x2="815" y1="560" y2="560"/>
       </positionableLines>
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="SOUTH" nm="SD.SDCase.fk_Case_Person_Client" parentEdge="EAST" positioner="TwoLineUserLinkPositioner">
       <positionableLines>
         <positionableLine lineRole="PARENT_LINE" x1="324" x2="570" y1="421" y2="421"/>
-        <positionableLine lineRole="CHILD_LINE" x1="574" x2="574" y1="247" y2="417"/>
+        <positionableLine lineRole="CHILD_LINE" x1="574" x2="574" y1="338" y2="417"/>
       </positionableLines>
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="EAST" nm="SD.SDCase.fk_SdCase_SdCasePriority" parentEdge="WEST" positioner="OneLineUserLinkPositioner">
@@ -523,7 +753,7 @@
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="NORTH" nm="SD.SDCaseFile.fk_SdCaseFile_SdCase" parentEdge="SOUTH" positioner="ThreeLineUserLinkPositioner">
       <positionableLines>
-        <positionableLine lineRole="PARENT_LINE" x1="594" x2="594" y1="247" y2="632"/>
+        <positionableLine lineRole="PARENT_LINE" x1="594" x2="594" y1="338" y2="632"/>
         <positionableLine lineRole="CHILD_LINE" x1="969" x2="969" y1="680" y2="640"/>
         <positionableLine lineRole="MIDDLE_LINE" x1="965" x2="598" y1="636" y2="636"/>
       </positionableLines>
@@ -535,7 +765,7 @@
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="NORTH" nm="SD.SDCaseHistory.fk_SdCaseHistory_SdCase" parentEdge="SOUTH" positioner="OneLineUserLinkPositioner">
       <positionableLines>
-        <positionableLine lineRole="SINGLE_LINE" x1="500" x2="500" y1="247" y2="286"/>
+        <positionableLine lineRole="SINGLE_LINE" x1="500" x2="500" y1="338" y2="286"/>
       </positionableLines>
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="EAST" nm="SD.SDCaseHistory.fk_SdCaseHistory_SdCaseStatus" parentEdge="WEST" positioner="OneLineUserLinkPositioner">
@@ -545,17 +775,17 @@
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="NORTH" nm="SD.SDCaseHistoryFile.fk_SdCaseHistoryFile_SdCaseHistory" parentEdge="SOUTH" positioner="OneLineUserLinkPositioner">
       <positionableLines>
-        <positionableLine lineRole="SINGLE_LINE" x1="464" x2="464" y1="378" y2="655"/>
+        <positionableLine lineRole="SINGLE_LINE" x1="464" x2="464" y1="469" y2="655"/>
       </positionableLines>
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="EAST" nm="SD.SDCaseHistoryFile.fk_SdCaseHistoryFile_SdFile" parentEdge="WEST" positioner="OneLineUserLinkPositioner">
       <positionableLines>
-        <positionableLine lineRole="SINGLE_LINE" x1="666" x2="596" y1="673" y2="673"/>
+        <positionableLine lineRole="SINGLE_LINE" x1="666" x2="598" y1="673" y2="673"/>
       </positionableLines>
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="NORTH" nm="SD.SDPerson.fk_SdPerson_SdOrganization" parentEdge="SOUTH" positioner="OneLineUserLinkPositioner">
       <positionableLines>
-        <positionableLine lineRole="SINGLE_LINE" x1="215" x2="215" y1="133" y2="395"/>
+        <positionableLine lineRole="SINGLE_LINE" x1="215" x2="215" y1="224" y2="395"/>
       </positionableLines>
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="NORTH" nm="SD.SDPerson.fk_SdPerson_SdProxyUser" parentEdge="SOUTH" positioner="OneLineUserLinkPositioner">
@@ -718,7 +948,7 @@
     </BasicOptionMgr>
   </DbDocOptionMgr>
   <OpenEditors>
-    <OpenEditor ClsNm="Diagram" fqn="null.z" selected="1"/>
+    <OpenEditor ClsNm="Diagram" fqn="null.z" selected="0"/>
     <OpenEditor ClsNm="Diagram" fqn="null.diagramA" selected="0"/>
     <OpenEditor ClsNm="Diagram" fqn="null.B" selected="0"/>
   </OpenEditors>
@@ -727,6 +957,11 @@
     <TreePath>/Schemas (1)</TreePath>
     <TreePath>/Schemas (1)/SD</TreePath>
     <TreePath>/Schemas (1)/SD/Tables (12)</TreePath>
+    <TreePath>/Schemas (1)/SD/Tables (12)/SDArea</TreePath>
+    <TreePath>/Schemas (1)/SD/Tables (12)/SDArea/Columns (11)</TreePath>
+    <TreePath>/Schemas (1)/SD/Tables (12)/SDCaseFile</TreePath>
+    <TreePath>/Schemas (1)/SD/Tables (12)/SDFile</TreePath>
+    <TreePath>/Schemas (1)/SD/Tables (12)/SDFile/Columns (14)</TreePath>
     <TreePath>/Diagrams (3)</TreePath>
   </TreePaths>
   <SqlTexts>
@@ -735,6 +970,108 @@
     </SqlText>
     <SqlText path="">
       <Sql/>
+    </SqlText>
+    <SqlText path="">
+      <Sql/>
+    </SqlText>
+    <SqlText path="">
+      <Sql/>
+    </SqlText>
+    <SqlText path="">
+      <Sql/>
+    </SqlText>
+    <SqlText path="">
+      <Sql/>
+    </SqlText>
+    <SqlText path="">
+      <Sql/>
+    </SqlText>
+    <SqlText path="">
+      <Sql/>
+    </SqlText>
+    <SqlText path="">
+      <Sql/>
+    </SqlText>
+    <SqlText path="">
+      <Sql/>
+    </SqlText>
+    <SqlText path="">
+      <Sql/>
+    </SqlText>
+    <SqlText path="">
+      <Sql>select * from [cme].cmeAgenda</Sql>
+    </SqlText>
+    <SqlText path="">
+      <Sql/>
+    </SqlText>
+    <SqlText path="">
+      <Sql>select * from [cme].cmeAgenda</Sql>
+    </SqlText>
+    <SqlText path="">
+      <Sql/>
+    </SqlText>
+    <SqlText path="">
+      <Sql/>
+    </SqlText>
+    <SqlText path="">
+      <Sql>select * from [cme].cmeAgenda</Sql>
+    </SqlText>
+    <SqlText path="">
+      <Sql/>
+    </SqlText>
+    <SqlText path="">
+      <Sql/>
+    </SqlText>
+    <SqlText path="">
+      <Sql/>
+    </SqlText>
+    <SqlText path="">
+      <Sql/>
+    </SqlText>
+    <SqlText path="">
+      <Sql/>
+    </SqlText>
+    <SqlText path="">
+      <Sql/>
+    </SqlText>
+    <SqlText path="">
+      <Sql/>
+    </SqlText>
+    <SqlText path="">
+      <Sql/>
+    </SqlText>
+    <SqlText path="">
+      <Sql/>
+    </SqlText>
+    <SqlText path="">
+      <Sql/>
+    </SqlText>
+    <SqlText path="">
+      <Sql/>
+    </SqlText>
+    <SqlText path="">
+      <Sql/>
+    </SqlText>
+    <SqlText path="">
+      <Sql/>
+    </SqlText>
+    <SqlText path="">
+      <Sql/>
+    </SqlText>
+    <SqlText path="">
+      <Sql/>
+    </SqlText>
+    <SqlText path="">
+      <Sql/>
+    </SqlText>
+    <SqlText path="">
+      <Sql/>
+    </SqlText>
+    <SqlText path="">
+      <Sql/>
+    </SqlText>
+    <SqlText path="">
+      <Sql>select * from [cme].cmeAgenda</Sql>
     </SqlText>
   </SqlTexts>
 </Db>

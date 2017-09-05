@@ -305,6 +305,31 @@ public SDCase SDCase { get; set; }
 
 public SDFile SDFile { get; set; }		
 		
+			
+
+
+public String UrlFile { get; set; }		
+		
+			
+
+
+public String UrlThumbFile { get; set; }		
+		
+			
+
+
+public Boolean ExistFile { get; set; }		
+		
+			
+
+
+public String FileName { get; set; }		
+		
+			
+
+
+public String FileStorage { get; set; }		
+		
 	  }
 
 	  [Serializable()]
@@ -570,11 +595,6 @@ public Byte[] FileData { get; set; }
 			
 
 
-public String StorageLocation { get; set; }		
-		
-			
-
-
 public Guid? GuidCompany { get; set; }		
 		
 			
@@ -606,6 +626,11 @@ public Int32? Bytes { get; set; }
 
 
 public Boolean? IsDeleted { get; set; }		
+		
+			
+
+
+public String FileStorage { get; set; }		
 		
 			
 public List<SDCaseFile>  SDCaseFiles { get; set; }		

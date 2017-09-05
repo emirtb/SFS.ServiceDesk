@@ -137,7 +137,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BRCRUD.tt</DependentUpon>
     </Compile>
+    <Compile Include="SDCaseFilesBR.cs" />
     <Compile Include="SDCasesBR.cs" />
+    <Compile Include="SDFilesBR.cs" />
     <Compile Include="SdPersonsBR.cs" />
     <Compile Include="SfsTemplate2.cs">
       <AutoGen>True</AutoGen>

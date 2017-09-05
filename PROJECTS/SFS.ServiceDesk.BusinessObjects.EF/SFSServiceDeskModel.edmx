@@ -148,6 +148,7 @@
           <Property Name="UpdatedBy" Type="uniqueidentifier" />
           <Property Name="Bytes" Type="int" />
           <Property Name="IsDeleted" Type="bit" />
+          <Property Name="FileStorage" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="SDOrganization">
           <Key>
@@ -675,7 +676,6 @@
           <Property Name="FileType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="FileSize" Type="Int64" />
           <Property Name="FileData" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="StorageLocation" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SDCaseFiles" Relationship="SFSServiceDeskModel.fk_SdCaseFile_SdFile" FromRole="SDFile" ToRole="SDCaseFile" />
           <NavigationProperty Name="SDCaseHistoryFiles" Relationship="SFSServiceDeskModel.fk_SdCaseHistoryFile_SdFile" FromRole="SDFile" ToRole="SDCaseHistoryFile" />
           <Property Name="GuidCompany" Type="Guid" />
@@ -685,6 +685,7 @@
           <Property Name="UpdatedBy" Type="Guid" />
           <Property Name="Bytes" Type="Int32" />
           <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="FileStorage" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="SDOrganization">
           <Key>
@@ -1054,6 +1055,7 @@
           <EntitySetMapping Name="SDFiles">
             <EntityTypeMapping TypeName="SFSServiceDeskModel.SDFile">
               <MappingFragment StoreEntitySet="SDFile">
+                <ScalarProperty Name="FileStorage" ColumnName="FileStorage" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Bytes" ColumnName="Bytes" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
@@ -1061,7 +1063,6 @@
                 <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="GuidCompany" ColumnName="GuidCompany" />
-                <ScalarProperty Name="StorageLocation" ColumnName="StorageLocation" />
                 <ScalarProperty Name="FileData" ColumnName="FileData" />
                 <ScalarProperty Name="FileSize" ColumnName="FileSize" />
                 <ScalarProperty Name="FileType" ColumnName="FileType" />

@@ -1729,7 +1729,15 @@ if (visibleProperty || specificProperties.Contains("SDAreaPersons"))
 					   return ResolveApiResponse("error", "exception", ex.ToString(), null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json(ex.ToString(), JsonRequestBehavior.AllowGet);
+                        }
+                        return Content(ex.ToString());
+
+					}
                 SFSdotNet.Framework.My.Context.CurrentContext.AddMessage(ex.Message, SFSdotNet.Framework.My.MessageResultTypes.Error);
                 model.IsNew = true;
                 var me = GetContextModel(UIModelContextTypes.EditForm, model, true, model.GuidArea);
@@ -2021,7 +2029,15 @@ if (visibleProperty || specificProperties.Contains("SDAreaPersons"))
 						 return ResolveApiResponse("error", "exception", ex.ToString(), null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json(ex.ToString(), JsonRequestBehavior.AllowGet);
+                        }
+                        return Content(ex.ToString());
+
+					}
 			    if (isPopUp)
                 {
                     return PartialView("ResultMessageView", (new MessageModel()).GetException(ex.Message));
@@ -3883,7 +3899,15 @@ if (visibleProperty || specificProperties.Contains("SDPerson"))
 					   return ResolveApiResponse("error", "exception", ex.ToString(), null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json(ex.ToString(), JsonRequestBehavior.AllowGet);
+                        }
+                        return Content(ex.ToString());
+
+					}
                 SFSdotNet.Framework.My.Context.CurrentContext.AddMessage(ex.Message, SFSdotNet.Framework.My.MessageResultTypes.Error);
                 model.IsNew = true;
                 var me = GetContextModel(UIModelContextTypes.EditForm, model, true, model.GuidAreaPerson);
@@ -4175,7 +4199,15 @@ if (visibleProperty || specificProperties.Contains("SDPerson"))
 						 return ResolveApiResponse("error", "exception", ex.ToString(), null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json(ex.ToString(), JsonRequestBehavior.AllowGet);
+                        }
+                        return Content(ex.ToString());
+
+					}
 			    if (isPopUp)
                 {
                     return PartialView("ResultMessageView", (new MessageModel()).GetException(ex.Message));
@@ -6391,7 +6423,15 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
 					   return ResolveApiResponse("error", "exception", ex.ToString(), null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json(ex.ToString(), JsonRequestBehavior.AllowGet);
+                        }
+                        return Content(ex.ToString());
+
+					}
                 SFSdotNet.Framework.My.Context.CurrentContext.AddMessage(ex.Message, SFSdotNet.Framework.My.MessageResultTypes.Error);
                 model.IsNew = true;
                 var me = GetContextModel(UIModelContextTypes.EditForm, model, true, model.GuidCase);
@@ -6683,7 +6723,15 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
 						 return ResolveApiResponse("error", "exception", ex.ToString(), null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json(ex.ToString(), JsonRequestBehavior.AllowGet);
+                        }
+                        return Content(ex.ToString());
+
+					}
 			    if (isPopUp)
                 {
                     return PartialView("ResultMessageView", (new MessageModel()).GetException(ex.Message));
@@ -7393,7 +7441,7 @@ if (visibleProperty || specificProperties.Contains("UpdatedDate"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 116,
+					Order = 121,
 																	
 					CustomProperties = customProperties,
 
@@ -7574,7 +7622,21 @@ if (visibleProperty || specificProperties.Contains("SDFile"))
 {				
     customProperties = new List<CustomProperty>();
 
-        			customProperties.Add(new CustomProperty() { Name="Fk", Value=@"SDCaseFiles" });
+        customProperties.Add(new CustomProperty() { Name="UILookUp", Value=@"true" });
+		 
+    customProperties.Add(new CustomProperty() { Name="IsImage", Value=@"true" });
+		 
+    customProperties.Add(new CustomProperty() { Name="IsUniqueFile", Value=@"true" });
+		 
+    customProperties.Add(new CustomProperty() { Name="ExistFileField", Value=@"ExistFile" });
+		 
+    customProperties.Add(new CustomProperty() { Name="IdentifierFileField", Value=@"GuidFile" });
+		 
+    customProperties.Add(new CustomProperty() { Name="FileTypeModelName", Value=@"SDFiles.SDFileModel" });
+		 
+    customProperties.Add(new CustomProperty() { Name="FileControllerName", Value=@"SDFiles" });
+		 
+    			customProperties.Add(new CustomProperty() { Name="Fk", Value=@"SDCaseFiles" });
 			//[RelationFilterable(DisableFilterableInSubfilter=true, FiltrablePropertyPathName="SDFile.GuidFile")]		
 			customProperties.Add(new CustomProperty() { Name="FiltrablePropertyPathName", Value=@"SDFile.GuidFile" });
 			customProperties.Add(new CustomProperty() { Name = "BusinessObjectSetName", Value = @"SDFiles" });
@@ -7587,13 +7649,18 @@ if (visibleProperty || specificProperties.Contains("SDFile"))
 				results.Add(new PropertyDefinition()
                 {
 					Order = 109,
+									FileDataField = "FileData",
+FileSizeField = "FileSize",
+FileTypeField = "FileType",
+FileIdField = "FileIdField",
+
 																
 					
 					ModuleKey = "SFSServiceDesk",
 					BusinessObjectKey = "SDFile",
 					PropertyNavigationKey = "GuidFile",
 					PropertyNavigationText = "FileName",
-					NavigationPropertyType = NavigationPropertyTypes.SimpleDropDown,
+					NavigationPropertyType = NavigationPropertyTypes.LookUp,
 					GetMethodName = "GetAll",
 					GetMethodParameters = "",
 					GetMethodDisplayText ="FileName",
@@ -7605,6 +7672,8 @@ if (visibleProperty || specificProperties.Contains("SDFile"))
 
 					 MaxLength = 0,
 					 Nullable = true,
+					 IsImage = true,
+
 					IsDefaultProperty = false,
                     SortBy = "SDFile.FileName",
 					
@@ -7614,6 +7683,175 @@ if (visibleProperty || specificProperties.Contains("SDFile"))
 					IsNavigationPropertyMany = false,
                     PathName = "SFSServiceDesk/SDFiles"
                     /*,PropertyDisplayName = Resources.SDCaseFileResources.SDFILE*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("UrlFile"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "UrlFile")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 110,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "UrlFile",
+
+					 MaxLength = 0,
+					IsRequired = true ,
+					IsDefaultProperty = false,
+					
+	
+                    TypeName = "String",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDCaseFileResources.URLFILE*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("UrlThumbFile"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "UrlThumbFile")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 111,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "UrlThumbFile",
+
+					 MaxLength = 0,
+					IsRequired = true ,
+					IsDefaultProperty = false,
+					
+	
+                    TypeName = "String",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDCaseFileResources.URLTHUMBFILE*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("ExistFile"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        customProperties.Add(new CustomProperty() { Name="ComputedLinq", Value=@"true" });
+		 
+    
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "ExistFile")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 112,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "ExistFile",
+
+					 MaxLength = 0,
+					IsRequired = true ,
+					IsDefaultProperty = false,
+                    SortBy = "ExistFile",
+					
+	
+                    TypeName = "Boolean",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDCaseFileResources.EXISTFILE*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("FileName"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        customProperties.Add(new CustomProperty() { Name="ComputedLinq", Value=@"true" });
+		 
+    
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "FileName")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 113,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "FileName",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "FileName",
+					
+	
+                    TypeName = "String",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDCaseFileResources.FILENAME*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("FileStorage"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        customProperties.Add(new CustomProperty() { Name="ComputedLinq", Value=@"true" });
+		 
+    
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "FileStorage")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 114,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "FileStorage",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "FileStorage",
+					
+	
+                    TypeName = "String",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDCaseFileResources.FILESTORAGE*/
                 });
 		//	}
 	
@@ -8090,6 +8328,12 @@ if (visibleProperty || specificProperties.Contains("SDFile"))
                 case UIModelContextTypes.EditForm:
 				  me.Properties.Where(p=>p.SystemProperty != SystemProperties.Identifier && p.IsForeignKey == false && p.PropertyName != "Id").ToList().ForEach(p => p.IsHidden = false);
 
+						 me.Properties.Find(p => p.PropertyName == "ExistFile").IsHidden = true;
+
+						 me.Properties.Find(p => p.PropertyName == "FileName").IsHidden = true;
+
+						 me.Properties.Find(p => p.PropertyName == "FileStorage").IsHidden = true;
+
 					if (model != null)
                     {
 						
@@ -8545,7 +8789,15 @@ if (visibleProperty || specificProperties.Contains("SDFile"))
 					   return ResolveApiResponse("error", "exception", ex.ToString(), null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json(ex.ToString(), JsonRequestBehavior.AllowGet);
+                        }
+                        return Content(ex.ToString());
+
+					}
                 SFSdotNet.Framework.My.Context.CurrentContext.AddMessage(ex.Message, SFSdotNet.Framework.My.MessageResultTypes.Error);
                 model.IsNew = true;
                 var me = GetContextModel(UIModelContextTypes.EditForm, model, true, model.GuidCasefile);
@@ -8837,7 +9089,15 @@ if (visibleProperty || specificProperties.Contains("SDFile"))
 						 return ResolveApiResponse("error", "exception", ex.ToString(), null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json(ex.ToString(), JsonRequestBehavior.AllowGet);
+                        }
+                        return Content(ex.ToString());
+
+					}
 			    if (isPopUp)
                 {
                     return PartialView("ResultMessageView", (new MessageModel()).GetException(ex.Message));
@@ -10807,7 +11067,15 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistoryFiles"))
 					   return ResolveApiResponse("error", "exception", ex.ToString(), null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json(ex.ToString(), JsonRequestBehavior.AllowGet);
+                        }
+                        return Content(ex.ToString());
+
+					}
                 SFSdotNet.Framework.My.Context.CurrentContext.AddMessage(ex.Message, SFSdotNet.Framework.My.MessageResultTypes.Error);
                 model.IsNew = true;
                 var me = GetContextModel(UIModelContextTypes.EditForm, model, true, model.GuidCaseHistory);
@@ -11099,7 +11367,15 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistoryFiles"))
 						 return ResolveApiResponse("error", "exception", ex.ToString(), null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json(ex.ToString(), JsonRequestBehavior.AllowGet);
+                        }
+                        return Content(ex.ToString());
+
+					}
 			    if (isPopUp)
                 {
                     return PartialView("ResultMessageView", (new MessageModel()).GetException(ex.Message));
@@ -12961,7 +13237,15 @@ if (visibleProperty || specificProperties.Contains("SDFile"))
 					   return ResolveApiResponse("error", "exception", ex.ToString(), null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json(ex.ToString(), JsonRequestBehavior.AllowGet);
+                        }
+                        return Content(ex.ToString());
+
+					}
                 SFSdotNet.Framework.My.Context.CurrentContext.AddMessage(ex.Message, SFSdotNet.Framework.My.MessageResultTypes.Error);
                 model.IsNew = true;
                 var me = GetContextModel(UIModelContextTypes.EditForm, model, true, model.GuidCasehistoryFile);
@@ -13253,7 +13537,15 @@ if (visibleProperty || specificProperties.Contains("SDFile"))
 						 return ResolveApiResponse("error", "exception", ex.ToString(), null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json(ex.ToString(), JsonRequestBehavior.AllowGet);
+                        }
+                        return Content(ex.ToString());
+
+					}
 			    if (isPopUp)
                 {
                     return PartialView("ResultMessageView", (new MessageModel()).GetException(ex.Message));
@@ -14914,7 +15206,15 @@ if (visibleProperty || specificProperties.Contains("SDCases"))
 					   return ResolveApiResponse("error", "exception", ex.ToString(), null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json(ex.ToString(), JsonRequestBehavior.AllowGet);
+                        }
+                        return Content(ex.ToString());
+
+					}
                 SFSdotNet.Framework.My.Context.CurrentContext.AddMessage(ex.Message, SFSdotNet.Framework.My.MessageResultTypes.Error);
                 model.IsNew = true;
                 var me = GetContextModel(UIModelContextTypes.EditForm, model, true, model.GuidCasePriority);
@@ -15206,7 +15506,15 @@ if (visibleProperty || specificProperties.Contains("SDCases"))
 						 return ResolveApiResponse("error", "exception", ex.ToString(), null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json(ex.ToString(), JsonRequestBehavior.AllowGet);
+                        }
+                        return Content(ex.ToString());
+
+					}
 			    if (isPopUp)
                 {
                     return PartialView("ResultMessageView", (new MessageModel()).GetException(ex.Message));
@@ -16909,7 +17217,15 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
 					   return ResolveApiResponse("error", "exception", ex.ToString(), null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json(ex.ToString(), JsonRequestBehavior.AllowGet);
+                        }
+                        return Content(ex.ToString());
+
+					}
                 SFSdotNet.Framework.My.Context.CurrentContext.AddMessage(ex.Message, SFSdotNet.Framework.My.MessageResultTypes.Error);
                 model.IsNew = true;
                 var me = GetContextModel(UIModelContextTypes.EditForm, model, true, model.GuidCaseState);
@@ -17201,7 +17517,15 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistories"))
 						 return ResolveApiResponse("error", "exception", ex.ToString(), null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json(ex.ToString(), JsonRequestBehavior.AllowGet);
+                        }
+                        return Content(ex.ToString());
+
+					}
 			    if (isPopUp)
                 {
                     return PartialView("ResultMessageView", (new MessageModel()).GetException(ex.Message));
@@ -17800,7 +18124,9 @@ if (visibleProperty || specificProperties.Contains("FileName"))
 {				
     customProperties = new List<CustomProperty>();
 
-        
+        customProperties.Add(new CustomProperty() { Name="FileName", Value=@"default" });
+		 
+    
 	
 	//Null
 		//if (this.Request.QueryString["fk"] != "FileName")
@@ -17833,7 +18159,9 @@ if (visibleProperty || specificProperties.Contains("FileType"))
 {				
     customProperties = new List<CustomProperty>();
 
-        
+        customProperties.Add(new CustomProperty() { Name="FileType", Value=@"default" });
+		 
+    
 	
 	//Null
 		//if (this.Request.QueryString["fk"] != "FileType")
@@ -17866,7 +18194,9 @@ if (visibleProperty || specificProperties.Contains("FileSize"))
 {				
     customProperties = new List<CustomProperty>();
 
-        
+        customProperties.Add(new CustomProperty() { Name="FileSize", Value=@"default" });
+		 
+    
 	
 	//Null
 		//if (this.Request.QueryString["fk"] != "FileSize")
@@ -17899,7 +18229,11 @@ if (visibleProperty || specificProperties.Contains("FileData"))
 {				
     customProperties = new List<CustomProperty>();
 
-        
+        customProperties.Add(new CustomProperty() { Name="FileData", Value=@"default" });
+		 
+    customProperties.Add(new CustomProperty() { Name="IsImage", Value=@"true" });
+		 
+    
 	
 	//Null
 		//if (this.Request.QueryString["fk"] != "FileData")
@@ -17907,13 +18241,22 @@ if (visibleProperty || specificProperties.Contains("FileData"))
 				results.Add(new PropertyDefinition()
                 {
 					Order = 104,
-																	
+									FileDataField = "FileData"
+, FileSizeField = "FileSize"
+, FileTypeField = "FileType"
+, FileNameField =  "FileName"
+, FileIdField =  "GuidFile"
+, 
+													AditionalViewData = null, /*PropertyId = "GuidFile", PropertyData = "FileData", SafeKey = Model.SafeKey, ControllerName = "SDFiles", TypeName = "SDFiles.SDFile", Namespace = "SFS.ServiceDesk", PropertySize = "FileSize", FileSize = Model.FileSize, PropertyType = "FileType", FileName = Model.FileName, PropertyName = "FileName"*/
+													
 					CustomProperties = customProperties,
 
                     PropertyName = "FileData",
 
 					 MaxLength = 0,
 					 Nullable = true,
+					 IsImage = true,
+
 					IsDefaultProperty = false,
                     SortBy = "FileData",
 					
@@ -17923,39 +18266,6 @@ if (visibleProperty || specificProperties.Contains("FileData"))
 					IsNavigationPropertyMany = false,
                     PathName = "SFSServiceDesk/"
                     /*,PropertyDisplayName = Resources.SDFileResources.FILEDATA*/
-                });
-		//	}
-	
-	}
-visibleProperty =allProperties;
-if (visibleProperty || specificProperties.Contains("StorageLocation"))
-{				
-    customProperties = new List<CustomProperty>();
-
-        
-	
-	//Null
-		//if (this.Request.QueryString["fk"] != "StorageLocation")
-        //	{
-				results.Add(new PropertyDefinition()
-                {
-					Order = 105,
-																	
-					CustomProperties = customProperties,
-
-                    PropertyName = "StorageLocation",
-
-					 MaxLength = 255,
-					 Nullable = true,
-					IsDefaultProperty = false,
-                    SortBy = "StorageLocation",
-					
-	
-                    TypeName = "String",
-                    IsNavigationProperty = false,
-					IsNavigationPropertyMany = false,
-                    PathName = "SFSServiceDesk/"
-                    /*,PropertyDisplayName = Resources.SDFileResources.STORAGELOCATION*/
                 });
 		//	}
 	
@@ -17972,7 +18282,7 @@ if (visibleProperty || specificProperties.Contains("CreatedDate"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 106,
+					Order = 105,
 																	
 					CustomProperties = customProperties,
 
@@ -18006,7 +18316,7 @@ if (visibleProperty || specificProperties.Contains("UpdatedDate"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 122,
+					Order = 121,
 																	
 					CustomProperties = customProperties,
 
@@ -18043,7 +18353,7 @@ if (visibleProperty || specificProperties.Contains("CreatedBy"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 108,
+					Order = 107,
 																	
 					CustomProperties = customProperties,
 
@@ -18077,7 +18387,7 @@ if (visibleProperty || specificProperties.Contains("UpdatedBy"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 109,
+					Order = 108,
 																	
 					CustomProperties = customProperties,
 
@@ -18111,7 +18421,7 @@ if (visibleProperty || specificProperties.Contains("Bytes"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 110,
+					Order = 109,
 																	
 					CustomProperties = customProperties,
 
@@ -18129,6 +18439,39 @@ if (visibleProperty || specificProperties.Contains("Bytes"))
 					IsNavigationPropertyMany = false,
                     PathName = "SFSServiceDesk/"
                     /*,PropertyDisplayName = Resources.SDFileResources.BYTES*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("FileStorage"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "FileStorage")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 110,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "FileStorage",
+
+					 MaxLength = 255,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "FileStorage",
+					
+	
+                    TypeName = "String",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDFileResources.FILESTORAGE*/
                 });
 		//	}
 	
@@ -19036,7 +19379,15 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistoryFiles"))
 					   return ResolveApiResponse("error", "exception", ex.ToString(), null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json(ex.ToString(), JsonRequestBehavior.AllowGet);
+                        }
+                        return Content(ex.ToString());
+
+					}
                 SFSdotNet.Framework.My.Context.CurrentContext.AddMessage(ex.Message, SFSdotNet.Framework.My.MessageResultTypes.Error);
                 model.IsNew = true;
                 var me = GetContextModel(UIModelContextTypes.EditForm, model, true, model.GuidFile);
@@ -19328,7 +19679,15 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistoryFiles"))
 						 return ResolveApiResponse("error", "exception", ex.ToString(), null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json(ex.ToString(), JsonRequestBehavior.AllowGet);
+                        }
+                        return Content(ex.ToString());
+
+					}
 			    if (isPopUp)
                 {
                     return PartialView("ResultMessageView", (new MessageModel()).GetException(ex.Message));
@@ -21031,7 +21390,15 @@ if (visibleProperty || specificProperties.Contains("SDPersons"))
 					   return ResolveApiResponse("error", "exception", ex.ToString(), null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json(ex.ToString(), JsonRequestBehavior.AllowGet);
+                        }
+                        return Content(ex.ToString());
+
+					}
                 SFSdotNet.Framework.My.Context.CurrentContext.AddMessage(ex.Message, SFSdotNet.Framework.My.MessageResultTypes.Error);
                 model.IsNew = true;
                 var me = GetContextModel(UIModelContextTypes.EditForm, model, true, model.GuidOrganization);
@@ -21323,7 +21690,15 @@ if (visibleProperty || specificProperties.Contains("SDPersons"))
 						 return ResolveApiResponse("error", "exception", ex.ToString(), null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json(ex.ToString(), JsonRequestBehavior.AllowGet);
+                        }
+                        return Content(ex.ToString());
+
+					}
 			    if (isPopUp)
                 {
                     return PartialView("ResultMessageView", (new MessageModel()).GetException(ex.Message));
@@ -23302,7 +23677,15 @@ if (visibleProperty || specificProperties.Contains("SDProxyUser"))
 					   return ResolveApiResponse("error", "exception", ex.ToString(), null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json(ex.ToString(), JsonRequestBehavior.AllowGet);
+                        }
+                        return Content(ex.ToString());
+
+					}
                 SFSdotNet.Framework.My.Context.CurrentContext.AddMessage(ex.Message, SFSdotNet.Framework.My.MessageResultTypes.Error);
                 model.IsNew = true;
                 var me = GetContextModel(UIModelContextTypes.EditForm, model, true, model.GuidPerson);
@@ -23594,7 +23977,15 @@ if (visibleProperty || specificProperties.Contains("SDProxyUser"))
 						 return ResolveApiResponse("error", "exception", ex.ToString(), null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json(ex.ToString(), JsonRequestBehavior.AllowGet);
+                        }
+                        return Content(ex.ToString());
+
+					}
 			    if (isPopUp)
                 {
                     return PartialView("ResultMessageView", (new MessageModel()).GetException(ex.Message));
@@ -25101,7 +25492,15 @@ if (visibleProperty || specificProperties.Contains("SDPersons"))
 					   return ResolveApiResponse("error", "exception", ex.ToString(), null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json(ex.ToString(), JsonRequestBehavior.AllowGet);
+                        }
+                        return Content(ex.ToString());
+
+					}
                 SFSdotNet.Framework.My.Context.CurrentContext.AddMessage(ex.Message, SFSdotNet.Framework.My.MessageResultTypes.Error);
                 model.IsNew = true;
                 var me = GetContextModel(UIModelContextTypes.EditForm, model, true, model.GuidUser);
@@ -25393,7 +25792,15 @@ if (visibleProperty || specificProperties.Contains("SDPersons"))
 						 return ResolveApiResponse("error", "exception", ex.ToString(), null);
 
                     }
-                }
+                }else if (Request != null && !string.IsNullOrEmpty(Request.QueryString["rok"]))
+                    {
+						if (Request.QueryString["resultFormat"] == "json")
+                        {
+                            return Json(ex.ToString(), JsonRequestBehavior.AllowGet);
+                        }
+                        return Content(ex.ToString());
+
+					}
 			    if (isPopUp)
                 {
                     return PartialView("ResultMessageView", (new MessageModel()).GetException(ex.Message));

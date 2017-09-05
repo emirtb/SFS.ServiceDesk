@@ -170,6 +170,7 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IntegrationAppsController.cs" />
+    <Compile Include="Controllers\SDCaseFilesController.cs" />
     <Compile Include="Models\AllModels.gen.cs" />
     <Compile Include="Models\ExistsChangesModel.cs" />
     <Compile Include="Resources\LocalResources.es.Designer.cs">
@@ -335,6 +336,7 @@
     <Folder Include="Content\Themes\Default\css\" />
     <Folder Include="Views\HTML\" />
     <Folder Include="Views\IntegrationApps\" />
+    <Folder Include="Views\SDCaseFiles\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SFS.ServiceDesk.BR\SFS.ServiceDesk.BR.csproj">

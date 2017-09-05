@@ -71,7 +71,9 @@ public class SinglentonContext
     }
 	
 	
-	<# foreach(EntityInfo entity in this.Model.Entities) {
+	<#
+		this.LoadModelProperties(this.Model);
+	 foreach(EntityInfo entity in this.Model.Entities) {
 		
 		try{
 		int ew=2;

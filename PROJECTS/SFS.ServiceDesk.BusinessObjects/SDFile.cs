@@ -51,9 +51,6 @@ public partial class SDFile : ITrackable
         public byte[] FileData { get; set; }
 
     [DataMember]
-        public string StorageLocation { get; set; }
-
-    [DataMember]
         public Nullable<System.Guid> GuidCompany { get; set; }
 
     [DataMember]
@@ -73,6 +70,9 @@ public partial class SDFile : ITrackable
 
     [DataMember]
         public Nullable<bool> IsDeleted { get; set; }
+
+    [DataMember]
+        public string FileStorage { get; set; }
 
 
 

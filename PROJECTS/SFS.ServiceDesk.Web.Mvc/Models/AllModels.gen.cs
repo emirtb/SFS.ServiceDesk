@@ -1263,6 +1263,8 @@ using SFS.ServiceDesk.BusinessObjects;
 			
 
        
+		 public string files_SDFile { get; set; }
+
 	
 		[SystemProperty()]		
 		public Guid? GuidCasefile{ get; set; }
@@ -1440,9 +1442,17 @@ using SFS.ServiceDesk.BusinessObjects;
 	
 [Exportable()]
 		
-	[RelationFilterable(DataClassProvider = typeof(Controllers.SDFilesController), GetByKeyMethod="GetByKey", GetAllMethod = "GetAll", DataPropertyText = "FileName", DataPropertyValue = "GuidFile", FiltrablePropertyPathName="SDFile.GuidFile")]	
+	
+ 
+			//[RelationFilterable( FiltrablePropertyPathName="SDFile.GuidFile")]
+			[RelationFilterable(DataClassProvider = typeof(Controllers.SDFilesController), GetByKeyMethod="GetByKey", GetAllMethod = "GetByJson", DataPropertyText = "FileName", DataPropertyValue = "GuidFile", FiltrablePropertyPathName="SDFile.GuidFile")]	
 
-	[LocalizedDisplayName("SDFILE"/*, NameResourceType=typeof(SDCaseFileResources)*/)]
+			//1234
+	[LookUp("SFS.ServiceDesk", "SFSServiceDesk","SDFiles", "ListViewGen", "FileName", "GuidFile")]	
+
+	//TODO: Hacer dinamicos los campos. Ya existe la funcionalidad
+	[FileData("FileData", "FileName", "FileType", "FileSize", "GuidFile", "SDFiles.SDFileModel", true)]
+				[LocalizedDisplayName("SDFILE"/*, NameResourceType=typeof(SDCaseFileResources)*/)]
 	public Guid  ? FkSDFile { get; set; }
 		[LocalizedDisplayName("SDFILE"/*, NameResourceType=typeof(SDCaseFileResources)*/)]
 	[Exportable()]
@@ -1450,6 +1460,77 @@ using SFS.ServiceDesk.BusinessObjects;
     public string FkSDFileSafeKey { get; set; }
 
 	
+		
+	
+[Exportable()]
+	
+	    [Required()]
+		
+	[RelationFilterable()] 
+	[DataType("RichEditorAdvanced")]
+	[LocalizedDisplayName("URLFILE"/*, NameResourceType=typeof(SDCaseFileResources)*/)]
+	public String   UrlFile { get; set; }
+		
+		
+	
+[Exportable()]
+	
+	    [Required()]
+		
+	[RelationFilterable()] 
+	[DataType("RichEditorAdvanced")]
+	[LocalizedDisplayName("URLTHUMBFILE"/*, NameResourceType=typeof(SDCaseFileResources)*/)]
+	public String   UrlThumbFile { get; set; }
+		
+		
+	
+[Exportable()]
+	
+	    [Required()]
+		
+	[RelationFilterable(DisableFilterableInSubfilter=true)]
+
+	[LocalizedDisplayName("EXISTFILE"/*, NameResourceType=typeof(SDCaseFileResources)*/)]
+	public Boolean   ExistFile { get; set; }
+	public string _ExistFileText = null;
+    public string ExistFileText {
+        get {
+			if (string.IsNullOrEmpty( _ExistFileText ))
+				{
+			//Aplicar formato si esta especificado
+				return ExistFile.ToString();
+	
+			}else{
+				return _ExistFileText ;
+			}			
+        }
+		set{
+			_ExistFileText = value;
+		}
+        
+    }
+
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable(DisableFilterableInSubfilter=true)]
+
+	[DataType("RichEditorAdvanced")]
+	[LocalizedDisplayName("FILENAME"/*, NameResourceType=typeof(SDCaseFileResources)*/)]
+	public String   FileName { get; set; }
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable(DisableFilterableInSubfilter=true)]
+
+	[DataType("RichEditorAdvanced")]
+	[LocalizedDisplayName("FILESTORAGE"/*, NameResourceType=typeof(SDCaseFileResources)*/)]
+	public String   FileStorage { get; set; }
+		
 		
 		
 	public override string SafeKey
@@ -1474,6 +1555,11 @@ using SFS.ServiceDesk.BusinessObjects;
 		this.UpdatedBy = model.UpdatedBy;
 		this.Bytes = model.Bytes;
 		this.IsDeleted = model.IsDeleted;
+		this.UrlFile = model.UrlFile;
+		this.UrlThumbFile = model.UrlThumbFile;
+		this.ExistFile = model.ExistFile;
+		this.FileName = model.FileName;
+		this.FileStorage = model.FileStorage;
         }
 
         public BusinessObjects.SDCaseFile GetBusinessObject()
@@ -1482,6 +1568,7 @@ using SFS.ServiceDesk.BusinessObjects;
 
 
 			       
+	   result.files_SDFile = this.files_SDFile;
 	if (this.GuidCasefile != null )
 				result.GuidCasefile = (Guid)this.GuidCasefile;
 				
@@ -1530,6 +1617,21 @@ using SFS.ServiceDesk.BusinessObjects;
 			
 			}
 				
+	if (this.UrlFile != null )
+				result.UrlFile = (String)this.UrlFile.Trim().Replace("\t", String.Empty);
+				
+	if (this.UrlThumbFile != null )
+				result.UrlThumbFile = (String)this.UrlThumbFile.Trim().Replace("\t", String.Empty);
+				
+	if (this.ExistFile != null )
+				result.ExistFile = (Boolean)this.ExistFile;
+				
+	if (this.FileName != null )
+				result.FileName = (String)this.FileName.Trim().Replace("\t", String.Empty);
+				
+	if (this.FileStorage != null )
+				result.FileStorage = (String)this.FileStorage.Trim().Replace("\t", String.Empty);
+				
 
             return result;
         }
@@ -1564,6 +1666,18 @@ using SFS.ServiceDesk.BusinessObjects;
 				
 	if (businessObject.IsDeleted != null )
 				this.IsDeleted = (Boolean)businessObject.IsDeleted;
+			this.UrlFile = businessObject.UrlFile != null ? businessObject.UrlFile.Trim().Replace("\t", String.Empty) : "";
+				
+			this.UrlThumbFile = businessObject.UrlThumbFile != null ? businessObject.UrlThumbFile.Trim().Replace("\t", String.Empty) : "";
+				
+			this.ExistFile = businessObject.ExistFile;
+				
+				
+	if (businessObject.FileName != null )
+				this.FileName = (String)businessObject.FileName;
+				
+	if (businessObject.FileStorage != null )
+				this.FileStorage = (String)businessObject.FileStorage;
 	        if (businessObject.SDCase != null){
 	                	this.FkSDCaseText = businessObject.SDCase.BodyContent != null ? businessObject.SDCase.BodyContent.ToString() : "";; 
 										
@@ -3004,14 +3118,6 @@ using SFS.ServiceDesk.BusinessObjects;
 [Exportable()]
 		
 	[RelationFilterable()] 
-	[LocalizedDisplayName("STORAGELOCATION"/*, NameResourceType=typeof(SDFileResources)*/)]
-	public String   StorageLocation { get; set; }
-		
-		
-	
-[Exportable()]
-		
-	[RelationFilterable()] 
 	[SystemProperty()]
 	[LocalizedDisplayName("GUIDCOMPANY"/*, NameResourceType=typeof(SDFileResources)*/)]
 	public Guid  ? GuidCompany { get; set; }
@@ -3148,6 +3254,14 @@ using SFS.ServiceDesk.BusinessObjects;
 
 		
 		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[LocalizedDisplayName("FILESTORAGE"/*, NameResourceType=typeof(SDFileResources)*/)]
+	public String   FileStorage { get; set; }
+		
+		
 		
 		[LocalizedDisplayName("SDCASEFILES"/*, NameResourceType=typeof(SDFileResources)*/)]
 		[RelationFilterable(IsNavigationPropertyMany=true, FiltrablePropertyPathName="SDCaseFiles.Count()", ModelPartialType="SDCaseFiles.SDCaseFile", BusinessObjectSetName = "SDCaseFiles")]
@@ -3174,7 +3288,6 @@ using SFS.ServiceDesk.BusinessObjects;
 		this.FileType = model.FileType;
 		this.FileSize = model.FileSize;
 		this.FileData = model.FileData;
-		this.StorageLocation = model.StorageLocation;
 		this.GuidCompany = model.GuidCompany;
 		this.CreatedDate = model.CreatedDate;
 		this.UpdatedDate = model.UpdatedDate;
@@ -3182,6 +3295,7 @@ using SFS.ServiceDesk.BusinessObjects;
 		this.UpdatedBy = model.UpdatedBy;
 		this.Bytes = model.Bytes;
 		this.IsDeleted = model.IsDeleted;
+		this.FileStorage = model.FileStorage;
         }
 
         public BusinessObjects.SDFile GetBusinessObject()
@@ -3206,9 +3320,6 @@ using SFS.ServiceDesk.BusinessObjects;
 					result.FileData = (Byte[])this.FileData;
 			
 				
-	if (this.StorageLocation != null )
-				result.StorageLocation = (String)this.StorageLocation.Trim().Replace("\t", String.Empty);
-				
 	if (this.GuidCompany != null )
 				result.GuidCompany = (Guid)this.GuidCompany;
 				
@@ -3232,6 +3343,9 @@ using SFS.ServiceDesk.BusinessObjects;
 	if (this.IsDeleted != null )
 				result.IsDeleted = (Boolean)this.IsDeleted;
 				
+	if (this.FileStorage != null )
+				result.FileStorage = (String)this.FileStorage.Trim().Replace("\t", String.Empty);
+				
 
             return result;
         }
@@ -3252,9 +3366,6 @@ using SFS.ServiceDesk.BusinessObjects;
 			if (businessObject.FileData != null )
 				this.FileData = businessObject.FileData;			
 				
-	if (businessObject.StorageLocation != null )
-				this.StorageLocation = (String)businessObject.StorageLocation;
-				
 	if (businessObject.GuidCompany != null )
 				this.GuidCompany = (Guid)businessObject.GuidCompany;
 				if (businessObject.CreatedDate != null )
@@ -3273,6 +3384,9 @@ using SFS.ServiceDesk.BusinessObjects;
 				
 	if (businessObject.IsDeleted != null )
 				this.IsDeleted = (Boolean)businessObject.IsDeleted;
+				
+	if (businessObject.FileStorage != null )
+				this.FileStorage = (String)businessObject.FileStorage;
            
         }
 	}

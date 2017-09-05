@@ -129,7 +129,6 @@ namespace SFS.ServiceDesk.Tests
             item.FileSize = Utils.GetInt();
 
 
-            item.StorageLocation = Utils.GetString(10);
 
 
 
@@ -137,6 +136,7 @@ namespace SFS.ServiceDesk.Tests
 
 
 
+            item.FileStorage = Utils.GetString(10);
 
 		return item;
 	}
@@ -454,6 +454,17 @@ namespace SFS.ServiceDesk.Tests
 
 
 
+
+            item.UrlFile = Utils.GetString(10);
+
+            item.UrlThumbFile = Utils.GetString(10);
+
+
+            item.ExistFile = Utils.GetBool();
+
+            item.FileName = Utils.GetString(10);
+
+            item.FileStorage = Utils.GetString(10);
 
 		return item;
 	}

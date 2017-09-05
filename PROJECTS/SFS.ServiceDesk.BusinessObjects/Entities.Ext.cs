@@ -268,7 +268,7 @@ namespace SFS.ServiceDesk.BusinessObjects
 		#endregion
 	}
 		  [Serializable()]
-	  [EntityInfo(PropertyKeyName="GuidCasefile",PropertyDefaultText="Bytes", CompanyPropertyName = "GuidCompany",CreatedByPropertyName="CreatedBy",UpdatedByPropertyName="UpdatedBy",CreatedDatePropertyName="CreatedDate",UpdatedDatePropertyName="UpdatedDate",DeletedPropertyName="IsDeleted")]
+	  [EntityInfo(PropertyKeyName="GuidCasefile",PropertyDefaultText="Bytes",RequiredProperties="UrlFile,UrlThumbFile,ExistFile", CompanyPropertyName = "GuidCompany",CreatedByPropertyName="CreatedBy",UpdatedByPropertyName="UpdatedBy",CreatedDatePropertyName="CreatedDate",UpdatedDatePropertyName="UpdatedDate",DeletedPropertyName="IsDeleted")]
 	  [DynamicLinqType]
 	  public partial class SDCaseFile:  IMyEntity{
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
@@ -322,8 +322,23 @@ namespace SFS.ServiceDesk.BusinessObjects
         }
         #endregion
         
+			
+	public String UrlFile { get; set; }
+			
+	public String UrlThumbFile { get; set; }
+			[DataMember]
+          	 public Boolean ExistFile { get; set; } //test
+
+			[DataMember]
+          	 public String FileName { get; set; } //test
+
+			[DataMember]
+          	 public String FileStorage { get; set; } //test
+
 	
        
+		 public string files_SDFile { get; set; }
+
       
 
 
@@ -343,6 +358,11 @@ namespace SFS.ServiceDesk.BusinessObjects
             public static readonly string IsDeleted = "IsDeleted";
             public static readonly string SDCase = "SDCase";
             public static readonly string SDFile = "SDFile";
+            public static readonly string UrlFile = "UrlFile";
+            public static readonly string UrlThumbFile = "UrlThumbFile";
+            public static readonly string ExistFile = "ExistFile";
+            public static readonly string FileName = "FileName";
+            public static readonly string FileStorage = "FileStorage";
 		}
 		#endregion
 	}
@@ -663,7 +683,7 @@ namespace SFS.ServiceDesk.BusinessObjects
 		#endregion
 	}
 		  [Serializable()]
-	  [EntityInfo(PropertyKeyName="GuidFile",PropertyDefaultText="FileName",RequiredProperties="FileName", CompanyPropertyName = "GuidCompany",CreatedByPropertyName="CreatedBy",UpdatedByPropertyName="UpdatedBy",CreatedDatePropertyName="CreatedDate",UpdatedDatePropertyName="UpdatedDate",DeletedPropertyName="IsDeleted")]
+	  [EntityInfo(PropertyKeyName="GuidFile",PropertyDefaultText="FileName",RequiredProperties="FileName", CompanyPropertyName = "GuidCompany",CreatedByPropertyName="CreatedBy",UpdatedByPropertyName="UpdatedBy",CreatedDatePropertyName="CreatedDate",UpdatedDatePropertyName="UpdatedDate",DeletedPropertyName="IsDeleted", IsFile=true, ExtraSizeField= "FileSize")]
 	  [DynamicLinqType]
 	  public partial class SDFile:  IMyEntity{
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
@@ -731,7 +751,6 @@ namespace SFS.ServiceDesk.BusinessObjects
             public static readonly string FileType = "FileType";
             public static readonly string FileSize = "FileSize";
             public static readonly string FileData = "FileData";
-            public static readonly string StorageLocation = "StorageLocation";
             public static readonly string GuidCompany = "GuidCompany";
             public static readonly string CreatedDate = "CreatedDate";
             public static readonly string UpdatedDate = "UpdatedDate";
@@ -739,6 +758,7 @@ namespace SFS.ServiceDesk.BusinessObjects
             public static readonly string UpdatedBy = "UpdatedBy";
             public static readonly string Bytes = "Bytes";
             public static readonly string IsDeleted = "IsDeleted";
+            public static readonly string FileStorage = "FileStorage";
             public static readonly string SDCaseFiles = "SDCaseFiles";
             public static readonly string SDCaseHistoryFiles = "SDCaseHistoryFiles";
 		}

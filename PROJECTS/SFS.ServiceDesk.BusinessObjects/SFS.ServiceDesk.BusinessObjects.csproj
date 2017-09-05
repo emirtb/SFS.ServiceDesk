@@ -73,6 +73,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Library\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="SFSdotNet.Framework">
+      <HintPath>..\..\..\Library\SFSdotNet.Framework.dll</HintPath>
+    </Reference>
     <Reference Include="SFSdotNet.Framework.Common">
       <HintPath>..\..\..\Library\SFSdotNet.Framework.Common.dll</HintPath>
     </Reference>

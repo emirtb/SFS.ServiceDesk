@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SfsModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Entities>
+    <Entity Name="SDFile" SetName="SDFiles" IsUIVisible="false" GenerateCRUD="true" IsForLocalization="false" IsCustom="false" IsView="false" DefaultProperty="FileName">
+      <CustomProperties>
+       
+        <CustomProperty Name="IsFile" Value="true" />
+      </CustomProperties>
+      <Properties>
+        <Property Name="GuidFile" Nullable="false" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Guid" MaxLength="0" IsPrimaryKey="true" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="FileName" Nullable="false" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="String" MaxLength="255" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false">
+          <CustomProperties>
+            <CustomProperty Name="FileName" Value="default"/>
+          </CustomProperties>
+        </Property>
+        <Property Name="FileType" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="String" MaxLength="255" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false">
+          <CustomProperties>
+            <CustomProperty Name="FileType" Value="default"/>
+          </CustomProperties>
+        </Property>
+        <Property Name="FileSize" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Int64" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false">
+          <CustomProperties>
+            <CustomProperty Name="FileSize" Value="default"/>
+          </CustomProperties>
+        </Property>
+        <Property Name="FileData" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Binary" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false">
+          <CustomProperties>
+            <CustomProperty Name="FileData" Value="default"/>
+            <CustomProperty Name="IsImage" Value="true"/>
+          </CustomProperties>
+        </Property>
+        <Property Name="StorageLocation" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="String" MaxLength="255" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="GuidCompany" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Guid" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="CreatedDate" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="DateTime" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="UpdatedDate" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="DateTime" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="CreatedBy" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Guid" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="UpdatedBy" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Guid" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="Bytes" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Int32" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="IsDeleted" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="false" Type="Boolean" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDCaseFiles" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDCaseFile" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+        <Property Name="SDCaseHistoryFiles" Nullable="true" Order="100.0000" UIRequired="false" Visible="true" VisibleInGrid="true" VisibleInForm="true" PerformanceOption="Fill" IsNavigationProperty="true" Type="SFSServiceDeskModel.SDCaseHistoryFile" MaxLength="0" IsPrimaryKey="false" IsForeignKey="false" IsIdentity="false" IsSearchable="false" IsLocalizable="false" IsDataMember="false" IsCustom="false" />
+      </Properties>
+      <NavigationProperties>
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" RelationshipName="fk_SdCaseFile_SdFile" FromRole="SDFile" ToRole="SDCaseFile" PropertyName="SDCaseFiles" Multiplicity="*" EntityType="SFSServiceDeskModel.SDCaseFile" />
+        <NavigationProperty IsCustom="false" IsPrimaryKey="false" RelationshipName="fk_SdCaseHistoryFile_SdFile" FromRole="SDFile" ToRole="SDCaseHistoryFile" PropertyName="SDCaseHistoryFiles" Multiplicity="*" EntityType="SFSServiceDeskModel.SDCaseHistoryFile" />
+      </NavigationProperties>
+    </Entity>
+  </Entities> 
+ 
+</SfsModel>
