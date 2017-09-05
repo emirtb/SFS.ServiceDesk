@@ -820,6 +820,18 @@
     </DiaProps>
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDCase" x="47" y="123"/>
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDCaseHistory" x="403" y="141"/>
+    <TbGl bkCl="ff6666ff" sch="SD" tbl="SDFile" x="491" y="424"/>
+    <TbGl bkCl="ff6666ff" sch="SD" tbl="SDCaseFile" x="84" y="458"/>
+    <FkGl bkCl="ff000000" childEdge="NORTH" nm="SD.SDCaseFile.fk_SdCaseFile_SdCase" parentEdge="SOUTH" positioner="OneLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="SINGLE_LINE" x1="187" x2="187" y1="345" y2="458"/>
+      </positionableLines>
+    </FkGl>
+    <FkGl bkCl="ff000000" childEdge="EAST" nm="SD.SDCaseFile.fk_SdCaseFile_SdFile" parentEdge="WEST" positioner="OneLineUserLinkPositioner">
+      <positionableLines>
+        <positionableLine lineRole="SINGLE_LINE" x1="491" x2="301" y1="512" y2="512"/>
+      </positionableLines>
+    </FkGl>
     <FkGl bkCl="ff000000" childEdge="WEST" nm="SD.SDCaseHistory.fk_SdCaseHistory_SdCase" parentEdge="EAST" positioner="OneLineUserLinkPositioner">
       <positionableLines>
         <positionableLine lineRole="SINGLE_LINE" x1="312" x2="403" y1="185" y2="185"/>
@@ -948,9 +960,9 @@
     </BasicOptionMgr>
   </DbDocOptionMgr>
   <OpenEditors>
-    <OpenEditor ClsNm="Diagram" fqn="null.z" selected="0"/>
-    <OpenEditor ClsNm="Diagram" fqn="null.diagramA" selected="0"/>
     <OpenEditor ClsNm="Diagram" fqn="null.B" selected="0"/>
+    <OpenEditor ClsNm="Diagram" fqn="null.z" selected="1"/>
+    <OpenEditor ClsNm="Diagram" fqn="null.diagramA" selected="0"/>
   </OpenEditors>
   <TreePaths>
     <TreePath/>
@@ -976,102 +988,6 @@
     </SqlText>
     <SqlText path="">
       <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql>select * from [cme].cmeAgenda</Sql>
-    </SqlText>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql>select * from [cme].cmeAgenda</Sql>
-    </SqlText>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql>select * from [cme].cmeAgenda</Sql>
-    </SqlText>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql>select * from [cme].cmeAgenda</Sql>
     </SqlText>
   </SqlTexts>
 </Db>
