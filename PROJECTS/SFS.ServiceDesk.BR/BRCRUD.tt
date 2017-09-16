@@ -127,8 +127,12 @@ foreach(NavigationPropertyInfo navprop in entity.NavigationProperties.Where(p=>!
             {
                 OnTaken(sender, e);
             }
-
+			protected override void OnVirtualSummaryOperation(object sender,  BusinessRulesEventArgs<<#= entity.Name #>> e)
+			{
+				OnSummaryOperation(sender, e);
+			}
             partial void OnCounting(object sender, BusinessRulesEventArgs<<#= entity.Name #>> e);
+			partial void OnSummaryOperation(object sender, BusinessRulesEventArgs<<#= entity.Name #>> e);
  
 			partial void OnQuerySettings(object sender, BusinessRulesEventArgs<<#= entity.Name #>> e);
           
@@ -389,15 +393,19 @@ foreach(NavigationPropertyInfo navprop in entity.NavigationProperties.Where(p=>!
 
         public List<<#= entity.Name #>> GetBy(Expression<Func<<#= entity.Name #>, bool>> predicate, params Expression<Func<<#= entity.Name #>, object>>[] includes)
         {
+		ContextRequest context = new ContextRequest();
+		 context.CustomQuery = new CustomQuery();
+			if (!preventSecurityRestrictions)
+				{
 			if (System.Web.HttpContext.Current == null || System.Web.HttpContext.Current.Session == null)
             {
                 throw new Exception("Please, specific the contextRequest parameter in the method: GetBy");
             }
-			ContextRequest context = new ContextRequest();
+			//ContextRequest context = new ContextRequest();
 			            context.User = SFSdotNet.Framework.My.Context.CurrentContext.User;
             context.Company = SFSdotNet.Framework.My.Context.CurrentContext.Company;
+			}
 
-            context.CustomQuery = new CustomQuery();
             context.CustomQuery.FilterExpressionString = "";
             return GetBy(predicate, context, includes);
         }
@@ -434,8 +442,17 @@ foreach(NavigationPropertyInfo navprop in entity.NavigationProperties.Where(p=>!
 					<#	}else{ #>	
 					bool sharedAndMultiTenant = false;
 					Expression<Func<<#= entity.Name #>,bool>> multitenantExpression  = null;
-					if (contextRequest != null && contextRequest.Company != null)	                        	
+					if (contextRequest != null && contextRequest.Company != null){	
+<# if ((bool)GetCustomProperty(entity, "FromParentCompany", "Boolean") == true) { #>
+						if (contextRequest.Company.Parent != null )
+							multitenantExpression = predicate.And(p => p.<#= (string)GetCustomProperty(entity.Model, "CompanyProperty", "string") #> == contextRequest.Company.GuidCompany || p.<#= (string)GetCustomProperty(entity.Model, "CompanyProperty", "string") #> == contextRequest.Company.Parent.GuidCompany ); //todo: multiempresa
+						else 
+							multitenantExpression = predicate.And(p => p.<#= (string)GetCustomProperty(entity.Model, "CompanyProperty", "string") #> == contextRequest.Company.GuidCompany ); //todo: multiempresa
+
+<# }else{ #>                        	
 						multitenantExpression = predicate.And(p => p.<#= (string)GetCustomProperty(entity.Model, "CompanyProperty", "string") #> == contextRequest.Company.GuidCompany); //todo: multiempresa
+<# } #>
+					}
 					<#	} #> 									
 					string multiTenantField = "<#=(string)GetCustomProperty(entity.Model, "CompanyProperty", "string")#>";
 
@@ -1447,9 +1464,11 @@ foreach(NavigationPropertyInfo navprop in entity.NavigationProperties.Where(p=>!
 
 			contextRequest.FreeText = freetext;
 			contextRequest.UseMode = usemode;
-            OnCounting(this, e = new BusinessRulesEventArgs<<#= entity.Name #>>() { Filter = filter, ContextRequest = contextRequest });
+			OnSummaryOperation(this, e = new BusinessRulesEventArgs<<#= entity.Name #>>() { Filter = filter, ContextRequest = contextRequest });
             if (e != null)
             {
+					filter = e.Filter;
+                    contextRequest = e.ContextRequest;
                 if (e.Cancel)
                 {
                     context = null;
@@ -1583,16 +1602,18 @@ foreach(NavigationPropertyInfo navprop in entity.NavigationProperties.Where(p=>!
         }
         public List<<#=entity.Name#>> GetBy(Expression<Func<<#=entity.Name#>, bool>> predicate)
         {
-
+			ContextRequest contextRequest = new ContextRequest();
+			contextRequest.CustomQuery = new CustomQuery();
+			if (!preventSecurityRestrictions)
+			{
 			if (System.Web.HttpContext.Current == null || System.Web.HttpContext.Current.Session == null)
             {
                 throw new Exception("Please, specific the contextRequest parameter in the method: GetBy");
             }
-			ContextRequest contextRequest = new ContextRequest();
-            contextRequest.CustomQuery = new CustomQuery();
 			contextRequest.CurrentContext = SFSdotNet.Framework.My.Context.CurrentContext;
 			            contextRequest.User = SFSdotNet.Framework.My.Context.CurrentContext.User;
             contextRequest.Company = SFSdotNet.Framework.My.Context.CurrentContext.Company;
+			}
 
             contextRequest.CustomQuery.FilterExpressionString = null;
             return this.GetBy(predicate, contextRequest, "");
@@ -2451,8 +2472,8 @@ foreach(NavigationPropertyInfo navprop in entity.NavigationProperties.Where(p=>!
 		   using (EFContext con = new EFContext())
             {
 
-
-
+			    con.Configuration.ValidateOnSaveEnabled = false;
+                con.Configuration.AutoDetectChangesEnabled = false;
                
 					List<string> propForCopy = new List<string>();
                     propForCopy.AddRange(fields);
@@ -2739,7 +2760,7 @@ foreach(NavigationPropertyInfo navprop in entity.NavigationProperties.Where(p=>!
                                query = query.Include(include);
                        }
 	var oldentity = query.FirstOrDefault(p => p.<#=entity.Properties.FirstOrDefault(p=>p.IsPrimaryKey).Name #> == entity.<#=entity.Properties.FirstOrDefault(p=>p.IsPrimaryKey).Name #>);
-<#  foreach (var prop in entity.Properties.Where(p=>p.IsNavigationProperty == false && !p.IsPrimaryKey && !IsSystemProperty(p) && !p.IsCustom && p.Type.ToLower() != "include") ){
+<#  foreach (var prop in entity.Properties.Where(p=>p.IsNavigationProperty == false && !p.IsPrimaryKey && (!IsSystemProperty(p) ||  p.Name == AutoDeletedProperty) && !p.IsCustom && p.Type.ToLower() != "include") ){
 		var navprop  = entity.NavigationProperties.FirstOrDefault(p=>p.PropertyRefName == prop.Name );
 		
 		if (navprop == null ){
@@ -3122,7 +3143,16 @@ foreach(NavigationPropertyInfo navprop in entity.NavigationProperties.Where(p=>!
 									predicate = predicate.And(p => p.<#= (string)GetCustomProperty(entity.Model, "CompanyProperty", "string") #> == contextRequest.Company.GuidCompany || p.<#= (string)GetCustomProperty(entity.Model, "CompanyProperty", "string") #> == null); //todo: multiempresa
 
 <# }else{ #>
+<# if ((bool)GetCustomProperty(entity, "FromParentCompany", "Boolean") == true) { #>
+						if (contextRequest.Company.Parent != null )
+							predicate = predicate.And(p => p.<#= (string)GetCustomProperty(entity.Model, "CompanyProperty", "string") #> == contextRequest.Company.GuidCompany || p.<#= (string)GetCustomProperty(entity.Model, "CompanyProperty", "string") #> == contextRequest.Company.Parent.GuidCompany ); //todo: multiempresa
+						else 
+							predicate = predicate.And(p => p.<#= (string)GetCustomProperty(entity.Model, "CompanyProperty", "string") #> == contextRequest.Company.GuidCompany ); //todo: multiempresa
+
+<# }else{ #>                        	
 									predicate = predicate.And(p => p.<#= (string)GetCustomProperty(entity.Model, "CompanyProperty", "string") #> == contextRequest.Company.GuidCompany); //todo: multiempresa
+<# } #>
+						//			predicate = predicate.And(p => p.<#= (string)GetCustomProperty(entity.Model, "CompanyProperty", "string") #> == contextRequest.Company.GuidCompany); //todo: multiempresa
 <# } #>
 
 								}
@@ -3214,10 +3244,16 @@ foreach(NavigationPropertyInfo navprop in entity.NavigationProperties.Where(p=>!
 					bool sharedAndMultiTenant = false;	  
 					string multitenantExpression = null;
 				if (contextRequest != null && contextRequest.Company != null)
-				 {
-                    multitenantExpression = @"(<#= (string)GetCustomProperty(entity.Model, "CompanyProperty", "string") #> = @GuidCompanyMultiTenant)";
-                    contextRequest.CustomQuery.SetParam("GuidCompanyMultiTenant", new Nullable<Guid>(contextRequest.Company.GuidCompany));
-                }
+<# if ((bool)GetCustomProperty(entity, "FromParentCompany", "Boolean") == true) { #>
+						if (contextRequest.Company.Parent != null ){
+						
+							multitenantExpression = @"(<#= (string)GetCustomProperty(entity.Model, "CompanyProperty", "string") #> = Guid(""" + contextRequest.Company.GuidCompany + @""") OR <#= (string)GetCustomProperty(entity.Model, "CompanyProperty", "string") #> = Guid(""" + contextRequest.Company.Parent.GuidCompany + @"""))";
+						
+						}else
+							 multitenantExpression = @"(<#= (string)GetCustomProperty(entity.Model, "CompanyProperty", "string") #> = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
+<# }else{ #>                   	
+						 multitenantExpression = @"(<#= (string)GetCustomProperty(entity.Model, "CompanyProperty", "string") #> = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
+<# } #>
 					<#	} #> 									
 					string multiTenantField = "<#=(string)GetCustomProperty(entity.Model, "CompanyProperty", "string")#>";
 

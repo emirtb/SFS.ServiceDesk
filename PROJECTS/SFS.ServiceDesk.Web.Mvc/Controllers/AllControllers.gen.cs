@@ -7441,7 +7441,7 @@ if (visibleProperty || specificProperties.Contains("UpdatedDate"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 121,
+					Order = 122,
 																	
 					CustomProperties = customProperties,
 
@@ -7706,7 +7706,7 @@ if (visibleProperty || specificProperties.Contains("UrlFile"))
                     PropertyName = "UrlFile",
 
 					 MaxLength = 0,
-					IsRequired = true ,
+					 Nullable = true,
 					IsDefaultProperty = false,
 					
 	
@@ -7738,7 +7738,7 @@ if (visibleProperty || specificProperties.Contains("UrlThumbFile"))
                     PropertyName = "UrlThumbFile",
 
 					 MaxLength = 0,
-					IsRequired = true ,
+					 Nullable = true,
 					IsDefaultProperty = false,
 					
 	
@@ -7772,7 +7772,7 @@ if (visibleProperty || specificProperties.Contains("ExistFile"))
                     PropertyName = "ExistFile",
 
 					 MaxLength = 0,
-					IsRequired = true ,
+					 Nullable = true,
 					IsDefaultProperty = false,
                     SortBy = "ExistFile",
 					
@@ -7852,6 +7852,41 @@ if (visibleProperty || specificProperties.Contains("FileStorage"))
 					IsNavigationPropertyMany = false,
                     PathName = "SFSServiceDesk/"
                     /*,PropertyDisplayName = Resources.SDCaseFileResources.FILESTORAGE*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("FileThumbSizes"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        customProperties.Add(new CustomProperty() { Name="ComputedLinq", Value=@"true" });
+		 
+    
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "FileThumbSizes")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 115,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "FileThumbSizes",
+
+					 MaxLength = 0,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "FileThumbSizes",
+					
+	
+                    TypeName = "String",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDCaseFileResources.FILETHUMBSIZES*/
                 });
 		//	}
 	
@@ -8333,6 +8368,8 @@ if (visibleProperty || specificProperties.Contains("FileStorage"))
 						 me.Properties.Find(p => p.PropertyName == "FileName").IsHidden = true;
 
 						 me.Properties.Find(p => p.PropertyName == "FileStorage").IsHidden = true;
+
+						 me.Properties.Find(p => p.PropertyName == "FileThumbSizes").IsHidden = true;
 
 					if (model != null)
                     {
@@ -18316,7 +18353,7 @@ if (visibleProperty || specificProperties.Contains("UpdatedDate"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 121,
+					Order = 122,
 																	
 					CustomProperties = customProperties,
 
@@ -18477,6 +18514,39 @@ if (visibleProperty || specificProperties.Contains("FileStorage"))
 	
 	}
 visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("FileThumbSizes"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "FileThumbSizes")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 111,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "FileThumbSizes",
+
+					 MaxLength = 255,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "FileThumbSizes",
+					
+	
+                    TypeName = "String",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDFileResources.FILETHUMBSIZES*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
 if (visibleProperty || specificProperties.Contains("SDCaseFiles"))
 {				
     customProperties = new List<CustomProperty>();
@@ -18493,7 +18563,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseFiles"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 111,
+					Order = 112,
 																
 					Link = VirtualPathUtility.ToAbsolute("~/") + "SFSServiceDesk/SDCaseFiles/ListViewGen?overrideModule=" + GetOverrideApp()  + "&pal=False&es=False&pag=10&filterlinks=1&idTab=SDCaseFiles&fk=SDFile&startFilter="+ (new UrlHelper(System.Web.HttpContext.Current.Request.RequestContext)).Encode("it.SDFile.GuidFile = Guid(\"" + idSDFile +"\")")+ "&fkValue=" + idSDFile,
 					ModuleKey = "SFSServiceDesk",
@@ -18535,7 +18605,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistoryFiles"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 112,
+					Order = 113,
 																
 					Link = VirtualPathUtility.ToAbsolute("~/") + "SFSServiceDesk/SDCaseHistoryFiles/ListViewGen?overrideModule=" + GetOverrideApp()  + "&pal=False&es=False&pag=10&filterlinks=1&idTab=SDCaseHistoryFiles&fk=SDFile&startFilter="+ (new UrlHelper(System.Web.HttpContext.Current.Request.RequestContext)).Encode("it.SDFile.GuidFile = Guid(\"" + idSDFile +"\")")+ "&fkValue=" + idSDFile,
 					ModuleKey = "SFSServiceDesk",

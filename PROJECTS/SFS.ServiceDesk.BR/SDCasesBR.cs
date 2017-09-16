@@ -11,7 +11,9 @@ namespace SFS.ServiceDesk.BR
     public partial class SDCasesBR
     {
         #region Samples for guide
-        ////Sample for guide
+
+     
+           ////Sample for guide
         //partial void OnQuerySettings(object sender, BusinessRulesEventArgs<SDCase> e)
         //{
         //    //e.SetQueryComputedField(SDCase.PropertyNames.SDCaseHistories, true);

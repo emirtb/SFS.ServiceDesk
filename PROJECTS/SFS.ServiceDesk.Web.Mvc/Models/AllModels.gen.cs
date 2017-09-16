@@ -1463,8 +1463,6 @@ using SFS.ServiceDesk.BusinessObjects;
 		
 	
 [Exportable()]
-	
-	    [Required()]
 		
 	[RelationFilterable()] 
 	[DataType("RichEditorAdvanced")]
@@ -1474,8 +1472,6 @@ using SFS.ServiceDesk.BusinessObjects;
 		
 	
 [Exportable()]
-	
-	    [Required()]
 		
 	[RelationFilterable()] 
 	[DataType("RichEditorAdvanced")]
@@ -1485,20 +1481,23 @@ using SFS.ServiceDesk.BusinessObjects;
 		
 	
 [Exportable()]
-	
-	    [Required()]
 		
 	[RelationFilterable(DisableFilterableInSubfilter=true)]
 
 	[LocalizedDisplayName("EXISTFILE"/*, NameResourceType=typeof(SDCaseFileResources)*/)]
-	public Boolean   ExistFile { get; set; }
+	public Boolean  ? ExistFile { get; set; }
 	public string _ExistFileText = null;
     public string ExistFileText {
         get {
 			if (string.IsNullOrEmpty( _ExistFileText ))
 				{
-			//Aplicar formato si esta especificado
+	
+            if (ExistFile != null)
+
 				return ExistFile.ToString();
+				
+            else
+                return String.Empty;
 	
 			}else{
 				return _ExistFileText ;
@@ -1532,6 +1531,16 @@ using SFS.ServiceDesk.BusinessObjects;
 	public String   FileStorage { get; set; }
 		
 		
+	
+[Exportable()]
+		
+	[RelationFilterable(DisableFilterableInSubfilter=true)]
+
+	[DataType("RichEditorAdvanced")]
+	[LocalizedDisplayName("FILETHUMBSIZES"/*, NameResourceType=typeof(SDCaseFileResources)*/)]
+	public String   FileThumbSizes { get; set; }
+		
+		
 		
 	public override string SafeKey
    	{
@@ -1560,6 +1569,7 @@ using SFS.ServiceDesk.BusinessObjects;
 		this.ExistFile = model.ExistFile;
 		this.FileName = model.FileName;
 		this.FileStorage = model.FileStorage;
+		this.FileThumbSizes = model.FileThumbSizes;
         }
 
         public BusinessObjects.SDCaseFile GetBusinessObject()
@@ -1632,6 +1642,9 @@ using SFS.ServiceDesk.BusinessObjects;
 	if (this.FileStorage != null )
 				result.FileStorage = (String)this.FileStorage.Trim().Replace("\t", String.Empty);
 				
+	if (this.FileThumbSizes != null )
+				result.FileThumbSizes = (String)this.FileThumbSizes.Trim().Replace("\t", String.Empty);
+				
 
             return result;
         }
@@ -1666,18 +1679,24 @@ using SFS.ServiceDesk.BusinessObjects;
 				
 	if (businessObject.IsDeleted != null )
 				this.IsDeleted = (Boolean)businessObject.IsDeleted;
-			this.UrlFile = businessObject.UrlFile != null ? businessObject.UrlFile.Trim().Replace("\t", String.Empty) : "";
 				
-			this.UrlThumbFile = businessObject.UrlThumbFile != null ? businessObject.UrlThumbFile.Trim().Replace("\t", String.Empty) : "";
+	if (businessObject.UrlFile != null )
+				this.UrlFile = (String)businessObject.UrlFile;
 				
-			this.ExistFile = businessObject.ExistFile;
+	if (businessObject.UrlThumbFile != null )
+				this.UrlThumbFile = (String)businessObject.UrlThumbFile;
 				
+	if (businessObject.ExistFile != null )
+				this.ExistFile = (Boolean)businessObject.ExistFile;
 				
 	if (businessObject.FileName != null )
 				this.FileName = (String)businessObject.FileName;
 				
 	if (businessObject.FileStorage != null )
 				this.FileStorage = (String)businessObject.FileStorage;
+				
+	if (businessObject.FileThumbSizes != null )
+				this.FileThumbSizes = (String)businessObject.FileThumbSizes;
 	        if (businessObject.SDCase != null){
 	                	this.FkSDCaseText = businessObject.SDCase.BodyContent != null ? businessObject.SDCase.BodyContent.ToString() : "";; 
 										
@@ -3262,6 +3281,14 @@ using SFS.ServiceDesk.BusinessObjects;
 	public String   FileStorage { get; set; }
 		
 		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
+	[LocalizedDisplayName("FILETHUMBSIZES"/*, NameResourceType=typeof(SDFileResources)*/)]
+	public String   FileThumbSizes { get; set; }
+		
+		
 		
 		[LocalizedDisplayName("SDCASEFILES"/*, NameResourceType=typeof(SDFileResources)*/)]
 		[RelationFilterable(IsNavigationPropertyMany=true, FiltrablePropertyPathName="SDCaseFiles.Count()", ModelPartialType="SDCaseFiles.SDCaseFile", BusinessObjectSetName = "SDCaseFiles")]
@@ -3296,6 +3323,7 @@ using SFS.ServiceDesk.BusinessObjects;
 		this.Bytes = model.Bytes;
 		this.IsDeleted = model.IsDeleted;
 		this.FileStorage = model.FileStorage;
+		this.FileThumbSizes = model.FileThumbSizes;
         }
 
         public BusinessObjects.SDFile GetBusinessObject()
@@ -3346,6 +3374,9 @@ using SFS.ServiceDesk.BusinessObjects;
 	if (this.FileStorage != null )
 				result.FileStorage = (String)this.FileStorage.Trim().Replace("\t", String.Empty);
 				
+	if (this.FileThumbSizes != null )
+				result.FileThumbSizes = (String)this.FileThumbSizes.Trim().Replace("\t", String.Empty);
+				
 
             return result;
         }
@@ -3387,6 +3418,9 @@ using SFS.ServiceDesk.BusinessObjects;
 				
 	if (businessObject.FileStorage != null )
 				this.FileStorage = (String)businessObject.FileStorage;
+				
+	if (businessObject.FileThumbSizes != null )
+				this.FileThumbSizes = (String)businessObject.FileThumbSizes;
            
         }
 	}

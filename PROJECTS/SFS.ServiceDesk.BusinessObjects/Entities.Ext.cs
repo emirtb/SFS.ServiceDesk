@@ -1,5 +1,5 @@
-﻿ 
- 
+﻿
+
 // <Template>
 //   <SolutionTemplate>EF POCO 1</SolutionTemplate>
 //   <Version>20140822.0944</Version>
@@ -14,6 +14,7 @@ using System.Runtime.Serialization;
 using SFSdotNet.Framework.Common.Entities.Metadata;
 using SFSdotNet.Framework.Common.Entities;
 using System.Linq.Dynamic;
+using Newtonsoft.Json;
 //using Repository.Pattern.Ef6;
 #endregion
 namespace SFS.ServiceDesk.BusinessObjects
@@ -194,14 +195,24 @@ namespace SFS.ServiceDesk.BusinessObjects
 				else
 					return String.Empty;
 			}
-
-		//public SDCase()
+        [JsonProperty(PropertyName = "id")]
+        public string Id
+        {
+            get
+            {
+                if (GuidCase != null)
+                    return GuidCase.ToString();
+                else
+                    return null;
+            }
+        }
+        //public SDCase()
         //  {
 
         //  }
 
-	  #region Composite Key
-	   public string Key { 
+        #region Composite Key
+        public string Key { 
                   get {
                       StringBuilder sb = new StringBuilder();
 					sb.Append(this.GuidCase.ToString());
@@ -268,7 +279,7 @@ namespace SFS.ServiceDesk.BusinessObjects
 		#endregion
 	}
 		  [Serializable()]
-	  [EntityInfo(PropertyKeyName="GuidCasefile",PropertyDefaultText="Bytes",RequiredProperties="UrlFile,UrlThumbFile,ExistFile", CompanyPropertyName = "GuidCompany",CreatedByPropertyName="CreatedBy",UpdatedByPropertyName="UpdatedBy",CreatedDatePropertyName="CreatedDate",UpdatedDatePropertyName="UpdatedDate",DeletedPropertyName="IsDeleted")]
+	  [EntityInfo(PropertyKeyName="GuidCasefile",PropertyDefaultText="Bytes", CompanyPropertyName = "GuidCompany",CreatedByPropertyName="CreatedBy",UpdatedByPropertyName="UpdatedBy",CreatedDatePropertyName="CreatedDate",UpdatedDatePropertyName="UpdatedDate",DeletedPropertyName="IsDeleted")]
 	  [DynamicLinqType]
 	  public partial class SDCaseFile:  IMyEntity{
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
@@ -282,12 +293,23 @@ namespace SFS.ServiceDesk.BusinessObjects
 					return String.Empty;
 			}
 
-		//public SDCaseFile()
+        //public SDCaseFile()
         //  {
 
         //  }
 
-	  #region Composite Key
+        #region Composite Key
+        [JsonProperty(PropertyName = "id")]
+        public string Id
+        {
+            get
+            {
+                if (GuidCase != null)
+                    return GuidCase.ToString();
+                else
+                    return null ;
+            }
+        }
 	   public string Key { 
                   get {
                       StringBuilder sb = new StringBuilder();
@@ -327,13 +349,16 @@ namespace SFS.ServiceDesk.BusinessObjects
 			
 	public String UrlThumbFile { get; set; }
 			[DataMember]
-          	 public Boolean ExistFile { get; set; } //test
+          	 public Boolean? ExistFile { get; set; } //test
 
 			[DataMember]
           	 public String FileName { get; set; } //test
 
 			[DataMember]
           	 public String FileStorage { get; set; } //test
+
+			[DataMember]
+          	 public String FileThumbSizes { get; set; } //test
 
 	
        
@@ -363,6 +388,7 @@ namespace SFS.ServiceDesk.BusinessObjects
             public static readonly string ExistFile = "ExistFile";
             public static readonly string FileName = "FileName";
             public static readonly string FileStorage = "FileStorage";
+            public static readonly string FileThumbSizes = "FileThumbSizes";
 		}
 		#endregion
 	}
@@ -759,6 +785,7 @@ namespace SFS.ServiceDesk.BusinessObjects
             public static readonly string Bytes = "Bytes";
             public static readonly string IsDeleted = "IsDeleted";
             public static readonly string FileStorage = "FileStorage";
+            public static readonly string FileThumbSizes = "FileThumbSizes";
             public static readonly string SDCaseFiles = "SDCaseFiles";
             public static readonly string SDCaseHistoryFiles = "SDCaseHistoryFiles";
 		}

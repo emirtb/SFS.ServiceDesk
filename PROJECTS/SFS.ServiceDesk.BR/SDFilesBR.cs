@@ -36,7 +36,7 @@ namespace SFS.ServiceDesk.BR
                 try
                 {
 
-                    string fileNameStorage = e.Item.GuidFile.ToString() + "_" + e.Item.FileName;
+                    string fileNameStorage = e.Item.GuidFile.ToString() + "/" + e.Item.FileName;
                     var storageFileName = storage.UploadByteArray(e.Item.FileData, fileNameStorage);
                     e.Item.FileStorage = storageFileName;
                 

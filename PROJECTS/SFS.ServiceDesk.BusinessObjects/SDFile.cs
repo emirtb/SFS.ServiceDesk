@@ -74,6 +74,9 @@ public partial class SDFile : ITrackable
     [DataMember]
         public string FileStorage { get; set; }
 
+    [DataMember]
+        public string FileThumbSizes { get; set; }
+
 
 
     [DataMember]

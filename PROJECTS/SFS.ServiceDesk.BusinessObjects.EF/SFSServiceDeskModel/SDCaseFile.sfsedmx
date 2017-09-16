@@ -15,11 +15,11 @@
             <CustomProperty Name="IdentifierFileField" Value="GuidFile"/>
           </CustomProperties>
         </Property>
-        <Property Name="UrlFile" IsCustom="true" Nullable="false" Type="String">
+        <Property Name="UrlFile" IsCustom="true" Nullable="true" Type="String">
         </Property>
-        <Property Name="UrlThumbFile" IsCustom="true" Nullable="false" Type="String">
+        <Property Name="UrlThumbFile" IsCustom="true" Nullable="true" Type="String">
         </Property>
-        <Property Name="ExistFile" IsCustom="true" Nullable="false" Type="Boolean">
+        <Property Name="ExistFile" IsCustom="true" Nullable="true" Type="Boolean">
           <CustomProperties>
             <CustomProperty Name="ComputedLinq" Value="true"/>
            
@@ -35,6 +35,13 @@
 
         </Property>
         <Property Name="FileStorage" IsSearchable="false"  IsCustom="true" Nullable="true" Type="String">
+          <CustomProperties>
+            <CustomProperty Name="ComputedLinq" Value="true"/>
+
+          </CustomProperties>
+
+        </Property>
+        <Property Name="FileThumbSizes" IsSearchable="false"  IsCustom="true" Nullable="true" Type="String">
           <CustomProperties>
             <CustomProperty Name="ComputedLinq" Value="true"/>
 

@@ -149,6 +149,7 @@
           <Property Name="Bytes" Type="int" />
           <Property Name="IsDeleted" Type="bit" />
           <Property Name="FileStorage" Type="varchar" MaxLength="255" />
+          <Property Name="FileThumbSizes" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="SDOrganization">
           <Key>
@@ -686,6 +687,7 @@
           <Property Name="Bytes" Type="Int32" />
           <Property Name="IsDeleted" Type="Boolean" />
           <Property Name="FileStorage" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FileThumbSizes" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="SDOrganization">
           <Key>
@@ -1055,6 +1057,7 @@
           <EntitySetMapping Name="SDFiles">
             <EntityTypeMapping TypeName="SFSServiceDeskModel.SDFile">
               <MappingFragment StoreEntitySet="SDFile">
+                <ScalarProperty Name="FileThumbSizes" ColumnName="FileThumbSizes" />
                 <ScalarProperty Name="FileStorage" ColumnName="FileStorage" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Bytes" ColumnName="Bytes" />

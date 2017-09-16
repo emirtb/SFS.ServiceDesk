@@ -34,8 +34,8 @@ public partial class SDCase : ITrackable
 
     }
 
-
-    [DataMember]
+        
+        [DataMember]
         public System.Guid GuidCase { get; set; }
 
     [DataMember]

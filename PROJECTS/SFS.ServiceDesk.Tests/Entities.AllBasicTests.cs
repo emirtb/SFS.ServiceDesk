@@ -138,6 +138,8 @@ namespace SFS.ServiceDesk.Tests
 
             item.FileStorage = Utils.GetString(10);
 
+            item.FileThumbSizes = Utils.GetString(10);
+
 		return item;
 	}
  [TestMethod]
@@ -465,6 +467,8 @@ namespace SFS.ServiceDesk.Tests
             item.FileName = Utils.GetString(10);
 
             item.FileStorage = Utils.GetString(10);
+
+            item.FileThumbSizes = Utils.GetString(10);
 
 		return item;
 	}

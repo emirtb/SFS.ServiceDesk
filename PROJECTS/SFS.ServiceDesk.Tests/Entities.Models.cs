@@ -318,7 +318,7 @@ public String UrlThumbFile { get; set; }
 			
 
 
-public Boolean ExistFile { get; set; }		
+public Boolean? ExistFile { get; set; }		
 		
 			
 
@@ -329,6 +329,11 @@ public String FileName { get; set; }
 
 
 public String FileStorage { get; set; }		
+		
+			
+
+
+public String FileThumbSizes { get; set; }		
 		
 	  }
 
@@ -631,6 +636,11 @@ public Boolean? IsDeleted { get; set; }
 
 
 public String FileStorage { get; set; }		
+		
+			
+
+
+public String FileThumbSizes { get; set; }		
 		
 			
 public List<SDCaseFile>  SDCaseFiles { get; set; }		

@@ -94,8 +94,12 @@ public class SinglentonContext
             {
                 OnTaken(sender, e);
             }
-
+			protected override void OnVirtualSummaryOperation(object sender,  BusinessRulesEventArgs<SDArea> e)
+			{
+				OnSummaryOperation(sender, e);
+			}
             partial void OnCounting(object sender, BusinessRulesEventArgs<SDArea> e);
+			partial void OnSummaryOperation(object sender, BusinessRulesEventArgs<SDArea> e);
  
 			partial void OnQuerySettings(object sender, BusinessRulesEventArgs<SDArea> e);
           
@@ -283,15 +287,19 @@ public class SinglentonContext
 
         public List<SDArea> GetBy(Expression<Func<SDArea, bool>> predicate, params Expression<Func<SDArea, object>>[] includes)
         {
+		ContextRequest context = new ContextRequest();
+		 context.CustomQuery = new CustomQuery();
+			if (!preventSecurityRestrictions)
+				{
 			if (System.Web.HttpContext.Current == null || System.Web.HttpContext.Current.Session == null)
             {
                 throw new Exception("Please, specific the contextRequest parameter in the method: GetBy");
             }
-			ContextRequest context = new ContextRequest();
+			//ContextRequest context = new ContextRequest();
 			            context.User = SFSdotNet.Framework.My.Context.CurrentContext.User;
             context.Company = SFSdotNet.Framework.My.Context.CurrentContext.Company;
+			}
 
-            context.CustomQuery = new CustomQuery();
             context.CustomQuery.FilterExpressionString = "";
             return GetBy(predicate, context, includes);
         }
@@ -310,8 +318,10 @@ public class SinglentonContext
 	
 					bool sharedAndMultiTenant = false;
 					Expression<Func<SDArea,bool>> multitenantExpression  = null;
-					if (contextRequest != null && contextRequest.Company != null)	                        	
+					if (contextRequest != null && contextRequest.Company != null){	
+                        	
 						multitenantExpression = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
+					}
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -812,16 +822,18 @@ public class SinglentonContext
         }
         public List<SDArea> GetBy(Expression<Func<SDArea, bool>> predicate)
         {
-
+			ContextRequest contextRequest = new ContextRequest();
+			contextRequest.CustomQuery = new CustomQuery();
+			if (!preventSecurityRestrictions)
+			{
 			if (System.Web.HttpContext.Current == null || System.Web.HttpContext.Current.Session == null)
             {
                 throw new Exception("Please, specific the contextRequest parameter in the method: GetBy");
             }
-			ContextRequest contextRequest = new ContextRequest();
-            contextRequest.CustomQuery = new CustomQuery();
 			contextRequest.CurrentContext = SFSdotNet.Framework.My.Context.CurrentContext;
 			            contextRequest.User = SFSdotNet.Framework.My.Context.CurrentContext.User;
             contextRequest.Company = SFSdotNet.Framework.My.Context.CurrentContext.Company;
+			}
 
             contextRequest.CustomQuery.FilterExpressionString = null;
             return this.GetBy(predicate, contextRequest, "");
@@ -1401,8 +1413,8 @@ public class SinglentonContext
 		   using (EFContext con = new EFContext())
             {
 
-
-
+			    con.Configuration.ValidateOnSaveEnabled = false;
+                con.Configuration.AutoDetectChangesEnabled = false;
                
 					List<string> propForCopy = new List<string>();
                     propForCopy.AddRange(fields);
@@ -1615,6 +1627,8 @@ public class SinglentonContext
 	var oldentity = query.FirstOrDefault(p => p.GuidArea == entity.GuidArea);
 	if (oldentity.Name != entity.Name)
 		oldentity.Name = entity.Name;
+	if (oldentity.IsDeleted != entity.IsDeleted)
+		oldentity.IsDeleted = entity.IsDeleted;
 
 				//if (entity.UpdatedDate == null || (contextRequest != null && contextRequest.IsFromUI("SDAreas", UIActions.Updating)))
 			oldentity.UpdatedDate = DateTime.Now.ToUniversalTime();
@@ -1870,7 +1884,9 @@ public class SinglentonContext
 						if (contextRequest != null )
                     		if (contextRequest.User !=null )
                         		if (contextRequest.Company != null && contextRequest.CustomQuery.IncludeAllCompanies == false){
+                        	
 									predicate = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
+						//			predicate = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
 
 								}
 						}
@@ -1923,10 +1939,8 @@ public class SinglentonContext
 					bool sharedAndMultiTenant = false;	  
 					string multitenantExpression = null;
 				if (contextRequest != null && contextRequest.Company != null)
-				 {
-                    multitenantExpression = @"(GuidCompany = @GuidCompanyMultiTenant)";
-                    contextRequest.CustomQuery.SetParam("GuidCompanyMultiTenant", new Nullable<Guid>(contextRequest.Company.GuidCompany));
-                }
+                   	
+						 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -2149,8 +2163,12 @@ public class SinglentonContext
             {
                 OnTaken(sender, e);
             }
-
+			protected override void OnVirtualSummaryOperation(object sender,  BusinessRulesEventArgs<SDAreaPerson> e)
+			{
+				OnSummaryOperation(sender, e);
+			}
             partial void OnCounting(object sender, BusinessRulesEventArgs<SDAreaPerson> e);
+			partial void OnSummaryOperation(object sender, BusinessRulesEventArgs<SDAreaPerson> e);
  
 			partial void OnQuerySettings(object sender, BusinessRulesEventArgs<SDAreaPerson> e);
           
@@ -2338,15 +2356,19 @@ public class SinglentonContext
 
         public List<SDAreaPerson> GetBy(Expression<Func<SDAreaPerson, bool>> predicate, params Expression<Func<SDAreaPerson, object>>[] includes)
         {
+		ContextRequest context = new ContextRequest();
+		 context.CustomQuery = new CustomQuery();
+			if (!preventSecurityRestrictions)
+				{
 			if (System.Web.HttpContext.Current == null || System.Web.HttpContext.Current.Session == null)
             {
                 throw new Exception("Please, specific the contextRequest parameter in the method: GetBy");
             }
-			ContextRequest context = new ContextRequest();
+			//ContextRequest context = new ContextRequest();
 			            context.User = SFSdotNet.Framework.My.Context.CurrentContext.User;
             context.Company = SFSdotNet.Framework.My.Context.CurrentContext.Company;
+			}
 
-            context.CustomQuery = new CustomQuery();
             context.CustomQuery.FilterExpressionString = "";
             return GetBy(predicate, context, includes);
         }
@@ -2365,8 +2387,10 @@ public class SinglentonContext
 	
 					bool sharedAndMultiTenant = false;
 					Expression<Func<SDAreaPerson,bool>> multitenantExpression  = null;
-					if (contextRequest != null && contextRequest.Company != null)	                        	
+					if (contextRequest != null && contextRequest.Company != null){	
+                        	
 						multitenantExpression = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
+					}
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -2866,16 +2890,18 @@ public class SinglentonContext
         }
         public List<SDAreaPerson> GetBy(Expression<Func<SDAreaPerson, bool>> predicate)
         {
-
+			ContextRequest contextRequest = new ContextRequest();
+			contextRequest.CustomQuery = new CustomQuery();
+			if (!preventSecurityRestrictions)
+			{
 			if (System.Web.HttpContext.Current == null || System.Web.HttpContext.Current.Session == null)
             {
                 throw new Exception("Please, specific the contextRequest parameter in the method: GetBy");
             }
-			ContextRequest contextRequest = new ContextRequest();
-            contextRequest.CustomQuery = new CustomQuery();
 			contextRequest.CurrentContext = SFSdotNet.Framework.My.Context.CurrentContext;
 			            contextRequest.User = SFSdotNet.Framework.My.Context.CurrentContext.User;
             contextRequest.Company = SFSdotNet.Framework.My.Context.CurrentContext.Company;
+			}
 
             contextRequest.CustomQuery.FilterExpressionString = null;
             return this.GetBy(predicate, contextRequest, "");
@@ -3435,8 +3461,8 @@ public class SinglentonContext
 		   using (EFContext con = new EFContext())
             {
 
-
-
+			    con.Configuration.ValidateOnSaveEnabled = false;
+                con.Configuration.AutoDetectChangesEnabled = false;
                
 					List<string> propForCopy = new List<string>();
                     propForCopy.AddRange(fields);
@@ -3641,6 +3667,8 @@ public class SinglentonContext
                                query = query.Include(include);
                        }
 	var oldentity = query.FirstOrDefault(p => p.GuidAreaPerson == entity.GuidAreaPerson);
+	if (oldentity.IsDeleted != entity.IsDeleted)
+		oldentity.IsDeleted = entity.IsDeleted;
 
 				//if (entity.UpdatedDate == null || (contextRequest != null && contextRequest.IsFromUI("SDAreaPersons", UIActions.Updating)))
 			oldentity.UpdatedDate = DateTime.Now.ToUniversalTime();
@@ -3868,7 +3896,9 @@ public class SinglentonContext
 						if (contextRequest != null )
                     		if (contextRequest.User !=null )
                         		if (contextRequest.Company != null && contextRequest.CustomQuery.IncludeAllCompanies == false){
+                        	
 									predicate = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
+						//			predicate = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
 
 								}
 						}
@@ -3921,10 +3951,8 @@ public class SinglentonContext
 					bool sharedAndMultiTenant = false;	  
 					string multitenantExpression = null;
 				if (contextRequest != null && contextRequest.Company != null)
-				 {
-                    multitenantExpression = @"(GuidCompany = @GuidCompanyMultiTenant)";
-                    contextRequest.CustomQuery.SetParam("GuidCompanyMultiTenant", new Nullable<Guid>(contextRequest.Company.GuidCompany));
-                }
+                   	
+						 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -4147,8 +4175,12 @@ public class SinglentonContext
             {
                 OnTaken(sender, e);
             }
-
+			protected override void OnVirtualSummaryOperation(object sender,  BusinessRulesEventArgs<SDCase> e)
+			{
+				OnSummaryOperation(sender, e);
+			}
             partial void OnCounting(object sender, BusinessRulesEventArgs<SDCase> e);
+			partial void OnSummaryOperation(object sender, BusinessRulesEventArgs<SDCase> e);
  
 			partial void OnQuerySettings(object sender, BusinessRulesEventArgs<SDCase> e);
           
@@ -4175,6 +4207,8 @@ public class SinglentonContext
         public SDCasesBR()
         {
             context = new EFContext();
+            this.AppNameKey = "SFSServiceDesk";
+            this.EntityKey = SDCase.EntityName;
         }
 		 public SDCasesBR(bool preventSecurity)
             {
@@ -4336,15 +4370,19 @@ public class SinglentonContext
 
         public List<SDCase> GetBy(Expression<Func<SDCase, bool>> predicate, params Expression<Func<SDCase, object>>[] includes)
         {
+		ContextRequest context = new ContextRequest();
+		 context.CustomQuery = new CustomQuery();
+			if (!preventSecurityRestrictions)
+				{
 			if (System.Web.HttpContext.Current == null || System.Web.HttpContext.Current.Session == null)
             {
                 throw new Exception("Please, specific the contextRequest parameter in the method: GetBy");
             }
-			ContextRequest context = new ContextRequest();
+			//ContextRequest context = new ContextRequest();
 			            context.User = SFSdotNet.Framework.My.Context.CurrentContext.User;
             context.Company = SFSdotNet.Framework.My.Context.CurrentContext.Company;
+			}
 
-            context.CustomQuery = new CustomQuery();
             context.CustomQuery.FilterExpressionString = "";
             return GetBy(predicate, context, includes);
         }
@@ -4363,8 +4401,10 @@ public class SinglentonContext
 	
 					bool sharedAndMultiTenant = false;
 					Expression<Func<SDCase,bool>> multitenantExpression  = null;
-					if (contextRequest != null && contextRequest.Company != null)	                        	
+					if (contextRequest != null && contextRequest.Company != null){	
+                        	
 						multitenantExpression = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
+					}
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -4877,16 +4917,18 @@ public class SinglentonContext
         }
         public List<SDCase> GetBy(Expression<Func<SDCase, bool>> predicate)
         {
-
+			ContextRequest contextRequest = new ContextRequest();
+			contextRequest.CustomQuery = new CustomQuery();
+			if (!preventSecurityRestrictions)
+			{
 			if (System.Web.HttpContext.Current == null || System.Web.HttpContext.Current.Session == null)
             {
                 throw new Exception("Please, specific the contextRequest parameter in the method: GetBy");
             }
-			ContextRequest contextRequest = new ContextRequest();
-            contextRequest.CustomQuery = new CustomQuery();
 			contextRequest.CurrentContext = SFSdotNet.Framework.My.Context.CurrentContext;
 			            contextRequest.User = SFSdotNet.Framework.My.Context.CurrentContext.User;
             contextRequest.Company = SFSdotNet.Framework.My.Context.CurrentContext.Company;
+			}
 
             contextRequest.CustomQuery.FilterExpressionString = null;
             return this.GetBy(predicate, contextRequest, "");
@@ -5295,9 +5337,9 @@ public class SinglentonContext
 
 				con.Entry<SDCase>(itemForSave).State = EntityState.Added;
 
-				con.SaveChanges();
+                //con.SaveChanges();
 
-					 
+                this.Create(itemForSave, con, "SDCase", "SFSServiceDesk", contextRequest); 
 				
 
 				//itemResult = entity;
@@ -5524,8 +5566,8 @@ public class SinglentonContext
 		   using (EFContext con = new EFContext())
             {
 
-
-
+			    con.Configuration.ValidateOnSaveEnabled = false;
+                con.Configuration.AutoDetectChangesEnabled = false;
                
 					List<string> propForCopy = new List<string>();
                     propForCopy.AddRange(fields);
@@ -5710,127 +5752,159 @@ public class SinglentonContext
 			
 				SDCase  itemResult = null;
 
-	
-			//entity.UpdatedDate = DateTime.Now.ToUniversalTime();
-			//if(contextRequest.User != null)
-				//entity.UpdatedBy = contextRequest.User.GuidUser;
 
-//	    var oldentity = GetBy(p => p.GuidCase == entity.GuidCase, contextRequest).FirstOrDefault();
-	//	if (oldentity != null) {
-		
-          //  entity.CreatedDate = oldentity.CreatedDate;
-    //        entity.CreatedBy = oldentity.CreatedBy;
-	
-      //      entity.GuidCompany = oldentity.GuidCompany;
-	
-			
+            //entity.UpdatedDate = DateTime.Now.ToUniversalTime();
+            //if(contextRequest.User != null)
+            //entity.UpdatedBy = contextRequest.User.GuidUser;
 
-	
-		//}
+            //	    var oldentity = GetBy(p => p.GuidCase == entity.GuidCase, contextRequest).FirstOrDefault();
+            //	if (oldentity != null) {
 
-			 using( EFContext con = new EFContext()){
-				BusinessRulesEventArgs<SDCase> e = null;
-				bool preventPartial = false; 
-				if (contextRequest != null && contextRequest.PreventInterceptors == true )
+            //  entity.CreatedDate = oldentity.CreatedDate;
+            //        entity.CreatedBy = oldentity.CreatedBy;
+
+            //      entity.GuidCompany = oldentity.GuidCompany;
+
+
+
+
+            //}
+           
+                using (EFContext con = new EFContext())
                 {
-                    preventPartial = true;
-                } 
-				if (preventPartial == false)
-                OnUpdating(this,e = new BusinessRulesEventArgs<SDCase>() { ContextRequest = contextRequest, Item=entity});
-				   if (e != null) {
-						if (e.Cancel)
-						{
-							//outcontext = null;
-							return e.Item;
+                    BusinessRulesEventArgs<SDCase> e = null;
+                    bool preventPartial = false;
+                    if (contextRequest != null && contextRequest.PreventInterceptors == true)
+                    {
+                        preventPartial = true;
+                    }
+                    if (preventPartial == false)
+                        OnUpdating(this, e = new BusinessRulesEventArgs<SDCase>() { ContextRequest = contextRequest, Item = entity });
+                    if (e != null)
+                    {
+                        if (e.Cancel)
+                        {
+                            //outcontext = null;
+                            return e.Item;
 
-						}
-					}
+                        }
+                    }
 
-	string includes = "SDPerson,SDCasePriority,SDCaseState";
-	IQueryable < SDCase > query = con.SDCases.AsQueryable();
-	foreach (string include in includes.Split(char.Parse(",")))
-                       {
-                           if (!string.IsNullOrEmpty(include))
-                               query = query.Include(include);
-                       }
-	var oldentity = query.FirstOrDefault(p => p.GuidCase == entity.GuidCase);
-	if (oldentity.ClosedDateTime != entity.ClosedDateTime)
-		oldentity.ClosedDateTime = entity.ClosedDateTime;
-	if (oldentity.BodyContent != entity.BodyContent)
-		oldentity.BodyContent = entity.BodyContent;
-	if (oldentity.PreviewContent != entity.PreviewContent)
-		oldentity.PreviewContent = entity.PreviewContent;
-	if (oldentity.Title != entity.Title)
-		oldentity.Title = entity.Title;
+                    string includes = "SDPerson,SDCasePriority,SDCaseState";
+                var bo = SFSdotNet.Framework.Cache.Caching.SystemObjects.GetEntityByNameKey(this.AppNameKey, this.EntityKey);
 
-				//if (entity.UpdatedDate == null || (contextRequest != null && contextRequest.IsFromUI("SDCases", UIActions.Updating)))
-			oldentity.UpdatedDate = DateTime.Now.ToUniversalTime();
-			if(contextRequest.User != null)
-				oldentity.UpdatedBy = contextRequest.User.GuidUser;
+                SDCase oldentity = null;
+                if (bo.CosmosDBEnabled == true)
+                {
+                    //query = 
+                    if (this.NoSQLDocumentDB == null)
+                    {
+                        this.NoSQLDocumentDB = new NoSQLCosmosDB<SDCase>(this.AppNameKey, this.EntityKey);
+                    }
+                    //queryDocumentDB = GetDocumentDBClient().CreateDocumentQuery<TEntity>(UriFactory.CreateDocumentCollectionUri(this.AppNameKey, this.EntityKey), new FeedOptions { EnableScanInQuery = true, MaxItemCount = contextRequest.CustomQuery.PageSize });
+                    var query = this.NoSQLDocumentDB.GetQuery(contextRequest);
+                    query = query.Where("id = \"" + entity.GuidCase + "\"");
+                    var items = this.NoSQLDocumentDB.Get(query, this.AppNameKey, this.EntityKey, contextRequest);
+                    if (items.Count == 1)
+                    {
+                        oldentity = items[0];
+                    }
+                }
+                if (bo.SQLEnabled == true || bo.SQLEnabled == null)
+                {
+                    IQueryable<SDCase> query = con.SDCases.AsQueryable();
+                    foreach (string include in includes.Split(char.Parse(",")))
+                    {
+                        if (!string.IsNullOrEmpty(include))
+                            query = query.Include(include);
+                    }
+                    oldentity = query.FirstOrDefault(p => p.GuidCase == entity.GuidCase);
+                }
+                    if (oldentity.ClosedDateTime != entity.ClosedDateTime)
+                        oldentity.ClosedDateTime = entity.ClosedDateTime;
+                    if (oldentity.BodyContent != entity.BodyContent)
+                        oldentity.BodyContent = entity.BodyContent;
+                    if (oldentity.PreviewContent != entity.PreviewContent)
+                        oldentity.PreviewContent = entity.PreviewContent;
+                    if (oldentity.Title != entity.Title)
+                        oldentity.Title = entity.Title;
+                    if (oldentity.IsDeleted != entity.IsDeleted)
+                        oldentity.IsDeleted = entity.IsDeleted;
 
+                    //if (entity.UpdatedDate == null || (contextRequest != null && contextRequest.IsFromUI("SDCases", UIActions.Updating)))
+                    oldentity.UpdatedDate = DateTime.Now.ToUniversalTime();
+                    if (contextRequest.User != null)
+                        oldentity.UpdatedBy = contextRequest.User.GuidUser;
+
+
+
+
+                    if (SFSdotNet.Framework.BR.Utils.HasRelationPropertyChanged(oldentity.SDPerson, entity.SDPerson, "GuidPerson"))
+                        oldentity.SDPerson = entity.SDPerson != null ? new SDPerson() { GuidPerson = entity.SDPerson.GuidPerson } : null;
+
+
+
+
+                    if (SFSdotNet.Framework.BR.Utils.HasRelationPropertyChanged(oldentity.SDCasePriority, entity.SDCasePriority, "GuidCasePriority"))
+                        oldentity.SDCasePriority = entity.SDCasePriority != null ? new SDCasePriority() { GuidCasePriority = entity.SDCasePriority.GuidCasePriority } : null;
+
+
+
+
+                    if (SFSdotNet.Framework.BR.Utils.HasRelationPropertyChanged(oldentity.SDCaseState, entity.SDCaseState, "GuidCaseState"))
+                        oldentity.SDCaseState = entity.SDCaseState != null ? new SDCaseState() { GuidCaseState = entity.SDCaseState.GuidCaseState } : null;
+
+
+
+
+                    if (entity.SDCaseFiles != null)
+                    {
+                        foreach (var item in entity.SDCaseFiles)
+                        {
+
+
+
+                        }
+
+
+
+                    }
+
+
+                    if (entity.SDCaseHistories != null)
+                    {
+                        foreach (var item in entity.SDCaseHistories)
+                        {
+
+
+
+                        }
+
+
+
+                    }
+
+
+                    con.ChangeTracker.Entries().Where(p => p.Entity != oldentity).ForEach(p => p.State = EntityState.Unchanged);
+
+                    //con.SaveChanges();
+                    
+                    Update(oldentity, con, "SDCase", "SFSServiceDesk", contextRequest);
+
+
+                    itemResult = entity;
+                    if (preventPartial == false)
+                        OnUpdated(this, e = new BusinessRulesEventArgs<SDCase>() { ContextRequest = contextRequest, Item = itemResult });
+
+                    return itemResult;
+                
+               
+
+            }
+
+        
            
 
-
-						if (SFSdotNet.Framework.BR.Utils.HasRelationPropertyChanged(oldentity.SDPerson, entity.SDPerson, "GuidPerson"))
-							oldentity.SDPerson = entity.SDPerson != null? new SDPerson(){ GuidPerson = entity.SDPerson.GuidPerson } :null;
-
-                
-
-
-						if (SFSdotNet.Framework.BR.Utils.HasRelationPropertyChanged(oldentity.SDCasePriority, entity.SDCasePriority, "GuidCasePriority"))
-							oldentity.SDCasePriority = entity.SDCasePriority != null? new SDCasePriority(){ GuidCasePriority = entity.SDCasePriority.GuidCasePriority } :null;
-
-                
-
-
-						if (SFSdotNet.Framework.BR.Utils.HasRelationPropertyChanged(oldentity.SDCaseState, entity.SDCaseState, "GuidCaseState"))
-							oldentity.SDCaseState = entity.SDCaseState != null? new SDCaseState(){ GuidCaseState = entity.SDCaseState.GuidCaseState } :null;
-
-                
-
-
-				if (entity.SDCaseFiles != null)
-                {
-                    foreach (var item in entity.SDCaseFiles)
-                    {
-
-
-                        
-                    }
-					
-                    
-
-                }
-
-
-				if (entity.SDCaseHistories != null)
-                {
-                    foreach (var item in entity.SDCaseHistories)
-                    {
-
-
-                        
-                    }
-					
-                    
-
-                }
-
-
-				con.ChangeTracker.Entries().Where(p => p.Entity != oldentity).ForEach(p => p.State = EntityState.Unchanged);  
-				  
-				con.SaveChanges();
-        
-					 
-					
-               
-				itemResult = entity;
-				if(preventPartial == false)
-					OnUpdated(this, e = new BusinessRulesEventArgs<SDCase>() { ContextRequest = contextRequest, Item=itemResult });
-
-              	return itemResult;
-			}
-			  
         }
         public SDCase Save(SDCase entity)
         {
@@ -6023,7 +6097,9 @@ public class SinglentonContext
 						if (contextRequest != null )
                     		if (contextRequest.User !=null )
                         		if (contextRequest.Company != null && contextRequest.CustomQuery.IncludeAllCompanies == false){
+                        	
 									predicate = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
+						//			predicate = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
 
 								}
 						}
@@ -6076,10 +6152,8 @@ public class SinglentonContext
 					bool sharedAndMultiTenant = false;	  
 					string multitenantExpression = null;
 				if (contextRequest != null && contextRequest.Company != null)
-				 {
-                    multitenantExpression = @"(GuidCompany = @GuidCompanyMultiTenant)";
-                    contextRequest.CustomQuery.SetParam("GuidCompanyMultiTenant", new Nullable<Guid>(contextRequest.Company.GuidCompany));
-                }
+                   	
+						 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -6302,8 +6376,12 @@ public class SinglentonContext
             {
                 OnTaken(sender, e);
             }
-
+			protected override void OnVirtualSummaryOperation(object sender,  BusinessRulesEventArgs<SDCaseFile> e)
+			{
+				OnSummaryOperation(sender, e);
+			}
             partial void OnCounting(object sender, BusinessRulesEventArgs<SDCaseFile> e);
+			partial void OnSummaryOperation(object sender, BusinessRulesEventArgs<SDCaseFile> e);
  
 			partial void OnQuerySettings(object sender, BusinessRulesEventArgs<SDCaseFile> e);
           
@@ -6491,15 +6569,19 @@ public class SinglentonContext
 
         public List<SDCaseFile> GetBy(Expression<Func<SDCaseFile, bool>> predicate, params Expression<Func<SDCaseFile, object>>[] includes)
         {
+		ContextRequest context = new ContextRequest();
+		 context.CustomQuery = new CustomQuery();
+			if (!preventSecurityRestrictions)
+				{
 			if (System.Web.HttpContext.Current == null || System.Web.HttpContext.Current.Session == null)
             {
                 throw new Exception("Please, specific the contextRequest parameter in the method: GetBy");
             }
-			ContextRequest context = new ContextRequest();
+			//ContextRequest context = new ContextRequest();
 			            context.User = SFSdotNet.Framework.My.Context.CurrentContext.User;
             context.Company = SFSdotNet.Framework.My.Context.CurrentContext.Company;
+			}
 
-            context.CustomQuery = new CustomQuery();
             context.CustomQuery.FilterExpressionString = "";
             return GetBy(predicate, context, includes);
         }
@@ -6518,8 +6600,10 @@ public class SinglentonContext
 	
 					bool sharedAndMultiTenant = false;
 					Expression<Func<SDCaseFile,bool>> multitenantExpression  = null;
-					if (contextRequest != null && contextRequest.Company != null)	                        	
+					if (contextRequest != null && contextRequest.Company != null){	
+                        	
 						multitenantExpression = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
+					}
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -6663,7 +6747,7 @@ public class SinglentonContext
 				
 
 
-				string computedFields = "ExistFile|FileName|FileStorage";
+				string computedFields = "ExistFile|FileName|FileStorage|FileThumbSizes";
 				string fkIncludes = "SDCase";
                 List<string> multilangProperties = new List<string>();
 				//if (predicate == null) predicate = PredicateBuilder.True<SDCaseFile>();
@@ -6797,9 +6881,9 @@ public class SinglentonContext
 						if (preventSecurityRestrictions) preventSecurityRestrictions= false;
 				//string predicateString = predicate.ToDynamicLinq<SDCaseFile>();
 				//predicateString += sbQuerySystem.ToString();
-				filter.CleanAndProcess("ExistFile|FileName|FileStorage");
+				filter.CleanAndProcess("ExistFile|FileName|FileStorage|FileThumbSizes");
 
-				string predicateWithFKAndComputed = filter.GetFilterParentAndCoumputed(); //SFSdotNet.Framework.Linq.Utils.ExtractSpecificProperties("ExistFile|FileName|FileStorage", ref predicateString );               
+				string predicateWithFKAndComputed = filter.GetFilterParentAndCoumputed(); //SFSdotNet.Framework.Linq.Utils.ExtractSpecificProperties("ExistFile|FileName|FileStorage|FileThumbSizes", ref predicateString );               
                 string predicateWithManyRelations = filter.GetFilterChildren(); //SFSdotNet.Framework.Linq.Utils.CleanPartExpression(predicateString);
 
                 //QueryUtils.BreakeQuery1(predicateString, ref predicateWithManyRelations, ref predicateWithFKAndComputed);
@@ -6879,7 +6963,7 @@ public class SinglentonContext
         {
             using (EFContext con = new EFContext(contextRequest))
             {
-                string computedFields = "ExistFile|FileName|FileStorage";
+                string computedFields = "ExistFile|FileName|FileStorage|FileThumbSizes";
                // string fkIncludes = "accContpaqiClassification,accProjectConcept,accProjectType,accProxyUser";
                 List<string> multilangProperties = new List<string>();
                 var notDeletedExpression = "(IsDeleted != true OR IsDeleted = null)";
@@ -6950,6 +7034,8 @@ public class SinglentonContext
                     contextRequest.CustomQuery.SpecificProperties.Add("FileName");
                 if (isFullDetails || filterForTest.Contains("FileStorage"))
                     contextRequest.CustomQuery.SpecificProperties.Add("FileStorage");
+                if (isFullDetails || filterForTest.Contains("FileThumbSizes"))
+                    contextRequest.CustomQuery.SpecificProperties.Add("FileThumbSizes");
             } 
 
 			if (method == "sum")
@@ -6969,6 +7055,8 @@ public class SinglentonContext
 					case "FileName":
 
 					case "FileStorage":
+
+					case "FileThumbSizes":
 
 					linq =  null;
 				break;
@@ -7035,16 +7123,18 @@ public class SinglentonContext
         }
         public List<SDCaseFile> GetBy(Expression<Func<SDCaseFile, bool>> predicate)
         {
-
+			ContextRequest contextRequest = new ContextRequest();
+			contextRequest.CustomQuery = new CustomQuery();
+			if (!preventSecurityRestrictions)
+			{
 			if (System.Web.HttpContext.Current == null || System.Web.HttpContext.Current.Session == null)
             {
                 throw new Exception("Please, specific the contextRequest parameter in the method: GetBy");
             }
-			ContextRequest contextRequest = new ContextRequest();
-            contextRequest.CustomQuery = new CustomQuery();
 			contextRequest.CurrentContext = SFSdotNet.Framework.My.Context.CurrentContext;
 			            contextRequest.User = SFSdotNet.Framework.My.Context.CurrentContext.User;
             contextRequest.Company = SFSdotNet.Framework.My.Context.CurrentContext.Company;
+			}
 
             contextRequest.CustomQuery.FilterExpressionString = null;
             return this.GetBy(predicate, contextRequest, "");
@@ -7128,6 +7218,14 @@ public class SinglentonContext
 					
 									
 					sbSpec.Append(string.Format(@"FileStorage.Contains(""{0}"")", word));
+					}
+
+					
+				if (contextRequest.CustomQuery.SpecificProperties.Contains("FileThumbSizes")) {	
+										sbSpec.Append(" OR ");
+					
+									
+					sbSpec.Append(string.Format(@"FileThumbSizes.Contains(""{0}"")", word));
 					}
 
 					
@@ -7645,8 +7743,8 @@ public class SinglentonContext
 		   using (EFContext con = new EFContext())
             {
 
-
-
+			    con.Configuration.ValidateOnSaveEnabled = false;
+                con.Configuration.AutoDetectChangesEnabled = false;
                
 					List<string> propForCopy = new List<string>();
                     propForCopy.AddRange(fields);
@@ -7853,6 +7951,8 @@ public class SinglentonContext
 	var oldentity = query.FirstOrDefault(p => p.GuidCasefile == entity.GuidCasefile);
 		if (oldentity.GuidFile != entity.GuidFile)
 			oldentity.GuidFile = entity.GuidFile;
+	if (oldentity.IsDeleted != entity.IsDeleted)
+		oldentity.IsDeleted = entity.IsDeleted;
 
 				//if (entity.UpdatedDate == null || (contextRequest != null && contextRequest.IsFromUI("SDCaseFiles", UIActions.Updating)))
 			oldentity.UpdatedDate = DateTime.Now.ToUniversalTime();
@@ -8080,7 +8180,9 @@ public class SinglentonContext
 						if (contextRequest != null )
                     		if (contextRequest.User !=null )
                         		if (contextRequest.Company != null && contextRequest.CustomQuery.IncludeAllCompanies == false){
+                        	
 									predicate = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
+						//			predicate = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
 
 								}
 						}
@@ -8123,7 +8225,7 @@ public class SinglentonContext
         public int GetCount(string predicate, string usemode, ContextRequest contextRequest){
 
 		using (EFContext con = new EFContext()) {
-				string computedFields = "ExistFile|FileName|FileStorage";
+				string computedFields = "ExistFile|FileName|FileStorage|FileThumbSizes";
 				string fkIncludes = "SDCase";
                 List<string> multilangProperties = new List<string>();
 				//if (predicate == null) predicate = PredicateBuilder.True<SDCaseFile>();
@@ -8133,10 +8235,8 @@ public class SinglentonContext
 					bool sharedAndMultiTenant = false;	  
 					string multitenantExpression = null;
 				if (contextRequest != null && contextRequest.Company != null)
-				 {
-                    multitenantExpression = @"(GuidCompany = @GuidCompanyMultiTenant)";
-                    contextRequest.CustomQuery.SetParam("GuidCompanyMultiTenant", new Nullable<Guid>(contextRequest.Company.GuidCompany));
-                }
+                   	
+						 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -8213,8 +8313,8 @@ public class SinglentonContext
 							if (preventSecurityRestrictions) preventSecurityRestrictions= false;
 		
 				   
-                 filter.CleanAndProcess("ExistFile|FileName|FileStorage");
-				//string predicateWithFKAndComputed = SFSdotNet.Framework.Linq.Utils.ExtractSpecificProperties("ExistFile|FileName|FileStorage", ref predicate );               
+                 filter.CleanAndProcess("ExistFile|FileName|FileStorage|FileThumbSizes");
+				//string predicateWithFKAndComputed = SFSdotNet.Framework.Linq.Utils.ExtractSpecificProperties("ExistFile|FileName|FileStorage|FileThumbSizes", ref predicate );               
 				string predicateWithFKAndComputed = filter.GetFilterParentAndCoumputed();
                string predicateWithManyRelations = filter.GetFilterChildren();
 			   ///QueryUtils.BreakeQuery1(predicate, ref predicateWithManyRelations, ref predicateWithFKAndComputed);
@@ -8386,8 +8486,12 @@ public class SinglentonContext
             {
                 OnTaken(sender, e);
             }
-
+			protected override void OnVirtualSummaryOperation(object sender,  BusinessRulesEventArgs<SDCaseHistory> e)
+			{
+				OnSummaryOperation(sender, e);
+			}
             partial void OnCounting(object sender, BusinessRulesEventArgs<SDCaseHistory> e);
+			partial void OnSummaryOperation(object sender, BusinessRulesEventArgs<SDCaseHistory> e);
  
 			partial void OnQuerySettings(object sender, BusinessRulesEventArgs<SDCaseHistory> e);
           
@@ -8575,15 +8679,19 @@ public class SinglentonContext
 
         public List<SDCaseHistory> GetBy(Expression<Func<SDCaseHistory, bool>> predicate, params Expression<Func<SDCaseHistory, object>>[] includes)
         {
+		ContextRequest context = new ContextRequest();
+		 context.CustomQuery = new CustomQuery();
+			if (!preventSecurityRestrictions)
+				{
 			if (System.Web.HttpContext.Current == null || System.Web.HttpContext.Current.Session == null)
             {
                 throw new Exception("Please, specific the contextRequest parameter in the method: GetBy");
             }
-			ContextRequest context = new ContextRequest();
+			//ContextRequest context = new ContextRequest();
 			            context.User = SFSdotNet.Framework.My.Context.CurrentContext.User;
             context.Company = SFSdotNet.Framework.My.Context.CurrentContext.Company;
+			}
 
-            context.CustomQuery = new CustomQuery();
             context.CustomQuery.FilterExpressionString = "";
             return GetBy(predicate, context, includes);
         }
@@ -8602,8 +8710,10 @@ public class SinglentonContext
 	
 					bool sharedAndMultiTenant = false;
 					Expression<Func<SDCaseHistory,bool>> multitenantExpression  = null;
-					if (contextRequest != null && contextRequest.Company != null)	                        	
+					if (contextRequest != null && contextRequest.Company != null){	
+                        	
 						multitenantExpression = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
+					}
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -9105,16 +9215,18 @@ public class SinglentonContext
         }
         public List<SDCaseHistory> GetBy(Expression<Func<SDCaseHistory, bool>> predicate)
         {
-
+			ContextRequest contextRequest = new ContextRequest();
+			contextRequest.CustomQuery = new CustomQuery();
+			if (!preventSecurityRestrictions)
+			{
 			if (System.Web.HttpContext.Current == null || System.Web.HttpContext.Current.Session == null)
             {
                 throw new Exception("Please, specific the contextRequest parameter in the method: GetBy");
             }
-			ContextRequest contextRequest = new ContextRequest();
-            contextRequest.CustomQuery = new CustomQuery();
 			contextRequest.CurrentContext = SFSdotNet.Framework.My.Context.CurrentContext;
 			            contextRequest.User = SFSdotNet.Framework.My.Context.CurrentContext.User;
             contextRequest.Company = SFSdotNet.Framework.My.Context.CurrentContext.Company;
+			}
 
             contextRequest.CustomQuery.FilterExpressionString = null;
             return this.GetBy(predicate, contextRequest, "");
@@ -9702,8 +9814,8 @@ public class SinglentonContext
 		   using (EFContext con = new EFContext())
             {
 
-
-
+			    con.Configuration.ValidateOnSaveEnabled = false;
+                con.Configuration.AutoDetectChangesEnabled = false;
                
 					List<string> propForCopy = new List<string>();
                     propForCopy.AddRange(fields);
@@ -9920,6 +10032,8 @@ public class SinglentonContext
 		oldentity.BodyContent = entity.BodyContent;
 	if (oldentity.PreviewContent != entity.PreviewContent)
 		oldentity.PreviewContent = entity.PreviewContent;
+	if (oldentity.IsDeleted != entity.IsDeleted)
+		oldentity.IsDeleted = entity.IsDeleted;
 
 				//if (entity.UpdatedDate == null || (contextRequest != null && contextRequest.IsFromUI("SDCaseHistories", UIActions.Updating)))
 			oldentity.UpdatedDate = DateTime.Now.ToUniversalTime();
@@ -10161,7 +10275,9 @@ public class SinglentonContext
 						if (contextRequest != null )
                     		if (contextRequest.User !=null )
                         		if (contextRequest.Company != null && contextRequest.CustomQuery.IncludeAllCompanies == false){
+                        	
 									predicate = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
+						//			predicate = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
 
 								}
 						}
@@ -10214,10 +10330,8 @@ public class SinglentonContext
 					bool sharedAndMultiTenant = false;	  
 					string multitenantExpression = null;
 				if (contextRequest != null && contextRequest.Company != null)
-				 {
-                    multitenantExpression = @"(GuidCompany = @GuidCompanyMultiTenant)";
-                    contextRequest.CustomQuery.SetParam("GuidCompanyMultiTenant", new Nullable<Guid>(contextRequest.Company.GuidCompany));
-                }
+                   	
+						 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -10440,8 +10554,12 @@ public class SinglentonContext
             {
                 OnTaken(sender, e);
             }
-
+			protected override void OnVirtualSummaryOperation(object sender,  BusinessRulesEventArgs<SDCaseHistoryFile> e)
+			{
+				OnSummaryOperation(sender, e);
+			}
             partial void OnCounting(object sender, BusinessRulesEventArgs<SDCaseHistoryFile> e);
+			partial void OnSummaryOperation(object sender, BusinessRulesEventArgs<SDCaseHistoryFile> e);
  
 			partial void OnQuerySettings(object sender, BusinessRulesEventArgs<SDCaseHistoryFile> e);
           
@@ -10629,15 +10747,19 @@ public class SinglentonContext
 
         public List<SDCaseHistoryFile> GetBy(Expression<Func<SDCaseHistoryFile, bool>> predicate, params Expression<Func<SDCaseHistoryFile, object>>[] includes)
         {
+		ContextRequest context = new ContextRequest();
+		 context.CustomQuery = new CustomQuery();
+			if (!preventSecurityRestrictions)
+				{
 			if (System.Web.HttpContext.Current == null || System.Web.HttpContext.Current.Session == null)
             {
                 throw new Exception("Please, specific the contextRequest parameter in the method: GetBy");
             }
-			ContextRequest context = new ContextRequest();
+			//ContextRequest context = new ContextRequest();
 			            context.User = SFSdotNet.Framework.My.Context.CurrentContext.User;
             context.Company = SFSdotNet.Framework.My.Context.CurrentContext.Company;
+			}
 
-            context.CustomQuery = new CustomQuery();
             context.CustomQuery.FilterExpressionString = "";
             return GetBy(predicate, context, includes);
         }
@@ -10656,8 +10778,10 @@ public class SinglentonContext
 	
 					bool sharedAndMultiTenant = false;
 					Expression<Func<SDCaseHistoryFile,bool>> multitenantExpression  = null;
-					if (contextRequest != null && contextRequest.Company != null)	                        	
+					if (contextRequest != null && contextRequest.Company != null){	
+                        	
 						multitenantExpression = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
+					}
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -11157,16 +11281,18 @@ public class SinglentonContext
         }
         public List<SDCaseHistoryFile> GetBy(Expression<Func<SDCaseHistoryFile, bool>> predicate)
         {
-
+			ContextRequest contextRequest = new ContextRequest();
+			contextRequest.CustomQuery = new CustomQuery();
+			if (!preventSecurityRestrictions)
+			{
 			if (System.Web.HttpContext.Current == null || System.Web.HttpContext.Current.Session == null)
             {
                 throw new Exception("Please, specific the contextRequest parameter in the method: GetBy");
             }
-			ContextRequest contextRequest = new ContextRequest();
-            contextRequest.CustomQuery = new CustomQuery();
 			contextRequest.CurrentContext = SFSdotNet.Framework.My.Context.CurrentContext;
 			            contextRequest.User = SFSdotNet.Framework.My.Context.CurrentContext.User;
             contextRequest.Company = SFSdotNet.Framework.My.Context.CurrentContext.Company;
+			}
 
             contextRequest.CustomQuery.FilterExpressionString = null;
             return this.GetBy(predicate, contextRequest, "");
@@ -11726,8 +11852,8 @@ public class SinglentonContext
 		   using (EFContext con = new EFContext())
             {
 
-
-
+			    con.Configuration.ValidateOnSaveEnabled = false;
+                con.Configuration.AutoDetectChangesEnabled = false;
                
 					List<string> propForCopy = new List<string>();
                     propForCopy.AddRange(fields);
@@ -11932,6 +12058,8 @@ public class SinglentonContext
                                query = query.Include(include);
                        }
 	var oldentity = query.FirstOrDefault(p => p.GuidCasehistoryFile == entity.GuidCasehistoryFile);
+	if (oldentity.IsDeleted != entity.IsDeleted)
+		oldentity.IsDeleted = entity.IsDeleted;
 
 				//if (entity.UpdatedDate == null || (contextRequest != null && contextRequest.IsFromUI("SDCaseHistoryFiles", UIActions.Updating)))
 			oldentity.UpdatedDate = DateTime.Now.ToUniversalTime();
@@ -12159,7 +12287,9 @@ public class SinglentonContext
 						if (contextRequest != null )
                     		if (contextRequest.User !=null )
                         		if (contextRequest.Company != null && contextRequest.CustomQuery.IncludeAllCompanies == false){
+                        	
 									predicate = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
+						//			predicate = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
 
 								}
 						}
@@ -12212,10 +12342,8 @@ public class SinglentonContext
 					bool sharedAndMultiTenant = false;	  
 					string multitenantExpression = null;
 				if (contextRequest != null && contextRequest.Company != null)
-				 {
-                    multitenantExpression = @"(GuidCompany = @GuidCompanyMultiTenant)";
-                    contextRequest.CustomQuery.SetParam("GuidCompanyMultiTenant", new Nullable<Guid>(contextRequest.Company.GuidCompany));
-                }
+                   	
+						 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -12438,8 +12566,12 @@ public class SinglentonContext
             {
                 OnTaken(sender, e);
             }
-
+			protected override void OnVirtualSummaryOperation(object sender,  BusinessRulesEventArgs<SDCasePriority> e)
+			{
+				OnSummaryOperation(sender, e);
+			}
             partial void OnCounting(object sender, BusinessRulesEventArgs<SDCasePriority> e);
+			partial void OnSummaryOperation(object sender, BusinessRulesEventArgs<SDCasePriority> e);
  
 			partial void OnQuerySettings(object sender, BusinessRulesEventArgs<SDCasePriority> e);
           
@@ -12627,15 +12759,19 @@ public class SinglentonContext
 
         public List<SDCasePriority> GetBy(Expression<Func<SDCasePriority, bool>> predicate, params Expression<Func<SDCasePriority, object>>[] includes)
         {
+		ContextRequest context = new ContextRequest();
+		 context.CustomQuery = new CustomQuery();
+			if (!preventSecurityRestrictions)
+				{
 			if (System.Web.HttpContext.Current == null || System.Web.HttpContext.Current.Session == null)
             {
                 throw new Exception("Please, specific the contextRequest parameter in the method: GetBy");
             }
-			ContextRequest context = new ContextRequest();
+			//ContextRequest context = new ContextRequest();
 			            context.User = SFSdotNet.Framework.My.Context.CurrentContext.User;
             context.Company = SFSdotNet.Framework.My.Context.CurrentContext.Company;
+			}
 
-            context.CustomQuery = new CustomQuery();
             context.CustomQuery.FilterExpressionString = "";
             return GetBy(predicate, context, includes);
         }
@@ -12654,8 +12790,10 @@ public class SinglentonContext
 	
 					bool sharedAndMultiTenant = false;
 					Expression<Func<SDCasePriority,bool>> multitenantExpression  = null;
-					if (contextRequest != null && contextRequest.Company != null)	                        	
+					if (contextRequest != null && contextRequest.Company != null){	
+                        	
 						multitenantExpression = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
+					}
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -13106,16 +13244,18 @@ public class SinglentonContext
         }
         public List<SDCasePriority> GetBy(Expression<Func<SDCasePriority, bool>> predicate)
         {
-
+			ContextRequest contextRequest = new ContextRequest();
+			contextRequest.CustomQuery = new CustomQuery();
+			if (!preventSecurityRestrictions)
+			{
 			if (System.Web.HttpContext.Current == null || System.Web.HttpContext.Current.Session == null)
             {
                 throw new Exception("Please, specific the contextRequest parameter in the method: GetBy");
             }
-			ContextRequest contextRequest = new ContextRequest();
-            contextRequest.CustomQuery = new CustomQuery();
 			contextRequest.CurrentContext = SFSdotNet.Framework.My.Context.CurrentContext;
 			            contextRequest.User = SFSdotNet.Framework.My.Context.CurrentContext.User;
             contextRequest.Company = SFSdotNet.Framework.My.Context.CurrentContext.Company;
+			}
 
             contextRequest.CustomQuery.FilterExpressionString = null;
             return this.GetBy(predicate, contextRequest, "");
@@ -13630,8 +13770,8 @@ public class SinglentonContext
 		   using (EFContext con = new EFContext())
             {
 
-
-
+			    con.Configuration.ValidateOnSaveEnabled = false;
+                con.Configuration.AutoDetectChangesEnabled = false;
                
 					List<string> propForCopy = new List<string>();
                     propForCopy.AddRange(fields);
@@ -13818,6 +13958,8 @@ public class SinglentonContext
 	var oldentity = query.FirstOrDefault(p => p.GuidCasePriority == entity.GuidCasePriority);
 	if (oldentity.Title != entity.Title)
 		oldentity.Title = entity.Title;
+	if (oldentity.IsDeleted != entity.IsDeleted)
+		oldentity.IsDeleted = entity.IsDeleted;
 
 				//if (entity.UpdatedDate == null || (contextRequest != null && contextRequest.IsFromUI("SDCasePriorities", UIActions.Updating)))
 			oldentity.UpdatedDate = DateTime.Now.ToUniversalTime();
@@ -14047,7 +14189,9 @@ public class SinglentonContext
 						if (contextRequest != null )
                     		if (contextRequest.User !=null )
                         		if (contextRequest.Company != null && contextRequest.CustomQuery.IncludeAllCompanies == false){
+                        	
 									predicate = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
+						//			predicate = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
 
 								}
 						}
@@ -14100,10 +14244,8 @@ public class SinglentonContext
 					bool sharedAndMultiTenant = false;	  
 					string multitenantExpression = null;
 				if (contextRequest != null && contextRequest.Company != null)
-				 {
-                    multitenantExpression = @"(GuidCompany = @GuidCompanyMultiTenant)";
-                    contextRequest.CustomQuery.SetParam("GuidCompanyMultiTenant", new Nullable<Guid>(contextRequest.Company.GuidCompany));
-                }
+                   	
+						 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -14326,8 +14468,12 @@ public class SinglentonContext
             {
                 OnTaken(sender, e);
             }
-
+			protected override void OnVirtualSummaryOperation(object sender,  BusinessRulesEventArgs<SDCaseState> e)
+			{
+				OnSummaryOperation(sender, e);
+			}
             partial void OnCounting(object sender, BusinessRulesEventArgs<SDCaseState> e);
+			partial void OnSummaryOperation(object sender, BusinessRulesEventArgs<SDCaseState> e);
  
 			partial void OnQuerySettings(object sender, BusinessRulesEventArgs<SDCaseState> e);
           
@@ -14515,15 +14661,19 @@ public class SinglentonContext
 
         public List<SDCaseState> GetBy(Expression<Func<SDCaseState, bool>> predicate, params Expression<Func<SDCaseState, object>>[] includes)
         {
+		ContextRequest context = new ContextRequest();
+		 context.CustomQuery = new CustomQuery();
+			if (!preventSecurityRestrictions)
+				{
 			if (System.Web.HttpContext.Current == null || System.Web.HttpContext.Current.Session == null)
             {
                 throw new Exception("Please, specific the contextRequest parameter in the method: GetBy");
             }
-			ContextRequest context = new ContextRequest();
+			//ContextRequest context = new ContextRequest();
 			            context.User = SFSdotNet.Framework.My.Context.CurrentContext.User;
             context.Company = SFSdotNet.Framework.My.Context.CurrentContext.Company;
+			}
 
-            context.CustomQuery = new CustomQuery();
             context.CustomQuery.FilterExpressionString = "";
             return GetBy(predicate, context, includes);
         }
@@ -14542,8 +14692,10 @@ public class SinglentonContext
 	
 					bool sharedAndMultiTenant = false;
 					Expression<Func<SDCaseState,bool>> multitenantExpression  = null;
-					if (contextRequest != null && contextRequest.Company != null)	                        	
+					if (contextRequest != null && contextRequest.Company != null){	
+                        	
 						multitenantExpression = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
+					}
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -14994,16 +15146,18 @@ public class SinglentonContext
         }
         public List<SDCaseState> GetBy(Expression<Func<SDCaseState, bool>> predicate)
         {
-
+			ContextRequest contextRequest = new ContextRequest();
+			contextRequest.CustomQuery = new CustomQuery();
+			if (!preventSecurityRestrictions)
+			{
 			if (System.Web.HttpContext.Current == null || System.Web.HttpContext.Current.Session == null)
             {
                 throw new Exception("Please, specific the contextRequest parameter in the method: GetBy");
             }
-			ContextRequest contextRequest = new ContextRequest();
-            contextRequest.CustomQuery = new CustomQuery();
 			contextRequest.CurrentContext = SFSdotNet.Framework.My.Context.CurrentContext;
 			            contextRequest.User = SFSdotNet.Framework.My.Context.CurrentContext.User;
             contextRequest.Company = SFSdotNet.Framework.My.Context.CurrentContext.Company;
+			}
 
             contextRequest.CustomQuery.FilterExpressionString = null;
             return this.GetBy(predicate, contextRequest, "");
@@ -15522,8 +15676,8 @@ public class SinglentonContext
 		   using (EFContext con = new EFContext())
             {
 
-
-
+			    con.Configuration.ValidateOnSaveEnabled = false;
+                con.Configuration.AutoDetectChangesEnabled = false;
                
 					List<string> propForCopy = new List<string>();
                     propForCopy.AddRange(fields);
@@ -15712,6 +15866,8 @@ public class SinglentonContext
 	var oldentity = query.FirstOrDefault(p => p.GuidCaseState == entity.GuidCaseState);
 	if (oldentity.Title != entity.Title)
 		oldentity.Title = entity.Title;
+	if (oldentity.IsDeleted != entity.IsDeleted)
+		oldentity.IsDeleted = entity.IsDeleted;
 
 				//if (entity.UpdatedDate == null || (contextRequest != null && contextRequest.IsFromUI("SDCaseStates", UIActions.Updating)))
 			oldentity.UpdatedDate = DateTime.Now.ToUniversalTime();
@@ -15955,7 +16111,9 @@ public class SinglentonContext
 						if (contextRequest != null )
                     		if (contextRequest.User !=null )
                         		if (contextRequest.Company != null && contextRequest.CustomQuery.IncludeAllCompanies == false){
+                        	
 									predicate = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
+						//			predicate = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
 
 								}
 						}
@@ -16008,10 +16166,8 @@ public class SinglentonContext
 					bool sharedAndMultiTenant = false;	  
 					string multitenantExpression = null;
 				if (contextRequest != null && contextRequest.Company != null)
-				 {
-                    multitenantExpression = @"(GuidCompany = @GuidCompanyMultiTenant)";
-                    contextRequest.CustomQuery.SetParam("GuidCompanyMultiTenant", new Nullable<Guid>(contextRequest.Company.GuidCompany));
-                }
+                   	
+						 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -16234,8 +16390,12 @@ public class SinglentonContext
             {
                 OnTaken(sender, e);
             }
-
+			protected override void OnVirtualSummaryOperation(object sender,  BusinessRulesEventArgs<SDFile> e)
+			{
+				OnSummaryOperation(sender, e);
+			}
             partial void OnCounting(object sender, BusinessRulesEventArgs<SDFile> e);
+			partial void OnSummaryOperation(object sender, BusinessRulesEventArgs<SDFile> e);
  
 			partial void OnQuerySettings(object sender, BusinessRulesEventArgs<SDFile> e);
           
@@ -16423,15 +16583,19 @@ public class SinglentonContext
 
         public List<SDFile> GetBy(Expression<Func<SDFile, bool>> predicate, params Expression<Func<SDFile, object>>[] includes)
         {
+		ContextRequest context = new ContextRequest();
+		 context.CustomQuery = new CustomQuery();
+			if (!preventSecurityRestrictions)
+				{
 			if (System.Web.HttpContext.Current == null || System.Web.HttpContext.Current.Session == null)
             {
                 throw new Exception("Please, specific the contextRequest parameter in the method: GetBy");
             }
-			ContextRequest context = new ContextRequest();
+			//ContextRequest context = new ContextRequest();
 			            context.User = SFSdotNet.Framework.My.Context.CurrentContext.User;
             context.Company = SFSdotNet.Framework.My.Context.CurrentContext.Company;
+			}
 
-            context.CustomQuery = new CustomQuery();
             context.CustomQuery.FilterExpressionString = "";
             return GetBy(predicate, context, includes);
         }
@@ -16450,8 +16614,10 @@ public class SinglentonContext
 	
 					bool sharedAndMultiTenant = false;
 					Expression<Func<SDFile,bool>> multitenantExpression  = null;
-					if (contextRequest != null && contextRequest.Company != null)	                        	
+					if (contextRequest != null && contextRequest.Company != null){	
+                        	
 						multitenantExpression = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
+					}
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -16818,6 +16984,7 @@ public class SinglentonContext
 					contextRequest.CustomQuery.SpecificProperties.Add(SDFile.PropertyNames.Bytes);
 					contextRequest.CustomQuery.SpecificProperties.Add(SDFile.PropertyNames.IsDeleted);
 					contextRequest.CustomQuery.SpecificProperties.Add(SDFile.PropertyNames.FileStorage);
+					contextRequest.CustomQuery.SpecificProperties.Add(SDFile.PropertyNames.FileThumbSizes);
                     
 				}
 
@@ -16908,16 +17075,18 @@ public class SinglentonContext
         }
         public List<SDFile> GetBy(Expression<Func<SDFile, bool>> predicate)
         {
-
+			ContextRequest contextRequest = new ContextRequest();
+			contextRequest.CustomQuery = new CustomQuery();
+			if (!preventSecurityRestrictions)
+			{
 			if (System.Web.HttpContext.Current == null || System.Web.HttpContext.Current.Session == null)
             {
                 throw new Exception("Please, specific the contextRequest parameter in the method: GetBy");
             }
-			ContextRequest contextRequest = new ContextRequest();
-            contextRequest.CustomQuery = new CustomQuery();
 			contextRequest.CurrentContext = SFSdotNet.Framework.My.Context.CurrentContext;
 			            contextRequest.User = SFSdotNet.Framework.My.Context.CurrentContext.User;
             contextRequest.Company = SFSdotNet.Framework.My.Context.CurrentContext.Company;
+			}
 
             contextRequest.CustomQuery.FilterExpressionString = null;
             return this.GetBy(predicate, contextRequest, "");
@@ -17001,6 +17170,14 @@ public class SinglentonContext
 					
 									
 					sbSpec.Append(string.Format(@"FileStorage.Contains(""{0}"")", word));
+					
+
+					
+					
+										sbSpec.Append(" OR ");
+					
+									
+					sbSpec.Append(string.Format(@"FileThumbSizes.Contains(""{0}"")", word));
 					
 
 					
@@ -17262,6 +17439,8 @@ public class SinglentonContext
 
 			itemForSave.FileStorage = entity.FileStorage;
 
+			itemForSave.FileThumbSizes = entity.FileThumbSizes;
+
 				
 				con.SDFiles.Add(itemForSave);
 
@@ -17406,6 +17585,8 @@ public class SinglentonContext
 
 			//entity.FileStorage = entity.FileStorage;
 
+			//entity.FileThumbSizes = entity.FileThumbSizes;
+
 				
 				
 
@@ -17470,8 +17651,8 @@ public class SinglentonContext
 		   using (EFContext con = new EFContext())
             {
 
-
-
+			    con.Configuration.ValidateOnSaveEnabled = false;
+                con.Configuration.AutoDetectChangesEnabled = false;
                
 					List<string> propForCopy = new List<string>();
                     propForCopy.AddRange(fields);
@@ -17666,8 +17847,12 @@ public class SinglentonContext
 		oldentity.FileSize = entity.FileSize;
 	if (oldentity.FileData != entity.FileData)
 		oldentity.FileData = entity.FileData;
+	if (oldentity.IsDeleted != entity.IsDeleted)
+		oldentity.IsDeleted = entity.IsDeleted;
 	if (oldentity.FileStorage != entity.FileStorage)
 		oldentity.FileStorage = entity.FileStorage;
+	if (oldentity.FileThumbSizes != entity.FileThumbSizes)
+		oldentity.FileThumbSizes = entity.FileThumbSizes;
 
 				//if (entity.UpdatedDate == null || (contextRequest != null && contextRequest.IsFromUI("SDFiles", UIActions.Updating)))
 			oldentity.UpdatedDate = DateTime.Now.ToUniversalTime();
@@ -17911,7 +18096,9 @@ public class SinglentonContext
 						if (contextRequest != null )
                     		if (contextRequest.User !=null )
                         		if (contextRequest.Company != null && contextRequest.CustomQuery.IncludeAllCompanies == false){
+                        	
 									predicate = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
+						//			predicate = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
 
 								}
 						}
@@ -17964,10 +18151,8 @@ public class SinglentonContext
 					bool sharedAndMultiTenant = false;	  
 					string multitenantExpression = null;
 				if (contextRequest != null && contextRequest.Company != null)
-				 {
-                    multitenantExpression = @"(GuidCompany = @GuidCompanyMultiTenant)";
-                    contextRequest.CustomQuery.SetParam("GuidCompanyMultiTenant", new Nullable<Guid>(contextRequest.Company.GuidCompany));
-                }
+                   	
+						 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -18190,8 +18375,12 @@ public class SinglentonContext
             {
                 OnTaken(sender, e);
             }
-
+			protected override void OnVirtualSummaryOperation(object sender,  BusinessRulesEventArgs<SDOrganization> e)
+			{
+				OnSummaryOperation(sender, e);
+			}
             partial void OnCounting(object sender, BusinessRulesEventArgs<SDOrganization> e);
+			partial void OnSummaryOperation(object sender, BusinessRulesEventArgs<SDOrganization> e);
  
 			partial void OnQuerySettings(object sender, BusinessRulesEventArgs<SDOrganization> e);
           
@@ -18379,15 +18568,19 @@ public class SinglentonContext
 
         public List<SDOrganization> GetBy(Expression<Func<SDOrganization, bool>> predicate, params Expression<Func<SDOrganization, object>>[] includes)
         {
+		ContextRequest context = new ContextRequest();
+		 context.CustomQuery = new CustomQuery();
+			if (!preventSecurityRestrictions)
+				{
 			if (System.Web.HttpContext.Current == null || System.Web.HttpContext.Current.Session == null)
             {
                 throw new Exception("Please, specific the contextRequest parameter in the method: GetBy");
             }
-			ContextRequest context = new ContextRequest();
+			//ContextRequest context = new ContextRequest();
 			            context.User = SFSdotNet.Framework.My.Context.CurrentContext.User;
             context.Company = SFSdotNet.Framework.My.Context.CurrentContext.Company;
+			}
 
-            context.CustomQuery = new CustomQuery();
             context.CustomQuery.FilterExpressionString = "";
             return GetBy(predicate, context, includes);
         }
@@ -18406,8 +18599,10 @@ public class SinglentonContext
 	
 					bool sharedAndMultiTenant = false;
 					Expression<Func<SDOrganization,bool>> multitenantExpression  = null;
-					if (contextRequest != null && contextRequest.Company != null)	                        	
+					if (contextRequest != null && contextRequest.Company != null){	
+                        	
 						multitenantExpression = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
+					}
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -18858,16 +19053,18 @@ public class SinglentonContext
         }
         public List<SDOrganization> GetBy(Expression<Func<SDOrganization, bool>> predicate)
         {
-
+			ContextRequest contextRequest = new ContextRequest();
+			contextRequest.CustomQuery = new CustomQuery();
+			if (!preventSecurityRestrictions)
+			{
 			if (System.Web.HttpContext.Current == null || System.Web.HttpContext.Current.Session == null)
             {
                 throw new Exception("Please, specific the contextRequest parameter in the method: GetBy");
             }
-			ContextRequest contextRequest = new ContextRequest();
-            contextRequest.CustomQuery = new CustomQuery();
 			contextRequest.CurrentContext = SFSdotNet.Framework.My.Context.CurrentContext;
 			            contextRequest.User = SFSdotNet.Framework.My.Context.CurrentContext.User;
             contextRequest.Company = SFSdotNet.Framework.My.Context.CurrentContext.Company;
+			}
 
             contextRequest.CustomQuery.FilterExpressionString = null;
             return this.GetBy(predicate, contextRequest, "");
@@ -19386,8 +19583,8 @@ public class SinglentonContext
 		   using (EFContext con = new EFContext())
             {
 
-
-
+			    con.Configuration.ValidateOnSaveEnabled = false;
+                con.Configuration.AutoDetectChangesEnabled = false;
                
 					List<string> propForCopy = new List<string>();
                     propForCopy.AddRange(fields);
@@ -19576,6 +19773,8 @@ public class SinglentonContext
 	var oldentity = query.FirstOrDefault(p => p.GuidOrganization == entity.GuidOrganization);
 	if (oldentity.FullName != entity.FullName)
 		oldentity.FullName = entity.FullName;
+	if (oldentity.IsDeleted != entity.IsDeleted)
+		oldentity.IsDeleted = entity.IsDeleted;
 
 				//if (entity.UpdatedDate == null || (contextRequest != null && contextRequest.IsFromUI("SDOrganizations", UIActions.Updating)))
 			oldentity.UpdatedDate = DateTime.Now.ToUniversalTime();
@@ -19819,7 +20018,9 @@ public class SinglentonContext
 						if (contextRequest != null )
                     		if (contextRequest.User !=null )
                         		if (contextRequest.Company != null && contextRequest.CustomQuery.IncludeAllCompanies == false){
+                        	
 									predicate = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
+						//			predicate = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
 
 								}
 						}
@@ -19872,10 +20073,8 @@ public class SinglentonContext
 					bool sharedAndMultiTenant = false;	  
 					string multitenantExpression = null;
 				if (contextRequest != null && contextRequest.Company != null)
-				 {
-                    multitenantExpression = @"(GuidCompany = @GuidCompanyMultiTenant)";
-                    contextRequest.CustomQuery.SetParam("GuidCompanyMultiTenant", new Nullable<Guid>(contextRequest.Company.GuidCompany));
-                }
+                   	
+						 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -20098,8 +20297,12 @@ public class SinglentonContext
             {
                 OnTaken(sender, e);
             }
-
+			protected override void OnVirtualSummaryOperation(object sender,  BusinessRulesEventArgs<SDPerson> e)
+			{
+				OnSummaryOperation(sender, e);
+			}
             partial void OnCounting(object sender, BusinessRulesEventArgs<SDPerson> e);
+			partial void OnSummaryOperation(object sender, BusinessRulesEventArgs<SDPerson> e);
  
 			partial void OnQuerySettings(object sender, BusinessRulesEventArgs<SDPerson> e);
           
@@ -20287,15 +20490,19 @@ public class SinglentonContext
 
         public List<SDPerson> GetBy(Expression<Func<SDPerson, bool>> predicate, params Expression<Func<SDPerson, object>>[] includes)
         {
+		ContextRequest context = new ContextRequest();
+		 context.CustomQuery = new CustomQuery();
+			if (!preventSecurityRestrictions)
+				{
 			if (System.Web.HttpContext.Current == null || System.Web.HttpContext.Current.Session == null)
             {
                 throw new Exception("Please, specific the contextRequest parameter in the method: GetBy");
             }
-			ContextRequest context = new ContextRequest();
+			//ContextRequest context = new ContextRequest();
 			            context.User = SFSdotNet.Framework.My.Context.CurrentContext.User;
             context.Company = SFSdotNet.Framework.My.Context.CurrentContext.Company;
+			}
 
-            context.CustomQuery = new CustomQuery();
             context.CustomQuery.FilterExpressionString = "";
             return GetBy(predicate, context, includes);
         }
@@ -20314,8 +20521,10 @@ public class SinglentonContext
 	
 					bool sharedAndMultiTenant = false;
 					Expression<Func<SDPerson,bool>> multitenantExpression  = null;
-					if (contextRequest != null && contextRequest.Company != null)	                        	
+					if (contextRequest != null && contextRequest.Company != null){	
+                        	
 						multitenantExpression = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
+					}
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -20816,16 +21025,18 @@ public class SinglentonContext
         }
         public List<SDPerson> GetBy(Expression<Func<SDPerson, bool>> predicate)
         {
-
+			ContextRequest contextRequest = new ContextRequest();
+			contextRequest.CustomQuery = new CustomQuery();
+			if (!preventSecurityRestrictions)
+			{
 			if (System.Web.HttpContext.Current == null || System.Web.HttpContext.Current.Session == null)
             {
                 throw new Exception("Please, specific the contextRequest parameter in the method: GetBy");
             }
-			ContextRequest contextRequest = new ContextRequest();
-            contextRequest.CustomQuery = new CustomQuery();
 			contextRequest.CurrentContext = SFSdotNet.Framework.My.Context.CurrentContext;
 			            contextRequest.User = SFSdotNet.Framework.My.Context.CurrentContext.User;
             contextRequest.Company = SFSdotNet.Framework.My.Context.CurrentContext.Company;
+			}
 
             contextRequest.CustomQuery.FilterExpressionString = null;
             return this.GetBy(predicate, contextRequest, "");
@@ -21405,8 +21616,8 @@ public class SinglentonContext
 		   using (EFContext con = new EFContext())
             {
 
-
-
+			    con.Configuration.ValidateOnSaveEnabled = false;
+                con.Configuration.AutoDetectChangesEnabled = false;
                
 					List<string> propForCopy = new List<string>();
                     propForCopy.AddRange(fields);
@@ -21619,6 +21830,8 @@ public class SinglentonContext
 	var oldentity = query.FirstOrDefault(p => p.GuidPerson == entity.GuidPerson);
 	if (oldentity.DisplayName != entity.DisplayName)
 		oldentity.DisplayName = entity.DisplayName;
+	if (oldentity.IsDeleted != entity.IsDeleted)
+		oldentity.IsDeleted = entity.IsDeleted;
 
 				//if (entity.UpdatedDate == null || (contextRequest != null && contextRequest.IsFromUI("SDPersons", UIActions.Updating)))
 			oldentity.UpdatedDate = DateTime.Now.ToUniversalTime();
@@ -21874,7 +22087,9 @@ public class SinglentonContext
 						if (contextRequest != null )
                     		if (contextRequest.User !=null )
                         		if (contextRequest.Company != null && contextRequest.CustomQuery.IncludeAllCompanies == false){
+                        	
 									predicate = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
+						//			predicate = predicate.And(p => p.GuidCompany == contextRequest.Company.GuidCompany); //todo: multiempresa
 
 								}
 						}
@@ -21927,10 +22142,8 @@ public class SinglentonContext
 					bool sharedAndMultiTenant = false;	  
 					string multitenantExpression = null;
 				if (contextRequest != null && contextRequest.Company != null)
-				 {
-                    multitenantExpression = @"(GuidCompany = @GuidCompanyMultiTenant)";
-                    contextRequest.CustomQuery.SetParam("GuidCompanyMultiTenant", new Nullable<Guid>(contextRequest.Company.GuidCompany));
-                }
+                   	
+						 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -22153,8 +22366,12 @@ public class SinglentonContext
             {
                 OnTaken(sender, e);
             }
-
+			protected override void OnVirtualSummaryOperation(object sender,  BusinessRulesEventArgs<SDProxyUser> e)
+			{
+				OnSummaryOperation(sender, e);
+			}
             partial void OnCounting(object sender, BusinessRulesEventArgs<SDProxyUser> e);
+			partial void OnSummaryOperation(object sender, BusinessRulesEventArgs<SDProxyUser> e);
  
 			partial void OnQuerySettings(object sender, BusinessRulesEventArgs<SDProxyUser> e);
           
@@ -22342,15 +22559,19 @@ public class SinglentonContext
 
         public List<SDProxyUser> GetBy(Expression<Func<SDProxyUser, bool>> predicate, params Expression<Func<SDProxyUser, object>>[] includes)
         {
+		ContextRequest context = new ContextRequest();
+		 context.CustomQuery = new CustomQuery();
+			if (!preventSecurityRestrictions)
+				{
 			if (System.Web.HttpContext.Current == null || System.Web.HttpContext.Current.Session == null)
             {
                 throw new Exception("Please, specific the contextRequest parameter in the method: GetBy");
             }
-			ContextRequest context = new ContextRequest();
+			//ContextRequest context = new ContextRequest();
 			            context.User = SFSdotNet.Framework.My.Context.CurrentContext.User;
             context.Company = SFSdotNet.Framework.My.Context.CurrentContext.Company;
+			}
 
-            context.CustomQuery = new CustomQuery();
             context.CustomQuery.FilterExpressionString = "";
             return GetBy(predicate, context, includes);
         }
@@ -22760,16 +22981,18 @@ public class SinglentonContext
         }
         public List<SDProxyUser> GetBy(Expression<Func<SDProxyUser, bool>> predicate)
         {
-
+			ContextRequest contextRequest = new ContextRequest();
+			contextRequest.CustomQuery = new CustomQuery();
+			if (!preventSecurityRestrictions)
+			{
 			if (System.Web.HttpContext.Current == null || System.Web.HttpContext.Current.Session == null)
             {
                 throw new Exception("Please, specific the contextRequest parameter in the method: GetBy");
             }
-			ContextRequest contextRequest = new ContextRequest();
-            contextRequest.CustomQuery = new CustomQuery();
 			contextRequest.CurrentContext = SFSdotNet.Framework.My.Context.CurrentContext;
 			            contextRequest.User = SFSdotNet.Framework.My.Context.CurrentContext.User;
             contextRequest.Company = SFSdotNet.Framework.My.Context.CurrentContext.Company;
+			}
 
             contextRequest.CustomQuery.FilterExpressionString = null;
             return this.GetBy(predicate, contextRequest, "");
@@ -23230,8 +23453,8 @@ public class SinglentonContext
 		   using (EFContext con = new EFContext())
             {
 
-
-
+			    con.Configuration.ValidateOnSaveEnabled = false;
+                con.Configuration.AutoDetectChangesEnabled = false;
                
 					List<string> propForCopy = new List<string>();
                     propForCopy.AddRange(fields);

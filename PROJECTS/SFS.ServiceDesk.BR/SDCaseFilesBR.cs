@@ -15,6 +15,7 @@ namespace SFS.ServiceDesk.BR
             e.SetQueryComputedField(SDCaseFile.PropertyNames.ExistFile, "iif(it.SDFile == null, false, true)");
             e.SetQueryComputedField(SDCaseFile.PropertyNames.FileStorage, "iif(it.SDFile != null, it.SDFile.FileStorage, null)");
             e.SetQueryComputedField(SDCaseFile.PropertyNames.FileName, "iif(it.SDFile != null, it.SDFile.FileName, null)");
+            e.SetQueryComputedField(SDCaseFile.PropertyNames.FileThumbSizes, "iif(it.SDFile != null, it.SDFile.FileThumbSizes, null)");
         }
     }
 }

@@ -454,6 +454,9 @@
       <Cl au="0" df="false" nm="IsDeleted" nu="1">
         <DT arr="0" ds="Bit" en="" id="-7" ln="1" sc="null" sg="1" un="0"/>
       </Cl>
+      <Cl au="0" df="" nm="FileThumbSizes" nu="1">
+        <DT arr="0" ds="VarChar" en="" id="12" ln="255" sc="null" sg="1" un="0"/>
+      </Cl>
       <UniqueConstraints/>
       <SchTrHis/>
     </Tbl>
@@ -595,7 +598,7 @@
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDCaseHistoryFile" x="338" y="39"/>
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDCasePriority" x="47" y="366"/>
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDCaseState" x="50" y="284"/>
-    <TbGl bkCl="ff6666ff" sch="SD" tbl="SDFile" x="656" y="31"/>
+    <TbGl bkCl="ff6666ff" sch="SD" tbl="SDFile" x="915" y="29"/>
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDOrganization" x="345" y="550"/>
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDPerson" x="650" y="308"/>
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDProxyUser" x="650" y="440"/>
@@ -640,9 +643,9 @@
         <positionableLine lineRole="CHILD_LINE" x1="657" x2="657" y1="205" y2="174"/>
       </positionableLines>
     </FkGl>
-    <FkGl bkCl="ff000000" childEdge="NORTH" nm="SD.SDCaseFile.fk_SdCaseFile_SdFile" parentEdge="SOUTH" positioner="OneLineUserLinkPositioner">
+    <FkGl bkCl="ff000000" childEdge="EAST" nm="SD.SDCaseFile.fk_SdCaseFile_SdFile" parentEdge="WEST" positioner="OneLineUserLinkPositioner">
       <positionableLines>
-        <positionableLine lineRole="SINGLE_LINE" x1="719" x2="719" y1="240" y2="205"/>
+        <positionableLine lineRole="SINGLE_LINE" x1="915" x2="869" y1="233" y2="233"/>
       </positionableLines>
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="EAST" nm="SD.SDCaseHistory.fk_SdCaseHistory_SdCase" parentEdge="WEST" positioner="OneLineUserLinkPositioner">
@@ -663,7 +666,7 @@
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="EAST" nm="SD.SDCaseHistoryFile.fk_SdCaseHistoryFile_SdFile" parentEdge="WEST" positioner="OneLineUserLinkPositioner">
       <positionableLines>
-        <positionableLine lineRole="SINGLE_LINE" x1="656" x2="587" y1="46" y2="46"/>
+        <positionableLine lineRole="SINGLE_LINE" x1="915" x2="587" y1="44" y2="44"/>
       </positionableLines>
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="WEST" nm="SD.SDPerson.fk_SdPerson_SdOrganization" parentEdge="EAST" positioner="ThreeLineUserLinkPositioner">
@@ -960,34 +963,16 @@
     </BasicOptionMgr>
   </DbDocOptionMgr>
   <OpenEditors>
-    <OpenEditor ClsNm="Diagram" fqn="null.B" selected="0"/>
-    <OpenEditor ClsNm="Diagram" fqn="null.z" selected="1"/>
+    <OpenEditor ClsNm="Diagram" fqn="null.z" selected="0"/>
     <OpenEditor ClsNm="Diagram" fqn="null.diagramA" selected="0"/>
+    <OpenEditor ClsNm="Diagram" fqn="null.B" selected="1"/>
   </OpenEditors>
   <TreePaths>
     <TreePath/>
     <TreePath>/Schemas (1)</TreePath>
     <TreePath>/Schemas (1)/SD</TreePath>
     <TreePath>/Schemas (1)/SD/Tables (12)</TreePath>
-    <TreePath>/Schemas (1)/SD/Tables (12)/SDArea</TreePath>
-    <TreePath>/Schemas (1)/SD/Tables (12)/SDArea/Columns (11)</TreePath>
-    <TreePath>/Schemas (1)/SD/Tables (12)/SDCaseFile</TreePath>
-    <TreePath>/Schemas (1)/SD/Tables (12)/SDFile</TreePath>
-    <TreePath>/Schemas (1)/SD/Tables (12)/SDFile/Columns (14)</TreePath>
     <TreePath>/Diagrams (3)</TreePath>
   </TreePaths>
-  <SqlTexts>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-    <SqlText path="">
-      <Sql/>
-    </SqlText>
-  </SqlTexts>
+  <SqlTexts/>
 </Db>

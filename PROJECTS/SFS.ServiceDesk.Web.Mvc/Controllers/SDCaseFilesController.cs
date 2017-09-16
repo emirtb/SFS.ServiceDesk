@@ -24,23 +24,29 @@ namespace SFS.ServiceDesk.Web.Mvc.Controllers
 
                 e.UIModel.SetOrder(SDCaseFile.PropertyNames.FileName, true);
 
-
-
-                //e.UIModel.Properties.Add(GetPropertyDefinition("StaticFile", new accFileModel()));
                 e.UIModel.SetHide(SDCaseFile.PropertyNames.UrlFile, true);
                 e.UIModel.SetHide(SDCaseFile.PropertyNames.UrlThumbFile, true);
+                e.UIModel.SetHide(SDCaseFile.PropertyNames.FileStorage, true);
+                e.UIModel.SetHide(SDCaseFile.PropertyNames.FileThumbSizes, true);
 
                 var module = SFSdotNet.Framework.Cache.Caching.SystemObjects.GetModuleByKey("SFSServiceDesk");
                 SFSdotNet.Framework.Data.StaticStorage storage = new SFSdotNet.Framework.Data.StaticStorage("Thumbs");
-                foreach (var item in e.UIModel.Items)
+                foreach (var item in e.UIModel.Items.Where(p=> p.GuidFile != null ))
                 {
-
-                    var staticFile = storage.GetFile(item.GuidFile, item.FileName, item.FileStorage, null, 100, 100, "SDFile", "SDFiles", module, GetContextRequest());
+                    
+                    var staticFile = storage.GetFile(item.GuidFile, item.FileName, item.FileStorage, item.FileThumbSizes, null, 100, 100, "SDFile", "SDFiles", module, GetContextRequest());
                     item.UrlFile = staticFile.Url;
                     item.UrlThumbFile = staticFile.UrlThumb;
                 }
 
             }
+
+            if (this.IsEditOrDetailsForm(e.UIModel))
+            {
+                e.UIModel.ActionButtons.Reverse();
+                e.UIModel.SetMultipleFileUpload(SDCaseFile.PropertyNames.SDFile, true);
+            }
+
         }
     }
 }
