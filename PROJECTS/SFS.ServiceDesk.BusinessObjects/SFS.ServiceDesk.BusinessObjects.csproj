@@ -103,11 +103,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities.EF.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Entities.EF.tt</DependentUpon>
-    </Compile>
     <Compile Include="Entities.Ext.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -119,48 +114,8 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="SDArea.cs">
-      <DependentUpon>Entities.EF.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SDAreaPerson.cs">
-      <DependentUpon>Entities.EF.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SDCase.cs">
-      <DependentUpon>Entities.EF.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SDCaseFile.cs">
-      <DependentUpon>Entities.EF.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SDCaseHistory.cs">
-      <DependentUpon>Entities.EF.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SDCaseHistoryFile.cs">
-      <DependentUpon>Entities.EF.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SDCasePriority.cs">
-      <DependentUpon>Entities.EF.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SDCaseState.cs">
-      <DependentUpon>Entities.EF.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SDFile.cs">
-      <DependentUpon>Entities.EF.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SDOrganization.cs">
-      <DependentUpon>Entities.EF.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SDPerson.cs">
-      <DependentUpon>Entities.EF.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SDProxyUser.cs">
-      <DependentUpon>Entities.EF.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Entities.EF.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Entities.EF.cs</LastGenOutput>
-    </None>
     <None Include="Entities.Ext.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Entities.Ext.cs</LastGenOutput>

@@ -1,4 +1,5 @@
-﻿
+﻿ 
+ 
 
 // <Template>
 //   <SolutionTemplate>EF POCO 1</SolutionTemplate>
@@ -14,7 +15,9 @@ using System.Runtime.Serialization;
 using SFSdotNet.Framework.Common.Entities.Metadata;
 using SFSdotNet.Framework.Common.Entities;
 using System.Linq.Dynamic;
-using Newtonsoft.Json;
+
+    using Newtonsoft.Json;
+
 //using Repository.Pattern.Ef6;
 #endregion
 namespace SFS.ServiceDesk.BusinessObjects
@@ -23,7 +26,10 @@ namespace SFS.ServiceDesk.BusinessObjects
 	  [Serializable()]
 	  [EntityInfo(PropertyKeyName="GuidArea",PropertyDefaultText="Name",RequiredProperties="Name", CompanyPropertyName = "GuidCompany",CreatedByPropertyName="CreatedBy",UpdatedByPropertyName="UpdatedBy",CreatedDatePropertyName="CreatedDate",UpdatedDatePropertyName="UpdatedDate",DeletedPropertyName="IsDeleted")]
 	  [DynamicLinqType]
-	  public partial class SDArea:  IMyEntity{
+	  [JsonObject(IsReference = true)]
+      [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/TrackableEntities.Models")]
+
+	  public partial class SDArea:  ITrackable, IMyEntity{
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
 
 			public override string ToString()
@@ -74,9 +80,253 @@ namespace SFS.ServiceDesk.BusinessObjects
             
         }
         #endregion
-        
+
+		public SDArea(){
+		#region 
+			this.ModifiedProperties = new List<string>();
+	this.SDArea1 = new List<SDArea>();
+
+
+	this.SDAreaPersons = new List<SDAreaPerson>();
+
+
+		#endregion
+		}
+		#region
 	
-       
+	[DataMember]
+	public ICollection<SDArea> SDArea1 { get; set; }
+	
+
+	
+	[DataMember]
+	public ICollection<SDAreaPerson> SDAreaPersons { get; set; }
+	
+
+
+	private SDArea __SDArea2;
+	[DataMember]
+	public SDArea SDArea2 {
+		get{
+			return __SDArea2;
+		}
+		set{
+			__SDArea2 = value;
+				if (value != null)
+                {
+                   this.__GuidAreaParent = value.GuidArea;
+                }else
+                {
+					                    this.__GuidAreaParent = null;
+					                }
+		}
+	}
+	
+
+	private SDOrganization __SDOrganization;
+	[DataMember]
+	public SDOrganization SDOrganization {
+		get{
+			return __SDOrganization;
+		}
+		set{
+			__SDOrganization = value;
+				if (value != null)
+                {
+                   this.__GuidOrganization = value.GuidOrganization;
+                }else
+                {
+					                    this.__GuidOrganization = null;
+					                }
+		}
+	}
+	
+
+
+	#endregion
+
+	#region
+	private Guid __GuidArea;
+	[DataMember]
+	public Guid GuidArea  { 
+		get{
+			return __GuidArea;
+		}
+		set{
+
+			__GuidArea = value;
+			
+		}
+	 }
+	private String __Name;
+	[DataMember]
+	public String Name  { 
+		get{
+			return __Name;
+		}
+		set{
+
+			__Name = value;
+			
+		}
+	 }
+	private Guid? __GuidAreaParent;
+	[DataMember]
+	public Guid? GuidAreaParent  { 
+		get{
+			return __GuidAreaParent;
+		}
+		set{
+
+			__GuidAreaParent = value;
+				if (value == null)
+                {
+                    this.__SDArea2 = null;
+                }else
+                {
+											if (this.__SDArea2 != null && this.__SDArea2.GuidArea != value.Value)
+						{
+							this.__SDArea2 = new SDArea() { GuidArea = value.Value };
+
+						}
+                    //this.__SDArea2 = new SDArea() { GuidArea = value.Value };
+					  // if (this.__SDArea2 == null )
+                      //      this.__SDArea2 = new SDArea() {  GuidArea = value.Value };
+                      //  else {
+                       //     if (this.__SDArea2.GuidArea != value)
+                       //     {
+                       //     this.__SDArea2 = new SDArea() {  GuidArea = value.Value };
+					//		}
+                     //   }
+					                }
+			
+		}
+	 }
+	private Guid? __GuidOrganization;
+	[DataMember]
+	public Guid? GuidOrganization  { 
+		get{
+			return __GuidOrganization;
+		}
+		set{
+
+			__GuidOrganization = value;
+				if (value == null)
+                {
+                    this.__SDOrganization = null;
+                }else
+                {
+											if (this.__SDOrganization != null && this.__SDOrganization.GuidOrganization != value.Value)
+						{
+							this.__SDOrganization = new SDOrganization() { GuidOrganization = value.Value };
+
+						}
+                    //this.__SDOrganization = new SDOrganization() { GuidOrganization = value.Value };
+					  // if (this.__SDOrganization == null )
+                      //      this.__SDOrganization = new SDOrganization() {  GuidOrganization = value.Value };
+                      //  else {
+                       //     if (this.__SDOrganization.GuidOrganization != value)
+                       //     {
+                       //     this.__SDOrganization = new SDOrganization() {  GuidOrganization = value.Value };
+					//		}
+                     //   }
+					                }
+			
+		}
+	 }
+	private Guid? __GuidCompany;
+	[DataMember]
+	public Guid? GuidCompany  { 
+		get{
+			return __GuidCompany;
+		}
+		set{
+
+			__GuidCompany = value;
+			
+		}
+	 }
+	private DateTime? __CreatedDate;
+	[DataMember]
+	public DateTime? CreatedDate  { 
+		get{
+			return __CreatedDate;
+		}
+		set{
+
+			__CreatedDate = value;
+			
+		}
+	 }
+	private DateTime? __UpdatedDate;
+	[DataMember]
+	public DateTime? UpdatedDate  { 
+		get{
+			return __UpdatedDate;
+		}
+		set{
+
+			__UpdatedDate = value;
+			
+		}
+	 }
+	private Guid? __CreatedBy;
+	[DataMember]
+	public Guid? CreatedBy  { 
+		get{
+			return __CreatedBy;
+		}
+		set{
+
+			__CreatedBy = value;
+			
+		}
+	 }
+	private Guid? __UpdatedBy;
+	[DataMember]
+	public Guid? UpdatedBy  { 
+		get{
+			return __UpdatedBy;
+		}
+		set{
+
+			__UpdatedBy = value;
+			
+		}
+	 }
+	private Int32? __Bytes;
+	[DataMember]
+	public Int32? Bytes  { 
+		get{
+			return __Bytes;
+		}
+		set{
+
+			__Bytes = value;
+			
+		}
+	 }
+	private Boolean? __IsDeleted;
+	[DataMember]
+	public Boolean? IsDeleted  { 
+		get{
+			return __IsDeleted;
+		}
+		set{
+
+			__IsDeleted = value;
+			
+		}
+	 }
+    #endregion    
+	
+	[DataMember]
+    public TrackingState TrackingState { get; set; }
+    [DataMember]
+    public ICollection<string> ModifiedProperties { get; set; }
+    [JsonProperty, DataMember]
+    private Guid EntityIdentifier { get; set; }
+
       
 
 
@@ -105,7 +355,10 @@ namespace SFS.ServiceDesk.BusinessObjects
 		  [Serializable()]
 	  [EntityInfo(PropertyKeyName="GuidAreaPerson",PropertyDefaultText="Bytes", CompanyPropertyName = "GuidCompany",CreatedByPropertyName="CreatedBy",UpdatedByPropertyName="UpdatedBy",CreatedDatePropertyName="CreatedDate",UpdatedDatePropertyName="UpdatedDate",DeletedPropertyName="IsDeleted")]
 	  [DynamicLinqType]
-	  public partial class SDAreaPerson:  IMyEntity{
+	  [JsonObject(IsReference = true)]
+      [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/TrackableEntities.Models")]
+
+	  public partial class SDAreaPerson:  ITrackable, IMyEntity{
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
 
 			public override string ToString()
@@ -156,9 +409,225 @@ namespace SFS.ServiceDesk.BusinessObjects
             
         }
         #endregion
-        
+
+		public SDAreaPerson(){
+		#region 
+			this.ModifiedProperties = new List<string>();
+		#endregion
+		}
+		#region
+
+	private SDArea __SDArea;
+	[DataMember]
+	public SDArea SDArea {
+		get{
+			return __SDArea;
+		}
+		set{
+			__SDArea = value;
+				if (value != null)
+                {
+                   this.__GuidArea = value.GuidArea;
+                }else
+                {
+					                    this.__GuidArea = null;
+					                }
+		}
+	}
 	
-       
+
+	private SDPerson __SDPerson;
+	[DataMember]
+	public SDPerson SDPerson {
+		get{
+			return __SDPerson;
+		}
+		set{
+			__SDPerson = value;
+				if (value != null)
+                {
+                   this.__GuidPerson = value.GuidPerson;
+                }else
+                {
+					                    this.__GuidPerson = null;
+					                }
+		}
+	}
+	
+
+
+	#endregion
+
+	#region
+	private Guid __GuidAreaPerson;
+	[DataMember]
+	public Guid GuidAreaPerson  { 
+		get{
+			return __GuidAreaPerson;
+		}
+		set{
+
+			__GuidAreaPerson = value;
+			
+		}
+	 }
+	private Guid? __GuidArea;
+	[DataMember]
+	public Guid? GuidArea  { 
+		get{
+			return __GuidArea;
+		}
+		set{
+
+			__GuidArea = value;
+				if (value == null)
+                {
+                    this.__SDArea = null;
+                }else
+                {
+											if (this.__SDArea != null && this.__SDArea.GuidArea != value.Value)
+						{
+							this.__SDArea = new SDArea() { GuidArea = value.Value };
+
+						}
+                    //this.__SDArea = new SDArea() { GuidArea = value.Value };
+					  // if (this.__SDArea == null )
+                      //      this.__SDArea = new SDArea() {  GuidArea = value.Value };
+                      //  else {
+                       //     if (this.__SDArea.GuidArea != value)
+                       //     {
+                       //     this.__SDArea = new SDArea() {  GuidArea = value.Value };
+					//		}
+                     //   }
+					                }
+			
+		}
+	 }
+	private Guid? __GuidPerson;
+	[DataMember]
+	public Guid? GuidPerson  { 
+		get{
+			return __GuidPerson;
+		}
+		set{
+
+			__GuidPerson = value;
+				if (value == null)
+                {
+                    this.__SDPerson = null;
+                }else
+                {
+											if (this.__SDPerson != null && this.__SDPerson.GuidPerson != value.Value)
+						{
+							this.__SDPerson = new SDPerson() { GuidPerson = value.Value };
+
+						}
+                    //this.__SDPerson = new SDPerson() { GuidPerson = value.Value };
+					  // if (this.__SDPerson == null )
+                      //      this.__SDPerson = new SDPerson() {  GuidPerson = value.Value };
+                      //  else {
+                       //     if (this.__SDPerson.GuidPerson != value)
+                       //     {
+                       //     this.__SDPerson = new SDPerson() {  GuidPerson = value.Value };
+					//		}
+                     //   }
+					                }
+			
+		}
+	 }
+	private Guid? __GuidCompany;
+	[DataMember]
+	public Guid? GuidCompany  { 
+		get{
+			return __GuidCompany;
+		}
+		set{
+
+			__GuidCompany = value;
+			
+		}
+	 }
+	private DateTime? __CreatedDate;
+	[DataMember]
+	public DateTime? CreatedDate  { 
+		get{
+			return __CreatedDate;
+		}
+		set{
+
+			__CreatedDate = value;
+			
+		}
+	 }
+	private DateTime? __UpdatedDate;
+	[DataMember]
+	public DateTime? UpdatedDate  { 
+		get{
+			return __UpdatedDate;
+		}
+		set{
+
+			__UpdatedDate = value;
+			
+		}
+	 }
+	private Guid? __CreatedBy;
+	[DataMember]
+	public Guid? CreatedBy  { 
+		get{
+			return __CreatedBy;
+		}
+		set{
+
+			__CreatedBy = value;
+			
+		}
+	 }
+	private Guid? __UpdatedBy;
+	[DataMember]
+	public Guid? UpdatedBy  { 
+		get{
+			return __UpdatedBy;
+		}
+		set{
+
+			__UpdatedBy = value;
+			
+		}
+	 }
+	private Int32? __Bytes;
+	[DataMember]
+	public Int32? Bytes  { 
+		get{
+			return __Bytes;
+		}
+		set{
+
+			__Bytes = value;
+			
+		}
+	 }
+	private Boolean? __IsDeleted;
+	[DataMember]
+	public Boolean? IsDeleted  { 
+		get{
+			return __IsDeleted;
+		}
+		set{
+
+			__IsDeleted = value;
+			
+		}
+	 }
+    #endregion    
+	
+	[DataMember]
+    public TrackingState TrackingState { get; set; }
+    [DataMember]
+    public ICollection<string> ModifiedProperties { get; set; }
+    [JsonProperty, DataMember]
+    private Guid EntityIdentifier { get; set; }
+
       
 
 
@@ -184,7 +653,10 @@ namespace SFS.ServiceDesk.BusinessObjects
 		  [Serializable()]
 	  [EntityInfo(PropertyKeyName="GuidCase",PropertyDefaultText="BodyContent",RequiredProperties="GuidCaseState,GuidCasePriority,SDCasePriority,SDCaseState", CompanyPropertyName = "GuidCompany",CreatedByPropertyName="CreatedBy",UpdatedByPropertyName="UpdatedBy",CreatedDatePropertyName="CreatedDate",UpdatedDatePropertyName="UpdatedDate",DeletedPropertyName="IsDeleted")]
 	  [DynamicLinqType]
-	  public partial class SDCase:  IMyEntity{
+	  [JsonObject(IsReference = true)]
+      [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/TrackableEntities.Models")]
+
+	  public partial class SDCase:  ITrackable, IMyEntity{
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
 
 			public override string ToString()
@@ -195,24 +667,14 @@ namespace SFS.ServiceDesk.BusinessObjects
 				else
 					return String.Empty;
 			}
-        [JsonProperty(PropertyName = "id")]
-        public string Id
-        {
-            get
-            {
-                if (GuidCase != null)
-                    return GuidCase.ToString();
-                else
-                    return null;
-            }
-        }
-        //public SDCase()
+
+		//public SDCase()
         //  {
 
         //  }
 
-        #region Composite Key
-        public string Key { 
+	  #region Composite Key
+	   public string Key { 
                   get {
                       StringBuilder sb = new StringBuilder();
 					sb.Append(this.GuidCase.ToString());
@@ -245,9 +707,340 @@ namespace SFS.ServiceDesk.BusinessObjects
             
         }
         #endregion
-        
+
+		public SDCase(){
+		#region 
+			this.ModifiedProperties = new List<string>();
+	this.SDCaseFiles = new List<SDCaseFile>();
+
+
+	this.SDCaseHistories = new List<SDCaseHistory>();
+
+
+		#endregion
+		}
+		#region
 	
-       
+	[DataMember]
+	public ICollection<SDCaseFile> SDCaseFiles { get; set; }
+	
+
+	
+	[DataMember]
+	public ICollection<SDCaseHistory> SDCaseHistories { get; set; }
+	
+
+
+	private SDPerson __SDPerson;
+	[DataMember]
+	public SDPerson SDPerson {
+		get{
+			return __SDPerson;
+		}
+		set{
+			__SDPerson = value;
+				if (value != null)
+                {
+                   this.__GuidPersonClient = value.GuidPerson;
+                }else
+                {
+					                    this.__GuidPersonClient = null;
+					                }
+		}
+	}
+	
+
+	private SDCasePriority __SDCasePriority;
+	[DataMember]
+	public SDCasePriority SDCasePriority {
+		get{
+			return __SDCasePriority;
+		}
+		set{
+			__SDCasePriority = value;
+				if (value != null)
+                {
+                   this.__GuidCasePriority = value.GuidCasePriority;
+                }else
+                {
+											 this.__GuidCasePriority = Guid.Empty;
+					                }
+		}
+	}
+	
+
+	private SDCaseState __SDCaseState;
+	[DataMember]
+	public SDCaseState SDCaseState {
+		get{
+			return __SDCaseState;
+		}
+		set{
+			__SDCaseState = value;
+				if (value != null)
+                {
+                   this.__GuidCaseState = value.GuidCaseState;
+                }else
+                {
+											 this.__GuidCaseState = Guid.Empty;
+					                }
+		}
+	}
+	
+
+
+	#endregion
+
+	#region
+	private Guid __GuidCase;
+	[DataMember]
+	public Guid GuidCase  { 
+		get{
+			return __GuidCase;
+		}
+		set{
+
+			__GuidCase = value;
+			
+		}
+	 }
+	private Guid __GuidCaseState;
+	[DataMember]
+	public Guid GuidCaseState  { 
+		get{
+			return __GuidCaseState;
+		}
+		set{
+
+			__GuidCaseState = value;
+				if (value == null)
+                {
+                    this.__SDCaseState = null;
+                }else
+                {
+					                      //this.__SDCaseState = new SDCaseState() { GuidCaseState = value };
+					     if (this.__SDCaseState != null && this.__SDCaseState.GuidCaseState != value)
+						{
+							this.__SDCaseState = new SDCaseState() { GuidCaseState = value };
+
+						}
+						// if (this.__SDCaseState == null )
+                        //    this.__SDCaseState = new SDCaseState() {  GuidCaseState = value };
+                        //else {
+                        //    if (this.__SDCaseState.GuidCaseState != value)
+                        //    {
+                        //    this.__SDCaseState = new SDCaseState() {  GuidCaseState = value };
+						//	}
+                        //}
+					                }
+			
+		}
+	 }
+	private Guid? __GuidPersonClient;
+	[DataMember]
+	public Guid? GuidPersonClient  { 
+		get{
+			return __GuidPersonClient;
+		}
+		set{
+
+			__GuidPersonClient = value;
+				if (value == null)
+                {
+                    this.__SDPerson = null;
+                }else
+                {
+											if (this.__SDPerson != null && this.__SDPerson.GuidPerson != value.Value)
+						{
+							this.__SDPerson = new SDPerson() { GuidPerson = value.Value };
+
+						}
+                    //this.__SDPerson = new SDPerson() { GuidPerson = value.Value };
+					  // if (this.__SDPerson == null )
+                      //      this.__SDPerson = new SDPerson() {  GuidPerson = value.Value };
+                      //  else {
+                       //     if (this.__SDPerson.GuidPerson != value)
+                       //     {
+                       //     this.__SDPerson = new SDPerson() {  GuidPerson = value.Value };
+					//		}
+                     //   }
+					                }
+			
+		}
+	 }
+	private DateTime? __ClosedDateTime;
+	[DataMember]
+	public DateTime? ClosedDateTime  { 
+		get{
+			return __ClosedDateTime;
+		}
+		set{
+
+			__ClosedDateTime = value;
+			
+		}
+	 }
+	private String __BodyContent;
+	[DataMember]
+	public String BodyContent  { 
+		get{
+			return __BodyContent;
+		}
+		set{
+
+			__BodyContent = value;
+			
+		}
+	 }
+	private String __PreviewContent;
+	[DataMember]
+	public String PreviewContent  { 
+		get{
+			return __PreviewContent;
+		}
+		set{
+
+			__PreviewContent = value;
+			
+		}
+	 }
+	private Guid __GuidCasePriority;
+	[DataMember]
+	public Guid GuidCasePriority  { 
+		get{
+			return __GuidCasePriority;
+		}
+		set{
+
+			__GuidCasePriority = value;
+				if (value == null)
+                {
+                    this.__SDCasePriority = null;
+                }else
+                {
+					                      //this.__SDCasePriority = new SDCasePriority() { GuidCasePriority = value };
+					     if (this.__SDCasePriority != null && this.__SDCasePriority.GuidCasePriority != value)
+						{
+							this.__SDCasePriority = new SDCasePriority() { GuidCasePriority = value };
+
+						}
+						// if (this.__SDCasePriority == null )
+                        //    this.__SDCasePriority = new SDCasePriority() {  GuidCasePriority = value };
+                        //else {
+                        //    if (this.__SDCasePriority.GuidCasePriority != value)
+                        //    {
+                        //    this.__SDCasePriority = new SDCasePriority() {  GuidCasePriority = value };
+						//	}
+                        //}
+					                }
+			
+		}
+	 }
+	private String __Title;
+	[DataMember]
+	public String Title  { 
+		get{
+			return __Title;
+		}
+		set{
+
+			__Title = value;
+			
+		}
+	 }
+	private Guid? __GuidCompany;
+	[DataMember]
+	public Guid? GuidCompany  { 
+		get{
+			return __GuidCompany;
+		}
+		set{
+
+			__GuidCompany = value;
+			
+		}
+	 }
+	private DateTime? __CreatedDate;
+	[DataMember]
+	public DateTime? CreatedDate  { 
+		get{
+			return __CreatedDate;
+		}
+		set{
+
+			__CreatedDate = value;
+			
+		}
+	 }
+	private DateTime? __UpdatedDate;
+	[DataMember]
+	public DateTime? UpdatedDate  { 
+		get{
+			return __UpdatedDate;
+		}
+		set{
+
+			__UpdatedDate = value;
+			
+		}
+	 }
+	private Guid? __CreatedBy;
+	[DataMember]
+	public Guid? CreatedBy  { 
+		get{
+			return __CreatedBy;
+		}
+		set{
+
+			__CreatedBy = value;
+			
+		}
+	 }
+	private Guid? __UpdatedBy;
+	[DataMember]
+	public Guid? UpdatedBy  { 
+		get{
+			return __UpdatedBy;
+		}
+		set{
+
+			__UpdatedBy = value;
+			
+		}
+	 }
+	private Int32? __Bytes;
+	[DataMember]
+	public Int32? Bytes  { 
+		get{
+			return __Bytes;
+		}
+		set{
+
+			__Bytes = value;
+			
+		}
+	 }
+	private Boolean? __IsDeleted;
+	[DataMember]
+	public Boolean? IsDeleted  { 
+		get{
+			return __IsDeleted;
+		}
+		set{
+
+			__IsDeleted = value;
+			
+		}
+	 }
+    #endregion    
+	
+	[DataMember]
+    public TrackingState TrackingState { get; set; }
+    [DataMember]
+    public ICollection<string> ModifiedProperties { get; set; }
+    [JsonProperty, DataMember]
+    private Guid EntityIdentifier { get; set; }
+
       
 
 
@@ -281,7 +1074,10 @@ namespace SFS.ServiceDesk.BusinessObjects
 		  [Serializable()]
 	  [EntityInfo(PropertyKeyName="GuidCasefile",PropertyDefaultText="Bytes", CompanyPropertyName = "GuidCompany",CreatedByPropertyName="CreatedBy",UpdatedByPropertyName="UpdatedBy",CreatedDatePropertyName="CreatedDate",UpdatedDatePropertyName="UpdatedDate",DeletedPropertyName="IsDeleted")]
 	  [DynamicLinqType]
-	  public partial class SDCaseFile:  IMyEntity{
+	  [JsonObject(IsReference = true)]
+      [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/TrackableEntities.Models")]
+
+	  public partial class SDCaseFile:  ITrackable, IMyEntity{
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
 
 			public override string ToString()
@@ -293,23 +1089,12 @@ namespace SFS.ServiceDesk.BusinessObjects
 					return String.Empty;
 			}
 
-        //public SDCaseFile()
+		//public SDCaseFile()
         //  {
 
         //  }
 
-        #region Composite Key
-        [JsonProperty(PropertyName = "id")]
-        public string Id
-        {
-            get
-            {
-                if (GuidCase != null)
-                    return GuidCase.ToString();
-                else
-                    return null ;
-            }
-        }
+	  #region Composite Key
 	   public string Key { 
                   get {
                       StringBuilder sb = new StringBuilder();
@@ -343,7 +1128,217 @@ namespace SFS.ServiceDesk.BusinessObjects
             
         }
         #endregion
-        
+
+		public SDCaseFile(){
+		#region 
+			this.ModifiedProperties = new List<string>();
+		#endregion
+		}
+		#region
+
+	private SDCase __SDCase;
+	[DataMember]
+	public SDCase SDCase {
+		get{
+			return __SDCase;
+		}
+		set{
+			__SDCase = value;
+				if (value != null)
+                {
+                   this.__GuidCase = value.GuidCase;
+                }else
+                {
+					                    this.__GuidCase = null;
+					                }
+		}
+	}
+	
+
+	private SDFile __SDFile;
+	[DataMember]
+	public SDFile SDFile {
+		get{
+			return __SDFile;
+		}
+		set{
+			__SDFile = value;
+				if (value != null)
+                {
+                   this.__GuidFile = value.GuidFile;
+                }else
+                {
+					                    this.__GuidFile = null;
+					                }
+		}
+	}
+	
+
+
+	#endregion
+
+	#region
+	private Guid __GuidCasefile;
+	[DataMember]
+	public Guid GuidCasefile  { 
+		get{
+			return __GuidCasefile;
+		}
+		set{
+
+			__GuidCasefile = value;
+			
+		}
+	 }
+	private Guid? __GuidCase;
+	[DataMember]
+	public Guid? GuidCase  { 
+		get{
+			return __GuidCase;
+		}
+		set{
+
+			__GuidCase = value;
+				if (value == null)
+                {
+                    this.__SDCase = null;
+                }else
+                {
+											if (this.__SDCase != null && this.__SDCase.GuidCase != value.Value)
+						{
+							this.__SDCase = new SDCase() { GuidCase = value.Value };
+
+						}
+                    //this.__SDCase = new SDCase() { GuidCase = value.Value };
+					  // if (this.__SDCase == null )
+                      //      this.__SDCase = new SDCase() {  GuidCase = value.Value };
+                      //  else {
+                       //     if (this.__SDCase.GuidCase != value)
+                       //     {
+                       //     this.__SDCase = new SDCase() {  GuidCase = value.Value };
+					//		}
+                     //   }
+					                }
+			
+		}
+	 }
+	private Guid? __GuidFile;
+	[DataMember]
+	public Guid? GuidFile  { 
+		get{
+			return __GuidFile;
+		}
+		set{
+
+			__GuidFile = value;
+				if (value == null)
+                {
+                    this.__SDFile = null;
+                }else
+                {
+											if (this.__SDFile != null && this.__SDFile.GuidFile != value.Value)
+						{
+							this.__SDFile = new SDFile() { GuidFile = value.Value };
+
+						}
+                    //this.__SDFile = new SDFile() { GuidFile = value.Value };
+					  // if (this.__SDFile == null )
+                      //      this.__SDFile = new SDFile() {  GuidFile = value.Value };
+                      //  else {
+                       //     if (this.__SDFile.GuidFile != value)
+                       //     {
+                       //     this.__SDFile = new SDFile() {  GuidFile = value.Value };
+					//		}
+                     //   }
+					                }
+			
+		}
+	 }
+	private Guid? __GuidCompany;
+	[DataMember]
+	public Guid? GuidCompany  { 
+		get{
+			return __GuidCompany;
+		}
+		set{
+
+			__GuidCompany = value;
+			
+		}
+	 }
+	private DateTime? __CreatedDate;
+	[DataMember]
+	public DateTime? CreatedDate  { 
+		get{
+			return __CreatedDate;
+		}
+		set{
+
+			__CreatedDate = value;
+			
+		}
+	 }
+	private DateTime? __UpdatedDate;
+	[DataMember]
+	public DateTime? UpdatedDate  { 
+		get{
+			return __UpdatedDate;
+		}
+		set{
+
+			__UpdatedDate = value;
+			
+		}
+	 }
+	private Guid? __CreatedBy;
+	[DataMember]
+	public Guid? CreatedBy  { 
+		get{
+			return __CreatedBy;
+		}
+		set{
+
+			__CreatedBy = value;
+			
+		}
+	 }
+	private Guid? __UpdatedBy;
+	[DataMember]
+	public Guid? UpdatedBy  { 
+		get{
+			return __UpdatedBy;
+		}
+		set{
+
+			__UpdatedBy = value;
+			
+		}
+	 }
+	private Int32? __Bytes;
+	[DataMember]
+	public Int32? Bytes  { 
+		get{
+			return __Bytes;
+		}
+		set{
+
+			__Bytes = value;
+			
+		}
+	 }
+	private Boolean? __IsDeleted;
+	[DataMember]
+	public Boolean? IsDeleted  { 
+		get{
+			return __IsDeleted;
+		}
+		set{
+
+			__IsDeleted = value;
+			
+		}
+	 }
+    #endregion    
 			
 	public String UrlFile { get; set; }
 			
@@ -361,7 +1356,13 @@ namespace SFS.ServiceDesk.BusinessObjects
           	 public String FileThumbSizes { get; set; } //test
 
 	
-       
+	[DataMember]
+    public TrackingState TrackingState { get; set; }
+    [DataMember]
+    public ICollection<string> ModifiedProperties { get; set; }
+    [JsonProperty, DataMember]
+    private Guid EntityIdentifier { get; set; }
+
 		 public string files_SDFile { get; set; }
 
       
@@ -395,7 +1396,10 @@ namespace SFS.ServiceDesk.BusinessObjects
 		  [Serializable()]
 	  [EntityInfo(PropertyKeyName="GuidCaseHistory",PropertyDefaultText="BodyContent",RequiredProperties="GuidCase,BodyContent,SDCase", CompanyPropertyName = "GuidCompany",CreatedByPropertyName="CreatedBy",UpdatedByPropertyName="UpdatedBy",CreatedDatePropertyName="CreatedDate",UpdatedDatePropertyName="UpdatedDate",DeletedPropertyName="IsDeleted")]
 	  [DynamicLinqType]
-	  public partial class SDCaseHistory:  IMyEntity{
+	  [JsonObject(IsReference = true)]
+      [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/TrackableEntities.Models")]
+
+	  public partial class SDCaseHistory:  ITrackable, IMyEntity{
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
 
 			public override string ToString()
@@ -446,9 +1450,257 @@ namespace SFS.ServiceDesk.BusinessObjects
             
         }
         #endregion
-        
+
+		public SDCaseHistory(){
+		#region 
+			this.ModifiedProperties = new List<string>();
+	this.SDCaseHistoryFiles = new List<SDCaseHistoryFile>();
+
+
+		#endregion
+		}
+		#region
 	
-       
+	[DataMember]
+	public ICollection<SDCaseHistoryFile> SDCaseHistoryFiles { get; set; }
+	
+
+
+	private SDCase __SDCase;
+	[DataMember]
+	public SDCase SDCase {
+		get{
+			return __SDCase;
+		}
+		set{
+			__SDCase = value;
+				if (value != null)
+                {
+                   this.__GuidCase = value.GuidCase;
+                }else
+                {
+											 this.__GuidCase = Guid.Empty;
+					                }
+		}
+	}
+	
+
+	private SDCaseState __SDCaseState;
+	[DataMember]
+	public SDCaseState SDCaseState {
+		get{
+			return __SDCaseState;
+		}
+		set{
+			__SDCaseState = value;
+				if (value != null)
+                {
+                   this.__GuidCaseStatus = value.GuidCaseState;
+                }else
+                {
+					                    this.__GuidCaseStatus = null;
+					                }
+		}
+	}
+	
+
+
+	#endregion
+
+	#region
+	private Guid __GuidCaseHistory;
+	[DataMember]
+	public Guid GuidCaseHistory  { 
+		get{
+			return __GuidCaseHistory;
+		}
+		set{
+
+			__GuidCaseHistory = value;
+			
+		}
+	 }
+	private Guid __GuidCase;
+	[DataMember]
+	public Guid GuidCase  { 
+		get{
+			return __GuidCase;
+		}
+		set{
+
+			__GuidCase = value;
+				if (value == null)
+                {
+                    this.__SDCase = null;
+                }else
+                {
+					                      //this.__SDCase = new SDCase() { GuidCase = value };
+					     if (this.__SDCase != null && this.__SDCase.GuidCase != value)
+						{
+							this.__SDCase = new SDCase() { GuidCase = value };
+
+						}
+						// if (this.__SDCase == null )
+                        //    this.__SDCase = new SDCase() {  GuidCase = value };
+                        //else {
+                        //    if (this.__SDCase.GuidCase != value)
+                        //    {
+                        //    this.__SDCase = new SDCase() {  GuidCase = value };
+						//	}
+                        //}
+					                }
+			
+		}
+	 }
+	private Guid? __GuidCaseStatus;
+	[DataMember]
+	public Guid? GuidCaseStatus  { 
+		get{
+			return __GuidCaseStatus;
+		}
+		set{
+
+			__GuidCaseStatus = value;
+				if (value == null)
+                {
+                    this.__SDCaseState = null;
+                }else
+                {
+											if (this.__SDCaseState != null && this.__SDCaseState.GuidCaseState != value.Value)
+						{
+							this.__SDCaseState = new SDCaseState() { GuidCaseState = value.Value };
+
+						}
+                    //this.__SDCaseState = new SDCaseState() { GuidCaseState = value.Value };
+					  // if (this.__SDCaseState == null )
+                      //      this.__SDCaseState = new SDCaseState() {  GuidCaseState = value.Value };
+                      //  else {
+                       //     if (this.__SDCaseState.GuidCaseState != value)
+                       //     {
+                       //     this.__SDCaseState = new SDCaseState() {  GuidCaseState = value.Value };
+					//		}
+                     //   }
+					                }
+			
+		}
+	 }
+	private String __BodyContent;
+	[DataMember]
+	public String BodyContent  { 
+		get{
+			return __BodyContent;
+		}
+		set{
+
+			__BodyContent = value;
+			
+		}
+	 }
+	private String __PreviewContent;
+	[DataMember]
+	public String PreviewContent  { 
+		get{
+			return __PreviewContent;
+		}
+		set{
+
+			__PreviewContent = value;
+			
+		}
+	 }
+	private Guid? __GuidCompany;
+	[DataMember]
+	public Guid? GuidCompany  { 
+		get{
+			return __GuidCompany;
+		}
+		set{
+
+			__GuidCompany = value;
+			
+		}
+	 }
+	private DateTime? __CreatedDate;
+	[DataMember]
+	public DateTime? CreatedDate  { 
+		get{
+			return __CreatedDate;
+		}
+		set{
+
+			__CreatedDate = value;
+			
+		}
+	 }
+	private DateTime? __UpdatedDate;
+	[DataMember]
+	public DateTime? UpdatedDate  { 
+		get{
+			return __UpdatedDate;
+		}
+		set{
+
+			__UpdatedDate = value;
+			
+		}
+	 }
+	private Guid? __CreatedBy;
+	[DataMember]
+	public Guid? CreatedBy  { 
+		get{
+			return __CreatedBy;
+		}
+		set{
+
+			__CreatedBy = value;
+			
+		}
+	 }
+	private Guid? __UpdatedBy;
+	[DataMember]
+	public Guid? UpdatedBy  { 
+		get{
+			return __UpdatedBy;
+		}
+		set{
+
+			__UpdatedBy = value;
+			
+		}
+	 }
+	private Int32? __Bytes;
+	[DataMember]
+	public Int32? Bytes  { 
+		get{
+			return __Bytes;
+		}
+		set{
+
+			__Bytes = value;
+			
+		}
+	 }
+	private Boolean? __IsDeleted;
+	[DataMember]
+	public Boolean? IsDeleted  { 
+		get{
+			return __IsDeleted;
+		}
+		set{
+
+			__IsDeleted = value;
+			
+		}
+	 }
+    #endregion    
+	
+	[DataMember]
+    public TrackingState TrackingState { get; set; }
+    [DataMember]
+    public ICollection<string> ModifiedProperties { get; set; }
+    [JsonProperty, DataMember]
+    private Guid EntityIdentifier { get; set; }
+
       
 
 
@@ -477,7 +1729,10 @@ namespace SFS.ServiceDesk.BusinessObjects
 		  [Serializable()]
 	  [EntityInfo(PropertyKeyName="GuidCasehistoryFile",PropertyDefaultText="Bytes", CompanyPropertyName = "GuidCompany",CreatedByPropertyName="CreatedBy",UpdatedByPropertyName="UpdatedBy",CreatedDatePropertyName="CreatedDate",UpdatedDatePropertyName="UpdatedDate",DeletedPropertyName="IsDeleted")]
 	  [DynamicLinqType]
-	  public partial class SDCaseHistoryFile:  IMyEntity{
+	  [JsonObject(IsReference = true)]
+      [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/TrackableEntities.Models")]
+
+	  public partial class SDCaseHistoryFile:  ITrackable, IMyEntity{
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
 
 			public override string ToString()
@@ -528,9 +1783,225 @@ namespace SFS.ServiceDesk.BusinessObjects
             
         }
         #endregion
-        
+
+		public SDCaseHistoryFile(){
+		#region 
+			this.ModifiedProperties = new List<string>();
+		#endregion
+		}
+		#region
+
+	private SDCaseHistory __SDCaseHistory;
+	[DataMember]
+	public SDCaseHistory SDCaseHistory {
+		get{
+			return __SDCaseHistory;
+		}
+		set{
+			__SDCaseHistory = value;
+				if (value != null)
+                {
+                   this.__GuidCaseHistory = value.GuidCaseHistory;
+                }else
+                {
+					                    this.__GuidCaseHistory = null;
+					                }
+		}
+	}
 	
-       
+
+	private SDFile __SDFile;
+	[DataMember]
+	public SDFile SDFile {
+		get{
+			return __SDFile;
+		}
+		set{
+			__SDFile = value;
+				if (value != null)
+                {
+                   this.__GuidFile = value.GuidFile;
+                }else
+                {
+					                    this.__GuidFile = null;
+					                }
+		}
+	}
+	
+
+
+	#endregion
+
+	#region
+	private Guid __GuidCasehistoryFile;
+	[DataMember]
+	public Guid GuidCasehistoryFile  { 
+		get{
+			return __GuidCasehistoryFile;
+		}
+		set{
+
+			__GuidCasehistoryFile = value;
+			
+		}
+	 }
+	private Guid? __GuidFile;
+	[DataMember]
+	public Guid? GuidFile  { 
+		get{
+			return __GuidFile;
+		}
+		set{
+
+			__GuidFile = value;
+				if (value == null)
+                {
+                    this.__SDFile = null;
+                }else
+                {
+											if (this.__SDFile != null && this.__SDFile.GuidFile != value.Value)
+						{
+							this.__SDFile = new SDFile() { GuidFile = value.Value };
+
+						}
+                    //this.__SDFile = new SDFile() { GuidFile = value.Value };
+					  // if (this.__SDFile == null )
+                      //      this.__SDFile = new SDFile() {  GuidFile = value.Value };
+                      //  else {
+                       //     if (this.__SDFile.GuidFile != value)
+                       //     {
+                       //     this.__SDFile = new SDFile() {  GuidFile = value.Value };
+					//		}
+                     //   }
+					                }
+			
+		}
+	 }
+	private Guid? __GuidCaseHistory;
+	[DataMember]
+	public Guid? GuidCaseHistory  { 
+		get{
+			return __GuidCaseHistory;
+		}
+		set{
+
+			__GuidCaseHistory = value;
+				if (value == null)
+                {
+                    this.__SDCaseHistory = null;
+                }else
+                {
+											if (this.__SDCaseHistory != null && this.__SDCaseHistory.GuidCaseHistory != value.Value)
+						{
+							this.__SDCaseHistory = new SDCaseHistory() { GuidCaseHistory = value.Value };
+
+						}
+                    //this.__SDCaseHistory = new SDCaseHistory() { GuidCaseHistory = value.Value };
+					  // if (this.__SDCaseHistory == null )
+                      //      this.__SDCaseHistory = new SDCaseHistory() {  GuidCaseHistory = value.Value };
+                      //  else {
+                       //     if (this.__SDCaseHistory.GuidCaseHistory != value)
+                       //     {
+                       //     this.__SDCaseHistory = new SDCaseHistory() {  GuidCaseHistory = value.Value };
+					//		}
+                     //   }
+					                }
+			
+		}
+	 }
+	private Guid? __GuidCompany;
+	[DataMember]
+	public Guid? GuidCompany  { 
+		get{
+			return __GuidCompany;
+		}
+		set{
+
+			__GuidCompany = value;
+			
+		}
+	 }
+	private DateTime? __CreatedDate;
+	[DataMember]
+	public DateTime? CreatedDate  { 
+		get{
+			return __CreatedDate;
+		}
+		set{
+
+			__CreatedDate = value;
+			
+		}
+	 }
+	private DateTime? __UpdatedDate;
+	[DataMember]
+	public DateTime? UpdatedDate  { 
+		get{
+			return __UpdatedDate;
+		}
+		set{
+
+			__UpdatedDate = value;
+			
+		}
+	 }
+	private Guid? __CreatedBy;
+	[DataMember]
+	public Guid? CreatedBy  { 
+		get{
+			return __CreatedBy;
+		}
+		set{
+
+			__CreatedBy = value;
+			
+		}
+	 }
+	private Guid? __UpdatedBy;
+	[DataMember]
+	public Guid? UpdatedBy  { 
+		get{
+			return __UpdatedBy;
+		}
+		set{
+
+			__UpdatedBy = value;
+			
+		}
+	 }
+	private Int32? __Bytes;
+	[DataMember]
+	public Int32? Bytes  { 
+		get{
+			return __Bytes;
+		}
+		set{
+
+			__Bytes = value;
+			
+		}
+	 }
+	private Boolean? __IsDeleted;
+	[DataMember]
+	public Boolean? IsDeleted  { 
+		get{
+			return __IsDeleted;
+		}
+		set{
+
+			__IsDeleted = value;
+			
+		}
+	 }
+    #endregion    
+	
+	[DataMember]
+    public TrackingState TrackingState { get; set; }
+    [DataMember]
+    public ICollection<string> ModifiedProperties { get; set; }
+    [JsonProperty, DataMember]
+    private Guid EntityIdentifier { get; set; }
+
       
 
 
@@ -556,7 +2027,10 @@ namespace SFS.ServiceDesk.BusinessObjects
 		  [Serializable()]
 	  [EntityInfo(PropertyKeyName="GuidCasePriority",PropertyDefaultText="Title",RequiredProperties="Title", CompanyPropertyName = "GuidCompany",CreatedByPropertyName="CreatedBy",UpdatedByPropertyName="UpdatedBy",CreatedDatePropertyName="CreatedDate",UpdatedDatePropertyName="UpdatedDate",DeletedPropertyName="IsDeleted")]
 	  [DynamicLinqType]
-	  public partial class SDCasePriority:  IMyEntity{
+	  [JsonObject(IsReference = true)]
+      [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/TrackableEntities.Models")]
+
+	  public partial class SDCasePriority:  ITrackable, IMyEntity{
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
 
 			public override string ToString()
@@ -607,9 +2081,143 @@ namespace SFS.ServiceDesk.BusinessObjects
             
         }
         #endregion
-        
+
+		public SDCasePriority(){
+		#region 
+			this.ModifiedProperties = new List<string>();
+	this.SDCases = new List<SDCase>();
+
+
+		#endregion
+		}
+		#region
 	
-       
+	[DataMember]
+	public ICollection<SDCase> SDCases { get; set; }
+	
+
+
+
+	#endregion
+
+	#region
+	private Guid __GuidCasePriority;
+	[DataMember]
+	public Guid GuidCasePriority  { 
+		get{
+			return __GuidCasePriority;
+		}
+		set{
+
+			__GuidCasePriority = value;
+			
+		}
+	 }
+	private String __Title;
+	[DataMember]
+	public String Title  { 
+		get{
+			return __Title;
+		}
+		set{
+
+			__Title = value;
+			
+		}
+	 }
+	private Guid? __GuidCompany;
+	[DataMember]
+	public Guid? GuidCompany  { 
+		get{
+			return __GuidCompany;
+		}
+		set{
+
+			__GuidCompany = value;
+			
+		}
+	 }
+	private DateTime? __CreatedDate;
+	[DataMember]
+	public DateTime? CreatedDate  { 
+		get{
+			return __CreatedDate;
+		}
+		set{
+
+			__CreatedDate = value;
+			
+		}
+	 }
+	private DateTime? __UpdatedDate;
+	[DataMember]
+	public DateTime? UpdatedDate  { 
+		get{
+			return __UpdatedDate;
+		}
+		set{
+
+			__UpdatedDate = value;
+			
+		}
+	 }
+	private Guid? __CreatedBy;
+	[DataMember]
+	public Guid? CreatedBy  { 
+		get{
+			return __CreatedBy;
+		}
+		set{
+
+			__CreatedBy = value;
+			
+		}
+	 }
+	private Guid? __UpdatedBy;
+	[DataMember]
+	public Guid? UpdatedBy  { 
+		get{
+			return __UpdatedBy;
+		}
+		set{
+
+			__UpdatedBy = value;
+			
+		}
+	 }
+	private Int32? __Bytes;
+	[DataMember]
+	public Int32? Bytes  { 
+		get{
+			return __Bytes;
+		}
+		set{
+
+			__Bytes = value;
+			
+		}
+	 }
+	private Boolean? __IsDeleted;
+	[DataMember]
+	public Boolean? IsDeleted  { 
+		get{
+			return __IsDeleted;
+		}
+		set{
+
+			__IsDeleted = value;
+			
+		}
+	 }
+    #endregion    
+	
+	[DataMember]
+    public TrackingState TrackingState { get; set; }
+    [DataMember]
+    public ICollection<string> ModifiedProperties { get; set; }
+    [JsonProperty, DataMember]
+    private Guid EntityIdentifier { get; set; }
+
       
 
 
@@ -633,7 +2241,10 @@ namespace SFS.ServiceDesk.BusinessObjects
 		  [Serializable()]
 	  [EntityInfo(PropertyKeyName="GuidCaseState",PropertyDefaultText="Title",RequiredProperties="Title", CompanyPropertyName = "GuidCompany",CreatedByPropertyName="CreatedBy",UpdatedByPropertyName="UpdatedBy",CreatedDatePropertyName="CreatedDate",UpdatedDatePropertyName="UpdatedDate",DeletedPropertyName="IsDeleted")]
 	  [DynamicLinqType]
-	  public partial class SDCaseState:  IMyEntity{
+	  [JsonObject(IsReference = true)]
+      [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/TrackableEntities.Models")]
+
+	  public partial class SDCaseState:  ITrackable, IMyEntity{
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
 
 			public override string ToString()
@@ -684,9 +2295,151 @@ namespace SFS.ServiceDesk.BusinessObjects
             
         }
         #endregion
-        
+
+		public SDCaseState(){
+		#region 
+			this.ModifiedProperties = new List<string>();
+	this.SDCases = new List<SDCase>();
+
+
+	this.SDCaseHistories = new List<SDCaseHistory>();
+
+
+		#endregion
+		}
+		#region
 	
-       
+	[DataMember]
+	public ICollection<SDCase> SDCases { get; set; }
+	
+
+	
+	[DataMember]
+	public ICollection<SDCaseHistory> SDCaseHistories { get; set; }
+	
+
+
+
+	#endregion
+
+	#region
+	private Guid __GuidCaseState;
+	[DataMember]
+	public Guid GuidCaseState  { 
+		get{
+			return __GuidCaseState;
+		}
+		set{
+
+			__GuidCaseState = value;
+			
+		}
+	 }
+	private String __Title;
+	[DataMember]
+	public String Title  { 
+		get{
+			return __Title;
+		}
+		set{
+
+			__Title = value;
+			
+		}
+	 }
+	private Guid? __GuidCompany;
+	[DataMember]
+	public Guid? GuidCompany  { 
+		get{
+			return __GuidCompany;
+		}
+		set{
+
+			__GuidCompany = value;
+			
+		}
+	 }
+	private DateTime? __CreatedDate;
+	[DataMember]
+	public DateTime? CreatedDate  { 
+		get{
+			return __CreatedDate;
+		}
+		set{
+
+			__CreatedDate = value;
+			
+		}
+	 }
+	private DateTime? __UpdatedDate;
+	[DataMember]
+	public DateTime? UpdatedDate  { 
+		get{
+			return __UpdatedDate;
+		}
+		set{
+
+			__UpdatedDate = value;
+			
+		}
+	 }
+	private Guid? __CreatedBy;
+	[DataMember]
+	public Guid? CreatedBy  { 
+		get{
+			return __CreatedBy;
+		}
+		set{
+
+			__CreatedBy = value;
+			
+		}
+	 }
+	private Guid? __UpdatedBy;
+	[DataMember]
+	public Guid? UpdatedBy  { 
+		get{
+			return __UpdatedBy;
+		}
+		set{
+
+			__UpdatedBy = value;
+			
+		}
+	 }
+	private Int32? __Bytes;
+	[DataMember]
+	public Int32? Bytes  { 
+		get{
+			return __Bytes;
+		}
+		set{
+
+			__Bytes = value;
+			
+		}
+	 }
+	private Boolean? __IsDeleted;
+	[DataMember]
+	public Boolean? IsDeleted  { 
+		get{
+			return __IsDeleted;
+		}
+		set{
+
+			__IsDeleted = value;
+			
+		}
+	 }
+    #endregion    
+	
+	[DataMember]
+    public TrackingState TrackingState { get; set; }
+    [DataMember]
+    public ICollection<string> ModifiedProperties { get; set; }
+    [JsonProperty, DataMember]
+    private Guid EntityIdentifier { get; set; }
+
       
 
 
@@ -711,7 +2464,10 @@ namespace SFS.ServiceDesk.BusinessObjects
 		  [Serializable()]
 	  [EntityInfo(PropertyKeyName="GuidFile",PropertyDefaultText="FileName",RequiredProperties="FileName", CompanyPropertyName = "GuidCompany",CreatedByPropertyName="CreatedBy",UpdatedByPropertyName="UpdatedBy",CreatedDatePropertyName="CreatedDate",UpdatedDatePropertyName="UpdatedDate",DeletedPropertyName="IsDeleted", IsFile=true, ExtraSizeField= "FileSize")]
 	  [DynamicLinqType]
-	  public partial class SDFile:  IMyEntity{
+	  [JsonObject(IsReference = true)]
+      [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/TrackableEntities.Models")]
+
+	  public partial class SDFile:  ITrackable, IMyEntity{
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
 
 			public override string ToString()
@@ -762,9 +2518,211 @@ namespace SFS.ServiceDesk.BusinessObjects
             
         }
         #endregion
-        
+
+		public SDFile(){
+		#region 
+			this.ModifiedProperties = new List<string>();
+	this.SDCaseFiles = new List<SDCaseFile>();
+
+
+	this.SDCaseHistoryFiles = new List<SDCaseHistoryFile>();
+
+
+		#endregion
+		}
+		#region
 	
-       
+	[DataMember]
+	public ICollection<SDCaseFile> SDCaseFiles { get; set; }
+	
+
+	
+	[DataMember]
+	public ICollection<SDCaseHistoryFile> SDCaseHistoryFiles { get; set; }
+	
+
+
+
+	#endregion
+
+	#region
+	private Guid __GuidFile;
+	[DataMember]
+	public Guid GuidFile  { 
+		get{
+			return __GuidFile;
+		}
+		set{
+
+			__GuidFile = value;
+			
+		}
+	 }
+	private String __FileName;
+	[DataMember]
+	public String FileName  { 
+		get{
+			return __FileName;
+		}
+		set{
+
+			__FileName = value;
+			
+		}
+	 }
+	private String __FileType;
+	[DataMember]
+	public String FileType  { 
+		get{
+			return __FileType;
+		}
+		set{
+
+			__FileType = value;
+			
+		}
+	 }
+	private Int64? __FileSize;
+	[DataMember]
+	public Int64? FileSize  { 
+		get{
+			return __FileSize;
+		}
+		set{
+
+			__FileSize = value;
+			
+		}
+	 }
+	private Byte[] __FileData;
+	[DataMember]
+	public Byte[] FileData  { 
+		get{
+			return __FileData;
+		}
+		set{
+
+			__FileData = value;
+			
+		}
+	 }
+	private Guid? __GuidCompany;
+	[DataMember]
+	public Guid? GuidCompany  { 
+		get{
+			return __GuidCompany;
+		}
+		set{
+
+			__GuidCompany = value;
+			
+		}
+	 }
+	private DateTime? __CreatedDate;
+	[DataMember]
+	public DateTime? CreatedDate  { 
+		get{
+			return __CreatedDate;
+		}
+		set{
+
+			__CreatedDate = value;
+			
+		}
+	 }
+	private DateTime? __UpdatedDate;
+	[DataMember]
+	public DateTime? UpdatedDate  { 
+		get{
+			return __UpdatedDate;
+		}
+		set{
+
+			__UpdatedDate = value;
+			
+		}
+	 }
+	private Guid? __CreatedBy;
+	[DataMember]
+	public Guid? CreatedBy  { 
+		get{
+			return __CreatedBy;
+		}
+		set{
+
+			__CreatedBy = value;
+			
+		}
+	 }
+	private Guid? __UpdatedBy;
+	[DataMember]
+	public Guid? UpdatedBy  { 
+		get{
+			return __UpdatedBy;
+		}
+		set{
+
+			__UpdatedBy = value;
+			
+		}
+	 }
+	private Int32? __Bytes;
+	[DataMember]
+	public Int32? Bytes  { 
+		get{
+			return __Bytes;
+		}
+		set{
+
+			__Bytes = value;
+			
+		}
+	 }
+	private Boolean? __IsDeleted;
+	[DataMember]
+	public Boolean? IsDeleted  { 
+		get{
+			return __IsDeleted;
+		}
+		set{
+
+			__IsDeleted = value;
+			
+		}
+	 }
+	private String __FileStorage;
+	[DataMember]
+	public String FileStorage  { 
+		get{
+			return __FileStorage;
+		}
+		set{
+
+			__FileStorage = value;
+			
+		}
+	 }
+	private String __FileThumbSizes;
+	[DataMember]
+	public String FileThumbSizes  { 
+		get{
+			return __FileThumbSizes;
+		}
+		set{
+
+			__FileThumbSizes = value;
+			
+		}
+	 }
+    #endregion    
+	
+	[DataMember]
+    public TrackingState TrackingState { get; set; }
+    [DataMember]
+    public ICollection<string> ModifiedProperties { get; set; }
+    [JsonProperty, DataMember]
+    private Guid EntityIdentifier { get; set; }
+
       
 
 
@@ -794,7 +2752,10 @@ namespace SFS.ServiceDesk.BusinessObjects
 		  [Serializable()]
 	  [EntityInfo(PropertyKeyName="GuidOrganization",PropertyDefaultText="FullName",RequiredProperties="FullName", CompanyPropertyName = "GuidCompany",CreatedByPropertyName="CreatedBy",UpdatedByPropertyName="UpdatedBy",CreatedDatePropertyName="CreatedDate",UpdatedDatePropertyName="UpdatedDate",DeletedPropertyName="IsDeleted")]
 	  [DynamicLinqType]
-	  public partial class SDOrganization:  IMyEntity{
+	  [JsonObject(IsReference = true)]
+      [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/TrackableEntities.Models")]
+
+	  public partial class SDOrganization:  ITrackable, IMyEntity{
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
 
 			public override string ToString()
@@ -845,9 +2806,151 @@ namespace SFS.ServiceDesk.BusinessObjects
             
         }
         #endregion
-        
+
+		public SDOrganization(){
+		#region 
+			this.ModifiedProperties = new List<string>();
+	this.SDAreas = new List<SDArea>();
+
+
+	this.SDPersons = new List<SDPerson>();
+
+
+		#endregion
+		}
+		#region
 	
-       
+	[DataMember]
+	public ICollection<SDArea> SDAreas { get; set; }
+	
+
+	
+	[DataMember]
+	public ICollection<SDPerson> SDPersons { get; set; }
+	
+
+
+
+	#endregion
+
+	#region
+	private Guid __GuidOrganization;
+	[DataMember]
+	public Guid GuidOrganization  { 
+		get{
+			return __GuidOrganization;
+		}
+		set{
+
+			__GuidOrganization = value;
+			
+		}
+	 }
+	private String __FullName;
+	[DataMember]
+	public String FullName  { 
+		get{
+			return __FullName;
+		}
+		set{
+
+			__FullName = value;
+			
+		}
+	 }
+	private Guid? __GuidCompany;
+	[DataMember]
+	public Guid? GuidCompany  { 
+		get{
+			return __GuidCompany;
+		}
+		set{
+
+			__GuidCompany = value;
+			
+		}
+	 }
+	private DateTime? __CreatedDate;
+	[DataMember]
+	public DateTime? CreatedDate  { 
+		get{
+			return __CreatedDate;
+		}
+		set{
+
+			__CreatedDate = value;
+			
+		}
+	 }
+	private DateTime? __UpdatedDate;
+	[DataMember]
+	public DateTime? UpdatedDate  { 
+		get{
+			return __UpdatedDate;
+		}
+		set{
+
+			__UpdatedDate = value;
+			
+		}
+	 }
+	private Guid? __CreatedBy;
+	[DataMember]
+	public Guid? CreatedBy  { 
+		get{
+			return __CreatedBy;
+		}
+		set{
+
+			__CreatedBy = value;
+			
+		}
+	 }
+	private Guid? __UpdatedBy;
+	[DataMember]
+	public Guid? UpdatedBy  { 
+		get{
+			return __UpdatedBy;
+		}
+		set{
+
+			__UpdatedBy = value;
+			
+		}
+	 }
+	private Int32? __Bytes;
+	[DataMember]
+	public Int32? Bytes  { 
+		get{
+			return __Bytes;
+		}
+		set{
+
+			__Bytes = value;
+			
+		}
+	 }
+	private Boolean? __IsDeleted;
+	[DataMember]
+	public Boolean? IsDeleted  { 
+		get{
+			return __IsDeleted;
+		}
+		set{
+
+			__IsDeleted = value;
+			
+		}
+	 }
+    #endregion    
+	
+	[DataMember]
+    public TrackingState TrackingState { get; set; }
+    [DataMember]
+    public ICollection<string> ModifiedProperties { get; set; }
+    [JsonProperty, DataMember]
+    private Guid EntityIdentifier { get; set; }
+
       
 
 
@@ -872,7 +2975,10 @@ namespace SFS.ServiceDesk.BusinessObjects
 		  [Serializable()]
 	  [EntityInfo(PropertyKeyName="GuidPerson",PropertyDefaultText="DisplayName",RequiredProperties="DisplayName", CompanyPropertyName = "GuidCompany",CreatedByPropertyName="CreatedBy",UpdatedByPropertyName="UpdatedBy",CreatedDatePropertyName="CreatedDate",UpdatedDatePropertyName="UpdatedDate",DeletedPropertyName="IsDeleted")]
 	  [DynamicLinqType]
-	  public partial class SDPerson:  IMyEntity{
+	  [JsonObject(IsReference = true)]
+      [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/TrackableEntities.Models")]
+
+	  public partial class SDPerson:  ITrackable, IMyEntity{
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
 
 			public override string ToString()
@@ -923,9 +3029,253 @@ namespace SFS.ServiceDesk.BusinessObjects
             
         }
         #endregion
-        
+
+		public SDPerson(){
+		#region 
+			this.ModifiedProperties = new List<string>();
+	this.SDAreaPersons = new List<SDAreaPerson>();
+
+
+	this.SDCases = new List<SDCase>();
+
+
+		#endregion
+		}
+		#region
 	
-       
+	[DataMember]
+	public ICollection<SDAreaPerson> SDAreaPersons { get; set; }
+	
+
+	
+	[DataMember]
+	public ICollection<SDCase> SDCases { get; set; }
+	
+
+
+	private SDOrganization __SDOrganization;
+	[DataMember]
+	public SDOrganization SDOrganization {
+		get{
+			return __SDOrganization;
+		}
+		set{
+			__SDOrganization = value;
+				if (value != null)
+                {
+                   this.__GuidOrganization = value.GuidOrganization;
+                }else
+                {
+					                    this.__GuidOrganization = null;
+					                }
+		}
+	}
+	
+
+	private SDProxyUser __SDProxyUser;
+	[DataMember]
+	public SDProxyUser SDProxyUser {
+		get{
+			return __SDProxyUser;
+		}
+		set{
+			__SDProxyUser = value;
+				if (value != null)
+                {
+                   this.__GuidUser = value.GuidUser;
+                }else
+                {
+					                    this.__GuidUser = null;
+					                }
+		}
+	}
+	
+
+
+	#endregion
+
+	#region
+	private Guid __GuidPerson;
+	[DataMember]
+	public Guid GuidPerson  { 
+		get{
+			return __GuidPerson;
+		}
+		set{
+
+			__GuidPerson = value;
+			
+		}
+	 }
+	private String __DisplayName;
+	[DataMember]
+	public String DisplayName  { 
+		get{
+			return __DisplayName;
+		}
+		set{
+
+			__DisplayName = value;
+			
+		}
+	 }
+	private Guid? __GuidUser;
+	[DataMember]
+	public Guid? GuidUser  { 
+		get{
+			return __GuidUser;
+		}
+		set{
+
+			__GuidUser = value;
+				if (value == null)
+                {
+                    this.__SDProxyUser = null;
+                }else
+                {
+											if (this.__SDProxyUser != null && this.__SDProxyUser.GuidUser != value.Value)
+						{
+							this.__SDProxyUser = new SDProxyUser() { GuidUser = value.Value };
+
+						}
+                    //this.__SDProxyUser = new SDProxyUser() { GuidUser = value.Value };
+					  // if (this.__SDProxyUser == null )
+                      //      this.__SDProxyUser = new SDProxyUser() {  GuidUser = value.Value };
+                      //  else {
+                       //     if (this.__SDProxyUser.GuidUser != value)
+                       //     {
+                       //     this.__SDProxyUser = new SDProxyUser() {  GuidUser = value.Value };
+					//		}
+                     //   }
+					                }
+			
+		}
+	 }
+	private Guid? __GuidOrganization;
+	[DataMember]
+	public Guid? GuidOrganization  { 
+		get{
+			return __GuidOrganization;
+		}
+		set{
+
+			__GuidOrganization = value;
+				if (value == null)
+                {
+                    this.__SDOrganization = null;
+                }else
+                {
+											if (this.__SDOrganization != null && this.__SDOrganization.GuidOrganization != value.Value)
+						{
+							this.__SDOrganization = new SDOrganization() { GuidOrganization = value.Value };
+
+						}
+                    //this.__SDOrganization = new SDOrganization() { GuidOrganization = value.Value };
+					  // if (this.__SDOrganization == null )
+                      //      this.__SDOrganization = new SDOrganization() {  GuidOrganization = value.Value };
+                      //  else {
+                       //     if (this.__SDOrganization.GuidOrganization != value)
+                       //     {
+                       //     this.__SDOrganization = new SDOrganization() {  GuidOrganization = value.Value };
+					//		}
+                     //   }
+					                }
+			
+		}
+	 }
+	private Guid? __GuidCompany;
+	[DataMember]
+	public Guid? GuidCompany  { 
+		get{
+			return __GuidCompany;
+		}
+		set{
+
+			__GuidCompany = value;
+			
+		}
+	 }
+	private DateTime? __CreatedDate;
+	[DataMember]
+	public DateTime? CreatedDate  { 
+		get{
+			return __CreatedDate;
+		}
+		set{
+
+			__CreatedDate = value;
+			
+		}
+	 }
+	private DateTime? __UpdatedDate;
+	[DataMember]
+	public DateTime? UpdatedDate  { 
+		get{
+			return __UpdatedDate;
+		}
+		set{
+
+			__UpdatedDate = value;
+			
+		}
+	 }
+	private Guid? __CreatedBy;
+	[DataMember]
+	public Guid? CreatedBy  { 
+		get{
+			return __CreatedBy;
+		}
+		set{
+
+			__CreatedBy = value;
+			
+		}
+	 }
+	private Guid? __UpdatedBy;
+	[DataMember]
+	public Guid? UpdatedBy  { 
+		get{
+			return __UpdatedBy;
+		}
+		set{
+
+			__UpdatedBy = value;
+			
+		}
+	 }
+	private Int32? __Bytes;
+	[DataMember]
+	public Int32? Bytes  { 
+		get{
+			return __Bytes;
+		}
+		set{
+
+			__Bytes = value;
+			
+		}
+	 }
+	private Boolean? __IsDeleted;
+	[DataMember]
+	public Boolean? IsDeleted  { 
+		get{
+			return __IsDeleted;
+		}
+		set{
+
+			__IsDeleted = value;
+			
+		}
+	 }
+    #endregion    
+	
+	[DataMember]
+    public TrackingState TrackingState { get; set; }
+    [DataMember]
+    public ICollection<string> ModifiedProperties { get; set; }
+    [JsonProperty, DataMember]
+    private Guid EntityIdentifier { get; set; }
+
       
 
 
@@ -954,7 +3304,10 @@ namespace SFS.ServiceDesk.BusinessObjects
 		  [Serializable()]
 	  [EntityInfo(PropertyKeyName="GuidUser",PropertyDefaultText="Email",RequiredProperties="Email")]
 	  [DynamicLinqType]
-	  public partial class SDProxyUser:  IMyEntity{
+	  [JsonObject(IsReference = true)]
+      [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/TrackableEntities.Models")]
+
+	  public partial class SDProxyUser:  ITrackable, IMyEntity{
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
 
 			public override string ToString()
@@ -1005,9 +3358,71 @@ namespace SFS.ServiceDesk.BusinessObjects
             
         }
         #endregion
-        
+
+		public SDProxyUser(){
+		#region 
+			this.ModifiedProperties = new List<string>();
+	this.SDPersons = new List<SDPerson>();
+
+
+		#endregion
+		}
+		#region
 	
-       
+	[DataMember]
+	public ICollection<SDPerson> SDPersons { get; set; }
+	
+
+
+
+	#endregion
+
+	#region
+	private Guid __GuidUser;
+	[DataMember]
+	public Guid GuidUser  { 
+		get{
+			return __GuidUser;
+		}
+		set{
+
+			__GuidUser = value;
+			
+		}
+	 }
+	private String __Email;
+	[DataMember]
+	public String Email  { 
+		get{
+			return __Email;
+		}
+		set{
+
+			__Email = value;
+			
+		}
+	 }
+	private String __DisplayName;
+	[DataMember]
+	public String DisplayName  { 
+		get{
+			return __DisplayName;
+		}
+		set{
+
+			__DisplayName = value;
+			
+		}
+	 }
+    #endregion    
+	
+	[DataMember]
+    public TrackingState TrackingState { get; set; }
+    [DataMember]
+    public ICollection<string> ModifiedProperties { get; set; }
+    [JsonProperty, DataMember]
+    private Guid EntityIdentifier { get; set; }
+
       
 
 

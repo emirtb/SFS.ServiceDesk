@@ -125,10 +125,17 @@ public class SinglentonContext
         #region Constructor
         public SDAreasBR()
         {
+
+			this.AppNameKey = "SFSServiceDesk";
+            this.EntityKey = "SDArea";
+
             context = new EFContext();
         }
 		 public SDAreasBR(bool preventSecurity)
             {
+				this.AppNameKey = "SFSServiceDesk";
+				this.EntityKey = "SDArea";
+
                 this.preventSecurityRestrictions = preventSecurity;
 				context = new EFContext();
             }
@@ -474,13 +481,10 @@ public class SinglentonContext
 	
 					bool sharedAndMultiTenant = false;	  
 					string multitenantExpression = null;
-					//if (contextRequest != null && contextRequest.Company != null)                      	
-					//	 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
-				if (contextRequest != null && contextRequest.Company != null)
-				 {
-                    multitenantExpression = @"(GuidCompany = @GuidCompanyMultiTenant)";
-                    contextRequest.CustomQuery.SetParam("GuidCompanyMultiTenant", new Nullable<Guid>(contextRequest.Company.GuidCompany));
-                }
+					if (contextRequest != null && contextRequest.Company != null){   
+                   	
+						 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
+					}
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -1399,55 +1403,15 @@ public class SinglentonContext
              if (contextRequest != null)
              {
                  contextNew = SFSdotNet.Framework.My.Context.BuildContextRequestCopySafe(contextRequest);
-                 if (fields != null && fields.Length > 0)
-                 {
-                     contextNew.CustomQuery.SpecificProperties  = fields.ToList();
-                 }
-                 else if(contextRequest.CustomQuery.SpecificProperties.Count > 0)
-                 {
-                     fields = contextRequest.CustomQuery.SpecificProperties.ToArray();
-                 }
+               
              }
 			
 
 		   using (EFContext con = new EFContext())
             {
 
-			    con.Configuration.ValidateOnSaveEnabled = false;
-                con.Configuration.AutoDetectChangesEnabled = false;
+                UpdateAgile(item, con, contextNew, fields.ToList());
                
-					List<string> propForCopy = new List<string>();
-                    propForCopy.AddRange(fields);
-                    
-					  
-					if (!propForCopy.Contains("GuidArea"))
-						propForCopy.Add("GuidArea");
-					if (!propForCopy.Contains("Name"))
-						propForCopy.Add("Name");
-
-					var itemForUpdate = SFSdotNet.Framework.BR.Utils.GetConverted<SDArea,SDArea>(item, propForCopy.ToArray());
-					 itemForUpdate.GuidArea = item.GuidArea;
-                  var setT = con.Set<SDArea>().Attach(itemForUpdate);
-
-					if (fields.Count() > 0)
-					  {
-						  item.ModifiedProperties = fields;
-					  }
-                    foreach (var property in item.ModifiedProperties)
-					{						
-                        if (property != "GuidArea")
-                             con.Entry(setT).Property(property).IsModified = true;
-
-                    }
-
-                
-               int result = con.SaveChanges();
-               if (result != 1)
-               {
-                   SFSdotNet.Framework.My.EventLog.Error("Has been changed " + result.ToString() + " items but the expected value is: 1");
-               }
-
-
             }
 
 			OnUpdatedAgile(this, new BusinessRulesEventArgs<SDArea>() { Item = item, ContextRequest = contextNew  });
@@ -1617,18 +1581,47 @@ public class SinglentonContext
 						}
 					}
 
-	string includes = "SDArea2,SDOrganization";
-	IQueryable < SDArea > query = con.SDAreas.AsQueryable();
-	foreach (string include in includes.Split(char.Parse(",")))
-                       {
-                           if (!string.IsNullOrEmpty(include))
-                               query = query.Include(include);
-                       }
-	var oldentity = query.FirstOrDefault(p => p.GuidArea == entity.GuidArea);
-	if (oldentity.Name != entity.Name)
-		oldentity.Name = entity.Name;
-	if (oldentity.IsDeleted != entity.IsDeleted)
-		oldentity.IsDeleted = entity.IsDeleted;
+				var contextForGet = contextRequest.CopySafe();
+                contextForGet.CustomQuery.IncludeDeleted = true;
+                contextForGet.CustomQuery.IncludeAllCompanies = true;
+                SDAreasBR br = new SDAreasBR(true );
+                var oldentity = br.GetBy("GuidArea = Guid(\"" + entity.GuidArea + "\")").FirstOrDefault();
+
+                List<string> properties = new List<string>();
+              
+
+	//string includes = "SDArea2,SDOrganization";
+	//IQueryable < SDArea > query = con.SDAreas.AsQueryable();
+	//foreach (string include in includes.Split(char.Parse(",")))
+    //                   {
+    //                       if (!string.IsNullOrEmpty(include))
+     //                          query = query.Include(include);
+     //                  }
+	//var oldentity = query.FirstOrDefault(p => p.GuidArea == entity.GuidArea);
+		if (oldentity.Name != entity.Name){
+			oldentity.Name = entity.Name;
+			properties.Add(SDArea.PropertyNames.Name);
+		}
+			
+			
+		if (oldentity.GuidAreaParent != entity.GuidAreaParent){
+			oldentity.GuidAreaParent = entity.GuidAreaParent;
+			properties.Add(SDArea.PropertyNames.GuidAreaParent);
+		}
+			
+			
+		if (oldentity.GuidOrganization != entity.GuidOrganization){
+			oldentity.GuidOrganization = entity.GuidOrganization;
+			properties.Add(SDArea.PropertyNames.GuidOrganization);
+		}
+			
+			
+		if (oldentity.IsDeleted != entity.IsDeleted){
+			oldentity.IsDeleted = entity.IsDeleted;
+			properties.Add(SDArea.PropertyNames.IsDeleted);
+		}
+			
+			
 
 				//if (entity.UpdatedDate == null || (contextRequest != null && contextRequest.IsFromUI("SDAreas", UIActions.Updating)))
 			oldentity.UpdatedDate = DateTime.Now.ToUniversalTime();
@@ -1636,51 +1629,22 @@ public class SinglentonContext
 				oldentity.UpdatedBy = contextRequest.User.GuidUser;
 
            
-
-
-				if (entity.SDArea1 != null)
-                {
-                    foreach (var item in entity.SDArea1)
-                    {
-
-
-                        
-                    }
 					
-                    
-
-                }
 
 
-						if (SFSdotNet.Framework.BR.Utils.HasRelationPropertyChanged(oldentity.SDArea2, entity.SDArea2, "GuidArea"))
-							oldentity.SDArea2 = entity.SDArea2 != null? new SDArea(){ GuidArea = entity.SDArea2.GuidArea } :null;
-
-                
-
-
-						if (SFSdotNet.Framework.BR.Utils.HasRelationPropertyChanged(oldentity.SDOrganization, entity.SDOrganization, "GuidOrganization"))
-							oldentity.SDOrganization = entity.SDOrganization != null? new SDOrganization(){ GuidOrganization = entity.SDOrganization.GuidOrganization } :null;
-
-                
-
-
-				if (entity.SDAreaPersons != null)
-                {
-                    foreach (var item in entity.SDAreaPersons)
-                    {
-
-
-                        
-                    }
 					
-                    
-
-                }
 
 
-				con.ChangeTracker.Entries().Where(p => p.Entity != oldentity).ForEach(p => p.State = EntityState.Unchanged);  
-				  
-				con.SaveChanges();
+					
+					
+
+				
+		   
+
+                UpdateAgile(oldentity, con, contextRequest, properties);
+                
+            
+				//UpdateAgile(oldentity, contextRequest
         
 					 
 					
@@ -1721,7 +1685,7 @@ public class SinglentonContext
 
          public void Delete(string query, Guid[] guids, ContextRequest contextRequest)
         {
-			var br = new SDAreasBR(true);
+			var br = new SDAreasBR();
             var items = br.GetBy(query, null, null, null, null, null, contextRequest, guids);
             
             Delete(items, contextRequest);
@@ -2194,10 +2158,17 @@ public class SinglentonContext
         #region Constructor
         public SDAreaPersonsBR()
         {
+
+			this.AppNameKey = "SFSServiceDesk";
+            this.EntityKey = "SDAreaPerson";
+
             context = new EFContext();
         }
 		 public SDAreaPersonsBR(bool preventSecurity)
             {
+				this.AppNameKey = "SFSServiceDesk";
+				this.EntityKey = "SDAreaPerson";
+
                 this.preventSecurityRestrictions = preventSecurity;
 				context = new EFContext();
             }
@@ -2543,13 +2514,10 @@ public class SinglentonContext
 	
 					bool sharedAndMultiTenant = false;	  
 					string multitenantExpression = null;
-					//if (contextRequest != null && contextRequest.Company != null)                      	
-					//	 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
-				if (contextRequest != null && contextRequest.Company != null)
-				 {
-                    multitenantExpression = @"(GuidCompany = @GuidCompanyMultiTenant)";
-                    contextRequest.CustomQuery.SetParam("GuidCompanyMultiTenant", new Nullable<Guid>(contextRequest.Company.GuidCompany));
-                }
+					if (contextRequest != null && contextRequest.Company != null){   
+                   	
+						 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
+					}
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -3447,53 +3415,15 @@ public class SinglentonContext
              if (contextRequest != null)
              {
                  contextNew = SFSdotNet.Framework.My.Context.BuildContextRequestCopySafe(contextRequest);
-                 if (fields != null && fields.Length > 0)
-                 {
-                     contextNew.CustomQuery.SpecificProperties  = fields.ToList();
-                 }
-                 else if(contextRequest.CustomQuery.SpecificProperties.Count > 0)
-                 {
-                     fields = contextRequest.CustomQuery.SpecificProperties.ToArray();
-                 }
+               
              }
 			
 
 		   using (EFContext con = new EFContext())
             {
 
-			    con.Configuration.ValidateOnSaveEnabled = false;
-                con.Configuration.AutoDetectChangesEnabled = false;
+                UpdateAgile(item, con, contextNew, fields.ToList());
                
-					List<string> propForCopy = new List<string>();
-                    propForCopy.AddRange(fields);
-                    
-					  
-					if (!propForCopy.Contains("GuidAreaPerson"))
-						propForCopy.Add("GuidAreaPerson");
-
-					var itemForUpdate = SFSdotNet.Framework.BR.Utils.GetConverted<SDAreaPerson,SDAreaPerson>(item, propForCopy.ToArray());
-					 itemForUpdate.GuidAreaPerson = item.GuidAreaPerson;
-                  var setT = con.Set<SDAreaPerson>().Attach(itemForUpdate);
-
-					if (fields.Count() > 0)
-					  {
-						  item.ModifiedProperties = fields;
-					  }
-                    foreach (var property in item.ModifiedProperties)
-					{						
-                        if (property != "GuidAreaPerson")
-                             con.Entry(setT).Property(property).IsModified = true;
-
-                    }
-
-                
-               int result = con.SaveChanges();
-               if (result != 1)
-               {
-                   SFSdotNet.Framework.My.EventLog.Error("Has been changed " + result.ToString() + " items but the expected value is: 1");
-               }
-
-
             }
 
 			OnUpdatedAgile(this, new BusinessRulesEventArgs<SDAreaPerson>() { Item = item, ContextRequest = contextNew  });
@@ -3659,16 +3589,41 @@ public class SinglentonContext
 						}
 					}
 
-	string includes = "SDArea,SDPerson";
-	IQueryable < SDAreaPerson > query = con.SDAreaPersons.AsQueryable();
-	foreach (string include in includes.Split(char.Parse(",")))
-                       {
-                           if (!string.IsNullOrEmpty(include))
-                               query = query.Include(include);
-                       }
-	var oldentity = query.FirstOrDefault(p => p.GuidAreaPerson == entity.GuidAreaPerson);
-	if (oldentity.IsDeleted != entity.IsDeleted)
-		oldentity.IsDeleted = entity.IsDeleted;
+				var contextForGet = contextRequest.CopySafe();
+                contextForGet.CustomQuery.IncludeDeleted = true;
+                contextForGet.CustomQuery.IncludeAllCompanies = true;
+                SDAreaPersonsBR br = new SDAreaPersonsBR(true );
+                var oldentity = br.GetBy("GuidAreaPerson = Guid(\"" + entity.GuidAreaPerson + "\")").FirstOrDefault();
+
+                List<string> properties = new List<string>();
+              
+
+	//string includes = "SDArea,SDPerson";
+	//IQueryable < SDAreaPerson > query = con.SDAreaPersons.AsQueryable();
+	//foreach (string include in includes.Split(char.Parse(",")))
+    //                   {
+    //                       if (!string.IsNullOrEmpty(include))
+     //                          query = query.Include(include);
+     //                  }
+	//var oldentity = query.FirstOrDefault(p => p.GuidAreaPerson == entity.GuidAreaPerson);
+		if (oldentity.GuidArea != entity.GuidArea){
+			oldentity.GuidArea = entity.GuidArea;
+			properties.Add(SDAreaPerson.PropertyNames.GuidArea);
+		}
+			
+			
+		if (oldentity.GuidPerson != entity.GuidPerson){
+			oldentity.GuidPerson = entity.GuidPerson;
+			properties.Add(SDAreaPerson.PropertyNames.GuidPerson);
+		}
+			
+			
+		if (oldentity.IsDeleted != entity.IsDeleted){
+			oldentity.IsDeleted = entity.IsDeleted;
+			properties.Add(SDAreaPerson.PropertyNames.IsDeleted);
+		}
+			
+			
 
 				//if (entity.UpdatedDate == null || (contextRequest != null && contextRequest.IsFromUI("SDAreaPersons", UIActions.Updating)))
 			oldentity.UpdatedDate = DateTime.Now.ToUniversalTime();
@@ -3678,21 +3633,18 @@ public class SinglentonContext
            
 
 
-						if (SFSdotNet.Framework.BR.Utils.HasRelationPropertyChanged(oldentity.SDArea, entity.SDArea, "GuidArea"))
-							oldentity.SDArea = entity.SDArea != null? new SDArea(){ GuidArea = entity.SDArea.GuidArea } :null;
+					
 
+
+					
+
+				
+		   
+
+                UpdateAgile(oldentity, con, contextRequest, properties);
                 
-
-
-						if (SFSdotNet.Framework.BR.Utils.HasRelationPropertyChanged(oldentity.SDPerson, entity.SDPerson, "GuidPerson"))
-							oldentity.SDPerson = entity.SDPerson != null? new SDPerson(){ GuidPerson = entity.SDPerson.GuidPerson } :null;
-
-                
-
-
-				con.ChangeTracker.Entries().Where(p => p.Entity != oldentity).ForEach(p => p.State = EntityState.Unchanged);  
-				  
-				con.SaveChanges();
+            
+				//UpdateAgile(oldentity, contextRequest
         
 					 
 					
@@ -3733,7 +3685,7 @@ public class SinglentonContext
 
          public void Delete(string query, Guid[] guids, ContextRequest contextRequest)
         {
-			var br = new SDAreaPersonsBR(true);
+			var br = new SDAreaPersonsBR();
             var items = br.GetBy(query, null, null, null, null, null, contextRequest, guids);
             
             Delete(items, contextRequest);
@@ -4206,12 +4158,17 @@ public class SinglentonContext
         #region Constructor
         public SDCasesBR()
         {
+
+			this.AppNameKey = "SFSServiceDesk";
+            this.EntityKey = "SDCase";
+
             context = new EFContext();
-            this.AppNameKey = "SFSServiceDesk";
-            this.EntityKey = SDCase.EntityName;
         }
 		 public SDCasesBR(bool preventSecurity)
             {
+				this.AppNameKey = "SFSServiceDesk";
+				this.EntityKey = "SDCase";
+
                 this.preventSecurityRestrictions = preventSecurity;
 				context = new EFContext();
             }
@@ -4557,13 +4514,10 @@ public class SinglentonContext
 	
 					bool sharedAndMultiTenant = false;	  
 					string multitenantExpression = null;
-					//if (contextRequest != null && contextRequest.Company != null)                      	
-					//	 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
-				if (contextRequest != null && contextRequest.Company != null)
-				 {
-                    multitenantExpression = @"(GuidCompany = @GuidCompanyMultiTenant)";
-                    contextRequest.CustomQuery.SetParam("GuidCompanyMultiTenant", new Nullable<Guid>(contextRequest.Company.GuidCompany));
-                }
+					if (contextRequest != null && contextRequest.Company != null){   
+                   	
+						 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
+					}
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -5337,9 +5291,9 @@ public class SinglentonContext
 
 				con.Entry<SDCase>(itemForSave).State = EntityState.Added;
 
-                //con.SaveChanges();
+				con.SaveChanges();
 
-                this.Create(itemForSave, con, "SDCase", "SFSServiceDesk", contextRequest); 
+					 
 				
 
 				//itemResult = entity;
@@ -5552,61 +5506,15 @@ public class SinglentonContext
              if (contextRequest != null)
              {
                  contextNew = SFSdotNet.Framework.My.Context.BuildContextRequestCopySafe(contextRequest);
-                 if (fields != null && fields.Length > 0)
-                 {
-                     contextNew.CustomQuery.SpecificProperties  = fields.ToList();
-                 }
-                 else if(contextRequest.CustomQuery.SpecificProperties.Count > 0)
-                 {
-                     fields = contextRequest.CustomQuery.SpecificProperties.ToArray();
-                 }
+               
              }
 			
 
 		   using (EFContext con = new EFContext())
             {
 
-			    con.Configuration.ValidateOnSaveEnabled = false;
-                con.Configuration.AutoDetectChangesEnabled = false;
+                UpdateAgile(item, con, contextNew, fields.ToList());
                
-					List<string> propForCopy = new List<string>();
-                    propForCopy.AddRange(fields);
-                    
-					  
-					if (!propForCopy.Contains("GuidCase"))
-						propForCopy.Add("GuidCase");
-					if (!propForCopy.Contains("GuidCaseState"))
-						propForCopy.Add("GuidCaseState");
-					if (!propForCopy.Contains("GuidCasePriority"))
-						propForCopy.Add("GuidCasePriority");
-					if (!propForCopy.Contains("SDCasePriority"))
-						propForCopy.Add("SDCasePriority");
-					if (!propForCopy.Contains("SDCaseState"))
-						propForCopy.Add("SDCaseState");
-
-					var itemForUpdate = SFSdotNet.Framework.BR.Utils.GetConverted<SDCase,SDCase>(item, propForCopy.ToArray());
-					 itemForUpdate.GuidCase = item.GuidCase;
-                  var setT = con.Set<SDCase>().Attach(itemForUpdate);
-
-					if (fields.Count() > 0)
-					  {
-						  item.ModifiedProperties = fields;
-					  }
-                    foreach (var property in item.ModifiedProperties)
-					{						
-                        if (property != "GuidCase")
-                             con.Entry(setT).Property(property).IsModified = true;
-
-                    }
-
-                
-               int result = con.SaveChanges();
-               if (result != 1)
-               {
-                   SFSdotNet.Framework.My.EventLog.Error("Has been changed " + result.ToString() + " items but the expected value is: 1");
-               }
-
-
             }
 
 			OnUpdatedAgile(this, new BusinessRulesEventArgs<SDCase>() { Item = item, ContextRequest = contextNew  });
@@ -5752,159 +5660,144 @@ public class SinglentonContext
 			
 				SDCase  itemResult = null;
 
+	
+			//entity.UpdatedDate = DateTime.Now.ToUniversalTime();
+			//if(contextRequest.User != null)
+				//entity.UpdatedBy = contextRequest.User.GuidUser;
 
-            //entity.UpdatedDate = DateTime.Now.ToUniversalTime();
-            //if(contextRequest.User != null)
-            //entity.UpdatedBy = contextRequest.User.GuidUser;
+//	    var oldentity = GetBy(p => p.GuidCase == entity.GuidCase, contextRequest).FirstOrDefault();
+	//	if (oldentity != null) {
+		
+          //  entity.CreatedDate = oldentity.CreatedDate;
+    //        entity.CreatedBy = oldentity.CreatedBy;
+	
+      //      entity.GuidCompany = oldentity.GuidCompany;
+	
+			
 
-            //	    var oldentity = GetBy(p => p.GuidCase == entity.GuidCase, contextRequest).FirstOrDefault();
-            //	if (oldentity != null) {
+	
+		//}
 
-            //  entity.CreatedDate = oldentity.CreatedDate;
-            //        entity.CreatedBy = oldentity.CreatedBy;
+			 using( EFContext con = new EFContext()){
+				BusinessRulesEventArgs<SDCase> e = null;
+				bool preventPartial = false; 
+				if (contextRequest != null && contextRequest.PreventInterceptors == true )
+                {
+                    preventPartial = true;
+                } 
+				if (preventPartial == false)
+                OnUpdating(this,e = new BusinessRulesEventArgs<SDCase>() { ContextRequest = contextRequest, Item=entity});
+				   if (e != null) {
+						if (e.Cancel)
+						{
+							//outcontext = null;
+							return e.Item;
 
-            //      entity.GuidCompany = oldentity.GuidCompany;
+						}
+					}
 
+				var contextForGet = contextRequest.CopySafe();
+                contextForGet.CustomQuery.IncludeDeleted = true;
+                contextForGet.CustomQuery.IncludeAllCompanies = true;
+                SDCasesBR br = new SDCasesBR(true );
+                var oldentity = br.GetBy("GuidCase = Guid(\"" + entity.GuidCase + "\")").FirstOrDefault();
 
+                List<string> properties = new List<string>();
+              
 
+	//string includes = "SDPerson,SDCasePriority,SDCaseState";
+	//IQueryable < SDCase > query = con.SDCases.AsQueryable();
+	//foreach (string include in includes.Split(char.Parse(",")))
+    //                   {
+    //                       if (!string.IsNullOrEmpty(include))
+     //                          query = query.Include(include);
+     //                  }
+	//var oldentity = query.FirstOrDefault(p => p.GuidCase == entity.GuidCase);
+		if (oldentity.GuidCaseState != entity.GuidCaseState){
+			oldentity.GuidCaseState = entity.GuidCaseState;
+			properties.Add(SDCase.PropertyNames.GuidCaseState);
+		}
+			
+			
+		if (oldentity.GuidPersonClient != entity.GuidPersonClient){
+			oldentity.GuidPersonClient = entity.GuidPersonClient;
+			properties.Add(SDCase.PropertyNames.GuidPersonClient);
+		}
+			
+			
+		if (oldentity.ClosedDateTime != entity.ClosedDateTime){
+			oldentity.ClosedDateTime = entity.ClosedDateTime;
+			properties.Add(SDCase.PropertyNames.ClosedDateTime);
+		}
+			
+			
+		if (oldentity.BodyContent != entity.BodyContent){
+			oldentity.BodyContent = entity.BodyContent;
+			properties.Add(SDCase.PropertyNames.BodyContent);
+		}
+			
+			
+		if (oldentity.PreviewContent != entity.PreviewContent){
+			oldentity.PreviewContent = entity.PreviewContent;
+			properties.Add(SDCase.PropertyNames.PreviewContent);
+		}
+			
+			
+		if (oldentity.GuidCasePriority != entity.GuidCasePriority){
+			oldentity.GuidCasePriority = entity.GuidCasePriority;
+			properties.Add(SDCase.PropertyNames.GuidCasePriority);
+		}
+			
+			
+		if (oldentity.Title != entity.Title){
+			oldentity.Title = entity.Title;
+			properties.Add(SDCase.PropertyNames.Title);
+		}
+			
+			
+		if (oldentity.IsDeleted != entity.IsDeleted){
+			oldentity.IsDeleted = entity.IsDeleted;
+			properties.Add(SDCase.PropertyNames.IsDeleted);
+		}
+			
+			
 
-            //}
+				//if (entity.UpdatedDate == null || (contextRequest != null && contextRequest.IsFromUI("SDCases", UIActions.Updating)))
+			oldentity.UpdatedDate = DateTime.Now.ToUniversalTime();
+			if(contextRequest.User != null)
+				oldentity.UpdatedBy = contextRequest.User.GuidUser;
+
            
-                using (EFContext con = new EFContext())
-                {
-                    BusinessRulesEventArgs<SDCase> e = null;
-                    bool preventPartial = false;
-                    if (contextRequest != null && contextRequest.PreventInterceptors == true)
-                    {
-                        preventPartial = true;
-                    }
-                    if (preventPartial == false)
-                        OnUpdating(this, e = new BusinessRulesEventArgs<SDCase>() { ContextRequest = contextRequest, Item = entity });
-                    if (e != null)
-                    {
-                        if (e.Cancel)
-                        {
-                            //outcontext = null;
-                            return e.Item;
-
-                        }
-                    }
-
-                    string includes = "SDPerson,SDCasePriority,SDCaseState";
-                var bo = SFSdotNet.Framework.Cache.Caching.SystemObjects.GetEntityByNameKey(this.AppNameKey, this.EntityKey);
-
-                SDCase oldentity = null;
-                if (bo.CosmosDBEnabled == true)
-                {
-                    //query = 
-                    if (this.NoSQLDocumentDB == null)
-                    {
-                        this.NoSQLDocumentDB = new NoSQLCosmosDB<SDCase>(this.AppNameKey, this.EntityKey);
-                    }
-                    //queryDocumentDB = GetDocumentDBClient().CreateDocumentQuery<TEntity>(UriFactory.CreateDocumentCollectionUri(this.AppNameKey, this.EntityKey), new FeedOptions { EnableScanInQuery = true, MaxItemCount = contextRequest.CustomQuery.PageSize });
-                    var query = this.NoSQLDocumentDB.GetQuery(contextRequest);
-                    query = query.Where("id = \"" + entity.GuidCase + "\"");
-                    var items = this.NoSQLDocumentDB.Get(query, this.AppNameKey, this.EntityKey, contextRequest);
-                    if (items.Count == 1)
-                    {
-                        oldentity = items[0];
-                    }
-                }
-                if (bo.SQLEnabled == true || bo.SQLEnabled == null)
-                {
-                    IQueryable<SDCase> query = con.SDCases.AsQueryable();
-                    foreach (string include in includes.Split(char.Parse(",")))
-                    {
-                        if (!string.IsNullOrEmpty(include))
-                            query = query.Include(include);
-                    }
-                    oldentity = query.FirstOrDefault(p => p.GuidCase == entity.GuidCase);
-                }
-                    if (oldentity.ClosedDateTime != entity.ClosedDateTime)
-                        oldentity.ClosedDateTime = entity.ClosedDateTime;
-                    if (oldentity.BodyContent != entity.BodyContent)
-                        oldentity.BodyContent = entity.BodyContent;
-                    if (oldentity.PreviewContent != entity.PreviewContent)
-                        oldentity.PreviewContent = entity.PreviewContent;
-                    if (oldentity.Title != entity.Title)
-                        oldentity.Title = entity.Title;
-                    if (oldentity.IsDeleted != entity.IsDeleted)
-                        oldentity.IsDeleted = entity.IsDeleted;
-
-                    //if (entity.UpdatedDate == null || (contextRequest != null && contextRequest.IsFromUI("SDCases", UIActions.Updating)))
-                    oldentity.UpdatedDate = DateTime.Now.ToUniversalTime();
-                    if (contextRequest.User != null)
-                        oldentity.UpdatedBy = contextRequest.User.GuidUser;
 
 
+					
 
 
-                    if (SFSdotNet.Framework.BR.Utils.HasRelationPropertyChanged(oldentity.SDPerson, entity.SDPerson, "GuidPerson"))
-                        oldentity.SDPerson = entity.SDPerson != null ? new SDPerson() { GuidPerson = entity.SDPerson.GuidPerson } : null;
+					
 
 
+					
+					
+					
 
+				
+		   
 
-                    if (SFSdotNet.Framework.BR.Utils.HasRelationPropertyChanged(oldentity.SDCasePriority, entity.SDCasePriority, "GuidCasePriority"))
-                        oldentity.SDCasePriority = entity.SDCasePriority != null ? new SDCasePriority() { GuidCasePriority = entity.SDCasePriority.GuidCasePriority } : null;
-
-
-
-
-                    if (SFSdotNet.Framework.BR.Utils.HasRelationPropertyChanged(oldentity.SDCaseState, entity.SDCaseState, "GuidCaseState"))
-                        oldentity.SDCaseState = entity.SDCaseState != null ? new SDCaseState() { GuidCaseState = entity.SDCaseState.GuidCaseState } : null;
-
-
-
-
-                    if (entity.SDCaseFiles != null)
-                    {
-                        foreach (var item in entity.SDCaseFiles)
-                        {
-
-
-
-                        }
-
-
-
-                    }
-
-
-                    if (entity.SDCaseHistories != null)
-                    {
-                        foreach (var item in entity.SDCaseHistories)
-                        {
-
-
-
-                        }
-
-
-
-                    }
-
-
-                    con.ChangeTracker.Entries().Where(p => p.Entity != oldentity).ForEach(p => p.State = EntityState.Unchanged);
-
-                    //con.SaveChanges();
-                    
-                    Update(oldentity, con, "SDCase", "SFSServiceDesk", contextRequest);
-
-
-                    itemResult = entity;
-                    if (preventPartial == false)
-                        OnUpdated(this, e = new BusinessRulesEventArgs<SDCase>() { ContextRequest = contextRequest, Item = itemResult });
-
-                    return itemResult;
+                UpdateAgile(oldentity, con, contextRequest, properties);
                 
-               
-
-            }
-
+            
+				//UpdateAgile(oldentity, contextRequest
         
-           
+					 
+					
+               
+				itemResult = entity;
+				if(preventPartial == false)
+					OnUpdated(this, e = new BusinessRulesEventArgs<SDCase>() { ContextRequest = contextRequest, Item=itemResult });
 
+              	return itemResult;
+			}
+			  
         }
         public SDCase Save(SDCase entity)
         {
@@ -5934,7 +5827,7 @@ public class SinglentonContext
 
          public void Delete(string query, Guid[] guids, ContextRequest contextRequest)
         {
-			var br = new SDCasesBR(true);
+			var br = new SDCasesBR();
             var items = br.GetBy(query, null, null, null, null, null, contextRequest, guids);
             
             Delete(items, contextRequest);
@@ -6407,10 +6300,17 @@ public class SinglentonContext
         #region Constructor
         public SDCaseFilesBR()
         {
+
+			this.AppNameKey = "SFSServiceDesk";
+            this.EntityKey = "SDCaseFile";
+
             context = new EFContext();
         }
 		 public SDCaseFilesBR(bool preventSecurity)
             {
+				this.AppNameKey = "SFSServiceDesk";
+				this.EntityKey = "SDCaseFile";
+
                 this.preventSecurityRestrictions = preventSecurity;
 				context = new EFContext();
             }
@@ -6756,13 +6656,10 @@ public class SinglentonContext
 	
 					bool sharedAndMultiTenant = false;	  
 					string multitenantExpression = null;
-					//if (contextRequest != null && contextRequest.Company != null)                      	
-					//	 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
-				if (contextRequest != null && contextRequest.Company != null)
-				 {
-                    multitenantExpression = @"(GuidCompany = @GuidCompanyMultiTenant)";
-                    contextRequest.CustomQuery.SetParam("GuidCompanyMultiTenant", new Nullable<Guid>(contextRequest.Company.GuidCompany));
-                }
+					if (contextRequest != null && contextRequest.Company != null){   
+                   	
+						 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
+					}
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -7729,53 +7626,15 @@ public class SinglentonContext
              if (contextRequest != null)
              {
                  contextNew = SFSdotNet.Framework.My.Context.BuildContextRequestCopySafe(contextRequest);
-                 if (fields != null && fields.Length > 0)
-                 {
-                     contextNew.CustomQuery.SpecificProperties  = fields.ToList();
-                 }
-                 else if(contextRequest.CustomQuery.SpecificProperties.Count > 0)
-                 {
-                     fields = contextRequest.CustomQuery.SpecificProperties.ToArray();
-                 }
+               
              }
 			
 
 		   using (EFContext con = new EFContext())
             {
 
-			    con.Configuration.ValidateOnSaveEnabled = false;
-                con.Configuration.AutoDetectChangesEnabled = false;
+                UpdateAgile(item, con, contextNew, fields.ToList());
                
-					List<string> propForCopy = new List<string>();
-                    propForCopy.AddRange(fields);
-                    
-					  
-					if (!propForCopy.Contains("GuidCasefile"))
-						propForCopy.Add("GuidCasefile");
-
-					var itemForUpdate = SFSdotNet.Framework.BR.Utils.GetConverted<SDCaseFile,SDCaseFile>(item, propForCopy.ToArray());
-					 itemForUpdate.GuidCasefile = item.GuidCasefile;
-                  var setT = con.Set<SDCaseFile>().Attach(itemForUpdate);
-
-					if (fields.Count() > 0)
-					  {
-						  item.ModifiedProperties = fields;
-					  }
-                    foreach (var property in item.ModifiedProperties)
-					{						
-                        if (property != "GuidCasefile")
-                             con.Entry(setT).Property(property).IsModified = true;
-
-                    }
-
-                
-               int result = con.SaveChanges();
-               if (result != 1)
-               {
-                   SFSdotNet.Framework.My.EventLog.Error("Has been changed " + result.ToString() + " items but the expected value is: 1");
-               }
-
-
             }
 
 			OnUpdatedAgile(this, new BusinessRulesEventArgs<SDCaseFile>() { Item = item, ContextRequest = contextNew  });
@@ -7941,18 +7800,41 @@ public class SinglentonContext
 						}
 					}
 
-	string includes = "SDCase";
-	IQueryable < SDCaseFile > query = con.SDCaseFiles.AsQueryable();
-	foreach (string include in includes.Split(char.Parse(",")))
-                       {
-                           if (!string.IsNullOrEmpty(include))
-                               query = query.Include(include);
-                       }
-	var oldentity = query.FirstOrDefault(p => p.GuidCasefile == entity.GuidCasefile);
-		if (oldentity.GuidFile != entity.GuidFile)
+				var contextForGet = contextRequest.CopySafe();
+                contextForGet.CustomQuery.IncludeDeleted = true;
+                contextForGet.CustomQuery.IncludeAllCompanies = true;
+                SDCaseFilesBR br = new SDCaseFilesBR(true );
+                var oldentity = br.GetBy("GuidCasefile = Guid(\"" + entity.GuidCasefile + "\")").FirstOrDefault();
+
+                List<string> properties = new List<string>();
+              
+
+	//string includes = "SDCase";
+	//IQueryable < SDCaseFile > query = con.SDCaseFiles.AsQueryable();
+	//foreach (string include in includes.Split(char.Parse(",")))
+    //                   {
+    //                       if (!string.IsNullOrEmpty(include))
+     //                          query = query.Include(include);
+     //                  }
+	//var oldentity = query.FirstOrDefault(p => p.GuidCasefile == entity.GuidCasefile);
+		if (oldentity.GuidCase != entity.GuidCase){
+			oldentity.GuidCase = entity.GuidCase;
+			properties.Add(SDCaseFile.PropertyNames.GuidCase);
+		}
+			
+			
+		if (oldentity.GuidFile != entity.GuidFile){
 			oldentity.GuidFile = entity.GuidFile;
-	if (oldentity.IsDeleted != entity.IsDeleted)
-		oldentity.IsDeleted = entity.IsDeleted;
+			properties.Add(SDCaseFile.PropertyNames.GuidFile);
+		}
+			
+			
+		if (oldentity.IsDeleted != entity.IsDeleted){
+			oldentity.IsDeleted = entity.IsDeleted;
+			properties.Add(SDCaseFile.PropertyNames.IsDeleted);
+		}
+			
+			
 
 				//if (entity.UpdatedDate == null || (contextRequest != null && contextRequest.IsFromUI("SDCaseFiles", UIActions.Updating)))
 			oldentity.UpdatedDate = DateTime.Now.ToUniversalTime();
@@ -7962,21 +7844,18 @@ public class SinglentonContext
            
 
 
-						if (SFSdotNet.Framework.BR.Utils.HasRelationPropertyChanged(oldentity.SDCase, entity.SDCase, "GuidCase"))
-							oldentity.SDCase = entity.SDCase != null? new SDCase(){ GuidCase = entity.SDCase.GuidCase } :null;
+					
 
+
+					
+
+				
+		   
+
+                UpdateAgile(oldentity, con, contextRequest, properties);
                 
-
-
-						if (SFSdotNet.Framework.BR.Utils.HasRelationPropertyChanged(oldentity.SDFile, entity.SDFile, "GuidFile"))
-							oldentity.SDFile = entity.SDFile != null? new SDFile(){ GuidFile = entity.SDFile.GuidFile } :null;
-
-                
-
-
-				con.ChangeTracker.Entries().Where(p => p.Entity != oldentity).ForEach(p => p.State = EntityState.Unchanged);  
-				  
-				con.SaveChanges();
+            
+				//UpdateAgile(oldentity, contextRequest
         
 					 
 					
@@ -8017,7 +7896,7 @@ public class SinglentonContext
 
          public void Delete(string query, Guid[] guids, ContextRequest contextRequest)
         {
-			var br = new SDCaseFilesBR(true);
+			var br = new SDCaseFilesBR();
             var items = br.GetBy(query, null, null, null, null, null, contextRequest, guids);
             
             Delete(items, contextRequest);
@@ -8517,10 +8396,17 @@ public class SinglentonContext
         #region Constructor
         public SDCaseHistoriesBR()
         {
+
+			this.AppNameKey = "SFSServiceDesk";
+            this.EntityKey = "SDCaseHistory";
+
             context = new EFContext();
         }
 		 public SDCaseHistoriesBR(bool preventSecurity)
             {
+				this.AppNameKey = "SFSServiceDesk";
+				this.EntityKey = "SDCaseHistory";
+
                 this.preventSecurityRestrictions = preventSecurity;
 				context = new EFContext();
             }
@@ -8866,13 +8752,10 @@ public class SinglentonContext
 	
 					bool sharedAndMultiTenant = false;	  
 					string multitenantExpression = null;
-					//if (contextRequest != null && contextRequest.Company != null)                      	
-					//	 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
-				if (contextRequest != null && contextRequest.Company != null)
-				 {
-                    multitenantExpression = @"(GuidCompany = @GuidCompanyMultiTenant)";
-                    contextRequest.CustomQuery.SetParam("GuidCompanyMultiTenant", new Nullable<Guid>(contextRequest.Company.GuidCompany));
-                }
+					if (contextRequest != null && contextRequest.Company != null){   
+                   	
+						 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
+					}
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -9800,59 +9683,15 @@ public class SinglentonContext
              if (contextRequest != null)
              {
                  contextNew = SFSdotNet.Framework.My.Context.BuildContextRequestCopySafe(contextRequest);
-                 if (fields != null && fields.Length > 0)
-                 {
-                     contextNew.CustomQuery.SpecificProperties  = fields.ToList();
-                 }
-                 else if(contextRequest.CustomQuery.SpecificProperties.Count > 0)
-                 {
-                     fields = contextRequest.CustomQuery.SpecificProperties.ToArray();
-                 }
+               
              }
 			
 
 		   using (EFContext con = new EFContext())
             {
 
-			    con.Configuration.ValidateOnSaveEnabled = false;
-                con.Configuration.AutoDetectChangesEnabled = false;
+                UpdateAgile(item, con, contextNew, fields.ToList());
                
-					List<string> propForCopy = new List<string>();
-                    propForCopy.AddRange(fields);
-                    
-					  
-					if (!propForCopy.Contains("GuidCaseHistory"))
-						propForCopy.Add("GuidCaseHistory");
-					if (!propForCopy.Contains("GuidCase"))
-						propForCopy.Add("GuidCase");
-					if (!propForCopy.Contains("BodyContent"))
-						propForCopy.Add("BodyContent");
-					if (!propForCopy.Contains("SDCase"))
-						propForCopy.Add("SDCase");
-
-					var itemForUpdate = SFSdotNet.Framework.BR.Utils.GetConverted<SDCaseHistory,SDCaseHistory>(item, propForCopy.ToArray());
-					 itemForUpdate.GuidCaseHistory = item.GuidCaseHistory;
-                  var setT = con.Set<SDCaseHistory>().Attach(itemForUpdate);
-
-					if (fields.Count() > 0)
-					  {
-						  item.ModifiedProperties = fields;
-					  }
-                    foreach (var property in item.ModifiedProperties)
-					{						
-                        if (property != "GuidCaseHistory")
-                             con.Entry(setT).Property(property).IsModified = true;
-
-                    }
-
-                
-               int result = con.SaveChanges();
-               if (result != 1)
-               {
-                   SFSdotNet.Framework.My.EventLog.Error("Has been changed " + result.ToString() + " items but the expected value is: 1");
-               }
-
-
             }
 
 			OnUpdatedAgile(this, new BusinessRulesEventArgs<SDCaseHistory>() { Item = item, ContextRequest = contextNew  });
@@ -10020,20 +9859,53 @@ public class SinglentonContext
 						}
 					}
 
-	string includes = "SDCase,SDCaseState";
-	IQueryable < SDCaseHistory > query = con.SDCaseHistories.AsQueryable();
-	foreach (string include in includes.Split(char.Parse(",")))
-                       {
-                           if (!string.IsNullOrEmpty(include))
-                               query = query.Include(include);
-                       }
-	var oldentity = query.FirstOrDefault(p => p.GuidCaseHistory == entity.GuidCaseHistory);
-	if (oldentity.BodyContent != entity.BodyContent)
-		oldentity.BodyContent = entity.BodyContent;
-	if (oldentity.PreviewContent != entity.PreviewContent)
-		oldentity.PreviewContent = entity.PreviewContent;
-	if (oldentity.IsDeleted != entity.IsDeleted)
-		oldentity.IsDeleted = entity.IsDeleted;
+				var contextForGet = contextRequest.CopySafe();
+                contextForGet.CustomQuery.IncludeDeleted = true;
+                contextForGet.CustomQuery.IncludeAllCompanies = true;
+                SDCaseHistoriesBR br = new SDCaseHistoriesBR(true );
+                var oldentity = br.GetBy("GuidCaseHistory = Guid(\"" + entity.GuidCaseHistory + "\")").FirstOrDefault();
+
+                List<string> properties = new List<string>();
+              
+
+	//string includes = "SDCase,SDCaseState";
+	//IQueryable < SDCaseHistory > query = con.SDCaseHistories.AsQueryable();
+	//foreach (string include in includes.Split(char.Parse(",")))
+    //                   {
+    //                       if (!string.IsNullOrEmpty(include))
+     //                          query = query.Include(include);
+     //                  }
+	//var oldentity = query.FirstOrDefault(p => p.GuidCaseHistory == entity.GuidCaseHistory);
+		if (oldentity.GuidCase != entity.GuidCase){
+			oldentity.GuidCase = entity.GuidCase;
+			properties.Add(SDCaseHistory.PropertyNames.GuidCase);
+		}
+			
+			
+		if (oldentity.GuidCaseStatus != entity.GuidCaseStatus){
+			oldentity.GuidCaseStatus = entity.GuidCaseStatus;
+			properties.Add(SDCaseHistory.PropertyNames.GuidCaseStatus);
+		}
+			
+			
+		if (oldentity.BodyContent != entity.BodyContent){
+			oldentity.BodyContent = entity.BodyContent;
+			properties.Add(SDCaseHistory.PropertyNames.BodyContent);
+		}
+			
+			
+		if (oldentity.PreviewContent != entity.PreviewContent){
+			oldentity.PreviewContent = entity.PreviewContent;
+			properties.Add(SDCaseHistory.PropertyNames.PreviewContent);
+		}
+			
+			
+		if (oldentity.IsDeleted != entity.IsDeleted){
+			oldentity.IsDeleted = entity.IsDeleted;
+			properties.Add(SDCaseHistory.PropertyNames.IsDeleted);
+		}
+			
+			
 
 				//if (entity.UpdatedDate == null || (contextRequest != null && contextRequest.IsFromUI("SDCaseHistories", UIActions.Updating)))
 			oldentity.UpdatedDate = DateTime.Now.ToUniversalTime();
@@ -10043,35 +9915,19 @@ public class SinglentonContext
            
 
 
-						if (SFSdotNet.Framework.BR.Utils.HasRelationPropertyChanged(oldentity.SDCase, entity.SDCase, "GuidCase"))
-							oldentity.SDCase = entity.SDCase != null? new SDCase(){ GuidCase = entity.SDCase.GuidCase } :null;
-
-                
-
-
-						if (SFSdotNet.Framework.BR.Utils.HasRelationPropertyChanged(oldentity.SDCaseState, entity.SDCaseState, "GuidCaseState"))
-							oldentity.SDCaseState = entity.SDCaseState != null? new SDCaseState(){ GuidCaseState = entity.SDCaseState.GuidCaseState } :null;
-
-                
-
-
-				if (entity.SDCaseHistoryFiles != null)
-                {
-                    foreach (var item in entity.SDCaseHistoryFiles)
-                    {
-
-
-                        
-                    }
 					
-                    
-
-                }
 
 
-				con.ChangeTracker.Entries().Where(p => p.Entity != oldentity).ForEach(p => p.State = EntityState.Unchanged);  
-				  
-				con.SaveChanges();
+					
+					
+
+				
+		   
+
+                UpdateAgile(oldentity, con, contextRequest, properties);
+                
+            
+				//UpdateAgile(oldentity, contextRequest
         
 					 
 					
@@ -10112,7 +9968,7 @@ public class SinglentonContext
 
          public void Delete(string query, Guid[] guids, ContextRequest contextRequest)
         {
-			var br = new SDCaseHistoriesBR(true);
+			var br = new SDCaseHistoriesBR();
             var items = br.GetBy(query, null, null, null, null, null, contextRequest, guids);
             
             Delete(items, contextRequest);
@@ -10585,10 +10441,17 @@ public class SinglentonContext
         #region Constructor
         public SDCaseHistoryFilesBR()
         {
+
+			this.AppNameKey = "SFSServiceDesk";
+            this.EntityKey = "SDCaseHistoryFile";
+
             context = new EFContext();
         }
 		 public SDCaseHistoryFilesBR(bool preventSecurity)
             {
+				this.AppNameKey = "SFSServiceDesk";
+				this.EntityKey = "SDCaseHistoryFile";
+
                 this.preventSecurityRestrictions = preventSecurity;
 				context = new EFContext();
             }
@@ -10934,13 +10797,10 @@ public class SinglentonContext
 	
 					bool sharedAndMultiTenant = false;	  
 					string multitenantExpression = null;
-					//if (contextRequest != null && contextRequest.Company != null)                      	
-					//	 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
-				if (contextRequest != null && contextRequest.Company != null)
-				 {
-                    multitenantExpression = @"(GuidCompany = @GuidCompanyMultiTenant)";
-                    contextRequest.CustomQuery.SetParam("GuidCompanyMultiTenant", new Nullable<Guid>(contextRequest.Company.GuidCompany));
-                }
+					if (contextRequest != null && contextRequest.Company != null){   
+                   	
+						 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
+					}
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -11838,53 +11698,15 @@ public class SinglentonContext
              if (contextRequest != null)
              {
                  contextNew = SFSdotNet.Framework.My.Context.BuildContextRequestCopySafe(contextRequest);
-                 if (fields != null && fields.Length > 0)
-                 {
-                     contextNew.CustomQuery.SpecificProperties  = fields.ToList();
-                 }
-                 else if(contextRequest.CustomQuery.SpecificProperties.Count > 0)
-                 {
-                     fields = contextRequest.CustomQuery.SpecificProperties.ToArray();
-                 }
+               
              }
 			
 
 		   using (EFContext con = new EFContext())
             {
 
-			    con.Configuration.ValidateOnSaveEnabled = false;
-                con.Configuration.AutoDetectChangesEnabled = false;
+                UpdateAgile(item, con, contextNew, fields.ToList());
                
-					List<string> propForCopy = new List<string>();
-                    propForCopy.AddRange(fields);
-                    
-					  
-					if (!propForCopy.Contains("GuidCasehistoryFile"))
-						propForCopy.Add("GuidCasehistoryFile");
-
-					var itemForUpdate = SFSdotNet.Framework.BR.Utils.GetConverted<SDCaseHistoryFile,SDCaseHistoryFile>(item, propForCopy.ToArray());
-					 itemForUpdate.GuidCasehistoryFile = item.GuidCasehistoryFile;
-                  var setT = con.Set<SDCaseHistoryFile>().Attach(itemForUpdate);
-
-					if (fields.Count() > 0)
-					  {
-						  item.ModifiedProperties = fields;
-					  }
-                    foreach (var property in item.ModifiedProperties)
-					{						
-                        if (property != "GuidCasehistoryFile")
-                             con.Entry(setT).Property(property).IsModified = true;
-
-                    }
-
-                
-               int result = con.SaveChanges();
-               if (result != 1)
-               {
-                   SFSdotNet.Framework.My.EventLog.Error("Has been changed " + result.ToString() + " items but the expected value is: 1");
-               }
-
-
             }
 
 			OnUpdatedAgile(this, new BusinessRulesEventArgs<SDCaseHistoryFile>() { Item = item, ContextRequest = contextNew  });
@@ -12050,16 +11872,41 @@ public class SinglentonContext
 						}
 					}
 
-	string includes = "SDCaseHistory,SDFile";
-	IQueryable < SDCaseHistoryFile > query = con.SDCaseHistoryFiles.AsQueryable();
-	foreach (string include in includes.Split(char.Parse(",")))
-                       {
-                           if (!string.IsNullOrEmpty(include))
-                               query = query.Include(include);
-                       }
-	var oldentity = query.FirstOrDefault(p => p.GuidCasehistoryFile == entity.GuidCasehistoryFile);
-	if (oldentity.IsDeleted != entity.IsDeleted)
-		oldentity.IsDeleted = entity.IsDeleted;
+				var contextForGet = contextRequest.CopySafe();
+                contextForGet.CustomQuery.IncludeDeleted = true;
+                contextForGet.CustomQuery.IncludeAllCompanies = true;
+                SDCaseHistoryFilesBR br = new SDCaseHistoryFilesBR(true );
+                var oldentity = br.GetBy("GuidCasehistoryFile = Guid(\"" + entity.GuidCasehistoryFile + "\")").FirstOrDefault();
+
+                List<string> properties = new List<string>();
+              
+
+	//string includes = "SDCaseHistory,SDFile";
+	//IQueryable < SDCaseHistoryFile > query = con.SDCaseHistoryFiles.AsQueryable();
+	//foreach (string include in includes.Split(char.Parse(",")))
+    //                   {
+    //                       if (!string.IsNullOrEmpty(include))
+     //                          query = query.Include(include);
+     //                  }
+	//var oldentity = query.FirstOrDefault(p => p.GuidCasehistoryFile == entity.GuidCasehistoryFile);
+		if (oldentity.GuidFile != entity.GuidFile){
+			oldentity.GuidFile = entity.GuidFile;
+			properties.Add(SDCaseHistoryFile.PropertyNames.GuidFile);
+		}
+			
+			
+		if (oldentity.GuidCaseHistory != entity.GuidCaseHistory){
+			oldentity.GuidCaseHistory = entity.GuidCaseHistory;
+			properties.Add(SDCaseHistoryFile.PropertyNames.GuidCaseHistory);
+		}
+			
+			
+		if (oldentity.IsDeleted != entity.IsDeleted){
+			oldentity.IsDeleted = entity.IsDeleted;
+			properties.Add(SDCaseHistoryFile.PropertyNames.IsDeleted);
+		}
+			
+			
 
 				//if (entity.UpdatedDate == null || (contextRequest != null && contextRequest.IsFromUI("SDCaseHistoryFiles", UIActions.Updating)))
 			oldentity.UpdatedDate = DateTime.Now.ToUniversalTime();
@@ -12069,21 +11916,18 @@ public class SinglentonContext
            
 
 
-						if (SFSdotNet.Framework.BR.Utils.HasRelationPropertyChanged(oldentity.SDCaseHistory, entity.SDCaseHistory, "GuidCaseHistory"))
-							oldentity.SDCaseHistory = entity.SDCaseHistory != null? new SDCaseHistory(){ GuidCaseHistory = entity.SDCaseHistory.GuidCaseHistory } :null;
+					
 
+
+					
+
+				
+		   
+
+                UpdateAgile(oldentity, con, contextRequest, properties);
                 
-
-
-						if (SFSdotNet.Framework.BR.Utils.HasRelationPropertyChanged(oldentity.SDFile, entity.SDFile, "GuidFile"))
-							oldentity.SDFile = entity.SDFile != null? new SDFile(){ GuidFile = entity.SDFile.GuidFile } :null;
-
-                
-
-
-				con.ChangeTracker.Entries().Where(p => p.Entity != oldentity).ForEach(p => p.State = EntityState.Unchanged);  
-				  
-				con.SaveChanges();
+            
+				//UpdateAgile(oldentity, contextRequest
         
 					 
 					
@@ -12124,7 +11968,7 @@ public class SinglentonContext
 
          public void Delete(string query, Guid[] guids, ContextRequest contextRequest)
         {
-			var br = new SDCaseHistoryFilesBR(true);
+			var br = new SDCaseHistoryFilesBR();
             var items = br.GetBy(query, null, null, null, null, null, contextRequest, guids);
             
             Delete(items, contextRequest);
@@ -12597,10 +12441,17 @@ public class SinglentonContext
         #region Constructor
         public SDCasePrioritiesBR()
         {
+
+			this.AppNameKey = "SFSServiceDesk";
+            this.EntityKey = "SDCasePriority";
+
             context = new EFContext();
         }
 		 public SDCasePrioritiesBR(bool preventSecurity)
             {
+				this.AppNameKey = "SFSServiceDesk";
+				this.EntityKey = "SDCasePriority";
+
                 this.preventSecurityRestrictions = preventSecurity;
 				context = new EFContext();
             }
@@ -12932,13 +12783,10 @@ public class SinglentonContext
 	
 					bool sharedAndMultiTenant = false;	  
 					string multitenantExpression = null;
-					//if (contextRequest != null && contextRequest.Company != null)                      	
-					//	 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
-				if (contextRequest != null && contextRequest.Company != null)
-				 {
-                    multitenantExpression = @"(GuidCompany = @GuidCompanyMultiTenant)";
-                    contextRequest.CustomQuery.SetParam("GuidCompanyMultiTenant", new Nullable<Guid>(contextRequest.Company.GuidCompany));
-                }
+					if (contextRequest != null && contextRequest.Company != null){   
+                   	
+						 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
+					}
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -13756,55 +13604,15 @@ public class SinglentonContext
              if (contextRequest != null)
              {
                  contextNew = SFSdotNet.Framework.My.Context.BuildContextRequestCopySafe(contextRequest);
-                 if (fields != null && fields.Length > 0)
-                 {
-                     contextNew.CustomQuery.SpecificProperties  = fields.ToList();
-                 }
-                 else if(contextRequest.CustomQuery.SpecificProperties.Count > 0)
-                 {
-                     fields = contextRequest.CustomQuery.SpecificProperties.ToArray();
-                 }
+               
              }
 			
 
 		   using (EFContext con = new EFContext())
             {
 
-			    con.Configuration.ValidateOnSaveEnabled = false;
-                con.Configuration.AutoDetectChangesEnabled = false;
+                UpdateAgile(item, con, contextNew, fields.ToList());
                
-					List<string> propForCopy = new List<string>();
-                    propForCopy.AddRange(fields);
-                    
-					  
-					if (!propForCopy.Contains("GuidCasePriority"))
-						propForCopy.Add("GuidCasePriority");
-					if (!propForCopy.Contains("Title"))
-						propForCopy.Add("Title");
-
-					var itemForUpdate = SFSdotNet.Framework.BR.Utils.GetConverted<SDCasePriority,SDCasePriority>(item, propForCopy.ToArray());
-					 itemForUpdate.GuidCasePriority = item.GuidCasePriority;
-                  var setT = con.Set<SDCasePriority>().Attach(itemForUpdate);
-
-					if (fields.Count() > 0)
-					  {
-						  item.ModifiedProperties = fields;
-					  }
-                    foreach (var property in item.ModifiedProperties)
-					{						
-                        if (property != "GuidCasePriority")
-                             con.Entry(setT).Property(property).IsModified = true;
-
-                    }
-
-                
-               int result = con.SaveChanges();
-               if (result != 1)
-               {
-                   SFSdotNet.Framework.My.EventLog.Error("Has been changed " + result.ToString() + " items but the expected value is: 1");
-               }
-
-
             }
 
 			OnUpdatedAgile(this, new BusinessRulesEventArgs<SDCasePriority>() { Item = item, ContextRequest = contextNew  });
@@ -13948,18 +13756,35 @@ public class SinglentonContext
 						}
 					}
 
-	string includes = "";
-	IQueryable < SDCasePriority > query = con.SDCasePriorities.AsQueryable();
-	foreach (string include in includes.Split(char.Parse(",")))
-                       {
-                           if (!string.IsNullOrEmpty(include))
-                               query = query.Include(include);
-                       }
-	var oldentity = query.FirstOrDefault(p => p.GuidCasePriority == entity.GuidCasePriority);
-	if (oldentity.Title != entity.Title)
-		oldentity.Title = entity.Title;
-	if (oldentity.IsDeleted != entity.IsDeleted)
-		oldentity.IsDeleted = entity.IsDeleted;
+				var contextForGet = contextRequest.CopySafe();
+                contextForGet.CustomQuery.IncludeDeleted = true;
+                contextForGet.CustomQuery.IncludeAllCompanies = true;
+                SDCasePrioritiesBR br = new SDCasePrioritiesBR(true );
+                var oldentity = br.GetBy("GuidCasePriority = Guid(\"" + entity.GuidCasePriority + "\")").FirstOrDefault();
+
+                List<string> properties = new List<string>();
+              
+
+	//string includes = "";
+	//IQueryable < SDCasePriority > query = con.SDCasePriorities.AsQueryable();
+	//foreach (string include in includes.Split(char.Parse(",")))
+    //                   {
+    //                       if (!string.IsNullOrEmpty(include))
+     //                          query = query.Include(include);
+     //                  }
+	//var oldentity = query.FirstOrDefault(p => p.GuidCasePriority == entity.GuidCasePriority);
+		if (oldentity.Title != entity.Title){
+			oldentity.Title = entity.Title;
+			properties.Add(SDCasePriority.PropertyNames.Title);
+		}
+			
+			
+		if (oldentity.IsDeleted != entity.IsDeleted){
+			oldentity.IsDeleted = entity.IsDeleted;
+			properties.Add(SDCasePriority.PropertyNames.IsDeleted);
+		}
+			
+			
 
 				//if (entity.UpdatedDate == null || (contextRequest != null && contextRequest.IsFromUI("SDCasePriorities", UIActions.Updating)))
 			oldentity.UpdatedDate = DateTime.Now.ToUniversalTime();
@@ -13967,25 +13792,15 @@ public class SinglentonContext
 				oldentity.UpdatedBy = contextRequest.User.GuidUser;
 
            
-
-
-				if (entity.SDCases != null)
-                {
-                    foreach (var item in entity.SDCases)
-                    {
-
-
-                        
-                    }
 					
-                    
 
-                }
+				
+		   
 
-
-				con.ChangeTracker.Entries().Where(p => p.Entity != oldentity).ForEach(p => p.State = EntityState.Unchanged);  
-				  
-				con.SaveChanges();
+                UpdateAgile(oldentity, con, contextRequest, properties);
+                
+            
+				//UpdateAgile(oldentity, contextRequest
         
 					 
 					
@@ -14026,7 +13841,7 @@ public class SinglentonContext
 
          public void Delete(string query, Guid[] guids, ContextRequest contextRequest)
         {
-			var br = new SDCasePrioritiesBR(true);
+			var br = new SDCasePrioritiesBR();
             var items = br.GetBy(query, null, null, null, null, null, contextRequest, guids);
             
             Delete(items, contextRequest);
@@ -14499,10 +14314,17 @@ public class SinglentonContext
         #region Constructor
         public SDCaseStatesBR()
         {
+
+			this.AppNameKey = "SFSServiceDesk";
+            this.EntityKey = "SDCaseState";
+
             context = new EFContext();
         }
 		 public SDCaseStatesBR(bool preventSecurity)
             {
+				this.AppNameKey = "SFSServiceDesk";
+				this.EntityKey = "SDCaseState";
+
                 this.preventSecurityRestrictions = preventSecurity;
 				context = new EFContext();
             }
@@ -14834,13 +14656,10 @@ public class SinglentonContext
 	
 					bool sharedAndMultiTenant = false;	  
 					string multitenantExpression = null;
-					//if (contextRequest != null && contextRequest.Company != null)                      	
-					//	 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
-				if (contextRequest != null && contextRequest.Company != null)
-				 {
-                    multitenantExpression = @"(GuidCompany = @GuidCompanyMultiTenant)";
-                    contextRequest.CustomQuery.SetParam("GuidCompanyMultiTenant", new Nullable<Guid>(contextRequest.Company.GuidCompany));
-                }
+					if (contextRequest != null && contextRequest.Company != null){   
+                   	
+						 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
+					}
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -15662,55 +15481,15 @@ public class SinglentonContext
              if (contextRequest != null)
              {
                  contextNew = SFSdotNet.Framework.My.Context.BuildContextRequestCopySafe(contextRequest);
-                 if (fields != null && fields.Length > 0)
-                 {
-                     contextNew.CustomQuery.SpecificProperties  = fields.ToList();
-                 }
-                 else if(contextRequest.CustomQuery.SpecificProperties.Count > 0)
-                 {
-                     fields = contextRequest.CustomQuery.SpecificProperties.ToArray();
-                 }
+               
              }
 			
 
 		   using (EFContext con = new EFContext())
             {
 
-			    con.Configuration.ValidateOnSaveEnabled = false;
-                con.Configuration.AutoDetectChangesEnabled = false;
+                UpdateAgile(item, con, contextNew, fields.ToList());
                
-					List<string> propForCopy = new List<string>();
-                    propForCopy.AddRange(fields);
-                    
-					  
-					if (!propForCopy.Contains("GuidCaseState"))
-						propForCopy.Add("GuidCaseState");
-					if (!propForCopy.Contains("Title"))
-						propForCopy.Add("Title");
-
-					var itemForUpdate = SFSdotNet.Framework.BR.Utils.GetConverted<SDCaseState,SDCaseState>(item, propForCopy.ToArray());
-					 itemForUpdate.GuidCaseState = item.GuidCaseState;
-                  var setT = con.Set<SDCaseState>().Attach(itemForUpdate);
-
-					if (fields.Count() > 0)
-					  {
-						  item.ModifiedProperties = fields;
-					  }
-                    foreach (var property in item.ModifiedProperties)
-					{						
-                        if (property != "GuidCaseState")
-                             con.Entry(setT).Property(property).IsModified = true;
-
-                    }
-
-                
-               int result = con.SaveChanges();
-               if (result != 1)
-               {
-                   SFSdotNet.Framework.My.EventLog.Error("Has been changed " + result.ToString() + " items but the expected value is: 1");
-               }
-
-
             }
 
 			OnUpdatedAgile(this, new BusinessRulesEventArgs<SDCaseState>() { Item = item, ContextRequest = contextNew  });
@@ -15856,18 +15635,35 @@ public class SinglentonContext
 						}
 					}
 
-	string includes = "";
-	IQueryable < SDCaseState > query = con.SDCaseStates.AsQueryable();
-	foreach (string include in includes.Split(char.Parse(",")))
-                       {
-                           if (!string.IsNullOrEmpty(include))
-                               query = query.Include(include);
-                       }
-	var oldentity = query.FirstOrDefault(p => p.GuidCaseState == entity.GuidCaseState);
-	if (oldentity.Title != entity.Title)
-		oldentity.Title = entity.Title;
-	if (oldentity.IsDeleted != entity.IsDeleted)
-		oldentity.IsDeleted = entity.IsDeleted;
+				var contextForGet = contextRequest.CopySafe();
+                contextForGet.CustomQuery.IncludeDeleted = true;
+                contextForGet.CustomQuery.IncludeAllCompanies = true;
+                SDCaseStatesBR br = new SDCaseStatesBR(true );
+                var oldentity = br.GetBy("GuidCaseState = Guid(\"" + entity.GuidCaseState + "\")").FirstOrDefault();
+
+                List<string> properties = new List<string>();
+              
+
+	//string includes = "";
+	//IQueryable < SDCaseState > query = con.SDCaseStates.AsQueryable();
+	//foreach (string include in includes.Split(char.Parse(",")))
+    //                   {
+    //                       if (!string.IsNullOrEmpty(include))
+     //                          query = query.Include(include);
+     //                  }
+	//var oldentity = query.FirstOrDefault(p => p.GuidCaseState == entity.GuidCaseState);
+		if (oldentity.Title != entity.Title){
+			oldentity.Title = entity.Title;
+			properties.Add(SDCaseState.PropertyNames.Title);
+		}
+			
+			
+		if (oldentity.IsDeleted != entity.IsDeleted){
+			oldentity.IsDeleted = entity.IsDeleted;
+			properties.Add(SDCaseState.PropertyNames.IsDeleted);
+		}
+			
+			
 
 				//if (entity.UpdatedDate == null || (contextRequest != null && contextRequest.IsFromUI("SDCaseStates", UIActions.Updating)))
 			oldentity.UpdatedDate = DateTime.Now.ToUniversalTime();
@@ -15875,39 +15671,16 @@ public class SinglentonContext
 				oldentity.UpdatedBy = contextRequest.User.GuidUser;
 
            
-
-
-				if (entity.SDCases != null)
-                {
-                    foreach (var item in entity.SDCases)
-                    {
-
-
-                        
-                    }
 					
-                    
-
-                }
-
-
-				if (entity.SDCaseHistories != null)
-                {
-                    foreach (var item in entity.SDCaseHistories)
-                    {
-
-
-                        
-                    }
 					
-                    
 
-                }
+				
+		   
 
-
-				con.ChangeTracker.Entries().Where(p => p.Entity != oldentity).ForEach(p => p.State = EntityState.Unchanged);  
-				  
-				con.SaveChanges();
+                UpdateAgile(oldentity, con, contextRequest, properties);
+                
+            
+				//UpdateAgile(oldentity, contextRequest
         
 					 
 					
@@ -15948,7 +15721,7 @@ public class SinglentonContext
 
          public void Delete(string query, Guid[] guids, ContextRequest contextRequest)
         {
-			var br = new SDCaseStatesBR(true);
+			var br = new SDCaseStatesBR();
             var items = br.GetBy(query, null, null, null, null, null, contextRequest, guids);
             
             Delete(items, contextRequest);
@@ -16421,10 +16194,17 @@ public class SinglentonContext
         #region Constructor
         public SDFilesBR()
         {
+
+			this.AppNameKey = "SFSServiceDesk";
+            this.EntityKey = "SDFile";
+
             context = new EFContext();
         }
 		 public SDFilesBR(bool preventSecurity)
             {
+				this.AppNameKey = "SFSServiceDesk";
+				this.EntityKey = "SDFile";
+
                 this.preventSecurityRestrictions = preventSecurity;
 				context = new EFContext();
             }
@@ -16756,13 +16536,10 @@ public class SinglentonContext
 	
 					bool sharedAndMultiTenant = false;	  
 					string multitenantExpression = null;
-					//if (contextRequest != null && contextRequest.Company != null)                      	
-					//	 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
-				if (contextRequest != null && contextRequest.Company != null)
-				 {
-                    multitenantExpression = @"(GuidCompany = @GuidCompanyMultiTenant)";
-                    contextRequest.CustomQuery.SetParam("GuidCompanyMultiTenant", new Nullable<Guid>(contextRequest.Company.GuidCompany));
-                }
+					if (contextRequest != null && contextRequest.Company != null){   
+                   	
+						 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
+					}
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -17637,55 +17414,15 @@ public class SinglentonContext
              if (contextRequest != null)
              {
                  contextNew = SFSdotNet.Framework.My.Context.BuildContextRequestCopySafe(contextRequest);
-                 if (fields != null && fields.Length > 0)
-                 {
-                     contextNew.CustomQuery.SpecificProperties  = fields.ToList();
-                 }
-                 else if(contextRequest.CustomQuery.SpecificProperties.Count > 0)
-                 {
-                     fields = contextRequest.CustomQuery.SpecificProperties.ToArray();
-                 }
+               
              }
 			
 
 		   using (EFContext con = new EFContext())
             {
 
-			    con.Configuration.ValidateOnSaveEnabled = false;
-                con.Configuration.AutoDetectChangesEnabled = false;
+                UpdateAgile(item, con, contextNew, fields.ToList());
                
-					List<string> propForCopy = new List<string>();
-                    propForCopy.AddRange(fields);
-                    
-					  
-					if (!propForCopy.Contains("GuidFile"))
-						propForCopy.Add("GuidFile");
-					if (!propForCopy.Contains("FileName"))
-						propForCopy.Add("FileName");
-
-					var itemForUpdate = SFSdotNet.Framework.BR.Utils.GetConverted<SDFile,SDFile>(item, propForCopy.ToArray());
-					 itemForUpdate.GuidFile = item.GuidFile;
-                  var setT = con.Set<SDFile>().Attach(itemForUpdate);
-
-					if (fields.Count() > 0)
-					  {
-						  item.ModifiedProperties = fields;
-					  }
-                    foreach (var property in item.ModifiedProperties)
-					{						
-                        if (property != "GuidFile")
-                             con.Entry(setT).Property(property).IsModified = true;
-
-                    }
-
-                
-               int result = con.SaveChanges();
-               if (result != 1)
-               {
-                   SFSdotNet.Framework.My.EventLog.Error("Has been changed " + result.ToString() + " items but the expected value is: 1");
-               }
-
-
             }
 
 			OnUpdatedAgile(this, new BusinessRulesEventArgs<SDFile>() { Item = item, ContextRequest = contextNew  });
@@ -17831,28 +17568,65 @@ public class SinglentonContext
 						}
 					}
 
-	string includes = "";
-	IQueryable < SDFile > query = con.SDFiles.AsQueryable();
-	foreach (string include in includes.Split(char.Parse(",")))
-                       {
-                           if (!string.IsNullOrEmpty(include))
-                               query = query.Include(include);
-                       }
-	var oldentity = query.FirstOrDefault(p => p.GuidFile == entity.GuidFile);
-	if (oldentity.FileName != entity.FileName)
-		oldentity.FileName = entity.FileName;
-	if (oldentity.FileType != entity.FileType)
-		oldentity.FileType = entity.FileType;
-	if (oldentity.FileSize != entity.FileSize)
-		oldentity.FileSize = entity.FileSize;
-	if (oldentity.FileData != entity.FileData)
-		oldentity.FileData = entity.FileData;
-	if (oldentity.IsDeleted != entity.IsDeleted)
-		oldentity.IsDeleted = entity.IsDeleted;
-	if (oldentity.FileStorage != entity.FileStorage)
-		oldentity.FileStorage = entity.FileStorage;
-	if (oldentity.FileThumbSizes != entity.FileThumbSizes)
-		oldentity.FileThumbSizes = entity.FileThumbSizes;
+				var contextForGet = contextRequest.CopySafe();
+                contextForGet.CustomQuery.IncludeDeleted = true;
+                contextForGet.CustomQuery.IncludeAllCompanies = true;
+                SDFilesBR br = new SDFilesBR(true );
+                var oldentity = br.GetBy("GuidFile = Guid(\"" + entity.GuidFile + "\")").FirstOrDefault();
+
+                List<string> properties = new List<string>();
+              
+
+	//string includes = "";
+	//IQueryable < SDFile > query = con.SDFiles.AsQueryable();
+	//foreach (string include in includes.Split(char.Parse(",")))
+    //                   {
+    //                       if (!string.IsNullOrEmpty(include))
+     //                          query = query.Include(include);
+     //                  }
+	//var oldentity = query.FirstOrDefault(p => p.GuidFile == entity.GuidFile);
+		if (oldentity.FileName != entity.FileName){
+			oldentity.FileName = entity.FileName;
+			properties.Add(SDFile.PropertyNames.FileName);
+		}
+			
+			
+		if (oldentity.FileType != entity.FileType){
+			oldentity.FileType = entity.FileType;
+			properties.Add(SDFile.PropertyNames.FileType);
+		}
+			
+			
+		if (oldentity.FileSize != entity.FileSize){
+			oldentity.FileSize = entity.FileSize;
+			properties.Add(SDFile.PropertyNames.FileSize);
+		}
+			
+			
+		if (oldentity.FileData != entity.FileData){
+			oldentity.FileData = entity.FileData;
+			properties.Add(SDFile.PropertyNames.FileData);
+		}
+			
+			
+		if (oldentity.IsDeleted != entity.IsDeleted){
+			oldentity.IsDeleted = entity.IsDeleted;
+			properties.Add(SDFile.PropertyNames.IsDeleted);
+		}
+			
+			
+		if (oldentity.FileStorage != entity.FileStorage){
+			oldentity.FileStorage = entity.FileStorage;
+			properties.Add(SDFile.PropertyNames.FileStorage);
+		}
+			
+			
+		if (oldentity.FileThumbSizes != entity.FileThumbSizes){
+			oldentity.FileThumbSizes = entity.FileThumbSizes;
+			properties.Add(SDFile.PropertyNames.FileThumbSizes);
+		}
+			
+			
 
 				//if (entity.UpdatedDate == null || (contextRequest != null && contextRequest.IsFromUI("SDFiles", UIActions.Updating)))
 			oldentity.UpdatedDate = DateTime.Now.ToUniversalTime();
@@ -17860,39 +17634,16 @@ public class SinglentonContext
 				oldentity.UpdatedBy = contextRequest.User.GuidUser;
 
            
-
-
-				if (entity.SDCaseFiles != null)
-                {
-                    foreach (var item in entity.SDCaseFiles)
-                    {
-
-
-                        
-                    }
 					
-                    
-
-                }
-
-
-				if (entity.SDCaseHistoryFiles != null)
-                {
-                    foreach (var item in entity.SDCaseHistoryFiles)
-                    {
-
-
-                        
-                    }
 					
-                    
 
-                }
+				
+		   
 
-
-				con.ChangeTracker.Entries().Where(p => p.Entity != oldentity).ForEach(p => p.State = EntityState.Unchanged);  
-				  
-				con.SaveChanges();
+                UpdateAgile(oldentity, con, contextRequest, properties);
+                
+            
+				//UpdateAgile(oldentity, contextRequest
         
 					 
 					
@@ -17933,7 +17684,7 @@ public class SinglentonContext
 
          public void Delete(string query, Guid[] guids, ContextRequest contextRequest)
         {
-			var br = new SDFilesBR(true);
+			var br = new SDFilesBR();
             var items = br.GetBy(query, null, null, null, null, null, contextRequest, guids);
             
             Delete(items, contextRequest);
@@ -18406,10 +18157,17 @@ public class SinglentonContext
         #region Constructor
         public SDOrganizationsBR()
         {
+
+			this.AppNameKey = "SFSServiceDesk";
+            this.EntityKey = "SDOrganization";
+
             context = new EFContext();
         }
 		 public SDOrganizationsBR(bool preventSecurity)
             {
+				this.AppNameKey = "SFSServiceDesk";
+				this.EntityKey = "SDOrganization";
+
                 this.preventSecurityRestrictions = preventSecurity;
 				context = new EFContext();
             }
@@ -18741,13 +18499,10 @@ public class SinglentonContext
 	
 					bool sharedAndMultiTenant = false;	  
 					string multitenantExpression = null;
-					//if (contextRequest != null && contextRequest.Company != null)                      	
-					//	 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
-				if (contextRequest != null && contextRequest.Company != null)
-				 {
-                    multitenantExpression = @"(GuidCompany = @GuidCompanyMultiTenant)";
-                    contextRequest.CustomQuery.SetParam("GuidCompanyMultiTenant", new Nullable<Guid>(contextRequest.Company.GuidCompany));
-                }
+					if (contextRequest != null && contextRequest.Company != null){   
+                   	
+						 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
+					}
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -19569,55 +19324,15 @@ public class SinglentonContext
              if (contextRequest != null)
              {
                  contextNew = SFSdotNet.Framework.My.Context.BuildContextRequestCopySafe(contextRequest);
-                 if (fields != null && fields.Length > 0)
-                 {
-                     contextNew.CustomQuery.SpecificProperties  = fields.ToList();
-                 }
-                 else if(contextRequest.CustomQuery.SpecificProperties.Count > 0)
-                 {
-                     fields = contextRequest.CustomQuery.SpecificProperties.ToArray();
-                 }
+               
              }
 			
 
 		   using (EFContext con = new EFContext())
             {
 
-			    con.Configuration.ValidateOnSaveEnabled = false;
-                con.Configuration.AutoDetectChangesEnabled = false;
+                UpdateAgile(item, con, contextNew, fields.ToList());
                
-					List<string> propForCopy = new List<string>();
-                    propForCopy.AddRange(fields);
-                    
-					  
-					if (!propForCopy.Contains("GuidOrganization"))
-						propForCopy.Add("GuidOrganization");
-					if (!propForCopy.Contains("FullName"))
-						propForCopy.Add("FullName");
-
-					var itemForUpdate = SFSdotNet.Framework.BR.Utils.GetConverted<SDOrganization,SDOrganization>(item, propForCopy.ToArray());
-					 itemForUpdate.GuidOrganization = item.GuidOrganization;
-                  var setT = con.Set<SDOrganization>().Attach(itemForUpdate);
-
-					if (fields.Count() > 0)
-					  {
-						  item.ModifiedProperties = fields;
-					  }
-                    foreach (var property in item.ModifiedProperties)
-					{						
-                        if (property != "GuidOrganization")
-                             con.Entry(setT).Property(property).IsModified = true;
-
-                    }
-
-                
-               int result = con.SaveChanges();
-               if (result != 1)
-               {
-                   SFSdotNet.Framework.My.EventLog.Error("Has been changed " + result.ToString() + " items but the expected value is: 1");
-               }
-
-
             }
 
 			OnUpdatedAgile(this, new BusinessRulesEventArgs<SDOrganization>() { Item = item, ContextRequest = contextNew  });
@@ -19763,18 +19478,35 @@ public class SinglentonContext
 						}
 					}
 
-	string includes = "";
-	IQueryable < SDOrganization > query = con.SDOrganizations.AsQueryable();
-	foreach (string include in includes.Split(char.Parse(",")))
-                       {
-                           if (!string.IsNullOrEmpty(include))
-                               query = query.Include(include);
-                       }
-	var oldentity = query.FirstOrDefault(p => p.GuidOrganization == entity.GuidOrganization);
-	if (oldentity.FullName != entity.FullName)
-		oldentity.FullName = entity.FullName;
-	if (oldentity.IsDeleted != entity.IsDeleted)
-		oldentity.IsDeleted = entity.IsDeleted;
+				var contextForGet = contextRequest.CopySafe();
+                contextForGet.CustomQuery.IncludeDeleted = true;
+                contextForGet.CustomQuery.IncludeAllCompanies = true;
+                SDOrganizationsBR br = new SDOrganizationsBR(true );
+                var oldentity = br.GetBy("GuidOrganization = Guid(\"" + entity.GuidOrganization + "\")").FirstOrDefault();
+
+                List<string> properties = new List<string>();
+              
+
+	//string includes = "";
+	//IQueryable < SDOrganization > query = con.SDOrganizations.AsQueryable();
+	//foreach (string include in includes.Split(char.Parse(",")))
+    //                   {
+    //                       if (!string.IsNullOrEmpty(include))
+     //                          query = query.Include(include);
+     //                  }
+	//var oldentity = query.FirstOrDefault(p => p.GuidOrganization == entity.GuidOrganization);
+		if (oldentity.FullName != entity.FullName){
+			oldentity.FullName = entity.FullName;
+			properties.Add(SDOrganization.PropertyNames.FullName);
+		}
+			
+			
+		if (oldentity.IsDeleted != entity.IsDeleted){
+			oldentity.IsDeleted = entity.IsDeleted;
+			properties.Add(SDOrganization.PropertyNames.IsDeleted);
+		}
+			
+			
 
 				//if (entity.UpdatedDate == null || (contextRequest != null && contextRequest.IsFromUI("SDOrganizations", UIActions.Updating)))
 			oldentity.UpdatedDate = DateTime.Now.ToUniversalTime();
@@ -19782,39 +19514,16 @@ public class SinglentonContext
 				oldentity.UpdatedBy = contextRequest.User.GuidUser;
 
            
-
-
-				if (entity.SDAreas != null)
-                {
-                    foreach (var item in entity.SDAreas)
-                    {
-
-
-                        
-                    }
 					
-                    
-
-                }
-
-
-				if (entity.SDPersons != null)
-                {
-                    foreach (var item in entity.SDPersons)
-                    {
-
-
-                        
-                    }
 					
-                    
 
-                }
+				
+		   
 
-
-				con.ChangeTracker.Entries().Where(p => p.Entity != oldentity).ForEach(p => p.State = EntityState.Unchanged);  
-				  
-				con.SaveChanges();
+                UpdateAgile(oldentity, con, contextRequest, properties);
+                
+            
+				//UpdateAgile(oldentity, contextRequest
         
 					 
 					
@@ -19855,7 +19564,7 @@ public class SinglentonContext
 
          public void Delete(string query, Guid[] guids, ContextRequest contextRequest)
         {
-			var br = new SDOrganizationsBR(true);
+			var br = new SDOrganizationsBR();
             var items = br.GetBy(query, null, null, null, null, null, contextRequest, guids);
             
             Delete(items, contextRequest);
@@ -20328,10 +20037,17 @@ public class SinglentonContext
         #region Constructor
         public SDPersonsBR()
         {
+
+			this.AppNameKey = "SFSServiceDesk";
+            this.EntityKey = "SDPerson";
+
             context = new EFContext();
         }
 		 public SDPersonsBR(bool preventSecurity)
             {
+				this.AppNameKey = "SFSServiceDesk";
+				this.EntityKey = "SDPerson";
+
                 this.preventSecurityRestrictions = preventSecurity;
 				context = new EFContext();
             }
@@ -20677,13 +20393,10 @@ public class SinglentonContext
 	
 					bool sharedAndMultiTenant = false;	  
 					string multitenantExpression = null;
-					//if (contextRequest != null && contextRequest.Company != null)                      	
-					//	 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
-				if (contextRequest != null && contextRequest.Company != null)
-				 {
-                    multitenantExpression = @"(GuidCompany = @GuidCompanyMultiTenant)";
-                    contextRequest.CustomQuery.SetParam("GuidCompanyMultiTenant", new Nullable<Guid>(contextRequest.Company.GuidCompany));
-                }
+					if (contextRequest != null && contextRequest.Company != null){   
+                   	
+						 multitenantExpression = @"(GuidCompany = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
+					}
 					 									
 					string multiTenantField = "GuidCompany";
 
@@ -21602,55 +21315,15 @@ public class SinglentonContext
              if (contextRequest != null)
              {
                  contextNew = SFSdotNet.Framework.My.Context.BuildContextRequestCopySafe(contextRequest);
-                 if (fields != null && fields.Length > 0)
-                 {
-                     contextNew.CustomQuery.SpecificProperties  = fields.ToList();
-                 }
-                 else if(contextRequest.CustomQuery.SpecificProperties.Count > 0)
-                 {
-                     fields = contextRequest.CustomQuery.SpecificProperties.ToArray();
-                 }
+               
              }
 			
 
 		   using (EFContext con = new EFContext())
             {
 
-			    con.Configuration.ValidateOnSaveEnabled = false;
-                con.Configuration.AutoDetectChangesEnabled = false;
+                UpdateAgile(item, con, contextNew, fields.ToList());
                
-					List<string> propForCopy = new List<string>();
-                    propForCopy.AddRange(fields);
-                    
-					  
-					if (!propForCopy.Contains("GuidPerson"))
-						propForCopy.Add("GuidPerson");
-					if (!propForCopy.Contains("DisplayName"))
-						propForCopy.Add("DisplayName");
-
-					var itemForUpdate = SFSdotNet.Framework.BR.Utils.GetConverted<SDPerson,SDPerson>(item, propForCopy.ToArray());
-					 itemForUpdate.GuidPerson = item.GuidPerson;
-                  var setT = con.Set<SDPerson>().Attach(itemForUpdate);
-
-					if (fields.Count() > 0)
-					  {
-						  item.ModifiedProperties = fields;
-					  }
-                    foreach (var property in item.ModifiedProperties)
-					{						
-                        if (property != "GuidPerson")
-                             con.Entry(setT).Property(property).IsModified = true;
-
-                    }
-
-                
-               int result = con.SaveChanges();
-               if (result != 1)
-               {
-                   SFSdotNet.Framework.My.EventLog.Error("Has been changed " + result.ToString() + " items but the expected value is: 1");
-               }
-
-
             }
 
 			OnUpdatedAgile(this, new BusinessRulesEventArgs<SDPerson>() { Item = item, ContextRequest = contextNew  });
@@ -21820,18 +21493,47 @@ public class SinglentonContext
 						}
 					}
 
-	string includes = "SDOrganization,SDProxyUser";
-	IQueryable < SDPerson > query = con.SDPersons.AsQueryable();
-	foreach (string include in includes.Split(char.Parse(",")))
-                       {
-                           if (!string.IsNullOrEmpty(include))
-                               query = query.Include(include);
-                       }
-	var oldentity = query.FirstOrDefault(p => p.GuidPerson == entity.GuidPerson);
-	if (oldentity.DisplayName != entity.DisplayName)
-		oldentity.DisplayName = entity.DisplayName;
-	if (oldentity.IsDeleted != entity.IsDeleted)
-		oldentity.IsDeleted = entity.IsDeleted;
+				var contextForGet = contextRequest.CopySafe();
+                contextForGet.CustomQuery.IncludeDeleted = true;
+                contextForGet.CustomQuery.IncludeAllCompanies = true;
+                SDPersonsBR br = new SDPersonsBR(true );
+                var oldentity = br.GetBy("GuidPerson = Guid(\"" + entity.GuidPerson + "\")").FirstOrDefault();
+
+                List<string> properties = new List<string>();
+              
+
+	//string includes = "SDOrganization,SDProxyUser";
+	//IQueryable < SDPerson > query = con.SDPersons.AsQueryable();
+	//foreach (string include in includes.Split(char.Parse(",")))
+    //                   {
+    //                       if (!string.IsNullOrEmpty(include))
+     //                          query = query.Include(include);
+     //                  }
+	//var oldentity = query.FirstOrDefault(p => p.GuidPerson == entity.GuidPerson);
+		if (oldentity.DisplayName != entity.DisplayName){
+			oldentity.DisplayName = entity.DisplayName;
+			properties.Add(SDPerson.PropertyNames.DisplayName);
+		}
+			
+			
+		if (oldentity.GuidUser != entity.GuidUser){
+			oldentity.GuidUser = entity.GuidUser;
+			properties.Add(SDPerson.PropertyNames.GuidUser);
+		}
+			
+			
+		if (oldentity.GuidOrganization != entity.GuidOrganization){
+			oldentity.GuidOrganization = entity.GuidOrganization;
+			properties.Add(SDPerson.PropertyNames.GuidOrganization);
+		}
+			
+			
+		if (oldentity.IsDeleted != entity.IsDeleted){
+			oldentity.IsDeleted = entity.IsDeleted;
+			properties.Add(SDPerson.PropertyNames.IsDeleted);
+		}
+			
+			
 
 				//if (entity.UpdatedDate == null || (contextRequest != null && contextRequest.IsFromUI("SDPersons", UIActions.Updating)))
 			oldentity.UpdatedDate = DateTime.Now.ToUniversalTime();
@@ -21839,51 +21541,22 @@ public class SinglentonContext
 				oldentity.UpdatedBy = contextRequest.User.GuidUser;
 
            
-
-
-				if (entity.SDAreaPersons != null)
-                {
-                    foreach (var item in entity.SDAreaPersons)
-                    {
-
-
-                        
-                    }
 					
-                    
-
-                }
-
-
-				if (entity.SDCases != null)
-                {
-                    foreach (var item in entity.SDCases)
-                    {
-
-
-                        
-                    }
 					
-                    
-
-                }
 
 
-						if (SFSdotNet.Framework.BR.Utils.HasRelationPropertyChanged(oldentity.SDOrganization, entity.SDOrganization, "GuidOrganization"))
-							oldentity.SDOrganization = entity.SDOrganization != null? new SDOrganization(){ GuidOrganization = entity.SDOrganization.GuidOrganization } :null;
+					
 
+
+					
+
+				
+		   
+
+                UpdateAgile(oldentity, con, contextRequest, properties);
                 
-
-
-						if (SFSdotNet.Framework.BR.Utils.HasRelationPropertyChanged(oldentity.SDProxyUser, entity.SDProxyUser, "GuidUser"))
-							oldentity.SDProxyUser = entity.SDProxyUser != null? new SDProxyUser(){ GuidUser = entity.SDProxyUser.GuidUser } :null;
-
-                
-
-
-				con.ChangeTracker.Entries().Where(p => p.Entity != oldentity).ForEach(p => p.State = EntityState.Unchanged);  
-				  
-				con.SaveChanges();
+            
+				//UpdateAgile(oldentity, contextRequest
         
 					 
 					
@@ -21924,7 +21597,7 @@ public class SinglentonContext
 
          public void Delete(string query, Guid[] guids, ContextRequest contextRequest)
         {
-			var br = new SDPersonsBR(true);
+			var br = new SDPersonsBR();
             var items = br.GetBy(query, null, null, null, null, null, contextRequest, guids);
             
             Delete(items, contextRequest);
@@ -22397,10 +22070,17 @@ public class SinglentonContext
         #region Constructor
         public SDProxyUsersBR()
         {
+
+			this.AppNameKey = "SFSServiceDesk";
+            this.EntityKey = "SDProxyUser";
+
             context = new EFContext();
         }
 		 public SDProxyUsersBR(bool preventSecurity)
             {
+				this.AppNameKey = "SFSServiceDesk";
+				this.EntityKey = "SDProxyUser";
+
                 this.preventSecurityRestrictions = preventSecurity;
 				context = new EFContext();
             }
@@ -23439,55 +23119,15 @@ public class SinglentonContext
              if (contextRequest != null)
              {
                  contextNew = SFSdotNet.Framework.My.Context.BuildContextRequestCopySafe(contextRequest);
-                 if (fields != null && fields.Length > 0)
-                 {
-                     contextNew.CustomQuery.SpecificProperties  = fields.ToList();
-                 }
-                 else if(contextRequest.CustomQuery.SpecificProperties.Count > 0)
-                 {
-                     fields = contextRequest.CustomQuery.SpecificProperties.ToArray();
-                 }
+               
              }
 			
 
 		   using (EFContext con = new EFContext())
             {
 
-			    con.Configuration.ValidateOnSaveEnabled = false;
-                con.Configuration.AutoDetectChangesEnabled = false;
+                UpdateAgile(item, con, contextNew, fields.ToList());
                
-					List<string> propForCopy = new List<string>();
-                    propForCopy.AddRange(fields);
-                    
-					  
-					if (!propForCopy.Contains("GuidUser"))
-						propForCopy.Add("GuidUser");
-					if (!propForCopy.Contains("Email"))
-						propForCopy.Add("Email");
-
-					var itemForUpdate = SFSdotNet.Framework.BR.Utils.GetConverted<SDProxyUser,SDProxyUser>(item, propForCopy.ToArray());
-					 itemForUpdate.GuidUser = item.GuidUser;
-                  var setT = con.Set<SDProxyUser>().Attach(itemForUpdate);
-
-					if (fields.Count() > 0)
-					  {
-						  item.ModifiedProperties = fields;
-					  }
-                    foreach (var property in item.ModifiedProperties)
-					{						
-                        if (property != "GuidUser")
-                             con.Entry(setT).Property(property).IsModified = true;
-
-                    }
-
-                
-               int result = con.SaveChanges();
-               if (result != 1)
-               {
-                   SFSdotNet.Framework.My.EventLog.Error("Has been changed " + result.ToString() + " items but the expected value is: 1");
-               }
-
-
             }
 
 			OnUpdatedAgile(this, new BusinessRulesEventArgs<SDProxyUser>() { Item = item, ContextRequest = contextNew  });
@@ -23611,40 +23251,47 @@ public class SinglentonContext
 						}
 					}
 
-	string includes = "";
-	IQueryable < SDProxyUser > query = con.SDProxyUsers.AsQueryable();
-	foreach (string include in includes.Split(char.Parse(",")))
-                       {
-                           if (!string.IsNullOrEmpty(include))
-                               query = query.Include(include);
-                       }
-	var oldentity = query.FirstOrDefault(p => p.GuidUser == entity.GuidUser);
-	if (oldentity.Email != entity.Email)
-		oldentity.Email = entity.Email;
-	if (oldentity.DisplayName != entity.DisplayName)
-		oldentity.DisplayName = entity.DisplayName;
+				var contextForGet = contextRequest.CopySafe();
+                contextForGet.CustomQuery.IncludeDeleted = true;
+                contextForGet.CustomQuery.IncludeAllCompanies = true;
+                SDProxyUsersBR br = new SDProxyUsersBR(true );
+                var oldentity = br.GetBy("GuidUser = Guid(\"" + entity.GuidUser + "\")").FirstOrDefault();
+
+                List<string> properties = new List<string>();
+              
+
+	//string includes = "";
+	//IQueryable < SDProxyUser > query = con.SDProxyUsers.AsQueryable();
+	//foreach (string include in includes.Split(char.Parse(",")))
+    //                   {
+    //                       if (!string.IsNullOrEmpty(include))
+     //                          query = query.Include(include);
+     //                  }
+	//var oldentity = query.FirstOrDefault(p => p.GuidUser == entity.GuidUser);
+		if (oldentity.Email != entity.Email){
+			oldentity.Email = entity.Email;
+			properties.Add(SDProxyUser.PropertyNames.Email);
+		}
+			
+			
+		if (oldentity.DisplayName != entity.DisplayName){
+			oldentity.DisplayName = entity.DisplayName;
+			properties.Add(SDProxyUser.PropertyNames.DisplayName);
+		}
+			
+			
 
 
            
-
-
-				if (entity.SDPersons != null)
-                {
-                    foreach (var item in entity.SDPersons)
-                    {
-
-
-                        
-                    }
 					
-                    
 
-                }
+				
+		   
 
-
-				con.ChangeTracker.Entries().Where(p => p.Entity != oldentity).ForEach(p => p.State = EntityState.Unchanged);  
-				  
-				con.SaveChanges();
+                UpdateAgile(oldentity, con, contextRequest, properties);
+                
+            
+				//UpdateAgile(oldentity, contextRequest
         
 					 
 					
@@ -23685,7 +23332,7 @@ public class SinglentonContext
 
          public void Delete(string query, Guid[] guids, ContextRequest contextRequest)
         {
-			var br = new SDProxyUsersBR(true);
+			var br = new SDProxyUsersBR();
             var items = br.GetBy(query, null, null, null, null, null, contextRequest, guids);
             
             Delete(items, contextRequest);

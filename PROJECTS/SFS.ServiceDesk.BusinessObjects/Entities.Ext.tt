@@ -3,6 +3,8 @@
 <#@ assembly name="System.Web" #>
 <#@ import namespace="SFSdotNet.VSAddin2015.Model" #> 
 <#@ import namespace="SFSdotNet.VSAddin2015.Model.Utils" #> 
+<#@ import namespace="SFSdotNet.VSAddin2015.EngTool" #>
+
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.Collections" #>
 <#@ import namespace="System.Linq" #>
@@ -22,6 +24,9 @@ using System.Runtime.Serialization;
 using SFSdotNet.Framework.Common.Entities.Metadata;
 using SFSdotNet.Framework.Common.Entities;
 using System.Linq.Dynamic;
+
+    using Newtonsoft.Json;
+
 //using Repository.Pattern.Ef6;
 #endregion
 namespace <#= Model.Namespace #>.BusinessObjects
@@ -150,7 +155,10 @@ namespace <#= Model.Namespace #>.BusinessObjects
 	  [EntityInfo(PropertyKeyName="<#= propertyID.Name #>"<#=PropertyDefaultText#><#=propertyIntegrationAttr#><#=RequiredPropertiesText#><#=propertyCompanyAttr#><#= propertyCreatedByAttr #><#= propertyUpdatedByAttr #><#= propertyCreatedDateAttr #><#= propertyUpdatedDateAttr #><#= propertyDeletedAttr #><#= propertiesFileAttr #>)]
 <# } #>
 	  [DynamicLinqType]
-	  public partial class <#=entity.Name#>:  IMyEntity{
+	  [JsonObject(IsReference = true)]
+      [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/TrackableEntities.Models")]
+
+	  public partial class <#=entity.Name#>:  ITrackable, IMyEntity{
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
 
 			public override string ToString()
@@ -225,9 +233,156 @@ namespace <#= Model.Namespace #>.BusinessObjects
             
         }
         #endregion
-        
+
+		public <#= entity.Name #>(){
+		#region 
+			this.ModifiedProperties = new List<string>();
+<# 
+
+
+foreach(PropertyInfo property in entity.Properties.Where(p=> p.Entity.IsCustom==false && p.IsNavigationPropertyMany == true)) { 
+	//EntityInfo entityRel = null;
+	var navprop = entity.NavigationProperties.FirstOrDefault(p=>p.PropertyName== property.Name);
+	var entityRelName = navprop.EntityType.Split(char.Parse("."))[navprop.EntityType.Split(char.Parse(".")).Length -1];
+	var	entityRel = entity.Model.Entities.Find(p=>p.Name == entityRelName);
+
+#>
+	this.<#= property.Name #> = new List<<#= entityRel.Name #>>();
+
+
+<# } #>
+		#endregion
+		}
+		#region
+<#  
+foreach(PropertyInfo property in entity.Properties.Where(p=> p.Entity.IsCustom==false && p.IsNavigationPropertyMany == true)) { 
+	//EntityInfo entityRel = null;
+	var navprop = entity.NavigationProperties.FirstOrDefault(p=>p.PropertyName== property.Name);
+	var entityRelName = navprop.EntityType.Split(char.Parse("."))[navprop.EntityType.Split(char.Parse(".")).Length -1];
+	var	entityRel = entity.Model.Entities.Find(p=>p.Name == entityRelName);
+#>
+	
+	[DataMember]
+	public ICollection<<#= entityRel.Name #>> <#= property.Name #> { get; set; }
+	
+
+<# } #>
+
+<#  
+foreach(PropertyInfo property in entity.Properties.Where(p=> p.IsCustom == false && p.Entity.IsCustom == false && p.IsNavigationPropertyMany == false && p.IsNavigationProperty == true )) { 
+	//EntityInfo entityRel = null;
+	var navprop = entity.NavigationProperties.FirstOrDefault(p=>p.PropertyName== property.Name);
+	var entityRelName = navprop.EntityType.Split(char.Parse("."))[navprop.EntityType.Split(char.Parse(".")).Length -1];
+	var	entityRel = entity.Model.Entities.Find(p=>p.Name == entityRelName);
+	if (entityRel != null ){
+	
+#>
+	private <#= entityRel.Name #> __<#= property.Name #>;
+	[DataMember]
+	public <#= entityRel.Name #> <#= property.Name #> {
+		get{
+			return __<#= property.Name #>;
+		}
+		set{
+			__<#= property.Name #> = value;
+<# 
+		string propertyFKLocal = navprop.PropertyRefName ;
+		var relPropertyKey = entityRel.Properties.FirstOrDefault(p=>p.IsPrimaryKey);
+		//var navpropNative  = entity.NavigationProperties.FirstOrDefault(p=>p.PropertyRefName == property.Name ); 
+		//if (navpropNative != null ){
+		//	propertyFKLocal = navpropNative.PropertyName;
+        //}
+ #>
+				if (value != null)
+                {
+                   this.__<#= propertyFKLocal #> = value.<#= relPropertyKey.Name #>;
+                }else
+                {
+					<# if (property.Nullable == true ){ #>
+                    this.__<#= propertyFKLocal #> = null;
+					<# }else{ #>
+						 this.__<#= propertyFKLocal #> = Guid.Empty;
+					<# } #>
+                }
+		}
+	}
+	
+
+<# }
+} #>
+
+	#endregion
+
+	#region
+<# 
+
+string nullable = null ;
+foreach(PropertyInfo property in entity.Properties.Where(p=> p.IsCustom == false && p.Entity.IsCustom == false && p.IsNavigationProperty == false)) { 
+	nullable = NullableSymbol(property);
+	var navpropRef = entity.NavigationProperties.FirstOrDefault(p=>p.PropertyRefName== property.Name);
+	
+	
+#>
+	private <#=  GetNetType(property.NetType) #><#= nullable #> __<#=property.Name#>;
+	[DataMember]
+	public <#=  GetNetType(property.NetType) #><#= nullable #> <#=property.Name#>  { 
+		get{
+			return __<#=property.Name#>;
+		}
+		set{
+
+			__<#=property.Name#> = value;
+<# if (navpropRef != null ){
+		var navprop = entity.NavigationProperties.FirstOrDefault(p=>p.PropertyName== navpropRef.PropertyName);
+		var entityRelName = navprop.EntityType.Split(char.Parse("."))[navprop.EntityType.Split(char.Parse(".")).Length -1];
+		var	entityRel = entity.Model.Entities.Find(p=>p.Name == entityRelName);
+		var relPropertyKey = entityRel.Properties.FirstOrDefault(p=>p.IsPrimaryKey);
+ #>
+				if (value == null)
+                {
+                    this.__<#= navpropRef.PropertyName #> = null;
+                }else
+                {
+					<# if (property.Nullable == true ){ #>
+						if (this.__<#= navpropRef.PropertyName #> != null && this.__<#= navpropRef.PropertyName #>.<#= relPropertyKey.Name #> != value.Value)
+						{
+							this.__<#= navpropRef.PropertyName #> = new <#= entityRel.Name #>() { <#= relPropertyKey.Name #> = value.Value };
+
+						}
+                    //this.__<#= navpropRef.PropertyName #> = new <#= entityRel.Name #>() { <#= relPropertyKey.Name #> = value.Value };
+					  // if (this.__<#= navpropRef.PropertyName #> == null )
+                      //      this.__<#= navpropRef.PropertyName #> = new <#= entityRel.Name #>() {  <#= relPropertyKey.Name #> = value.Value };
+                      //  else {
+                       //     if (this.__<#= navpropRef.PropertyName #>.<#= relPropertyKey.Name #> != value)
+                       //     {
+                       //     this.__<#= navpropRef.PropertyName #> = new <#= entityRel.Name #>() {  <#= relPropertyKey.Name #> = value.Value };
+					//		}
+                     //   }
+					<# }else{ #>
+                      //this.__<#= navpropRef.PropertyName #> = new <#= entityRel.Name #>() { <#= relPropertyKey.Name #> = value };
+					     if (this.__<#= navpropRef.PropertyName #> != null && this.__<#= navpropRef.PropertyName #>.<#= relPropertyKey.Name #> != value)
+						{
+							this.__<#= navpropRef.PropertyName #> = new <#= entityRel.Name #>() { <#= relPropertyKey.Name #> = value };
+
+						}
+						// if (this.__<#= navpropRef.PropertyName #> == null )
+                        //    this.__<#= navpropRef.PropertyName #> = new <#= entityRel.Name #>() {  <#= relPropertyKey.Name #> = value };
+                        //else {
+                        //    if (this.__<#= navpropRef.PropertyName #>.<#= relPropertyKey.Name #> != value)
+                        //    {
+                        //    this.__<#= navpropRef.PropertyName #> = new <#= entityRel.Name #>() {  <#= relPropertyKey.Name #> = value };
+						//	}
+                        //}
+					<# } #>
+                }
+<# }
+	 #>			
+		}
+	 }
+<# } #>
+    #endregion    
 <# foreach(PropertyInfo property in entity.Properties.Where(p=>p.Type.ToLower() != "include" && p.IsCustom == true && p.Entity.IsCustom==false)) { 
-		string nullable = NullableSymbol(property);
+		 nullable = NullableSymbol(property);
 		//if (property.Nullable && !property.NetType.Contains("ICollection")  && property.Nullable && property.NetType != "String" && property.NetType != "Byte[]"){
 		//		nullable= "?";
 		//}
@@ -237,7 +392,7 @@ namespace <#= Model.Namespace #>.BusinessObjects
 			
 	public <#= property.NetType.Split(char.Parse("."))[property.NetType.Split(char.Parse(".")).Length - 1 ] #><#= nullable #> <#=property.Name#> { get; set; }
 <#   }else if (!string.IsNullOrEmpty((string)GetCustomProperty(property, "Computed", "String"))){ #>
-			 public <#= property.NetType #><#= nullable #> <#=property.Name#> {
+			 public <#= GetNetType(property.NetType) #><#= nullable #> <#=property.Name#> {
 				get{
 					return <#= ((string)GetCustomProperty(property, "Computed", "String")).ToString().Replace("'", @"""") #>;
 				}
@@ -248,11 +403,17 @@ namespace <#= Model.Namespace #>.BusinessObjects
 
 <# 		}else if (!string.IsNullOrEmpty((string)GetCustomProperty(property, "ComputedLinq", "String"))){ #>
 			[DataMember]
-          	 public <#= property.NetType #><#= nullable #> <#=property.Name#> { get; set; } //test
+          	 public <#=  GetNetType(property.NetType) #><#= nullable #> <#=property.Name#> { get; set; } //test
 
 <# 			} #>
 <# } #>	
-       
+	[DataMember]
+    public TrackingState TrackingState { get; set; }
+    [DataMember]
+    public ICollection<string> ModifiedProperties { get; set; }
+    [JsonProperty, DataMember]
+    private Guid EntityIdentifier { get; set; }
+
 <# foreach(PropertyInfo property in entity.Properties.Where(p=> (bool)GetCustomProperty(p, "IsUniqueFile", "Boolean") == true )) {#>
 		 public string files_<#= property.Name #> { get; set; }
 
@@ -260,7 +421,7 @@ namespace <#= Model.Namespace #>.BusinessObjects
       
 <# foreach(PropertyInfo property in entity.Properties.Where(p=>p.Type.ToLower() != "include" && p.Entity.IsCustom && IsPropertyForBusinessObject(p))) {
 			if (!property.IsPrimaryKey && !property.IsNavigationProperty){
-				string nullable = "";
+				nullable = "";
 				if (property.Nullable && property.NetType != "String" && property.NetType != "Byte[]"){
 					nullable= "?";
 				}
@@ -343,7 +504,14 @@ public string PrepareLinqExpression(string originalValue){
 
 	return result;
 }
+public string GetNetType(string netType){
+	if (netType.ToLower() == "xml")
+        {
+			netType = "string";
+        }
 
+		return netType;
+}
 public string NullableSymbol(PropertyInfo property){
 			string result = "";
 			if (property.Nullable){

@@ -69,11 +69,12 @@ public class SinglentonContext
             }
         }
     }
+<#
+	LoadModelProperties(this.Model);
+#>
 	
 	
-	<#
-		this.LoadModelProperties(this.Model);
-	 foreach(EntityInfo entity in this.Model.Entities) {
+	<# foreach(EntityInfo entity in this.Model.Entities) {
 		
 		try{
 		int ew=2;
@@ -158,10 +159,17 @@ foreach(NavigationPropertyInfo navprop in entity.NavigationProperties.Where(p=>!
         #region Constructor
         public <#=entity.SetName#>BR()
         {
+
+			this.AppNameKey = "<#= entity.Model.SafeNamespace #>";
+            this.EntityKey = "<#=entity.Name#>";
+
             context = new EFContext();
         }
 		 public <#=entity.SetName#>BR(bool preventSecurity)
             {
+				this.AppNameKey = "<#= entity.Model.SafeNamespace #>";
+				this.EntityKey = "<#=entity.Name#>";
+
                 this.preventSecurityRestrictions = preventSecurity;
 				context = new EFContext();
             }
@@ -686,13 +694,16 @@ foreach(NavigationPropertyInfo navprop in entity.NavigationProperties.Where(p=>!
 					<#	}else{ #>	
 					bool sharedAndMultiTenant = false;	  
 					string multitenantExpression = null;
-					//if (contextRequest != null && contextRequest.Company != null)                      	
-					//	 multitenantExpression = @"(<#= (string)GetCustomProperty(entity.Model, "CompanyProperty", "string") #> = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
-				if (contextRequest != null && contextRequest.Company != null)
-				 {
-                    multitenantExpression = @"(GuidCompany = @GuidCompanyMultiTenant)";
-                    contextRequest.CustomQuery.SetParam("GuidCompanyMultiTenant", new Nullable<Guid>(contextRequest.Company.GuidCompany));
-                }
+					if (contextRequest != null && contextRequest.Company != null){   
+<# if ((bool)GetCustomProperty(entity, "FromParentCompany", "Boolean") == true) { #>
+						if (contextRequest.Company.Parent != null )
+							multitenantExpression = @"(<#= (string)GetCustomProperty(entity.Model, "CompanyProperty", "string") #> = Guid(""" + contextRequest.Company.GuidCompany + @""") OR <#= (string)GetCustomProperty(entity.Model, "CompanyProperty", "string") #> = Guid(""" + contextRequest.Company.Parent.GuidCompany + @"""))";
+                    else
+						 multitenantExpression = @"(<#= (string)GetCustomProperty(entity.Model, "CompanyProperty", "string") #> = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
+<# }else{ #>                   	
+						 multitenantExpression = @"(<#= (string)GetCustomProperty(entity.Model, "CompanyProperty", "string") #> = Guid(""" + contextRequest.Company.GuidCompany + @"""))";
+<# } #>
+					}
 					<#	} #> 									
 					string multiTenantField = "<#=(string)GetCustomProperty(entity.Model, "CompanyProperty", "string")#>";
 
@@ -2458,59 +2469,15 @@ foreach(NavigationPropertyInfo navprop in entity.NavigationProperties.Where(p=>!
              if (contextRequest != null)
              {
                  contextNew = SFSdotNet.Framework.My.Context.BuildContextRequestCopySafe(contextRequest);
-                 if (fields != null && fields.Length > 0)
-                 {
-                     contextNew.CustomQuery.SpecificProperties  = fields.ToList();
-                 }
-                 else if(contextRequest.CustomQuery.SpecificProperties.Count > 0)
-                 {
-                     fields = contextRequest.CustomQuery.SpecificProperties.ToArray();
-                 }
+               
              }
 			
 
 		   using (EFContext con = new EFContext())
             {
 
-			    con.Configuration.ValidateOnSaveEnabled = false;
-                con.Configuration.AutoDetectChangesEnabled = false;
+                UpdateAgile(item, con, contextNew, fields.ToList());
                
-					List<string> propForCopy = new List<string>();
-                    propForCopy.AddRange(fields);
-                    
-					  
-<# foreach(var propReq in entity.Properties.Where(p=> p.Nullable == false && p.IsCustom == false)){
-			//var navProp = entity.NavigationProperties.FirstOrDefault(p=> );
- #>
-					if (!propForCopy.Contains("<#=propReq.Name#>"))
-						propForCopy.Add("<#=propReq.Name#>");
-<# } #>
-
-					var itemForUpdate = SFSdotNet.Framework.BR.Utils.GetConverted<<#= entity.Name #>,<#= entity.Name #>>(item, propForCopy.ToArray());
-<# if (entity.Properties.FirstOrDefault(p=>p.IsPrimaryKey) != null ){ #>
-					 itemForUpdate.<#=entity.Properties.First(p=>p.IsPrimaryKey).Name #> = item.<#=entity.Properties.First(p=>p.IsPrimaryKey).Name #>;
-<# } #>
-                  var setT = con.Set<<#= entity.Name #>>().Attach(itemForUpdate);
-
-					if (fields.Count() > 0)
-					  {
-						  item.ModifiedProperties = fields;
-					  }
-                    foreach (var property in item.ModifiedProperties)
-					{						
-                        if (<#=keyPropNamesDiff.ToString()#>)
-                             con.Entry(setT).Property(property).IsModified = true;
-
-                    }
-
-                
-               int result = con.SaveChanges();
-               if (result != 1)
-               {
-                   SFSdotNet.Framework.My.EventLog.Error("Has been changed " + result.ToString() + " items but the expected value is: 1");
-               }
-
-
             }
 
 			OnUpdatedAgile(this, new BusinessRulesEventArgs<<#= entity.Name #>>() { Item = item, ContextRequest = contextNew  });
@@ -2750,33 +2717,46 @@ foreach(NavigationPropertyInfo navprop in entity.NavigationProperties.Where(p=>!
 
 						}
 					}
-<# if (!entity.IsCustom) { #>
+<# if (!entity.IsCustom) {
+		var propertyKeyForUpdate = entity.Properties.FirstOrDefault(p=>p.IsPrimaryKey);
+ #>
 
-	string includes = "<#=includesFK.ToString()#>";
-	IQueryable < <#=entity.Name#> > query = con.<#=entity.SetName#>.AsQueryable();
-	foreach (string include in includes.Split(char.Parse(",")))
-                       {
-                           if (!string.IsNullOrEmpty(include))
-                               query = query.Include(include);
-                       }
-	var oldentity = query.FirstOrDefault(p => p.<#=entity.Properties.FirstOrDefault(p=>p.IsPrimaryKey).Name #> == entity.<#=entity.Properties.FirstOrDefault(p=>p.IsPrimaryKey).Name #>);
+				var contextForGet = contextRequest.CopySafe();
+                contextForGet.CustomQuery.IncludeDeleted = true;
+                contextForGet.CustomQuery.IncludeAllCompanies = true;
+                <#=entity.SetName#>BR br = new <#=entity.SetName#>BR(true );
+                var oldentity = br.GetBy("<#= propertyKeyForUpdate.Name #> = Guid(\"" + entity.<#= propertyKeyForUpdate.Name #> + "\")").FirstOrDefault();
+
+                List<string> properties = new List<string>();
+              
+
+	//string includes = "<#=includesFK.ToString()#>";
+	//IQueryable < <#=entity.Name#> > query = con.<#=entity.SetName#>.AsQueryable();
+	//foreach (string include in includes.Split(char.Parse(",")))
+    //                   {
+    //                       if (!string.IsNullOrEmpty(include))
+     //                          query = query.Include(include);
+     //                  }
+	//var oldentity = query.FirstOrDefault(p => p.<#=entity.Properties.FirstOrDefault(p=>p.IsPrimaryKey).Name #> == entity.<#=entity.Properties.FirstOrDefault(p=>p.IsPrimaryKey).Name #>);
 <#  foreach (var prop in entity.Properties.Where(p=>p.IsNavigationProperty == false && !p.IsPrimaryKey && (!IsSystemProperty(p) ||  p.Name == AutoDeletedProperty) && !p.IsCustom && p.Type.ToLower() != "include") ){
-		var navprop  = entity.NavigationProperties.FirstOrDefault(p=>p.PropertyRefName == prop.Name );
+		//var navprop  = entity.NavigationProperties.FirstOrDefault(p=>p.PropertyRefName == prop.Name );
 		
-		if (navprop == null ){
+		//if (navprop == null ){
 		#>
-	if (oldentity.<#=prop.Name#> != entity.<#=prop.Name#>)
-		oldentity.<#=prop.Name#> = entity.<#=prop.Name#>;
-<#	}else{ 
-		var propFinded = entity.Properties.FirstOrDefault(p=> p.Name == navprop.PropertyName);
-		if (propFinded != null ){
-				if (((bool)GetCustomProperty(propFinded, "IsImage", "Boolean")) == true ){
-		#>
-		if (oldentity.<#=prop.Name#> != entity.<#=prop.Name#>)
+		if (oldentity.<#=prop.Name#> != entity.<#=prop.Name#>){
 			oldentity.<#=prop.Name#> = entity.<#=prop.Name#>;
-<#				}	
-			}
-		}	
+			properties.Add(<#= entity.Name #>.PropertyNames.<#= prop.Name #>);
+		}
+			
+	<#	//}else{ 
+	//	var propFinded = entity.Properties.FirstOrDefault(p=> p.Name == navprop.PropertyName);
+	//	if (propFinded != null ){
+	//			if (((bool)GetCustomProperty(propFinded, "IsImage", "Boolean")) == true ){
+		#>
+		
+<#	//			}	
+	//		}
+	//	}	
 	} #>
 
 <# 		if(exAutoUpdated) { #>
@@ -2802,7 +2782,7 @@ foreach(NavigationPropertyInfo navprop in entity.NavigationProperties.Where(p=>!
 #>
 
 
-<# if (isIntegrable) { #>
+<#				if (isIntegrable) { #>
 				if (entity.<#= navprop.PropertyName #> != null ){
 					if (contextRequest.IsForUIEdit() || contextRequest.IsForUICreate()  || contextRequest.IsActionExecuting("updateRel"))
                     {
@@ -2812,63 +2792,19 @@ foreach(NavigationPropertyInfo navprop in entity.NavigationProperties.Where(p=>!
                         }
                     }
 				}
-<# } #>
-						if (SFSdotNet.Framework.BR.Utils.HasRelationPropertyChanged(oldentity.<#=navprop.PropertyName#>, entity.<#=navprop.PropertyName#>, "<#=propRelKey.Name#>"))
-							oldentity.<#=navprop.PropertyName#> = entity.<#=navprop.PropertyName#> != null? new <#=entityRel.Name#>(){ <#=propRelKey.Name#> = entity.<#=navprop.PropertyName#>.<#=propRelKey.Name#> } :null;
-
-                
-<#						}else{#>
-
-
-				if (entity.<#= navprop.PropertyName #> != null)
-                {
-                    foreach (var item in entity.<#= navprop.PropertyName #>)
-                    {
-<# 
-	var item = entity.Properties.First(p=> p.Name == navprop.PropertyName );
-								
-	if ( (bool)GetCustomProperty(item, "UITags", "Boolean") ) { 
-
-
-						var entityFKType = entity.NavigationProperties.Find(p=>p.PropertyName == item.Name).EntityType;
-						var entityFKName = entityFKType.Split(char.Parse("."))[entityFKType.Split(char.Parse(".")).Length -1];
-						var entityFK = entity.Model.Entities.Find(p=>p.Name == entityFKName);
-						var keysEntityFK = entityFK.Properties.FindAll(p=>p.IsPrimaryKey);
-
-						string displayText = entityFK.DefaultProperty;
-						if (string.IsNullOrEmpty(displayText))
-							displayText = entityFK.Properties[0].Name;
-
-					   
-				if (!(bool)GetCustomProperty(item, "AllowDuplicate", "Boolean")){					   #>
-
-						var itemExist = <#= entityFK.SetName #>BR.Instance.GetBy(p => p.<#= displayText #> == item.<#= displayText #>).FirstOrDefault();
-						if (itemExist != null)
-                        {
-                            item.<#= entityFK.Properties.First(p=>p.IsPrimaryKey).Name #> = itemExist.<#= entityFK.Properties.First(p=>p.IsPrimaryKey).Name #>;
-                        }
-<#				}else{ #>
-                        if (Guid.Empty == item.<#= entityFK.Properties.First(p=>p.IsPrimaryKey).Name #>)
-                            item.<#= entityFK.Properties.First(p=>p.IsPrimaryKey).Name #> = SFSdotNet.Framework.Utilities.UUID.NewSequential();
-
-		 
-<#				}  
-			} #>
-
-
-                        
-                    }
+<#				} 
+			}
+#>
 					
-                    
+<#				} #>
 
-                }
-<#						}
-				} #>
+				
+		   
 
-
-				con.ChangeTracker.Entries().Where(p => p.Entity != oldentity).ForEach(p => p.State = EntityState.Unchanged);  
-				  
-				con.SaveChanges();
+                UpdateAgile(oldentity, con, contextRequest, properties);
+                
+            
+				//UpdateAgile(oldentity, contextRequest
         
 <# if ((bool)GetCustomProperty(entity, "Auditable", "Boolean")) { #>	
 					if (!PreventAuditTrail)				
@@ -2924,7 +2860,7 @@ foreach(NavigationPropertyInfo navprop in entity.NavigationProperties.Where(p=>!
 
          public void Delete(string query, Guid[] guids, ContextRequest contextRequest)
         {
-			var br = new <#= entity.SetName #>BR(true);
+			var br = new <#= entity.SetName #>BR();
             var items = br.GetBy(query, null, null, null, null, null, contextRequest, guids);
             
             Delete(items, contextRequest);
