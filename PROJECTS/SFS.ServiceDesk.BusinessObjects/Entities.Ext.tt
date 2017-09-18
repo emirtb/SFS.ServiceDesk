@@ -73,7 +73,9 @@ namespace <#= Model.Namespace #>.BusinessObjects
 
 #>
 	  [Serializable()]
-<# if (propertyID != null ) {
+<#	PropertyInfo propUpdatedDate = null ;
+	PropertyInfo propCreatedDate = null ;
+	if (propertyID != null ) {
 		string PropertyDefaultText = "";
 		string RequiredPropertiesText = "";
 		if (!string.IsNullOrEmpty(entity.DefaultProperty)){
@@ -114,13 +116,13 @@ namespace <#= Model.Namespace #>.BusinessObjects
 			propertyUpdatedByAttr = ",UpdatedByPropertyName=\"" + propUpdatedBy.Name + "\"";
         }
 
-		var propCreatedDate = entity.Properties.FirstOrDefault(p=> p.Name == propertyCreatedDate);
+		 propCreatedDate = entity.Properties.FirstOrDefault(p=> p.Name == propertyCreatedDate);
 		if (propCreatedDate != null)
 		{
 			propertyCreatedDateAttr = ",CreatedDatePropertyName=\"" + propCreatedDate.Name + "\"";
         }
 
-		var propUpdatedDate = entity.Properties.FirstOrDefault(p=> p.Name == propertyUpdatedDate);
+		 propUpdatedDate = entity.Properties.FirstOrDefault(p=> p.Name == propertyUpdatedDate);
 		if (propUpdatedDate != null)
 		{
 			propertyUpdatedDateAttr = ",UpdatedDatePropertyName=\"" + propUpdatedDate.Name + "\"";
@@ -159,6 +161,54 @@ namespace <#= Model.Namespace #>.BusinessObjects
       [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/TrackableEntities.Models")]
 
 	  public partial class <#=entity.Name#>:  ITrackable, IMyEntity{
+<#
+ if (propertyID != null ) {
+	string nullableValue = "";
+	if (propUpdatedDate != null && propUpdatedDate.Nullable ){
+		nullableValue = ".Value";
+    }
+ #>
+<#	
+	if (propUpdatedDate != null ){  #>
+			
+            public double? _<#= propUpdatedDate.Name #>TS
+            {
+                get
+                {
+                    if (this.<#= propUpdatedDate.Name #> != null)
+                    {
+                        return (this.<#= propUpdatedDate.Name #><#= nullableValue #> - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+                    }else
+                    {
+                        return null;
+                    }
+                }
+            }
+<# } #>
+<# 
+	nullableValue = "";
+	if (propCreatedDate != null && propCreatedDate.Nullable ){
+		nullableValue = ".Value";
+    }
+	if (propCreatedDate != null ){  #>
+			
+            public double? _<#= propCreatedDate.Name #>TS
+            {
+                get
+                {
+                    if (this.<#= propCreatedDate.Name #> != null)
+                    {
+                        return (this.<#= propCreatedDate.Name #><#= nullableValue #> - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+                    }else
+                    {
+                        return null;
+                    }
+                }
+            }
+<# } 
+    }
+
+#>
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
 
 			public override string ToString()
@@ -312,7 +362,9 @@ foreach(PropertyInfo property in entity.Properties.Where(p=> p.IsCustom == false
 } #>
 
 	#endregion
+<#  #>
 
+<#  #>
 	#region
 <# 
 

@@ -2156,12 +2156,12 @@ foreach(NavigationPropertyInfo navprop in entity.NavigationProperties.Where(p=>!
 <# if (!entity.IsCustom) { #>
 		
 <#    foreach( var prop in entity.Properties.Where(p=> !p.IsNavigationProperty && !p.IsCustom && p.Type != "Include")) {
-			var navprop  = entity.NavigationProperties.FirstOrDefault(p=>p.PropertyRefName == prop.Name ); 
-		if (navprop == null ){
+		//	var navprop  = entity.NavigationProperties.FirstOrDefault(p=>p.PropertyRefName == prop.Name ); 
+		//if (navprop == null ){
 #>
 			itemForSave.<#=prop.Name#> = entity.<#=prop.Name#>;
 
-<#			} 
+<#		//	} 
 	}  #>
 				
 				con.<#= entity.SetName #>.Add(itemForSave);
@@ -2190,14 +2190,14 @@ foreach(NavigationPropertyInfo navprop in entity.NavigationProperties.Where(p=>!
 
 <#						var propKeyRel = entityRel.Properties.FirstOrDefault(p=>p.IsPrimaryKey);
 						#>
-					if (entity.<#= navprop.PropertyName #> != null)
-					{
-						var <#= Code.CamelCase(entityRel.Name) #> = new <#= entityRel.Name #>();
-						<#= Code.CamelCase(entityRel.Name) #>.<#=propKeyRel.Name#> = entity.<#= navprop.PropertyName #>.<#=propKeyRel.Name#>;
-						itemForSave.<#= navprop.PropertyName #> = <#= Code.CamelCase(entityRel.Name) #>;
-						SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<<#=entityRel.Name#>>(con, itemForSave.<#= navprop.PropertyName #>);
+					//if (entity.<#= navprop.PropertyName #> != null)
+					//{
+					//	var <#= Code.CamelCase(entityRel.Name) #> = new <#= entityRel.Name #>();
+					//	<#= Code.CamelCase(entityRel.Name) #>.<#=propKeyRel.Name#> = entity.<#= navprop.PropertyName #>.<#=propKeyRel.Name#>;
+					//	itemForSave.<#= navprop.PropertyName #> = <#= Code.CamelCase(entityRel.Name) #>;
+					//	SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<<#=entityRel.Name#>>(con, itemForSave.<#= navprop.PropertyName #>);
 			
-					}
+					//}
 
 
 <#						} else{
@@ -2208,12 +2208,15 @@ foreach(NavigationPropertyInfo navprop in entity.NavigationProperties.Where(p=>!
 				}  #>
 
                 
-				con.ChangeTracker.Entries().Where(p => p.Entity != itemForSave && p.State != EntityState.Unchanged).ForEach(p => p.State = EntityState.Detached);
+				//con.ChangeTracker.Entries().Where(p => p.Entity != itemForSave && p.State != EntityState.Unchanged).ForEach(p => p.State = EntityState.Detached);
 
-				con.Entry<<#=entity.Name#>>(itemForSave).State = EntityState.Added;
+				//con.Entry<<#=entity.Name#>>(itemForSave).State = EntityState.Added;
 
-				con.SaveChanges();
+				//con.SaveChanges();
+			
 
+				 this.Create(itemForSave, con, "<#=entity.Name#>", "<#=entity.Model.SafeNamespace#>", contextRequest); 
+			
 <# if ((bool)GetCustomProperty(entity, "Auditable", "Boolean")) { #>
 					if (!PreventAuditTrail)
 						context.AuditChanges(entity, Audit.AuditActions.C, contextRequest);

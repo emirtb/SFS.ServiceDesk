@@ -30,6 +30,34 @@ namespace SFS.ServiceDesk.BusinessObjects
       [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/TrackableEntities.Models")]
 
 	  public partial class SDArea:  ITrackable, IMyEntity{
+			
+            public double? _UpdatedDateTS
+            {
+                get
+                {
+                    if (this.UpdatedDate != null)
+                    {
+                        return (this.UpdatedDate.Value - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+                    }else
+                    {
+                        return null;
+                    }
+                }
+            }
+			
+            public double? _CreatedDateTS
+            {
+                get
+                {
+                    if (this.CreatedDate != null)
+                    {
+                        return (this.CreatedDate.Value - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+                    }else
+                    {
+                        return null;
+                    }
+                }
+            }
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
 
 			public override string ToString()
@@ -359,6 +387,34 @@ namespace SFS.ServiceDesk.BusinessObjects
       [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/TrackableEntities.Models")]
 
 	  public partial class SDAreaPerson:  ITrackable, IMyEntity{
+			
+            public double? _UpdatedDateTS
+            {
+                get
+                {
+                    if (this.UpdatedDate != null)
+                    {
+                        return (this.UpdatedDate.Value - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+                    }else
+                    {
+                        return null;
+                    }
+                }
+            }
+			
+            public double? _CreatedDateTS
+            {
+                get
+                {
+                    if (this.CreatedDate != null)
+                    {
+                        return (this.CreatedDate.Value - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+                    }else
+                    {
+                        return null;
+                    }
+                }
+            }
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
 
 			public override string ToString()
@@ -657,6 +713,34 @@ namespace SFS.ServiceDesk.BusinessObjects
       [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/TrackableEntities.Models")]
 
 	  public partial class SDCase:  ITrackable, IMyEntity{
+			
+            public double? _UpdatedDateTS
+            {
+                get
+                {
+                    if (this.UpdatedDate != null)
+                    {
+                        return (this.UpdatedDate.Value - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+                    }else
+                    {
+                        return null;
+                    }
+                }
+            }
+			
+            public double? _CreatedDateTS
+            {
+                get
+                {
+                    if (this.CreatedDate != null)
+                    {
+                        return (this.CreatedDate.Value - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+                    }else
+                    {
+                        return null;
+                    }
+                }
+            }
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
 
 			public override string ToString()
@@ -1078,6 +1162,34 @@ namespace SFS.ServiceDesk.BusinessObjects
       [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/TrackableEntities.Models")]
 
 	  public partial class SDCaseFile:  ITrackable, IMyEntity{
+			
+            public double? _UpdatedDateTS
+            {
+                get
+                {
+                    if (this.UpdatedDate != null)
+                    {
+                        return (this.UpdatedDate.Value - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+                    }else
+                    {
+                        return null;
+                    }
+                }
+            }
+			
+            public double? _CreatedDateTS
+            {
+                get
+                {
+                    if (this.CreatedDate != null)
+                    {
+                        return (this.CreatedDate.Value - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+                    }else
+                    {
+                        return null;
+                    }
+                }
+            }
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
 
 			public override string ToString()
@@ -1400,6 +1512,34 @@ namespace SFS.ServiceDesk.BusinessObjects
       [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/TrackableEntities.Models")]
 
 	  public partial class SDCaseHistory:  ITrackable, IMyEntity{
+			
+            public double? _UpdatedDateTS
+            {
+                get
+                {
+                    if (this.UpdatedDate != null)
+                    {
+                        return (this.UpdatedDate.Value - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+                    }else
+                    {
+                        return null;
+                    }
+                }
+            }
+			
+            public double? _CreatedDateTS
+            {
+                get
+                {
+                    if (this.CreatedDate != null)
+                    {
+                        return (this.CreatedDate.Value - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+                    }else
+                    {
+                        return null;
+                    }
+                }
+            }
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
 
 			public override string ToString()
@@ -1733,6 +1873,34 @@ namespace SFS.ServiceDesk.BusinessObjects
       [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/TrackableEntities.Models")]
 
 	  public partial class SDCaseHistoryFile:  ITrackable, IMyEntity{
+			
+            public double? _UpdatedDateTS
+            {
+                get
+                {
+                    if (this.UpdatedDate != null)
+                    {
+                        return (this.UpdatedDate.Value - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+                    }else
+                    {
+                        return null;
+                    }
+                }
+            }
+			
+            public double? _CreatedDateTS
+            {
+                get
+                {
+                    if (this.CreatedDate != null)
+                    {
+                        return (this.CreatedDate.Value - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+                    }else
+                    {
+                        return null;
+                    }
+                }
+            }
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
 
 			public override string ToString()
@@ -2031,6 +2199,34 @@ namespace SFS.ServiceDesk.BusinessObjects
       [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/TrackableEntities.Models")]
 
 	  public partial class SDCasePriority:  ITrackable, IMyEntity{
+			
+            public double? _UpdatedDateTS
+            {
+                get
+                {
+                    if (this.UpdatedDate != null)
+                    {
+                        return (this.UpdatedDate.Value - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+                    }else
+                    {
+                        return null;
+                    }
+                }
+            }
+			
+            public double? _CreatedDateTS
+            {
+                get
+                {
+                    if (this.CreatedDate != null)
+                    {
+                        return (this.CreatedDate.Value - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+                    }else
+                    {
+                        return null;
+                    }
+                }
+            }
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
 
 			public override string ToString()
@@ -2245,6 +2441,34 @@ namespace SFS.ServiceDesk.BusinessObjects
       [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/TrackableEntities.Models")]
 
 	  public partial class SDCaseState:  ITrackable, IMyEntity{
+			
+            public double? _UpdatedDateTS
+            {
+                get
+                {
+                    if (this.UpdatedDate != null)
+                    {
+                        return (this.UpdatedDate.Value - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+                    }else
+                    {
+                        return null;
+                    }
+                }
+            }
+			
+            public double? _CreatedDateTS
+            {
+                get
+                {
+                    if (this.CreatedDate != null)
+                    {
+                        return (this.CreatedDate.Value - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+                    }else
+                    {
+                        return null;
+                    }
+                }
+            }
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
 
 			public override string ToString()
@@ -2468,6 +2692,34 @@ namespace SFS.ServiceDesk.BusinessObjects
       [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/TrackableEntities.Models")]
 
 	  public partial class SDFile:  ITrackable, IMyEntity{
+			
+            public double? _UpdatedDateTS
+            {
+                get
+                {
+                    if (this.UpdatedDate != null)
+                    {
+                        return (this.UpdatedDate.Value - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+                    }else
+                    {
+                        return null;
+                    }
+                }
+            }
+			
+            public double? _CreatedDateTS
+            {
+                get
+                {
+                    if (this.CreatedDate != null)
+                    {
+                        return (this.CreatedDate.Value - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+                    }else
+                    {
+                        return null;
+                    }
+                }
+            }
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
 
 			public override string ToString()
@@ -2756,6 +3008,34 @@ namespace SFS.ServiceDesk.BusinessObjects
       [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/TrackableEntities.Models")]
 
 	  public partial class SDOrganization:  ITrackable, IMyEntity{
+			
+            public double? _UpdatedDateTS
+            {
+                get
+                {
+                    if (this.UpdatedDate != null)
+                    {
+                        return (this.UpdatedDate.Value - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+                    }else
+                    {
+                        return null;
+                    }
+                }
+            }
+			
+            public double? _CreatedDateTS
+            {
+                get
+                {
+                    if (this.CreatedDate != null)
+                    {
+                        return (this.CreatedDate.Value - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+                    }else
+                    {
+                        return null;
+                    }
+                }
+            }
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
 
 			public override string ToString()
@@ -2979,6 +3259,34 @@ namespace SFS.ServiceDesk.BusinessObjects
       [DataContract(IsReference = true, Namespace = "http://schemas.datacontract.org/2004/07/TrackableEntities.Models")]
 
 	  public partial class SDPerson:  ITrackable, IMyEntity{
+			
+            public double? _UpdatedDateTS
+            {
+                get
+                {
+                    if (this.UpdatedDate != null)
+                    {
+                        return (this.UpdatedDate.Value - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+                    }else
+                    {
+                        return null;
+                    }
+                }
+            }
+			
+            public double? _CreatedDateTS
+            {
+                get
+                {
+                    if (this.CreatedDate != null)
+                    {
+                        return (this.CreatedDate.Value - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+                    }else
+                    {
+                        return null;
+                    }
+                }
+            }
 			public SFSdotNet.Framework.Common.GlobalObjects.UserInfo CreatedByUser { get; set; }
 
 			public override string ToString()

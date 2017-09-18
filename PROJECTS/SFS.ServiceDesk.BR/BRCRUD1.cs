@@ -1155,6 +1155,10 @@ public class SinglentonContext
 
 			itemForSave.Name = entity.Name;
 
+			itemForSave.GuidAreaParent = entity.GuidAreaParent;
+
+			itemForSave.GuidOrganization = entity.GuidOrganization;
+
 			itemForSave.GuidCompany = entity.GuidCompany;
 
 			itemForSave.CreatedDate = entity.CreatedDate;
@@ -1176,38 +1180,41 @@ public class SinglentonContext
 
 
 
-					if (entity.SDArea2 != null)
-					{
-						var sDArea = new SDArea();
-						sDArea.GuidArea = entity.SDArea2.GuidArea;
-						itemForSave.SDArea2 = sDArea;
-						SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<SDArea>(con, itemForSave.SDArea2);
+					//if (entity.SDArea2 != null)
+					//{
+					//	var sDArea = new SDArea();
+					//	sDArea.GuidArea = entity.SDArea2.GuidArea;
+					//	itemForSave.SDArea2 = sDArea;
+					//	SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<SDArea>(con, itemForSave.SDArea2);
 			
-					}
+					//}
 
 
 
 
-					if (entity.SDOrganization != null)
-					{
-						var sDOrganization = new SDOrganization();
-						sDOrganization.GuidOrganization = entity.SDOrganization.GuidOrganization;
-						itemForSave.SDOrganization = sDOrganization;
-						SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<SDOrganization>(con, itemForSave.SDOrganization);
+					//if (entity.SDOrganization != null)
+					//{
+					//	var sDOrganization = new SDOrganization();
+					//	sDOrganization.GuidOrganization = entity.SDOrganization.GuidOrganization;
+					//	itemForSave.SDOrganization = sDOrganization;
+					//	SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<SDOrganization>(con, itemForSave.SDOrganization);
 			
-					}
+					//}
 
 
 
 
 
                 
-				con.ChangeTracker.Entries().Where(p => p.Entity != itemForSave && p.State != EntityState.Unchanged).ForEach(p => p.State = EntityState.Detached);
+				//con.ChangeTracker.Entries().Where(p => p.Entity != itemForSave && p.State != EntityState.Unchanged).ForEach(p => p.State = EntityState.Detached);
 
-				con.Entry<SDArea>(itemForSave).State = EntityState.Added;
+				//con.Entry<SDArea>(itemForSave).State = EntityState.Added;
 
-				con.SaveChanges();
+				//con.SaveChanges();
+			
 
+				 this.Create(itemForSave, con, "SDArea", "SFSServiceDesk", contextRequest); 
+			
 					 
 				
 
@@ -3177,6 +3184,10 @@ public class SinglentonContext
 		
 			itemForSave.GuidAreaPerson = entity.GuidAreaPerson;
 
+			itemForSave.GuidArea = entity.GuidArea;
+
+			itemForSave.GuidPerson = entity.GuidPerson;
+
 			itemForSave.GuidCompany = entity.GuidCompany;
 
 			itemForSave.CreatedDate = entity.CreatedDate;
@@ -3196,36 +3207,39 @@ public class SinglentonContext
 
 
 
-					if (entity.SDArea != null)
-					{
-						var sDArea = new SDArea();
-						sDArea.GuidArea = entity.SDArea.GuidArea;
-						itemForSave.SDArea = sDArea;
-						SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<SDArea>(con, itemForSave.SDArea);
+					//if (entity.SDArea != null)
+					//{
+					//	var sDArea = new SDArea();
+					//	sDArea.GuidArea = entity.SDArea.GuidArea;
+					//	itemForSave.SDArea = sDArea;
+					//	SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<SDArea>(con, itemForSave.SDArea);
 			
-					}
+					//}
 
 
 
 
-					if (entity.SDPerson != null)
-					{
-						var sDPerson = new SDPerson();
-						sDPerson.GuidPerson = entity.SDPerson.GuidPerson;
-						itemForSave.SDPerson = sDPerson;
-						SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<SDPerson>(con, itemForSave.SDPerson);
+					//if (entity.SDPerson != null)
+					//{
+					//	var sDPerson = new SDPerson();
+					//	sDPerson.GuidPerson = entity.SDPerson.GuidPerson;
+					//	itemForSave.SDPerson = sDPerson;
+					//	SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<SDPerson>(con, itemForSave.SDPerson);
 			
-					}
+					//}
 
 
 
                 
-				con.ChangeTracker.Entries().Where(p => p.Entity != itemForSave && p.State != EntityState.Unchanged).ForEach(p => p.State = EntityState.Detached);
+				//con.ChangeTracker.Entries().Where(p => p.Entity != itemForSave && p.State != EntityState.Unchanged).ForEach(p => p.State = EntityState.Detached);
 
-				con.Entry<SDAreaPerson>(itemForSave).State = EntityState.Added;
+				//con.Entry<SDAreaPerson>(itemForSave).State = EntityState.Added;
 
-				con.SaveChanges();
+				//con.SaveChanges();
+			
 
+				 this.Create(itemForSave, con, "SDAreaPerson", "SFSServiceDesk", contextRequest); 
+			
 					 
 				
 
@@ -5220,11 +5234,17 @@ public class SinglentonContext
 		
 			itemForSave.GuidCase = entity.GuidCase;
 
+			itemForSave.GuidCaseState = entity.GuidCaseState;
+
+			itemForSave.GuidPersonClient = entity.GuidPersonClient;
+
 			itemForSave.ClosedDateTime = entity.ClosedDateTime;
 
 			itemForSave.BodyContent = entity.BodyContent;
 
 			itemForSave.PreviewContent = entity.PreviewContent;
+
+			itemForSave.GuidCasePriority = entity.GuidCasePriority;
 
 			itemForSave.Title = entity.Title;
 
@@ -5247,38 +5267,38 @@ public class SinglentonContext
 
 
 
-					if (entity.SDPerson != null)
-					{
-						var sDPerson = new SDPerson();
-						sDPerson.GuidPerson = entity.SDPerson.GuidPerson;
-						itemForSave.SDPerson = sDPerson;
-						SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<SDPerson>(con, itemForSave.SDPerson);
+					//if (entity.SDPerson != null)
+					//{
+					//	var sDPerson = new SDPerson();
+					//	sDPerson.GuidPerson = entity.SDPerson.GuidPerson;
+					//	itemForSave.SDPerson = sDPerson;
+					//	SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<SDPerson>(con, itemForSave.SDPerson);
 			
-					}
+					//}
 
 
 
 
-					if (entity.SDCasePriority != null)
-					{
-						var sDCasePriority = new SDCasePriority();
-						sDCasePriority.GuidCasePriority = entity.SDCasePriority.GuidCasePriority;
-						itemForSave.SDCasePriority = sDCasePriority;
-						SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<SDCasePriority>(con, itemForSave.SDCasePriority);
+					//if (entity.SDCasePriority != null)
+					//{
+					//	var sDCasePriority = new SDCasePriority();
+					//	sDCasePriority.GuidCasePriority = entity.SDCasePriority.GuidCasePriority;
+					//	itemForSave.SDCasePriority = sDCasePriority;
+					//	SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<SDCasePriority>(con, itemForSave.SDCasePriority);
 			
-					}
+					//}
 
 
 
 
-					if (entity.SDCaseState != null)
-					{
-						var sDCaseState = new SDCaseState();
-						sDCaseState.GuidCaseState = entity.SDCaseState.GuidCaseState;
-						itemForSave.SDCaseState = sDCaseState;
-						SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<SDCaseState>(con, itemForSave.SDCaseState);
+					//if (entity.SDCaseState != null)
+					//{
+					//	var sDCaseState = new SDCaseState();
+					//	sDCaseState.GuidCaseState = entity.SDCaseState.GuidCaseState;
+					//	itemForSave.SDCaseState = sDCaseState;
+					//	SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<SDCaseState>(con, itemForSave.SDCaseState);
 			
-					}
+					//}
 
 
 
@@ -5287,12 +5307,15 @@ public class SinglentonContext
 
 
                 
-				con.ChangeTracker.Entries().Where(p => p.Entity != itemForSave && p.State != EntityState.Unchanged).ForEach(p => p.State = EntityState.Detached);
+				//con.ChangeTracker.Entries().Where(p => p.Entity != itemForSave && p.State != EntityState.Unchanged).ForEach(p => p.State = EntityState.Detached);
 
-				con.Entry<SDCase>(itemForSave).State = EntityState.Added;
+				//con.Entry<SDCase>(itemForSave).State = EntityState.Added;
 
-				con.SaveChanges();
+				//con.SaveChanges();
+			
 
+				 this.Create(itemForSave, con, "SDCase", "SFSServiceDesk", contextRequest); 
+			
 					 
 				
 
@@ -7388,6 +7411,10 @@ public class SinglentonContext
 		
 			itemForSave.GuidCasefile = entity.GuidCasefile;
 
+			itemForSave.GuidCase = entity.GuidCase;
+
+			itemForSave.GuidFile = entity.GuidFile;
+
 			itemForSave.GuidCompany = entity.GuidCompany;
 
 			itemForSave.CreatedDate = entity.CreatedDate;
@@ -7407,36 +7434,39 @@ public class SinglentonContext
 
 
 
-					if (entity.SDCase != null)
-					{
-						var sDCase = new SDCase();
-						sDCase.GuidCase = entity.SDCase.GuidCase;
-						itemForSave.SDCase = sDCase;
-						SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<SDCase>(con, itemForSave.SDCase);
+					//if (entity.SDCase != null)
+					//{
+					//	var sDCase = new SDCase();
+					//	sDCase.GuidCase = entity.SDCase.GuidCase;
+					//	itemForSave.SDCase = sDCase;
+					//	SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<SDCase>(con, itemForSave.SDCase);
 			
-					}
+					//}
 
 
 
 
-					if (entity.SDFile != null)
-					{
-						var sDFile = new SDFile();
-						sDFile.GuidFile = entity.SDFile.GuidFile;
-						itemForSave.SDFile = sDFile;
-						SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<SDFile>(con, itemForSave.SDFile);
+					//if (entity.SDFile != null)
+					//{
+					//	var sDFile = new SDFile();
+					//	sDFile.GuidFile = entity.SDFile.GuidFile;
+					//	itemForSave.SDFile = sDFile;
+					//	SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<SDFile>(con, itemForSave.SDFile);
 			
-					}
+					//}
 
 
 
                 
-				con.ChangeTracker.Entries().Where(p => p.Entity != itemForSave && p.State != EntityState.Unchanged).ForEach(p => p.State = EntityState.Detached);
+				//con.ChangeTracker.Entries().Where(p => p.Entity != itemForSave && p.State != EntityState.Unchanged).ForEach(p => p.State = EntityState.Detached);
 
-				con.Entry<SDCaseFile>(itemForSave).State = EntityState.Added;
+				//con.Entry<SDCaseFile>(itemForSave).State = EntityState.Added;
 
-				con.SaveChanges();
+				//con.SaveChanges();
+			
 
+				 this.Create(itemForSave, con, "SDCaseFile", "SFSServiceDesk", contextRequest); 
+			
 					 
 				
 
@@ -9433,6 +9463,10 @@ public class SinglentonContext
 		
 			itemForSave.GuidCaseHistory = entity.GuidCaseHistory;
 
+			itemForSave.GuidCase = entity.GuidCase;
+
+			itemForSave.GuidCaseStatus = entity.GuidCaseStatus;
+
 			itemForSave.BodyContent = entity.BodyContent;
 
 			itemForSave.PreviewContent = entity.PreviewContent;
@@ -9456,38 +9490,41 @@ public class SinglentonContext
 
 
 
-					if (entity.SDCase != null)
-					{
-						var sDCase = new SDCase();
-						sDCase.GuidCase = entity.SDCase.GuidCase;
-						itemForSave.SDCase = sDCase;
-						SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<SDCase>(con, itemForSave.SDCase);
+					//if (entity.SDCase != null)
+					//{
+					//	var sDCase = new SDCase();
+					//	sDCase.GuidCase = entity.SDCase.GuidCase;
+					//	itemForSave.SDCase = sDCase;
+					//	SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<SDCase>(con, itemForSave.SDCase);
 			
-					}
+					//}
 
 
 
 
-					if (entity.SDCaseState != null)
-					{
-						var sDCaseState = new SDCaseState();
-						sDCaseState.GuidCaseState = entity.SDCaseState.GuidCaseState;
-						itemForSave.SDCaseState = sDCaseState;
-						SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<SDCaseState>(con, itemForSave.SDCaseState);
+					//if (entity.SDCaseState != null)
+					//{
+					//	var sDCaseState = new SDCaseState();
+					//	sDCaseState.GuidCaseState = entity.SDCaseState.GuidCaseState;
+					//	itemForSave.SDCaseState = sDCaseState;
+					//	SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<SDCaseState>(con, itemForSave.SDCaseState);
 			
-					}
+					//}
 
 
 
 
 
                 
-				con.ChangeTracker.Entries().Where(p => p.Entity != itemForSave && p.State != EntityState.Unchanged).ForEach(p => p.State = EntityState.Detached);
+				//con.ChangeTracker.Entries().Where(p => p.Entity != itemForSave && p.State != EntityState.Unchanged).ForEach(p => p.State = EntityState.Detached);
 
-				con.Entry<SDCaseHistory>(itemForSave).State = EntityState.Added;
+				//con.Entry<SDCaseHistory>(itemForSave).State = EntityState.Added;
 
-				con.SaveChanges();
+				//con.SaveChanges();
+			
 
+				 this.Create(itemForSave, con, "SDCaseHistory", "SFSServiceDesk", contextRequest); 
+			
 					 
 				
 
@@ -11460,6 +11497,10 @@ public class SinglentonContext
 		
 			itemForSave.GuidCasehistoryFile = entity.GuidCasehistoryFile;
 
+			itemForSave.GuidFile = entity.GuidFile;
+
+			itemForSave.GuidCaseHistory = entity.GuidCaseHistory;
+
 			itemForSave.GuidCompany = entity.GuidCompany;
 
 			itemForSave.CreatedDate = entity.CreatedDate;
@@ -11479,36 +11520,39 @@ public class SinglentonContext
 
 
 
-					if (entity.SDCaseHistory != null)
-					{
-						var sDCaseHistory = new SDCaseHistory();
-						sDCaseHistory.GuidCaseHistory = entity.SDCaseHistory.GuidCaseHistory;
-						itemForSave.SDCaseHistory = sDCaseHistory;
-						SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<SDCaseHistory>(con, itemForSave.SDCaseHistory);
+					//if (entity.SDCaseHistory != null)
+					//{
+					//	var sDCaseHistory = new SDCaseHistory();
+					//	sDCaseHistory.GuidCaseHistory = entity.SDCaseHistory.GuidCaseHistory;
+					//	itemForSave.SDCaseHistory = sDCaseHistory;
+					//	SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<SDCaseHistory>(con, itemForSave.SDCaseHistory);
 			
-					}
+					//}
 
 
 
 
-					if (entity.SDFile != null)
-					{
-						var sDFile = new SDFile();
-						sDFile.GuidFile = entity.SDFile.GuidFile;
-						itemForSave.SDFile = sDFile;
-						SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<SDFile>(con, itemForSave.SDFile);
+					//if (entity.SDFile != null)
+					//{
+					//	var sDFile = new SDFile();
+					//	sDFile.GuidFile = entity.SDFile.GuidFile;
+					//	itemForSave.SDFile = sDFile;
+					//	SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<SDFile>(con, itemForSave.SDFile);
 			
-					}
+					//}
 
 
 
                 
-				con.ChangeTracker.Entries().Where(p => p.Entity != itemForSave && p.State != EntityState.Unchanged).ForEach(p => p.State = EntityState.Detached);
+				//con.ChangeTracker.Entries().Where(p => p.Entity != itemForSave && p.State != EntityState.Unchanged).ForEach(p => p.State = EntityState.Detached);
 
-				con.Entry<SDCaseHistoryFile>(itemForSave).State = EntityState.Added;
+				//con.Entry<SDCaseHistoryFile>(itemForSave).State = EntityState.Added;
 
-				con.SaveChanges();
+				//con.SaveChanges();
+			
 
+				 this.Create(itemForSave, con, "SDCaseHistoryFile", "SFSServiceDesk", contextRequest); 
+			
 					 
 				
 
@@ -13429,12 +13473,15 @@ public class SinglentonContext
 
 
                 
-				con.ChangeTracker.Entries().Where(p => p.Entity != itemForSave && p.State != EntityState.Unchanged).ForEach(p => p.State = EntityState.Detached);
+				//con.ChangeTracker.Entries().Where(p => p.Entity != itemForSave && p.State != EntityState.Unchanged).ForEach(p => p.State = EntityState.Detached);
 
-				con.Entry<SDCasePriority>(itemForSave).State = EntityState.Added;
+				//con.Entry<SDCasePriority>(itemForSave).State = EntityState.Added;
 
-				con.SaveChanges();
+				//con.SaveChanges();
+			
 
+				 this.Create(itemForSave, con, "SDCasePriority", "SFSServiceDesk", contextRequest); 
+			
 					 
 				
 
@@ -15304,12 +15351,15 @@ public class SinglentonContext
 
 
                 
-				con.ChangeTracker.Entries().Where(p => p.Entity != itemForSave && p.State != EntityState.Unchanged).ForEach(p => p.State = EntityState.Detached);
+				//con.ChangeTracker.Entries().Where(p => p.Entity != itemForSave && p.State != EntityState.Unchanged).ForEach(p => p.State = EntityState.Detached);
 
-				con.Entry<SDCaseState>(itemForSave).State = EntityState.Added;
+				//con.Entry<SDCaseState>(itemForSave).State = EntityState.Added;
 
-				con.SaveChanges();
+				//con.SaveChanges();
+			
 
+				 this.Create(itemForSave, con, "SDCaseState", "SFSServiceDesk", contextRequest); 
+			
 					 
 				
 
@@ -17227,12 +17277,15 @@ public class SinglentonContext
 
 
                 
-				con.ChangeTracker.Entries().Where(p => p.Entity != itemForSave && p.State != EntityState.Unchanged).ForEach(p => p.State = EntityState.Detached);
+				//con.ChangeTracker.Entries().Where(p => p.Entity != itemForSave && p.State != EntityState.Unchanged).ForEach(p => p.State = EntityState.Detached);
 
-				con.Entry<SDFile>(itemForSave).State = EntityState.Added;
+				//con.Entry<SDFile>(itemForSave).State = EntityState.Added;
 
-				con.SaveChanges();
+				//con.SaveChanges();
+			
 
+				 this.Create(itemForSave, con, "SDFile", "SFSServiceDesk", contextRequest); 
+			
 					 
 				
 
@@ -19147,12 +19200,15 @@ public class SinglentonContext
 
 
                 
-				con.ChangeTracker.Entries().Where(p => p.Entity != itemForSave && p.State != EntityState.Unchanged).ForEach(p => p.State = EntityState.Detached);
+				//con.ChangeTracker.Entries().Where(p => p.Entity != itemForSave && p.State != EntityState.Unchanged).ForEach(p => p.State = EntityState.Detached);
 
-				con.Entry<SDOrganization>(itemForSave).State = EntityState.Added;
+				//con.Entry<SDOrganization>(itemForSave).State = EntityState.Added;
 
-				con.SaveChanges();
+				//con.SaveChanges();
+			
 
+				 this.Create(itemForSave, con, "SDOrganization", "SFSServiceDesk", contextRequest); 
+			
 					 
 				
 
@@ -21067,6 +21123,10 @@ public class SinglentonContext
 
 			itemForSave.DisplayName = entity.DisplayName;
 
+			itemForSave.GuidUser = entity.GuidUser;
+
+			itemForSave.GuidOrganization = entity.GuidOrganization;
+
 			itemForSave.GuidCompany = entity.GuidCompany;
 
 			itemForSave.CreatedDate = entity.CreatedDate;
@@ -21090,36 +21150,39 @@ public class SinglentonContext
 
 
 
-					if (entity.SDOrganization != null)
-					{
-						var sDOrganization = new SDOrganization();
-						sDOrganization.GuidOrganization = entity.SDOrganization.GuidOrganization;
-						itemForSave.SDOrganization = sDOrganization;
-						SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<SDOrganization>(con, itemForSave.SDOrganization);
+					//if (entity.SDOrganization != null)
+					//{
+					//	var sDOrganization = new SDOrganization();
+					//	sDOrganization.GuidOrganization = entity.SDOrganization.GuidOrganization;
+					//	itemForSave.SDOrganization = sDOrganization;
+					//	SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<SDOrganization>(con, itemForSave.SDOrganization);
 			
-					}
+					//}
 
 
 
 
-					if (entity.SDProxyUser != null)
-					{
-						var sDProxyUser = new SDProxyUser();
-						sDProxyUser.GuidUser = entity.SDProxyUser.GuidUser;
-						itemForSave.SDProxyUser = sDProxyUser;
-						SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<SDProxyUser>(con, itemForSave.SDProxyUser);
+					//if (entity.SDProxyUser != null)
+					//{
+					//	var sDProxyUser = new SDProxyUser();
+					//	sDProxyUser.GuidUser = entity.SDProxyUser.GuidUser;
+					//	itemForSave.SDProxyUser = sDProxyUser;
+					//	SFSdotNet.Framework.BR.Utils.TryAttachFKRelation<SDProxyUser>(con, itemForSave.SDProxyUser);
 			
-					}
+					//}
 
 
 
                 
-				con.ChangeTracker.Entries().Where(p => p.Entity != itemForSave && p.State != EntityState.Unchanged).ForEach(p => p.State = EntityState.Detached);
+				//con.ChangeTracker.Entries().Where(p => p.Entity != itemForSave && p.State != EntityState.Unchanged).ForEach(p => p.State = EntityState.Detached);
 
-				con.Entry<SDPerson>(itemForSave).State = EntityState.Added;
+				//con.Entry<SDPerson>(itemForSave).State = EntityState.Added;
 
-				con.SaveChanges();
+				//con.SaveChanges();
+			
 
+				 this.Create(itemForSave, con, "SDPerson", "SFSServiceDesk", contextRequest); 
+			
 					 
 				
 
@@ -22968,12 +23031,15 @@ public class SinglentonContext
 
 
                 
-				con.ChangeTracker.Entries().Where(p => p.Entity != itemForSave && p.State != EntityState.Unchanged).ForEach(p => p.State = EntityState.Detached);
+				//con.ChangeTracker.Entries().Where(p => p.Entity != itemForSave && p.State != EntityState.Unchanged).ForEach(p => p.State = EntityState.Detached);
 
-				con.Entry<SDProxyUser>(itemForSave).State = EntityState.Added;
+				//con.Entry<SDProxyUser>(itemForSave).State = EntityState.Added;
 
-				con.SaveChanges();
+				//con.SaveChanges();
+			
 
+				 this.Create(itemForSave, con, "SDProxyUser", "SFSServiceDesk", contextRequest); 
+			
 					 
 				
 
