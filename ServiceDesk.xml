@@ -594,7 +594,7 @@
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDAreaPerson" x="343" y="313"/>
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDCase" x="341" y="138"/>
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDCaseFile" x="652" y="205"/>
-    <TbGl bkCl="ff6666ff" sch="SD" tbl="SDCaseHistory" x="36" y="147"/>
+    <TbGl bkCl="ff6666ff" sch="SD" tbl="SDCaseHistory" x="25" y="48"/>
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDCaseHistoryFile" x="338" y="39"/>
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDCasePriority" x="47" y="366"/>
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDCaseState" x="50" y="284"/>
@@ -650,18 +650,17 @@
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="EAST" nm="SD.SDCaseHistory.fk_SdCaseHistory_SdCase" parentEdge="WEST" positioner="OneLineUserLinkPositioner">
       <positionableLines>
-        <positionableLine lineRole="SINGLE_LINE" x1="341" x2="298" y1="185" y2="185"/>
+        <positionableLine lineRole="SINGLE_LINE" x1="341" x2="287" y1="185" y2="185"/>
       </positionableLines>
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="SOUTH" nm="SD.SDCaseHistory.fk_SdCaseHistory_SdCaseStatus" parentEdge="NORTH" positioner="OneLineUserLinkPositioner">
       <positionableLines>
-        <positionableLine lineRole="SINGLE_LINE" x1="175" x2="175" y1="284" y2="330"/>
+        <positionableLine lineRole="SINGLE_LINE" x1="175" x2="175" y1="284" y2="231"/>
       </positionableLines>
     </FkGl>
-    <FkGl bkCl="ff000000" childEdge="WEST" nm="SD.SDCaseHistoryFile.fk_SdCaseHistoryFile_SdCaseHistory" parentEdge="NORTH" positioner="TwoLineUserLinkPositioner">
+    <FkGl bkCl="ff000000" childEdge="WEST" nm="SD.SDCaseHistoryFile.fk_SdCaseHistoryFile_SdCaseHistory" parentEdge="EAST" positioner="OneLineUserLinkPositioner">
       <positionableLines>
-        <positionableLine lineRole="PARENT_LINE" x1="212" x2="212" y1="147" y2="80"/>
-        <positionableLine lineRole="CHILD_LINE" x1="338" x2="216" y1="76" y2="76"/>
+        <positionableLine lineRole="SINGLE_LINE" x1="287" x2="338" y1="53" y2="53"/>
       </positionableLines>
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="EAST" nm="SD.SDCaseHistoryFile.fk_SdCaseHistoryFile_SdFile" parentEdge="WEST" positioner="OneLineUserLinkPositioner">
