@@ -1,0 +1,41 @@
+
+ionic cordova run android --debug --target=MWS0216729005398
+
+keytool -genkey -v -keystore "C:\Users\Emir\.android\TCIBestEx.keystore" -alias TCIBestEx -keyalg RSA -keysize 2048 -validity 10000
+my-release-key.jks
+
+ionic cordova build android --release -- --keystore="c:\Users\Emir\.android\release.keystore" --storePassword=pass.word1 --alias=TCIBestEx --password=pass.word1
+
+
+
+
+$ keytool -genkey -v -keystore release.keystore -alias MY_ALIAS_NAME -keyalg RSA -keysize 2048 -validity 10000
+
+keytool -genkey -v -keystore TCIBestEx.keystore -alias TCIBestEx -keyalg RSA -keysize 2048 -validity 10000
+
+P1Q/Kj8/PxQ1Pz9vAWY/P2I/MmkNCg==
+
+keytool -exportcert -alias TCIBestEx -keystore TCIBestEx.keystore | C:\OpenSSL-Win64\bin\openssl.exe sha1 -binary | C:\OpenSSL-Win64\bin\openssl.exe base64
+
+
+ionic cordova run ios --target='iPhone-5s' --debug;
+
+
+ionic cordova plugin add cordova-plugin-facebook4 --variable APP_ID="544199969250783" --variable APP_NAME="XBest"
+npm install --save @ionic-native/facebook
+
+
+google login instructions
+
+keytool -exportcert -list -v -alias TCIBestEx -keystore TCIBestEx.keystore
+
+keytool -exportcert -list -v -alias androiddebugkey -keystore ~/.android/debug.keystore
+7A:A2:0C:80:BF:CD:41:1D:E8:6E:BA:A7:7D:F4:8B:99:C2:FA:94:08
+dev: AC:74:78:90:56:56:6F:00:C6:9D:7F:39:65:03:CE:0F:46:1B:B7:A6
+
+cordova plugin add https://github.com/EddyVerbruggen/cordova-plugin-googleplus --variable REVERSED_CLIENT_ID=myreversedclientid
+cordova plugin add https://github.com/EddyVerbruggen/cordova-plugin-googleplus --save --variable REVERSED_CLIENT_ID=com.googleusercontent.apps.547515454201-vtfil1pdb8iqe7na8apotak0isg4sla1
+cordova prepare
+
+cordova plugin add cordova-plugin-googleplus --save --variable REVERSED_CLIENT_ID=com.googleusercontent.apps.547515454201-vtfil1pdb8iqe7na8apotak0isg4sla1
+npm install --save @ionic-native/google-plus

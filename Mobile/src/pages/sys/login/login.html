@@ -1,0 +1,94 @@
+<!--
+  Generated template for the LoginPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar transparent>
+    <ion-title>Login</ion-title>
+  </ion-navbar>
+
+</ion-header> 
+
+
+<ion-content padding>
+  <ion-grid>
+
+      <ion-row >
+          <ion-col  text-center >
+              <ion-icon name="contact" id="icon-person"></ion-icon>
+              
+          </ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col col-6>
+        
+        <button ion-button full (click)="doFbLogin()" class="facebook" icon-left padding >
+          <ion-icon name="logo-facebook"></ion-icon>
+          Facebook</button>
+        
+        
+          </ion-col>
+        
+          <ion-col col-6>
+        
+        <button ion-button full  icon-left (click)="doGoogleLogin()" class="google" >
+          <ion-icon name="logo-google"></ion-icon>
+          Gmail
+        </button>
+          </ion-col>
+        </ion-row>
+    <ion-row>
+    <ion-col col-12>
+
+        <h2 class="no-span">O entra con otro correo</h2>
+
+      </ion-col>  
+    </ion-row>    
+    <ion-row>
+      <ion-col>
+
+
+        <form [formGroup]="myForm" >
+          
+          
+            <ion-item>
+              <ion-label floating>Username</ion-label>
+              <ion-input type="text" value=""formControlName="Username"></ion-input>
+            </ion-item>
+          
+            <ion-item>
+              <ion-label floating>Password</ion-label>
+              <ion-input formControlName="Password" type="password" ></ion-input>
+          
+            </ion-item>
+          
+           
+          
+        
+          
+          
+           </form>
+        
+      </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col col-6>
+        <button  ion-button  color="primary" block (click) ="login()" [disabled]="!myForm.valid">Entrar</button>
+      </ion-col>
+      <ion-col col-6>
+
+<button ion-button color="primary" outline  outline block (click)= "signup()">Crear cuenta</button>
+
+      </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col col-12>
+            <button ion-button color="primary" clear outline block (click)= "signup()">Recuperar contraseña</button>
+        </ion-col>
+    </ion-row> 
+
+  </ion-grid>
+</ion-content>

@@ -2858,6 +2858,18 @@ namespace SFS.ServiceDesk.BusinessObjects
 			
 		}
 	 }
+	private String __StorageLocation;
+	[DataMember]
+	public String StorageLocation  { 
+		get{
+			return __StorageLocation;
+		}
+		set{
+
+			__StorageLocation = value;
+			
+		}
+	 }
 	private Guid? __GuidCompany;
 	[DataMember]
 	public Guid? GuidCompany  { 
@@ -2987,6 +2999,7 @@ namespace SFS.ServiceDesk.BusinessObjects
             public static readonly string FileType = "FileType";
             public static readonly string FileSize = "FileSize";
             public static readonly string FileData = "FileData";
+            public static readonly string StorageLocation = "StorageLocation";
             public static readonly string GuidCompany = "GuidCompany";
             public static readonly string CreatedDate = "CreatedDate";
             public static readonly string UpdatedDate = "UpdatedDate";

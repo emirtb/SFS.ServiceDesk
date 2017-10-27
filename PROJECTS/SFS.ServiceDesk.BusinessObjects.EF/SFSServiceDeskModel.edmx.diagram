@@ -3,18 +3,18 @@
   <edmx:Designer>
     <edmx:Diagrams>
       <Diagram Name="SFSServiceDeskModel" ZoomLevel="63" xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
-        <EntityTypeShape EntityType="SFSServiceDeskModel.SDArea" Width="1.5" PointX="3" PointY="9" />
-        <EntityTypeShape EntityType="SFSServiceDeskModel.SDAreaPerson" Width="1.5" PointX="5.25" PointY="7.75" />
-        <EntityTypeShape EntityType="SFSServiceDeskModel.SDCase" Width="1.5" PointX="5.5" PointY="0.75" />
-        <EntityTypeShape EntityType="SFSServiceDeskModel.SDCaseFile" Width="1.5" PointX="9" PointY="7" />
-        <EntityTypeShape EntityType="SFSServiceDeskModel.SDCaseHistory" Width="1.5" PointX="8.75" PointY="1" />
-        <EntityTypeShape EntityType="SFSServiceDeskModel.SDCaseHistoryFile" Width="1.5" PointX="12.5" PointY="5.75" />
-        <EntityTypeShape EntityType="SFSServiceDeskModel.SDCasePriority" Width="1.5" PointX="3" PointY="3" />
-        <EntityTypeShape EntityType="SFSServiceDeskModel.SDCaseState" Width="1.5" PointX="3" PointY="13.25" />
-        <EntityTypeShape EntityType="SFSServiceDeskModel.SDFile" Width="1.5" PointX="7.5" PointY="7.375" />
-        <EntityTypeShape EntityType="SFSServiceDeskModel.SDOrganization" Width="1.5" PointX="0.75" PointY="6.125" />
-        <EntityTypeShape EntityType="SFSServiceDeskModel.SDPerson" Width="1.5" PointX="3" PointY="5.75" />
-        <EntityTypeShape EntityType="SFSServiceDeskModel.SDProxyUser" Width="1.5" PointX="0.75" PointY="3.125" />
+        <EntityTypeShape EntityType="SFSServiceDeskModel.SDArea" Width="1.5" PointX="3" PointY="10.5" />
+        <EntityTypeShape EntityType="SFSServiceDeskModel.SDAreaPerson" Width="1.5" PointX="5.25" PointY="8.375" />
+        <EntityTypeShape EntityType="SFSServiceDeskModel.SDCase" Width="1.5" PointX="5.25" PointY="2.375" />
+        <EntityTypeShape EntityType="SFSServiceDeskModel.SDCaseFile" Width="1.5" PointX="7.5" PointY="3.125" />
+        <EntityTypeShape EntityType="SFSServiceDeskModel.SDCaseHistory" Width="1.5" PointX="10.5" PointY="2.875" />
+        <EntityTypeShape EntityType="SFSServiceDeskModel.SDCaseHistoryFile" Width="1.5" PointX="12.75" PointY="3.125" />
+        <EntityTypeShape EntityType="SFSServiceDeskModel.SDCasePriority" Width="1.5" PointX="3" PointY="1.375" />
+        <EntityTypeShape EntityType="SFSServiceDeskModel.SDCaseState" Width="1.5" PointX="3" PointY="16" />
+        <EntityTypeShape EntityType="SFSServiceDeskModel.SDFile" Width="1.5" PointX="5.25" PointY="12.625" />
+        <EntityTypeShape EntityType="SFSServiceDeskModel.SDOrganization" Width="1.5" PointX="0.75" PointY="6.25" />
+        <EntityTypeShape EntityType="SFSServiceDeskModel.SDPerson" Width="1.5" PointX="3" PointY="5.875" />
+        <EntityTypeShape EntityType="SFSServiceDeskModel.SDProxyUser" Width="1.5" PointX="0.75" PointY="2.875" />
         <AssociationConnector Association="SFSServiceDeskModel.fk_Area_Parent" />
         <AssociationConnector Association="SFSServiceDeskModel.fk_SdArea_SdOrganization" />
         <AssociationConnector Association="SFSServiceDeskModel.fk_SdAreaPerson_SdArea" />
@@ -23,12 +23,7 @@
         <AssociationConnector Association="SFSServiceDeskModel.fk_SdCase_SdCasePriority" />
         <AssociationConnector Association="SFSServiceDeskModel.fk_SdCase_SdCaseState" />
         <AssociationConnector Association="SFSServiceDeskModel.fk_SdCaseFile_SdCase" />
-        <AssociationConnector Association="SFSServiceDeskModel.fk_SdCaseHistory_SdCase" ManuallyRouted="true" >
-          <ConnectorPoint PointX="7" PointY="5.6148079427083326" />
-          <ConnectorPoint PointX="7.875" PointY="67.641109212239627" />
-          <ConnectorPoint PointX="7.875" PointY="46.863784179687492" />
-          <ConnectorPoint PointX="8.75" PointY="4.90330078125" />
-        </AssociationConnector>
+        <AssociationConnector Association="SFSServiceDeskModel.fk_SdCaseHistory_SdCase" />
         <AssociationConnector Association="SFSServiceDeskModel.fk_SdCaseFile_SdFile" />
         <AssociationConnector Association="SFSServiceDeskModel.fk_SdCaseHistory_SdCaseStatus" />
         <AssociationConnector Association="SFSServiceDeskModel.fk_SdCaseHistoryFile_SdCaseHistory" />

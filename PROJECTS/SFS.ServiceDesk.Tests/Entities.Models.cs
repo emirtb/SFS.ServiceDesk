@@ -600,6 +600,11 @@ public Byte[] FileData { get; set; }
 			
 
 
+public String StorageLocation { get; set; }		
+		
+			
+
+
 public Guid? GuidCompany { get; set; }		
 		
 			

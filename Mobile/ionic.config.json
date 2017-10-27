@@ -1,0 +1,15 @@
+{
+  "name": "ServiceDesk",
+  "app_id": "39fff1c8",
+  "type": "ionic-angular",
+  
+  "integrations": {
+    "cordova": {}
+  }
+  , "proxies": [
+    {
+      "path": "/OtherShell/",
+      "proxyUrl": "http://localhost/DevShell/"
+    }
+  ] 
+}

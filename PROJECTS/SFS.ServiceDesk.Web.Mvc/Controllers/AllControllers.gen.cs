@@ -18308,6 +18308,39 @@ if (visibleProperty || specificProperties.Contains("FileData"))
 	
 	}
 visibleProperty =allProperties;
+if (visibleProperty || specificProperties.Contains("StorageLocation"))
+{				
+    customProperties = new List<CustomProperty>();
+
+        
+	
+	//Null
+		//if (this.Request.QueryString["fk"] != "StorageLocation")
+        //	{
+				results.Add(new PropertyDefinition()
+                {
+					Order = 105,
+																	
+					CustomProperties = customProperties,
+
+                    PropertyName = "StorageLocation",
+
+					 MaxLength = 255,
+					 Nullable = true,
+					IsDefaultProperty = false,
+                    SortBy = "StorageLocation",
+					
+	
+                    TypeName = "String",
+                    IsNavigationProperty = false,
+					IsNavigationPropertyMany = false,
+                    PathName = "SFSServiceDesk/"
+                    /*,PropertyDisplayName = Resources.SDFileResources.STORAGELOCATION*/
+                });
+		//	}
+	
+	}
+visibleProperty =allProperties;
 if (visibleProperty || specificProperties.Contains("CreatedDate"))
 {				
     customProperties = new List<CustomProperty>();
@@ -18319,7 +18352,7 @@ if (visibleProperty || specificProperties.Contains("CreatedDate"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 105,
+					Order = 106,
 																	
 					CustomProperties = customProperties,
 
@@ -18353,7 +18386,7 @@ if (visibleProperty || specificProperties.Contains("UpdatedDate"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 122,
+					Order = 124,
 																	
 					CustomProperties = customProperties,
 
@@ -18390,7 +18423,7 @@ if (visibleProperty || specificProperties.Contains("CreatedBy"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 107,
+					Order = 108,
 																	
 					CustomProperties = customProperties,
 
@@ -18424,7 +18457,7 @@ if (visibleProperty || specificProperties.Contains("UpdatedBy"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 108,
+					Order = 109,
 																	
 					CustomProperties = customProperties,
 
@@ -18458,7 +18491,7 @@ if (visibleProperty || specificProperties.Contains("Bytes"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 109,
+					Order = 110,
 																	
 					CustomProperties = customProperties,
 
@@ -18492,7 +18525,7 @@ if (visibleProperty || specificProperties.Contains("FileStorage"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 110,
+					Order = 111,
 																	
 					CustomProperties = customProperties,
 
@@ -18525,7 +18558,7 @@ if (visibleProperty || specificProperties.Contains("FileThumbSizes"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 111,
+					Order = 112,
 																	
 					CustomProperties = customProperties,
 
@@ -18563,7 +18596,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseFiles"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 112,
+					Order = 113,
 																
 					Link = VirtualPathUtility.ToAbsolute("~/") + "SFSServiceDesk/SDCaseFiles/ListViewGen?overrideModule=" + GetOverrideApp()  + "&pal=False&es=False&pag=10&filterlinks=1&idTab=SDCaseFiles&fk=SDFile&startFilter="+ (new UrlHelper(System.Web.HttpContext.Current.Request.RequestContext)).Encode("it.SDFile.GuidFile = Guid(\"" + idSDFile +"\")")+ "&fkValue=" + idSDFile,
 					ModuleKey = "SFSServiceDesk",
@@ -18605,7 +18638,7 @@ if (visibleProperty || specificProperties.Contains("SDCaseHistoryFiles"))
         //	{
 				results.Add(new PropertyDefinition()
                 {
-					Order = 113,
+					Order = 114,
 																
 					Link = VirtualPathUtility.ToAbsolute("~/") + "SFSServiceDesk/SDCaseHistoryFiles/ListViewGen?overrideModule=" + GetOverrideApp()  + "&pal=False&es=False&pag=10&filterlinks=1&idTab=SDCaseHistoryFiles&fk=SDFile&startFilter="+ (new UrlHelper(System.Web.HttpContext.Current.Request.RequestContext)).Encode("it.SDFile.GuidFile = Guid(\"" + idSDFile +"\")")+ "&fkValue=" + idSDFile,
 					ModuleKey = "SFSServiceDesk",

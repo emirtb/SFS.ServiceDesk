@@ -129,6 +129,8 @@ namespace SFS.ServiceDesk.Tests
             item.FileSize = Utils.GetInt();
 
 
+            item.StorageLocation = Utils.GetString(10);
+
 
 
 

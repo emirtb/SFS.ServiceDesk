@@ -1,0 +1,103 @@
+﻿<#@ template hostspecific="True"  debug="True" language="C#" #>
+<#@ output extension="txt"  #>
+<#@ assembly name="System.Core.dll" #>
+<#@ import namespace="SFSdotNet.VSAddin2015.Model" #> 
+<#@ import namespace="SFSdotNet.VSAddin2015.EngTool" #> 
+<#@ import namespace="SFSdotNet.VSAddin2015.Model.Utils" #> 
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Linq" #>
+<#@ dom processor="SFSEdmxProcessor"  
+requires="EntityModel='SFSBonaViveModel.edmx'"  #>
+<#	
+
+
+            string directoryRootSource = @"C:\Proyectos\SFS.Bonavive\Mobile\"; 
+            string directoryRootTarget = @"C:\Proyectos\SFS.ServiceDesk\Mobile\";
+			string originalNameApp = "Bonavive";
+			string originalNamespaceApp = "sfs.mobile.sfsbonavive";
+			string newNameApp = "ServiceDesk";
+			string newNamespaceApp = "sfs.mobile.servicedesk";
+			string versionApp = "0.0.1";
+			bool overwrite = true;
+			List<KeyValuePair<string, string>> valueReplaces = new List<KeyValuePair<string, string>>();
+
+			valueReplaces.Add(new KeyValuePair<string, string>(originalNameApp, newNameApp) );
+			valueReplaces.Add(new KeyValuePair<string, string>(originalNamespaceApp, newNamespaceApp));
+			valueReplaces.Add(new KeyValuePair<string, string>("tcibestex", newNameApp.ToLower()));
+
+            var filesROOT = System.IO.Directory.GetFiles(directoryRootSource , "*", System.IO.SearchOption.TopDirectoryOnly);
+            var filesWWW = System.IO.Directory.GetFiles(directoryRootSource + "www\\", "*", System.IO.SearchOption.AllDirectories);
+			var filesSRC = System.IO.Directory.GetFiles(directoryRootSource +"src\\", "*", System.IO.SearchOption.AllDirectories);
+			//var filesPLATFORMS = System.IO.Directory.GetFiles(directoryRootSource +"platforms\\", "*", System.IO.SearchOption.AllDirectories);
+			
+			List<string> files = new List<string>();
+			List<string> filesForReplace = new List<string>();
+			files.AddRange(filesROOT); 
+			files.AddRange(filesWWW); 
+			files.AddRange(filesSRC); 
+			//files.AddRange(filesPLATFORMS); 
+			
+			string replacesFilter = "config.xml,package.json,ionic.config.json,tsconfig.json";
+           
+			List<string> destFiles = new List<string>();
+            foreach (var file in files.Where(p=> p.EndsWith(".tt")))
+            {
+				try{
+					System.IO.FileInfo fileInfo = new System.IO.FileInfo(file);
+					var destino = file.Replace(directoryRootSource, directoryRootTarget);
+					destFiles.Add(destino);
+					System.IO.FileInfo fileInfoDest = new System.IO.FileInfo(destino);
+					
+					if (!System.IO.Directory.Exists(fileInfoDest.DirectoryName))
+                    {
+                        System.IO.Directory.CreateDirectory(fileInfoDest.DirectoryName);
+                    }
+					if (!System.IO.File.Exists(destino) || overwrite){
+						fileInfo.CopyTo(destino, overwrite );
+						filesForReplace.Add(destino);
+                    }
+                }catch(Exception ex){
+					Console.WriteLine(ex.ToString());
+                }
+            }
+
+			foreach(var dest in filesForReplace ){
+				//System.IO.FileInfo file = new System.IO.FileInfo(destino);
+				if (IsReplacable(dest, replacesFilter.Split(Char.Parse(",")))){
+					var str = System.IO.File.ReadAllText(dest);
+					var arr = str.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+					
+						foreach(var replace in valueReplaces){
+							if (str.Contains(replace.Key))
+							{
+								str = str.Replace(replace.Key, replace.Value);
+							}
+						}
+						
+
+					
+
+					//var res = string.Join(" ", arr);
+					System.IO.File.WriteAllText(dest, str);
+                }
+            }
+
+		
+			
+#>
+<#+
+public bool IsReplacable(string fileFullName, string[] parts){
+	bool result = false;
+		foreach(var part in parts){
+			if (fileFullName.EndsWith(part))
+			{
+				return true;
+			}
+		}
+
+		return result;
+		
+}
+#>

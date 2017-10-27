@@ -3137,6 +3137,14 @@ using SFS.ServiceDesk.BusinessObjects;
 [Exportable()]
 		
 	[RelationFilterable()] 
+	[LocalizedDisplayName("STORAGELOCATION"/*, NameResourceType=typeof(SDFileResources)*/)]
+	public String   StorageLocation { get; set; }
+		
+		
+	
+[Exportable()]
+		
+	[RelationFilterable()] 
 	[SystemProperty()]
 	[LocalizedDisplayName("GUIDCOMPANY"/*, NameResourceType=typeof(SDFileResources)*/)]
 	public Guid  ? GuidCompany { get; set; }
@@ -3315,6 +3323,7 @@ using SFS.ServiceDesk.BusinessObjects;
 		this.FileType = model.FileType;
 		this.FileSize = model.FileSize;
 		this.FileData = model.FileData;
+		this.StorageLocation = model.StorageLocation;
 		this.GuidCompany = model.GuidCompany;
 		this.CreatedDate = model.CreatedDate;
 		this.UpdatedDate = model.UpdatedDate;
@@ -3347,6 +3356,9 @@ using SFS.ServiceDesk.BusinessObjects;
 				if(this.FileData != null)
 					result.FileData = (Byte[])this.FileData;
 			
+				
+	if (this.StorageLocation != null )
+				result.StorageLocation = (String)this.StorageLocation.Trim().Replace("\t", String.Empty);
 				
 	if (this.GuidCompany != null )
 				result.GuidCompany = (Guid)this.GuidCompany;
@@ -3396,6 +3408,9 @@ using SFS.ServiceDesk.BusinessObjects;
 				this.FileSize = (Int64)businessObject.FileSize;
 			if (businessObject.FileData != null )
 				this.FileData = businessObject.FileData;			
+				
+	if (businessObject.StorageLocation != null )
+				this.StorageLocation = (String)businessObject.StorageLocation;
 				
 	if (businessObject.GuidCompany != null )
 				this.GuidCompany = (Guid)businessObject.GuidCompany;

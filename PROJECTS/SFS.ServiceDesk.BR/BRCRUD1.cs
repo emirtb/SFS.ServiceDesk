@@ -16803,6 +16803,7 @@ public class SinglentonContext
 					if (includesList.Contains(SDFile.PropertyNames.FileData))
 					    contextRequest.CustomQuery.SpecificProperties.Add(SDFile.PropertyNames.FileData);
 					
+					contextRequest.CustomQuery.SpecificProperties.Add(SDFile.PropertyNames.StorageLocation);
 					contextRequest.CustomQuery.SpecificProperties.Add(SDFile.PropertyNames.GuidCompany);
 					contextRequest.CustomQuery.SpecificProperties.Add(SDFile.PropertyNames.CreatedDate);
 					contextRequest.CustomQuery.SpecificProperties.Add(SDFile.PropertyNames.UpdatedDate);
@@ -16977,6 +16978,14 @@ public class SinglentonContext
 
 					
 	
+					
+					
+										sbSpec.Append(" OR ");
+					
+									
+					sbSpec.Append(string.Format(@"StorageLocation.Contains(""{0}"")", word));
+					
+
 					
 	
 					
@@ -17250,6 +17259,8 @@ public class SinglentonContext
 
 			itemForSave.FileData = entity.FileData;
 
+			itemForSave.StorageLocation = entity.StorageLocation;
+
 			itemForSave.GuidCompany = entity.GuidCompany;
 
 			itemForSave.CreatedDate = entity.CreatedDate;
@@ -17398,6 +17409,8 @@ public class SinglentonContext
 			//entity.FileSize = entity.FileSize;
 
 			//entity.FileData = entity.FileData;
+
+			//entity.StorageLocation = entity.StorageLocation;
 
 			//entity.GuidCompany = entity.GuidCompany;
 
@@ -17659,6 +17672,12 @@ public class SinglentonContext
 		if (oldentity.FileData != entity.FileData){
 			oldentity.FileData = entity.FileData;
 			properties.Add(SDFile.PropertyNames.FileData);
+		}
+			
+			
+		if (oldentity.StorageLocation != entity.StorageLocation){
+			oldentity.StorageLocation = entity.StorageLocation;
+			properties.Add(SDFile.PropertyNames.StorageLocation);
 		}
 			
 			
