@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegisterPage } from '../register/register';
 import { AuthServiceProvider } from '../../../providers/sys/auth-service/auth-service';
 import { CustomAlert } from '../../../app/sys/customAlert';
-
+import { HomePage } from '../../../pages/home/home'
 import { Facebook } from '@ionic-native/facebook';
 
 
