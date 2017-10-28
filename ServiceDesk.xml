@@ -597,7 +597,7 @@
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDCaseHistory" x="25" y="48"/>
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDCaseHistoryFile" x="338" y="39"/>
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDCasePriority" x="47" y="366"/>
-    <TbGl bkCl="ff6666ff" sch="SD" tbl="SDCaseState" x="50" y="284"/>
+    <TbGl bkCl="ff6666ff" sch="SD" tbl="SDCaseState" x="26" y="211"/>
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDFile" x="915" y="29"/>
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDOrganization" x="345" y="550"/>
     <TbGl bkCl="ff6666ff" sch="SD" tbl="SDPerson" x="650" y="308"/>
@@ -634,7 +634,7 @@
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="WEST" nm="SD.SDCase.fk_SdCase_SdCaseState" parentEdge="EAST" positioner="OneLineUserLinkPositioner">
       <positionableLines>
-        <positionableLine lineRole="SINGLE_LINE" x1="295" x2="341" y1="303" y2="303"/>
+        <positionableLine lineRole="SINGLE_LINE" x1="271" x2="341" y1="230" y2="230"/>
       </positionableLines>
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="NORTH" nm="SD.SDCaseFile.fk_SdCaseFile_SdCase" parentEdge="EAST" positioner="TwoLineUserLinkPositioner">
@@ -655,7 +655,7 @@
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="SOUTH" nm="SD.SDCaseHistory.fk_SdCaseHistory_SdCaseStatus" parentEdge="NORTH" positioner="OneLineUserLinkPositioner">
       <positionableLines>
-        <positionableLine lineRole="SINGLE_LINE" x1="175" x2="175" y1="284" y2="231"/>
+        <positionableLine lineRole="SINGLE_LINE" x1="151" x2="151" y1="211" y2="231"/>
       </positionableLines>
     </FkGl>
     <FkGl bkCl="ff000000" childEdge="WEST" nm="SD.SDCaseHistoryFile.fk_SdCaseHistoryFile_SdCaseHistory" parentEdge="EAST" positioner="OneLineUserLinkPositioner">
@@ -962,9 +962,9 @@
     </BasicOptionMgr>
   </DbDocOptionMgr>
   <OpenEditors>
+    <OpenEditor ClsNm="Diagram" fqn="null.B" selected="1"/>
     <OpenEditor ClsNm="Diagram" fqn="null.z" selected="0"/>
     <OpenEditor ClsNm="Diagram" fqn="null.diagramA" selected="0"/>
-    <OpenEditor ClsNm="Diagram" fqn="null.B" selected="1"/>
   </OpenEditors>
   <TreePaths>
     <TreePath/>

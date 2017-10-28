@@ -1,3 +1,5 @@
+import { BaseListComponent } from '../components/base-list/base-list';
+import { ComponentsModule } from '../components/components.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -24,6 +26,8 @@ import { AdMobFree } from '@ionic-native/admob-free';
 import { ChartsModule } from 'ng2-charts';
 
 import { AuthServiceProvider } from '../providers/sys/auth-service/auth-service';
+import { EntityServiceProvider } from '../providers/sys/entity-service/entity-service';
+//import { ComponentsModule } from '../components/components.module'
 
 
 declare var window;
@@ -41,7 +45,10 @@ export class MyErrorHandler implements ErrorHandler {
     MyApp,
     HomePage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    //BaseListComponent
+   // ComponentsModule
+   //  BaseListComponent
    
   ],
   imports: [
@@ -72,6 +79,7 @@ export class MyErrorHandler implements ErrorHandler {
     Facebook,
 
     AuthServiceProvider,
+    EntityServiceProvider,
     
   ]
 })

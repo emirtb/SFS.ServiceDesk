@@ -1,0 +1,50 @@
+<!-- Generated template for the BaseListComponent component -->
+<div>
+  {{text}}
+
+  
+</div>
+
+<ion-refresher (ionRefresh)="doRefresh($event)" (ionPull)="doPulling($event)">
+  <ion-refresher-content
+  pullingText="Pull to refresh..."
+  refreshingText="Refreshing...">
+</ion-refresher-content>
+</ion-refresher>
+
+
+<ion-list>
+<button class="{{business.NameClass}}" ion-item detail-none   *ngFor="let business of businesses" (click)="goToBusinessDetail(business)">
+<ion-grid>
+<ion-row>
+  <ion-col col-12>
+      <h2>{{business.Name}}</h2>
+     
+  </ion-col>  
+</ion-row>
+  
+</ion-grid>  
+   
+          
+         
+
+      
+    </button>
+  </ion-list>
+  
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" threshold="100px">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="Loading more data...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+            
+     
+             
+          
+     
+     
+     
+   
+
+

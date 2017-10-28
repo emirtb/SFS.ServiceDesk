@@ -18,6 +18,10 @@ export class HomePage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
+  goToCaseList(){
+    this.navCtrl.push("sd-case-list");
+  }  
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
   }
